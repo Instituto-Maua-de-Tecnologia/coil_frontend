@@ -131,7 +131,3 @@ This project is under License. Open the file [LICENSE](LICENSE.md) for more
 details.
 
 [⬆ Back to the top](#coil_frontend)
-
-```
-
-```

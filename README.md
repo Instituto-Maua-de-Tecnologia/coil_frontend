@@ -31,6 +31,7 @@ courses of Maua.
   </li>
 </ul>
 
+# Colaborators 🤝
 ## <img src="https://github.com/alexZ7000/Aplicativo-C.A-Frontend/assets/78627928/fc12ff64-e41c-44b1-a9dd-25d223aed881" alt="Mauá Institute of Technology" width="30"/> Mauá Institute of Technology
 
 <table>
@@ -78,7 +79,6 @@ courses of Maua.
   </tr>
 </table>
 
-# Colaborators 🤝
 ## <img src="https://github.com/alexZ7000/Aplicativo-C.A-Frontend/assets/78627928/9866c3ab-5c3d-417e-a520-a94a6d885b57" alt="Fontys" width="55"/> Fontys University of Applied Sciences
 
 <table>

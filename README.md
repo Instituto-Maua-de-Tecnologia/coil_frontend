@@ -78,6 +78,7 @@ courses of Maua.
   </tr>
 </table>
 
+# Colaborators 🤝
 ## <img src="https://github.com/alexZ7000/Aplicativo-C.A-Frontend/assets/78627928/9866c3ab-5c3d-417e-a520-a94a6d885b57" alt="Fontys" width="55"/> Fontys University of Applied Sciences
 
 <table>

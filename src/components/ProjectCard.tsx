@@ -5,7 +5,7 @@ interface Project {
     avatarUrl: string;
     title: string;
     partnerName: string;
-    status: string; 
+    status: string;
 }
 
 interface ProjectCardProps {
@@ -19,10 +19,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <li className="flex items-center border border-gray-300 rounded-lg p-4 mb-4">
             <div className="flex flex-col flex-grow">
                 <div className="flex justify-between items-center">
-                    <img src={avatarUrl} alt="Avatar" className="w-12 h-12 rounded-full mr-4" />
+                    <img
+                        src={avatarUrl}
+                        alt="Avatar"
+                        className="w-12 h-12 rounded-full mr-4"
+                    />
                     <h3 className="text-lg font-semibold">{title}</h3>
                     <p className="text-sm">{partnerName}</p>
-                    <span className={`text-sm font-bold ${status === "Open" ? "text-green-500" : "text-red-500"}`}>{status}</span>
+                    <span
+                        className={`text-sm font-bold ${status === "Open" ? "text-green-500" : "text-red-500"}`}
+                    >
+                        {status}
+                    </span>
                 </div>
             </div>
         </li>

@@ -2,13 +2,12 @@ import React from "react";
 import ProjectCard from "./ProjectCard";
 
 const ProjectList: React.FC = () => {
-
     interface Project {
         id: number;
         avatarUrl: string;
         title: string;
         partnerName: string;
-        status: string; 
+        status: string;
     }
 
     const projects: Project[] = [
@@ -25,13 +24,12 @@ const ProjectList: React.FC = () => {
             title: "Project 2",
             partnerName: "Partner B",
             status: "Closed"
-        },
-        
+        }
     ];
 
     return (
         <ul className="w-[680px]">
-            {projects.map(project => (
+            {projects.map((project) => (
                 <ProjectCard key={project.id} project={project} />
             ))}
         </ul>

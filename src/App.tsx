@@ -3,11 +3,9 @@ import ProjectList from "./components/ProjectList";
 import SearchBar from "./components/Search";
 
 function App() {
-  
-
     return (
         <>
-            <ProjectList/>
+            <ProjectList />
         </>
     );
 }

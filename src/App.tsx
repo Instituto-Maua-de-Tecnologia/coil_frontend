@@ -1,14 +1,13 @@
 import "./App.css";
+import ProjectList from "./components/ProjectList";
 import SearchBar from "./components/Search";
 
 function App() {
-    const handleSearch = (searchTerm: string) => {
-        console.log(searchTerm);
-    };
+  
 
     return (
         <>
-            <SearchBar onSearch={handleSearch} />
+            <ProjectList/>
         </>
     );
 }

@@ -7,7 +7,7 @@ interface Project {
     avatarUrl: string;
     title: string;
     partnerName: string;
-    status: string; 
+    status: string;
 }
 
 const ProjectList: React.FC = () => {
@@ -25,31 +25,36 @@ const ProjectList: React.FC = () => {
             title: "Project 2",
             partnerName: "Partner B",
             status: "Closed"
-        },
+        }
         // Add more projects as needed
     ]);
-    const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects);
+    const [filteredProjects, setFilteredProjects] =
+        useState<Project[]>(projects);
 
     const handleSearch = (searchTerm: string) => {
-        const filtered = projects.filter(project =>
-            project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            project.partnerName.toLowerCase().includes(searchTerm.toLowerCase())
+        const filtered = projects.filter(
+            (project) =>
+                project.title
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
+                project.partnerName
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
         );
         setFilteredProjects(filtered);
     };
 
     return (
         <>
-        <Search onSearch={handleSearch} />
-         <div className="min-h-[600px]">
-            <ul className="w-[680px]">
-                {filteredProjects.map(project => (
-                    <ProjectCard key={project.id} project={project} />
-                ))}
-            </ul>
-        </div>
+            <Search onSearch={handleSearch} />
+            <div className="min-h-[600px]">
+                <ul className="w-[680px]">
+                    {filteredProjects.map((project) => (
+                        <ProjectCard key={project.id} project={project} />
+                    ))}
+                </ul>
+            </div>
         </>
-       
     );
 };
 

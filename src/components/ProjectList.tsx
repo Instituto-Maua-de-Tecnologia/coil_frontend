@@ -11,7 +11,7 @@ interface Project {
 }
 
 const ProjectList: React.FC = () => {
-    const projects: Project[] =  [
+    const projects: Project[] = [
         {
             id: 1,
             avatarUrl: "https://example.com/avatar1.png",
@@ -26,7 +26,6 @@ const ProjectList: React.FC = () => {
             partnerName: "Partner B",
             status: "Closed"
         }
-        
     ];
     const [filteredProjects, setFilteredProjects] =
         useState<Project[]>(projects);

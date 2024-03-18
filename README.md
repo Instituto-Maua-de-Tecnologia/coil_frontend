@@ -32,6 +32,7 @@ courses of Maua.
 </ul>
 
 # Colaborators 🤝
+
 ## <img src="https://github.com/alexZ7000/Aplicativo-C.A-Frontend/assets/78627928/fc12ff64-e41c-44b1-a9dd-25d223aed881" alt="Mauá Institute of Technology" width="30"/> Mauá Institute of Technology
 
 <table>

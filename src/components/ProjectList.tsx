@@ -39,9 +39,7 @@ const ProjectList: React.FC = () => {
                 project.partnerName
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                project.status
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())
+                project.status.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredProjects(filtered);
     };

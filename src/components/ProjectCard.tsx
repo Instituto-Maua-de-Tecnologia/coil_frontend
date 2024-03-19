@@ -31,9 +31,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                     <div className="col-span-1 flex items-center text-sm">
                         {partnerName}
                     </div>
-                    <div
-                        className={`col-span-1 flex items-center text-sm font-bold ${status === "Open" ? "text-green-500" : "text-red-500"}`}
-                    >
+                    <div className={`col-span-1 flex items-center text-sm font-bold ${status === "Open" ? "text-green-500" : "text-red-500"}`}>
                         {status}
                     </div>
                 </div>

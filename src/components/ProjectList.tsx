@@ -46,7 +46,6 @@ const ProjectList: React.FC = () => {
     return (
         <div className="mx-auto">
             <div className="container mx-auto">
-                {/* Search bar */}
                 <div className="mb-4">
                     <Search onSearch={handleSearch} />
                 </div>

@@ -46,8 +46,8 @@ const ProjectList: React.FC = () => {
     return (
         <>
             <Search onSearch={handleSearch} />
-            <div className="min-h-[600px]">
-                <ul className="w-[680px]">
+            <div className="min-h-[600px] container mx-auto">
+                <ul className="w-full">
                     {filteredProjects.map((project) => (
                         <ProjectCard key={project.id} project={project} />
                     ))}

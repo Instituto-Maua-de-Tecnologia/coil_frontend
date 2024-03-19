@@ -15,7 +15,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     };
 
     return (
-        <div className="flex flex-row bg-white justify-center items-center  focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-2 w-1/2 appearance-none leading-normal ">
+        <div className="flex flex-row bg-white justify-center items-center  focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-1 px-2 w-60 appearance-none leading-normal ">
             <input
                 className="bg-white text-black outline-none"
                 type="text"

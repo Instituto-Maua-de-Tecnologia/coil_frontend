@@ -22,7 +22,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                         <img
                             src={avatarUrl}
                             alt="Avatar"
-                            className="w-12 h-12 rounded-full mr-4 bg-contain"
+                            className="w-12 h-12 rounded-full mr-4 bg-cover"
                         />
                     </div>
                     <div className="col-span-1 flex items-center text-lg font-semibold">

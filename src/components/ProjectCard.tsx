@@ -1,6 +1,5 @@
 import React from "react";
 
-
 interface Project {
     id: number;
     avatarUrl: string;
@@ -26,9 +25,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                             className="w-12 h-12 rounded-full mr-4 bg-contain"
                         />
                     </div>
-                    <div className="col-span-1 flex items-center text-lg font-semibold">{title}</div>
-                    <div className="col-span-1 flex items-center text-sm">{partnerName}</div>
-                    <div className={`col-span-1 flex items-center text-sm font-bold ${status === "Open" ? "text-green-500" : "text-red-500"}`}>
+                    <div className="col-span-1 flex items-center text-lg font-semibold">
+                        {title}
+                    </div>
+                    <div className="col-span-1 flex items-center text-sm">
+                        {partnerName}
+                    </div>
+                    <div
+                        className={`col-span-1 flex items-center text-sm font-bold ${status === "Open" ? "text-green-500" : "text-red-500"}`}
+                    >
                         {status}
                     </div>
                 </div>

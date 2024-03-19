@@ -57,7 +57,9 @@ const ProjectList: React.FC = () => {
                         ))}
                     </ul>
                 ) : (
-                    <p className="mx-auto my-5 text-center text-2xl">No project matched the search criteria</p>
+                    <p className="mx-auto my-5 text-center text-2xl">
+                        No project matched the search criteria
+                    </p>
                 )}
             </div>
         </div>

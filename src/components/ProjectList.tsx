@@ -14,16 +14,16 @@ const ProjectList: React.FC = () => {
     const projects: Project[] = [
         {
             id: 1,
-            avatarUrl: "https://example.com/avatar1.png",
-            title: "Project 1",
-            partnerName: "Partner A",
+            avatarUrl: "maua.png",
+            title: "Project Manager",
+            partnerName: "Maua",
             status: "Open"
         },
         {
             id: 2,
-            avatarUrl: "https://example.com/avatar2.png",
-            title: "Project 2",
-            partnerName: "Partner B",
+            avatarUrl: "fontys.png",
+            title: "Klarity 2",
+            partnerName: "Fontys",
             status: "Closed"
         }
     ];
@@ -44,16 +44,23 @@ const ProjectList: React.FC = () => {
     };
 
     return (
-        <>
-            <Search onSearch={handleSearch} />
-            <div className="min-h-[600px] container mx-auto">
-                <ul className="w-full">
-                    {filteredProjects.map((project) => (
-                        <ProjectCard key={project.id} project={project} />
-                    ))}
-                </ul>
+        <div className="mx-auto">
+            <div className="container mx-auto">
+                {/* Search bar */}
+                <div className="mb-4">
+                    <Search onSearch={handleSearch} />
+                </div>
+                {filteredProjects.length > 0 ? (
+                    <ul className="w-full">
+                        {filteredProjects.map((project) => (
+                            <ProjectCard key={project.id} project={project} />
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="mx-auto my-5 text-center text-2xl">No project matched the search criteria</p>
+                )}
             </div>
-        </>
+        </div>
     );
 };
 

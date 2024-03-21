@@ -10,18 +10,7 @@ export class IacStack extends cdk.Stack {
       "OWNER": process.env.OWNER || "",
       "STAGE": process.env.STAGE || "dev",
       "AZURE_CLIENT_ID": process.env.AZURE_CLIENT_ID || "",
-      "COIL_GITHUB_TOKEN": process.env.COIL_GITHUB_TOKEN || "",
     }
-
-    new secretsmanager.Secret(this,
-      'coil-github-token',
-      {
-        generateSecretString: {
-          secretStringTemplate: JSON.stringify({ "coil-github-token": ENVIROMENT_VARIABLES.COIL_GITHUB_TOKEN }),
-          generateStringKey: 'coil-github-token',
-        },
-      }
-    );
 
     const amplifyApp = new amplify.App(this, 'coil_froentend', {
       sourceCodeProvider: new amplify.GitHubSourceCodeProvider({

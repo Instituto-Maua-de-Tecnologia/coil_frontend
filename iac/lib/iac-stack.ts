@@ -16,10 +16,7 @@ export class IacStack extends cdk.Stack {
       sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
         owner: ENVIROMENT_VARIABLES.OWNER,
         repository: 'coil-frontend',
-        oauthToken: cdk.SecretValue.secretsManager('coil-github-token',
-        { 
-          jsonField: 'coil-github-token' 
-        }),
+        oauthToken: cdk.SecretValue.secretsManager('coil-github-token')
       }),
       environmentVariables: ENVIROMENT_VARIABLES,
     });

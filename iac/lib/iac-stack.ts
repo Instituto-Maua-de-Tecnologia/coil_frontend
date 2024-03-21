@@ -1,6 +1,5 @@
 import * as cdk from '@aws-cdk/core';
 import * as amplify from '@aws-cdk/aws-amplify';
-import * as secretsmanager from '@aws-cdk/aws-secretsmanager';
 
 export class IacStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {

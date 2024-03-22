@@ -45,8 +45,8 @@ jobs:
       - name: CDK Deploy
         run: |
           echo "CDK Deploy"
-          cd iac
           npm run build
+          cd iac
           cdk deploy --require-approval never
         env:
            STAGE: ${{ github.ref_name }}

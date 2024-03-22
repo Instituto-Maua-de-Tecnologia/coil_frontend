@@ -1,4 +1,5 @@
 import * as cdk from '@aws-cdk/core';
+import { Asset } from '@aws-cdk/aws-s3-assets';
 import * as amplify from '@aws-cdk/aws-amplify';
 import * as codecommit from '@aws-cdk/aws-codecommit'
 
@@ -11,13 +12,22 @@ export class IacStack extends cdk.Stack {
       "AZURE_CLIENT_ID": process.env.AZURE_CLIENT_ID || "",
     }
 
+    const coilAsset = new Asset(
+      this,
+      "CoilFrontendAsset",
+      {
+        path: "../dist"
+      }
+    )
+
     const sampleRepo = new codecommit.Repository(
       this,
       "CoilFrontendRepo",
       {
         repositoryName: "coil-frontend-repo-" + ENVIROMENT_VARIABLES.STAGE,
         description:
-          "Repository for the frontend of the Coil project"
+          "Repository for the frontend of the Coil project",
+        code: codecommit.Code.fromAsset(coilAsset),
       },
     )
 

@@ -49,9 +49,7 @@ jobs:
           npm run build
           cdk deploy --require-approval never
         env:
-           OWNER: ${{ vars.OWNER }}
            STAGE: ${{ github.ref_name }}
-           REPOSITORY: ${{ github.repository }}
            AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
            AZURE_AUTHORITY_URL: ${{ secrets.AZURE_AUTHORITY_URL }}
            AWS_REGION: ${{ secrets.AWS_REGION }}

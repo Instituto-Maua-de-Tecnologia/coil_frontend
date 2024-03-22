@@ -15,10 +15,8 @@ export class IacStack extends cdk.Stack {
     }
 
     const coilAsset = new Asset(this, 'CoilFrontendAsset', {
-      path: path.join(__dirname, '..', '..', '**/*')
+      path: path.join(__dirname, '..', '..')
     });
-
-    console.log('path' + path.join(__dirname, '..', '..', '**/*'))
 
     const sampleRepo = new codecommit.Repository(
       this,

@@ -46,6 +46,7 @@ jobs:
         run: |
           echo "CDK Deploy"
           cd iac
+          npm run build
           cdk deploy --require-approval never
         env:
            OWNER: ${{ vars.OWNER }}

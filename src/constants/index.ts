@@ -7,12 +7,75 @@ import {
     RxAccessibility
 } from "react-icons/rx";
 
+import {
+    homeIcon,
+    institutionIcon,
+    projectIcon,
+    enrolledIcon,
+    resultsIcon,
+    userIcon,
+    signOutIcon
+} from "../assets/icons/";
+
 import image1 from "../assets/fontys.png";
 import image2 from "../assets/maua.png";
 import image3 from "../assets/fontys.png";
 import image4 from "../assets/maua.png";
 import image5 from "../assets/fontys.png";
 import image6 from "../assets/maua.png";
+
+export const navigation = [
+    {
+        id: "0",
+        title: "Home",
+        icon: homeIcon,
+        url: "#home"
+    },
+    {
+        id: "1",
+        title: "Institutions",
+        icon: institutionIcon,
+        url: "#institutions"
+    },
+    {
+        id: "2",
+        title: "Projects",
+        icon: projectIcon,
+        url: "#projects"
+    },
+    {
+        id: "3",
+        br: true
+    },
+    {
+        id: "4",
+        title: "Enrolled",
+        url: "#enrolled",
+        icon: enrolledIcon,
+        smgap: true
+    },
+    {
+        id: "5",
+        title: "Results",
+        icon: resultsIcon,
+        url: "#results"
+    },
+    {
+        id: "6",
+        title: "User",
+        icon: userIcon,
+        url: "#user",
+        gap: true,
+        blue: true
+    },
+    {
+        id: "7",
+        title: "Sign Out",
+        icon: signOutIcon,
+        url: "#signout",
+        purple: true
+    }
+];
 
 export const ServiceData = [
     {

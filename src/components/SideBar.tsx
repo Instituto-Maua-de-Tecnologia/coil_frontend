@@ -1,4 +1,5 @@
 // import { useState } from 'react'
+import React from "react";
 import { useLocation } from "react-router-dom";
 import { navigation } from "../constants";
 import { useThemeDetector } from "../util/ThemeDetector";
@@ -30,31 +31,36 @@ const SideBar = () => {
                         width={130}
                         height={130}
                     />
-                    <ul className={"pt-9 w-full"}>
+                    <ul className={"pt-9 w-full pointer-events-auto"}>
                         {navigation.map((item, index) => (
                             <a href={item.url}>
                                 <div key={index}>
                                     <li
                                         className={` mb-4                                
-                                    ${item.gap && "mt-[10.5rem]"} 
-                                    ${item.purple && "!bg-sb-p !text-white hover:brightness-75"}
-                                    ${item.blue && "!bg-sb-t !text-white hover:opacity-80"}
-                                    ${item.smgap ? "mt-[1.5rem]" : "mt-2"}
-                                    ${item.br ? "-mt-[0.5rem]" : "flex items-center justify-left rounded-md p-3 mx-[1.5rem] cursor-pointer bg-sb-tb text-sb-t text-md font-medium "}
-                                    ${
-                                        item.url === pathname.hash
-                                            ? "!bg-sb-t !text-sb-bg transition-colors "
-                                            : ""
-                                    }
-                                `}
+                                        ${item.gap && "mt-[10.5rem]"} 
+                                        ${item.purple && "!bg-sb-p !text-white hover:brightness-75"}
+                                        ${item.blue && "!bg-sb-t !text-white hover:opacity-80"}
+                                        ${item.smgap ? "mt-[1.5rem]" : "mt-2"}
+                                        ${item.br ? "-mt-[0.8rem]" : "flex items-center justify-left rounded-md p-3 mx-[1.5rem] cursor-pointer bg-sb-tb text-sb-t text-md font-medium "}
+                                        ${item.url === pathname.pathname && !item.purple ? " !fill-current  !bg-sb-t !text-sb-bg !transition-colors" : ""}
+                                        
+                                        `}
                                     >
                                         <div className="flex justifty-left ">
-                                            <img
-                                                src={item.icon}
-                                                alt={item.title}
-                                                className="mr-4  "
-                                            />
-
+                                            <div className="mt-[0.20rem] mr-1">
+                                                {React.createElement(
+                                                    item.icon,
+                                                    {
+                                                        className: `${
+                                                            item.url ===
+                                                            pathname.pathname
+                                                                ? "!fill-current !text-sb-tb !transition-colors"
+                                                                : "!fill-current !text-sb-t !transition-colors"
+                                                        }`,
+                                                        fill: ""
+                                                    }
+                                                )}
+                                            </div>
                                             {item.title}
                                         </div>
                                     </li>

@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import {
     RxCrop,
     RxDesktop,
@@ -7,16 +8,6 @@ import {
     RxAccessibility
 } from "react-icons/rx";
 
-import {
-    homeIcon,
-    institutionIcon,
-    projectIcon,
-    enrolledIcon,
-    resultsIcon,
-    userIcon,
-    signOutIcon
-} from "../assets/icons/";
-
 import image1 from "../assets/fontys.png";
 import image2 from "../assets/maua.png";
 import image3 from "../assets/fontys.png";
@@ -24,33 +15,63 @@ import image4 from "../assets/maua.png";
 import image5 from "../assets/fontys.png";
 import image6 from "../assets/maua.png";
 
-export const navigation = [
+import {
+    homeIcon,
+    institutionIcon,
+    projectIcon,
+    enrolledIcon,
+    resultsIcon,
+    userIcon,
+    signOutIcon,
+    devider
+} from "../assets/icons/";
+
+interface NavigationItem {
+    id: string;
+    title?: string;
+    url?: string;
+    gap?: boolean;
+    smgap?: boolean;
+    br?: boolean;
+    purple?: boolean;
+    blue?: boolean;
+    icon: ({
+        className,
+        fill
+    }: {
+        className?: string;
+        fill?: string;
+    }) => ReactElement;
+}
+
+export const navigation: NavigationItem[] = [
     {
         id: "0",
         title: "Home",
         icon: homeIcon,
-        url: "#home"
+        url: "/home"
     },
     {
         id: "1",
         title: "Institutions",
         icon: institutionIcon,
-        url: "#institutions"
+        url: "/institutions"
     },
     {
         id: "2",
         title: "Projects",
         icon: projectIcon,
-        url: "#projects"
+        url: "/projects"
     },
     {
         id: "3",
-        br: true
+        br: true,
+        icon: devider
     },
     {
         id: "4",
         title: "Enrolled",
-        url: "#enrolled",
+        url: "/enrolled",
         icon: enrolledIcon,
         smgap: true
     },
@@ -58,13 +79,13 @@ export const navigation = [
         id: "5",
         title: "Results",
         icon: resultsIcon,
-        url: "#results"
+        url: "/results"
     },
     {
         id: "6",
         title: "User",
         icon: userIcon,
-        url: "#user",
+        url: "/user",
         gap: true,
         blue: true
     },
@@ -72,7 +93,7 @@ export const navigation = [
         id: "7",
         title: "Sign Out",
         icon: signOutIcon,
-        url: "#signout",
+        url: "/signout",
         purple: true
     }
 ];

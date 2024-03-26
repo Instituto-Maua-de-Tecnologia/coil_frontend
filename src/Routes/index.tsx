@@ -9,7 +9,7 @@ export default function AppRoutes() {
                 <SideBar />
                 <div className="pl-[13rem] overflow-hidden">
                     <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/home" element={<Home />} />
                     </Routes>
                 </div>
             </BrowserRouter>

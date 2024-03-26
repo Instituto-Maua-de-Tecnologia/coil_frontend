@@ -1,5 +1,10 @@
-.hero-text{
-    background: radial-gradient(179.06% 60.71% at 50% 50%, #1782E8 21%, #0C5AA4 47.5%, #673366 100%);
+.hero-text {
+    background: radial-gradient(
+        179.06% 60.71% at 50% 50%,
+        #1782e8 21%,
+        #0c5aa4 47.5%,
+        #673366 100%
+    );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

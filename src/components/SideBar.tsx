@@ -43,16 +43,16 @@ const SideBar = () => {
                                     ${item.br ? "-mt-[0.5rem]" : "flex items-center justify-left rounded-md p-3 mx-[1.5rem] cursor-pointer bg-sb-tb text-sb-t text-md font-medium "}
                                     ${
                                         item.url === pathname.hash
-                                            ? `bg-sb-t text-sb-bg transition-colors ${item.icon && "fill-current text-sb-bg"}`
+                                            ? "!bg-sb-t !text-sb-bg transition-colors "
                                             : ""
                                     }
                                 `}
                                     >
-                                        <div className="flex justifty-left">
+                                        <div className="flex justifty-left ">
                                             <img
                                                 src={item.icon}
                                                 alt={item.title}
-                                                className="mr-4"
+                                                className="mr-4  "
                                             />
 
                                             {item.title}
@@ -68,28 +68,6 @@ const SideBar = () => {
                 </div>
             </div>
         </div>
-
-        // <div className="h-screen">
-        //     <nav className="h-full w-[15rem] mt-[7rem] border rounded-full flex flex-col shadow-sm ">
-        //         <div className="justify-between bg-slate-300">
-        //             <h1 className="">Coil</h1>
-        //             {navigation.map((item) => (
-        //                 <a
-        //                     key={item.id}
-        //                     href={item.url}
-        //                     onClick={handleClick}
-        //                     className={`block relative font-code text-2xl transition-colors hover:text-color-1
-        //                     ${item.url === pathname.hash
-        //                             ? 'z-2 border rounded-2xl'
-        //                             : 'lg:text-n-1/50'}
-        //                             lg:leading-5 lg:hover:text-n-1 xl:px-12`}
-        //                 >
-        //                     {item.title}
-        //                 </a>
-        //             ))}
-        //         </div>
-        //     </nav>
-        // </div>
     );
 };
 

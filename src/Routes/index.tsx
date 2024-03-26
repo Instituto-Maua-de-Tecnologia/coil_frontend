@@ -7,9 +7,11 @@ export default function AppRoutes() {
         <>
             <BrowserRouter>
                 <SideBar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                </Routes>
+                <div className="pl-[13rem] overflow-hidden">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                    </Routes>
+                </div>
             </BrowserRouter>
         </>
     );

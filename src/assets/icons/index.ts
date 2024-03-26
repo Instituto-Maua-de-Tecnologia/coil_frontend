@@ -1,10 +1,11 @@
-import homeIcon from "./homeIcon.svg";
-import institutionIcon from "./institutionIcon.svg";
-import enrolledIcon from "./enrolledIcon.svg";
-import projectIcon from "./projectIcon.svg";
-import resultsIcon from "./resultsIcon.svg";
-import userIcon from "./userIcon.svg";
-import signOutIcon from "./signOutIcon.svg";
+import homeIcon from "./homeIcon.tsx";
+import institutionIcon from "./institutionIcon.tsx";
+import enrolledIcon from "./enrolledIcon.tsx";
+import projectIcon from "./projectIcon.tsx";
+import resultsIcon from "./resultsIcon.tsx";
+import userIcon from "./userIcon.tsx";
+import signOutIcon from "./signOutIcon.tsx";
+import devider from "./devider.tsx";
 
 export {
     homeIcon,
@@ -13,5 +14,6 @@ export {
     projectIcon,
     resultsIcon,
     userIcon,
-    signOutIcon
+    signOutIcon,
+    devider
 };

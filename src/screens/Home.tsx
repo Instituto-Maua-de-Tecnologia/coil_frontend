@@ -1,12 +1,17 @@
 import CarouselComponent from "../components/Carousel.tsx";
 import ProjectList from "../components/ProjectList.tsx";
+import TitleHeader from "../components/TitleHeader.tsx";
+import SideBar from "../components/SideBar.tsx";
 
 export default function Home() {
     return (
         <>
-            <h1>You are in the Home page</h1>
-            <CarouselComponent />
-            <ProjectList />
+            <TitleHeader title={"Home"} />
+            <SideBar />
+            <div className="pl-[13rem] overflow-hidden">
+                <ProjectList />
+                <CarouselComponent />
+            </div>
         </>
     );
 }

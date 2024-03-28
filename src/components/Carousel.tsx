@@ -3,8 +3,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import { Pagination, FreeMode } from "swiper/modules";
-import { RxArrowTopRight } from "react-icons/rx";
-import { ServiceData } from "../constants";
+import { ServiceData } from "../constants/CarouselProperties.ts";
 
 export default function CarouselComponent() {
     return (
@@ -27,44 +26,24 @@ export default function CarouselComponent() {
                 modules={[FreeMode, Pagination]}
                 className={"max-w-[90%] lg:max-w-[80%]"}
             >
-                {ServiceData.map((item) => (
-                    <SwiperSlide key={item.title}>
-                        <div
-                            className={
-                                "flex flex-col gap-6 mb-20 group relative shadow-lg rounded-xl px-6 py-8 h-[250px] w-[215px] lg:h-[400px] lg:w-[350px] overflow-hidden cursor-pointer"
-                            }
-                        >
-                            <div
-                                className={
-                                    "absolute inset-0 bg-cover bg-center"
-                                }
-                                style={{
-                                    backgroundImage: `url(${item.backgroundImage})`
-                                }}
-                            />
-                            <div
-                                className={
-                                    "absolute inset-0 bg-black opacity-10 group-hover:opacity-50"
-                                }
-                            />
-                            <div className={"relative flex flex-col gap-3"}>
-                                <item.icon
-                                    className={
-                                        "text-blue-600 group-hover:text-blue-400 w-[32px] h-[32px]"
-                                    }
-                                ></item.icon>
-                                <h1 className={"text-xl lg:text-2xl"}>
-                                    {item.title}
-                                </h1>
-                                <p className={"lg:text-[18px]"}>
-                                    {item.content}
-                                </p>
+                {ServiceData.map((item, index) => (
+                    <SwiperSlide key={index}>
+                        <div className="w-[328px] mb-20 h-[395px]">
+                            <div className="fixed w-[332px] h-[395px] top-0 left-0">
+                                <div className="relative w-[328px] h-[395px] bg-white rounded-[63px] border-b-[21px] [border-bottom-style:solid] border-[#673366]">
+                                    <img
+                                        className="absolute ms-8 mt-2 w-[69px] h-[69px] top-0 left-[2px]"
+                                        alt="Icon"
+                                        src={item.profilePhoto}
+                                    />
+                                    <div className="absolute ms-8 w-[202px] top-[24px] left-[86px] [font-family:'Inter-SemiBold',Helvetica] font-semibold text-black text-[27px] tracking-[-0.81px] leading-[normal] whitespace-nowrap">
+                                        {item.title}
+                                    </div>
+                                    <p className="absolute w-[278px] top-[88px] left-[20px] [font-family:'Inter-Regular',Helvetica] font-normal text-black text-[21px] tracking-[0] leading-[normal]">
+                                        {item.content}
+                                    </p>
+                                </div>
                             </div>
-                            <RxArrowTopRight
-                                className={
-                                    "absolute bottom-5 left-5 w-[35px] h-[35px] text-white group-hover:text-blue-500 group-hover:rotate-45 duration-100"
-                                }
-                            />
                         </div>
                     </SwiperSlide>
                 ))}

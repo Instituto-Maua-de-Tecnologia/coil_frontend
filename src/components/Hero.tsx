@@ -37,6 +37,7 @@ const Hero: React.FC = () => {
                 src={HeroImg}
                 alt=""
             />
+            <div className="absolute bottom-0 left-0 h-2/5 w-full bg-gradient-to-b from-transparent to-white"></div>
 
             <div className="relative">
                 <Navbar />

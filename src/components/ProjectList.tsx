@@ -8,6 +8,8 @@ interface Project {
     title: string;
     partnerName: string;
     status: string;
+    languages: string[];
+    country: string;
 }
 
 export default function ProjectList() {
@@ -17,14 +19,18 @@ export default function ProjectList() {
             avatarUrl: "maua.png",
             title: "Project Manager",
             partnerName: "Maua",
-            status: "Open"
+            status: "Open",
+            languages: ["be", "nl", "br"],
+            country: "nl"
         },
         {
             id: 2,
             avatarUrl: "fontys.png",
             title: "Klarity 2",
             partnerName: "Fontys",
-            status: "Closed"
+            status: "Closed",
+            languages: ["be", "nl", "br"],
+            country: "nl"
         }
     ];
     const [filteredProjects, setFilteredProjects] =

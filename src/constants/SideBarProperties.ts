@@ -2,6 +2,7 @@ import { ReactElement } from "react";
 import {
     devider,
     enrolledIcon,
+    activityIcon,
     homeIcon,
     institutionIcon,
     projectIcon,
@@ -54,19 +55,25 @@ export const navigation: NavigationItem[] = [
     },
     {
         id: "4",
-        title: "Enrolled",
-        url: "/Enrolled",
-        icon: enrolledIcon,
+        title: "Activity",
+        url: "/Activity",
+        icon: activityIcon,
         smgap: true
     },
     {
         id: "5",
+        title: "Enrolled",
+        url: "/Enrolled",
+        icon: enrolledIcon
+    },
+    {
+        id: "6",
         title: "Results",
         icon: resultsIcon,
         url: "/Results"
     },
     {
-        id: "6",
+        id: "7",
         title: "User",
         icon: userIcon,
         url: "/User",
@@ -74,7 +81,7 @@ export const navigation: NavigationItem[] = [
         blue: true
     },
     {
-        id: "7",
+        id: "8",
         title: "Sign Out",
         icon: signOutIcon,
         url: "/Signout",

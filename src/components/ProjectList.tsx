@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import Search from "./Search";
+import Fontys from "../assets/fontys.jpg";
 
 interface Project {
     id: number;
@@ -16,7 +17,7 @@ export default function ProjectList() {
     const projects: Project[] = [
         {
             id: 1,
-            avatarUrl: "maua.png",
+            avatarUrl: Fontys,
             title: "Project Manager",
             partnerName: "Maua",
             status: "Open",
@@ -25,7 +26,7 @@ export default function ProjectList() {
         },
         {
             id: 2,
-            avatarUrl: "fontys.png",
+            avatarUrl: Fontys,
             title: "Klarity 2",
             partnerName: "Fontys",
             status: "Closed",

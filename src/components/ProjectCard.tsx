@@ -22,11 +22,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <li className="flex items-center bg-gray-100 rounded-3xl p-4 mb-4 w-full">
             <div className="flex items-center justify-between w-full">
                 <div className="flex items-center">
-                    <div className="avatar-wrapper mr-4">
+                    <div className="avatar-wrapper mr-4 w-16">
                         <img
                             src={avatarUrl}
                             alt="Avatar"
-                            className="avatar-img"
+                            className="avatar-img w-full rounded-full"
                         />
                     </div>
                     <div className="flex flex-col">

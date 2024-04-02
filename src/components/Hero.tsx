@@ -6,7 +6,7 @@ import "../style/hero.css";
 
 const Hero: React.FC = () => {
     return (
-        <div className="relative h-[500px]">
+        <div className="h-[550px] relative">
             <img
                 className="absolute top-0 left-0 w-full bg-cover"
                 src={HeroImg}
@@ -16,7 +16,7 @@ const Hero: React.FC = () => {
             <div className="relative ">
                 <Navbar />
                 <img
-                    className="absolute left-0 w-full mt-[-1px]"
+                    className="absolute left-0 w-full lg:-mt-[1px]"
                     src={Curve}
                     alt=""
                 />

@@ -16,9 +16,9 @@ export default function SideBar() {
     // }
 
     return (
-        <div className="flex mx-[1rem]">
+        <div className="flex lg:mx-[1rem]">
             <div
-                className={`relative hidden lg:block w-[13rem] h-[50rem] bg-sb-bg rounded-xl`}
+                className={`relative hidden lg:block w-[13rem] h-[50rem] bg-sb-bg rounded-3xl`}
             >
                 <div className="flex flex-col pt-12 items-center justify-center">
                     <img
@@ -42,7 +42,7 @@ export default function SideBar() {
                                         ${item.purple && "!bg-sb-p !text-white hover:brightness-75"}
                                         ${item.blue && "!bg-sb-t !text-white hover:opacity-80"}
                                         ${item.smgap ? "mt-[1.5rem]" : "mt-2"}
-                                        ${item.br ? "-mt-[0.4rem]" : "flex items-center justify-left rounded-md p-3 mx-[1.5rem] cursor-pointer bg-sb-tb text-sb-t text-md font-medium "}
+                                        ${item.br ? "-mt-[0.4rem]" : "flex items-center justify-left rounded-3xl p-3 mx-[1.5rem] cursor-pointer bg-sb-tb text-sb-t text-md font-medium "}
                                         ${item.url === pathname.pathname && !item.purple ? " !fill-current  !bg-sb-t !text-sb-bg !transition-colors" : ""}
                                         `}
                                     >

@@ -1,9 +1,7 @@
 const signOutIcon = ({ className = " " }: { className?: string }) => {
     return (
         <svg
-            className={className}
-            width="16"
-            height="17"
+            className={`${className} w-[.90rem] pt-[0.1rem]`}
             viewBox="0 0 16 17"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

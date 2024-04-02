@@ -1,29 +1,30 @@
 import TitleHeader from "../components/TitleHeader.tsx";
 import SideBar from "../components/SideBar.tsx";
 import ContainerSection from "../components/ContainerSection.tsx";
+import { dummyText } from "../constants/ContainerProperties.ts";
 
 export default function Projects() {
     return (
         <>
             <TitleHeader title={"Projects Information"} />
-            <div className="flex flex-row mt-[1rem]  mr-[1rem]">
+            <div className="flex flex-row mt-[1rem] lg:ml-0 2xs:m-[1rem]">
                 <SideBar />
                 <div className="flex flex-col w-full">
                     <ContainerSection
-                        title="Collaborative Online International Learning"
+                        title={dummyText[0].title}
                         description=""
                         className="w-full h-[14rem]"
                     />
-                    <div className="flex flex-row min-h-[36rem] pt-[1rem]">
+                    <div className="flex flex-col lg:flex-row min-h-[36rem] pt-[1rem]">
                         <ContainerSection
-                            title="Project Info"
-                            description=""
-                            className="w-[65%] mr-[1rem]"
+                            title={dummyText[1].title}
+                            description={dummyText[1].description}
+                            className="lg:w-[60%] lg:mr-[1rem]"
                         />
                         <ContainerSection
-                            title="Criteria"
-                            description=""
-                            className="w-[35%]"
+                            title={dummyText[2].title}
+                            description={dummyText[2].description}
+                            className="lg:w-[40%] 2xs:mt-[1rem] lg:mt-0"
                         />
                     </div>
                 </div>

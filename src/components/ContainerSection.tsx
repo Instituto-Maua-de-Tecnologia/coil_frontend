@@ -12,13 +12,13 @@ export default function ContainerSection({
     children?: JSX.Element;
 }) {
     return (
-        <div className={`${className} bg-white rounded-3xl p-[1rem]`}>
+        <div className={`${className} bg-sb-bg rounded-3xl p-[1rem]`}>
             <h1
-                className={`${titleClassName} font-bold text-[2rem] text-title `}
+                className={`${titleClassName}  2xs:text-[1.6rem] font-bold lg:text-[2rem] text-title `}
             >
                 {title}
             </h1>
-            <div className="">{description}</div>
+            <div className="2xs:pt-[1rem] lg:pt-[2rem]">{description}</div>
             {children}
         </div>
     );

@@ -1,10 +1,10 @@
 // import { useState } from 'react'
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { navigation } from "../constants";
+import { navigation } from "../constants/SideBarProperties.ts";
 import { useThemeDetector } from "../util/ThemeDetector";
 
-const SideBar = () => {
+export default function SideBar() {
     const isDarkTheme = useThemeDetector();
     const pathname = useLocation();
     // const [openNavigation, setOpenNavigation] = useState(false)
@@ -16,9 +16,9 @@ const SideBar = () => {
     // }
 
     return (
-        <div className="fixed flex">
+        <div className="flex">
             <div
-                className={`relative lg:block w-[13rem] h-[55rem] bg-sb-bg top-[6rem] bottom-[2rem] left-[2rem] rounded-xl `}
+                className={`relative lg:block w-[13rem] mb-10 h-[55rem] bg-sb-bg top-[2rem] bottom-[2rem] left-[2rem] rounded-xl`}
             >
                 <div className="flex flex-col pt-12 items-center justify-center">
                     <img
@@ -34,7 +34,7 @@ const SideBar = () => {
                     <ul className={"pt-9 w-full pointer-events-auto"}>
                         {navigation.map((item, index) => (
                             <a href={item.url}>
-                                <div key={index}>
+                                <div key={navigation[index].id}>
                                     <li
                                         className={` mb-4                                
                                         ${item.gap && "mt-[10.5rem]"} 
@@ -75,6 +75,4 @@ const SideBar = () => {
             </div>
         </div>
     );
-};
-
-export default SideBar;
+}

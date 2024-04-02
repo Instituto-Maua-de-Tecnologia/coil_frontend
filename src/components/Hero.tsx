@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Curve from "../assets/hero-curve.svg";
 import HeroImg from "../assets/hero-img.png";
 import Navbar from "./NavBar";
 import "../style/hero.css";
 
 const Hero: React.FC = () => {
+    const outerContainerRef = useRef<HTMLDivElement>(null);
+    //I hate this i hate this i hate this i hate this i hate this i hate this i hate this i hate this
+    useEffect(() => {
+        const handleResize = () => {
+            if (outerContainerRef.current) {
+                const imageHeight =
+                    outerContainerRef.current.querySelector("img")?.height;
+
+                if (imageHeight) {
+                    outerContainerRef.current.style.height = `${imageHeight}px`;
+                }
+            }
+        };
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     return (
-        <div className="h-[550px] relative">
+        <div
+            ref={outerContainerRef}
+            className="relative w-full max-h-screen overflow-hidden"
+        >
             <img
                 className="absolute top-0 left-0 w-full bg-cover"
                 src={HeroImg}
                 alt=""
             />
 
-            <div className="relative ">
+            <div className="relative">
                 <Navbar />
                 <img
                     className="absolute left-0 w-full lg:-mt-[1px]"

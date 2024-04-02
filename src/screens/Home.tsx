@@ -1,9 +1,12 @@
-import Hero from "../components/Hero.tsx";
+import CarouselComponent from "../components/Carousel.tsx";
+import ProjectList from "../components/ProjectList.tsx";
 
 export default function Home() {
     return (
         <>
-            <Hero />
+            <h1>You are in the Home page</h1>
+            <CarouselComponent />
+            <ProjectList />
         </>
     );
 }

@@ -1,6 +1,6 @@
 interface TitleHeaderProps {
     title: string;
-    className: string;
+    className?: string;
 }
 
 export default function TitleHeader({ title, className }: TitleHeaderProps) {

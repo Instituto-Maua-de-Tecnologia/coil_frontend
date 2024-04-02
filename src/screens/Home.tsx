@@ -6,10 +6,10 @@ import SideBar from "../components/SideBar.tsx";
 export default function Home() {
     return (
         <>
-            <TitleHeader title={"Home"} className={"mx-[2rem]"} />
+            <TitleHeader title={"Home"} className={"mx-3"} />
             <div className="flex flex-row">
                 <SideBar />
-                <div className="pl-[13rem] overflow-hidden">
+                <div className="pl-[2.5rem] overflow-hidden">
                     <ProjectList />
                     <CarouselComponent />
                 </div>

@@ -19,7 +19,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     const { avatarUrl, title, status, languages, country } = project;
 
     return (
-        <li className="flex items-center bg-gray-100 rounded-3xl p-4 mb-4 w-full">
+        <li className="flex items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
             <div className="flex items-center justify-between w-full">
                 <div className="flex items-center">
                     <div className="avatar-wrapper mr-4 w-16">

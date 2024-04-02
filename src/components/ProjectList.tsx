@@ -52,23 +52,21 @@ export default function ProjectList() {
     };
 
     return (
-        <div className="mx-auto">
-            <div className="container mx-auto">
-                <div className="mb-4">
-                    <Search onSearch={handleSearch} />
-                </div>
-                {filteredProjects.length > 0 ? (
-                    <ul className="w-full">
-                        {filteredProjects.map((project) => (
-                            <ProjectCard key={project.id} project={project} />
-                        ))}
-                    </ul>
-                ) : (
-                    <p className="mx-auto my-5 text-center text-2xl">
-                        No project matched the search criteria
-                    </p>
-                )}
+        <div className="w-11/12 mx-auto">
+            <div className="mb-4">
+                <Search onSearch={handleSearch} />
             </div>
+            {filteredProjects.length > 0 ? (
+                <ul className="w-full">
+                    {filteredProjects.map((project) => (
+                        <ProjectCard key={project.id} project={project} />
+                    ))}
+                </ul>
+            ) : (
+                <p className="mx-auto my-5 text-center text-2xl">
+                    No project matched the search criteria
+                </p>
+            )}
         </div>
     );
 }

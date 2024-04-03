@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import Search from "./Search";
+import Fontys from "../assets/fontys.jpg";
 
 interface Project {
     id: number;
@@ -8,23 +9,29 @@ interface Project {
     title: string;
     partnerName: string;
     status: string;
+    languages: string[];
+    country: string;
 }
 
 export default function ProjectList() {
     const projects: Project[] = [
         {
             id: 1,
-            avatarUrl: "maua.png",
+            avatarUrl: Fontys,
             title: "Project Manager",
             partnerName: "Maua",
-            status: "Open"
+            status: "Open",
+            languages: ["be", "nl", "br"],
+            country: "nl"
         },
         {
             id: 2,
-            avatarUrl: "fontys.png",
+            avatarUrl: Fontys,
             title: "Klarity 2",
             partnerName: "Fontys",
-            status: "Closed"
+            status: "Closed",
+            languages: ["be", "nl", "br"],
+            country: "nl"
         }
     ];
     const [filteredProjects, setFilteredProjects] =
@@ -45,23 +52,21 @@ export default function ProjectList() {
     };
 
     return (
-        <div className="mx-auto">
-            <div className="container mx-auto">
-                <div className="mb-4">
-                    <Search onSearch={handleSearch} />
-                </div>
-                {filteredProjects.length > 0 ? (
-                    <ul className="w-full">
-                        {filteredProjects.map((project) => (
-                            <ProjectCard key={project.id} project={project} />
-                        ))}
-                    </ul>
-                ) : (
-                    <p className="mx-auto my-5 text-center text-2xl">
-                        No project matched the search criteria
-                    </p>
-                )}
+        <div className="w-11/12 mx-auto">
+            <div className="mb-4">
+                <Search onSearch={handleSearch} />
             </div>
+            {filteredProjects.length > 0 ? (
+                <ul className="w-full">
+                    {filteredProjects.map((project) => (
+                        <ProjectCard key={project.id} project={project} />
+                    ))}
+                </ul>
+            ) : (
+                <p className="mx-auto my-5 text-center text-2xl">
+                    No project matched the search criteria
+                </p>
+            )}
         </div>
     );
 }

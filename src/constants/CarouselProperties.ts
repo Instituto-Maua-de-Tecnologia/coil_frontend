@@ -1,12 +1,3 @@
-import {
-    RxCrop,
-    RxDesktop,
-    RxPencil2,
-    RxReader,
-    RxRocket,
-    RxAccessibility
-} from "react-icons/rx";
-
 import image1 from "../assets/fontys.png";
 import image2 from "../assets/maua.png";
 import image3 from "../assets/fontys.png";
@@ -16,39 +7,33 @@ import image6 from "../assets/maua.png";
 
 export const ServiceData = [
     {
-        icon: RxCrop,
-        title: "Development",
+        title: "Mary Jane",
         content: "Lorem ipsum dolor sit /amet, consectetur adipiscing elit.",
-        backgroundImage: image1
+        profilePhoto: image1
     },
     {
-        icon: RxPencil2,
-        title: "Branding",
+        title: "John Doe",
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        backgroundImage: image2
+        profilePhoto: image2
     },
     {
-        icon: RxDesktop,
-        title: "Design",
+        title: "Steve Rogers",
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        backgroundImage: image3
+        profilePhoto: image3
     },
     {
-        icon: RxReader,
-        title: "Seo",
+        title: "Mary Jane",
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        backgroundImage: image4
+        profilePhoto: image4
     },
     {
-        icon: RxAccessibility,
-        title: "Management",
+        title: "John Doe",
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        backgroundImage: image5
+        profilePhoto: image5
     },
     {
-        icon: RxRocket,
-        title: "Production",
+        title: "Steve Rogers",
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        backgroundImage: image6
+        profilePhoto: image6
     }
 ];

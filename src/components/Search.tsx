@@ -15,15 +15,15 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     };
 
     return (
-        <div className="flex flex-row bg-white justify-center items-center  focus:outline-none focus:shadow-outline border border-gray-300 rounded-full py-1 px-2 my-2 w-60 appearance-none leading-normal ">
+        <div className="flex flex-row bg-slate-100 justify-center items-center   rounded-full py-1 px-2 my-2 w-80 ">
             <input
-                className="bg-white text-black outline-none"
+                className="bg-slate-100 text-black outline-none w-full"
                 type="text"
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={handleChange}
             />
-            <IoIosSearch className="fill-black" />
+            <IoIosSearch className="fill-gray-400" />
         </div>
     );
 }

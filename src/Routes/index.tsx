@@ -6,6 +6,7 @@ import Projects from "../screens/Projects.tsx";
 import Results from "../screens/Results.tsx";
 import User from "../screens/User.tsx";
 import Signout from "../screens/Signout.tsx";
+import Hero from "../components/Hero.tsx";
 
 export default function AppRoutes() {
     return (
@@ -18,6 +19,7 @@ export default function AppRoutes() {
                 <Route path={"/Results"} element={<Results />} />
                 <Route path={"/User"} element={<User />} />
                 <Route path={"/Signout"} element={<Signout />} />
+                <Route path={"/landing"} element={<Hero />} />
             </Routes>
         </BrowserRouter>
     );

@@ -1,11 +1,11 @@
 export default function ContainerSection({
-    title = "Title",
+    title = "",
     description = "",
     className = "",
     titleClassName = "",
     children
 }: {
-    title: string;
+    title?: string;
     description?: string;
     className?: string;
     titleClassName?: string;

@@ -1,22 +1,18 @@
 import React from "react";
 import SVGIcon from "./SVGIcon";
-
-interface Project {
-    id: number;
-    avatarUrl: string;
-    title: string;
-    partnerName: string;
-    status: string;
-    languages: string[];
-    country: string;
-}
+import { Project } from "../types";
 
 interface ProjectCardProps {
     project: Project;
+    onClick: (project: Project) => void;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, onClick }: ProjectCardProps) {
     const { avatarUrl, title, status, languages, country } = project;
+
+    const handleOnClick = () => {
+        onClick(project);
+    };
 
     return (
         <li className="flex items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
@@ -36,7 +32,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         <div className="flex mb-2">
                             <div className="flex flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
-
                                 {languages.map((language, index) => (
                                     <SVGIcon
                                         key={index}
@@ -64,7 +59,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     >
                         {status}
                     </div>
-                    <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full">
+                    <button
+                        onClick={handleOnClick}
+                        className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                    >
                         Enroll
                     </button>
                 </div>

@@ -1,41 +1,27 @@
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import Search from "./Search";
-import Fontys from "../assets/fontys.jpg";
+import { Project } from "../types";
+import Modal from "./Modal";
 
-interface Project {
-    id: number;
-    avatarUrl: string;
-    title: string;
-    partnerName: string;
-    status: string;
-    languages: string[];
-    country: string;
+interface ProjectListProps {
+    projects: Project[];
 }
 
-export default function ProjectList() {
-    const projects: Project[] = [
-        {
-            id: 1,
-            avatarUrl: Fontys,
-            title: "Project Manager",
-            partnerName: "Maua",
-            status: "Open",
-            languages: ["be", "nl", "br"],
-            country: "nl"
-        },
-        {
-            id: 2,
-            avatarUrl: Fontys,
-            title: "Klarity 2",
-            partnerName: "Fontys",
-            status: "Closed",
-            languages: ["be", "nl", "br"],
-            country: "nl"
-        }
-    ];
+export default function ProjectList({ projects }: ProjectListProps) {
+    const [selectedProject, setSelectedProject] = useState<Project | null>(
+        null
+    );
     const [filteredProjects, setFilteredProjects] =
         useState<Project[]>(projects);
+
+    const handleModalOpen = (project: Project) => {
+        setSelectedProject(project);
+    };
+
+    const handleModalClose = () => {
+        setSelectedProject(null);
+    };
 
     const handleSearch = (searchTerm: string) => {
         const filtered = projects.filter(
@@ -57,11 +43,24 @@ export default function ProjectList() {
                 <Search onSearch={handleSearch} />
             </div>
             {filteredProjects.length > 0 ? (
-                <ul className="w-full">
-                    {filteredProjects.map((project) => (
-                        <ProjectCard key={project.id} project={project} />
-                    ))}
-                </ul>
+                <div>
+                    <ul className="w-full">
+                        {filteredProjects.map((project) => (
+                            <ProjectCard
+                                key={project.id}
+                                project={project}
+                                onClick={handleModalOpen}
+                            />
+                        ))}
+                    </ul>
+                    {selectedProject && (
+                        <Modal
+                            project={selectedProject}
+                            isOpen={true}
+                            onClose={handleModalClose}
+                        />
+                    )}
+                </div>
             ) : (
                 <p className="mx-auto my-5 text-center text-2xl">
                     No project matched the search criteria

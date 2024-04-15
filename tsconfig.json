@@ -19,7 +19,18 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+        "baseUrl": "./src",
+        "paths": {
+            "@components/*": ["components/*"],
+            "@public": ["public/*"],
+            "@screens/*": ["screens/*"],
+            "@routes/*": ["routes/*"],
+            "@assets/*": ["assets/*"],
+            "@style/*": ["styles/*"],
+            "@util/*": ["util/*"],
+            "@constants/*": ["constants/*"]
+        }
     },
     "include": ["src", "./config/jest/setupTests.cjs"],
     "references": [{ "path": "./tsconfig.node.json" }]

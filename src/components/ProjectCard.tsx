@@ -1,4 +1,3 @@
-import React from "react";
 import SVGIcon from "./SVGIcon";
 
 interface Project {
@@ -17,7 +16,6 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
     const { avatarUrl, title, status, languages, country } = project;
-
     return (
         <li className="flex items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
             <div className="flex items-center justify-between w-full">
@@ -39,7 +37,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
                                 {languages.map((language, index) => (
                                     <SVGIcon
-                                        key={index}
+                                        key={"ProjectCard SVGIcon " + index}
                                         src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
                                         className="w-4 m-[1px]"
                                     />

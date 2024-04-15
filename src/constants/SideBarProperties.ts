@@ -9,7 +9,7 @@ import {
     resultsIcon,
     signOutIcon,
     userIcon
-} from "../assets/icons";
+} from "@assets/icons";
 
 interface NavigationItem {
     id: string;

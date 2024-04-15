@@ -1,9 +1,9 @@
-import image1 from "../assets/fontys.png";
-import image2 from "../assets/maua.png";
-import image3 from "../assets/fontys.png";
-import image4 from "../assets/maua.png";
-import image5 from "../assets/fontys.png";
-import image6 from "../assets/maua.png";
+import image1 from "@assets/fontys.png";
+import image2 from "@assets/maua.png";
+import image3 from "@assets/fontys.png";
+import image4 from "@assets/maua.png";
+import image5 from "@assets/fontys.png";
+import image6 from "@assets/maua.png";
 
 export const ServiceData = [
     {

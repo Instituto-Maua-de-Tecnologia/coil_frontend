@@ -52,7 +52,7 @@ export default function ProjectList() {
     };
 
     return (
-        <div className="w-11/12 mx-auto">
+        <div className="mx-auto w-full">
             <div className="mb-4">
                 <Search onSearch={handleSearch} />
             </div>

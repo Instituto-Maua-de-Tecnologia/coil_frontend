@@ -7,5 +7,15 @@ export default defineConfig({
         react({
             devTarget: "es2022"
         })
-    ]
+    ],
+    resolve: {
+        alias: {
+            "@components": "/src/components",
+            "@screens": "/src/screens",
+            "@routes": "/src/routes",
+            "@assets": "/src/assets",
+            "@style": "/src/style",
+            "@constants": "/src/constants"
+        }
+    }
 });

@@ -1,5 +1,4 @@
 import React from "react";
-import Logo from "../../public/maua-fontys-dark.svg";
 
 const Navbar: React.FC = () => {
     return (
@@ -8,7 +7,7 @@ const Navbar: React.FC = () => {
                 <div className="flex items-center">
                     <img
                         className="h-12 md:h-14 lg:h-16 w-auto mr-2"
-                        src={Logo}
+                        src={"maua-fontys-dark.svg"}
                         alt="Logo"
                     />
                 </div>

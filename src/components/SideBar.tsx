@@ -24,7 +24,7 @@ export default function SideBar() {
                     <img
                         src={
                             !isDarkTheme
-                                ? "/maua-fontys-light.svg"
+                                ? "maua-fontys-light.svg"
                                 : "maua-fontys-dark.svg"
                         }
                         alt="COIL logo"
@@ -33,10 +33,9 @@ export default function SideBar() {
                     />
                     <ul className={"pt-9 w-full pointer-events-auto"}>
                         {navigation.map((item, index) => (
-                            <a href={item.url}>
-                                <div key={index}>
+                            <a key={"SideBar " + index} href={item.url}>
+                                <div>
                                     <li
-                                        key={index}
                                         className={` mb-4                                
                                         ${item.gap && "mt-[3.5rem]"} 
                                         ${item.purple && "!bg-sb-p !text-white hover:brightness-75"}

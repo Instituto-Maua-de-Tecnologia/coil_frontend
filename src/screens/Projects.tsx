@@ -1,7 +1,7 @@
-import TitleHeader from "../components/TitleHeader.tsx";
-import SideBar from "../components/SideBar.tsx";
-import ContainerSection from "../components/ContainerSection.tsx";
-import { dummyText } from "../constants/ContainerProperties.ts";
+import TitleHeader from "@components/TitleHeader.tsx";
+import SideBar from "@components/SideBar.tsx";
+import ContainerSection from "@components/ContainerSection.tsx";
+import { dummyText } from "@constants/ContainerProperties.ts";
 
 export default function Projects() {
     return (

@@ -1,7 +1,7 @@
-import CarouselComponent from "../components/Carousel.tsx";
-import ProjectList from "../components/ProjectList.tsx";
-import TitleHeader from "../components/TitleHeader.tsx";
-import SideBar from "../components/SideBar.tsx";
+import CarouselComponent from "@components/Carousel.tsx";
+import ProjectList from "@components/ProjectList.tsx";
+import TitleHeader from "@components/TitleHeader.tsx";
+import SideBar from "@components/SideBar.tsx";
 
 export default function Home() {
     return (

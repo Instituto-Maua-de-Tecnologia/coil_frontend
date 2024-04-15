@@ -1,5 +1,5 @@
-import TitleHeader from "../components/TitleHeader.tsx";
-import SideBar from "../components/SideBar.tsx";
+import TitleHeader from "@components/TitleHeader.tsx";
+import SideBar from "@components/SideBar.tsx";
 
 export default function User() {
     return (

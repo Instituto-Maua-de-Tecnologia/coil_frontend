@@ -3,7 +3,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 import { Pagination, FreeMode } from "swiper/modules";
-import { ServiceData } from "../constants/CarouselProperties.ts";
+import { ServiceData } from "@constants/CarouselProperties.ts";
 
 export default function CarouselComponent() {
     return (
@@ -11,10 +11,14 @@ export default function CarouselComponent() {
             <Swiper
                 breakpoints={{
                     340: {
+                        slidesPerView: 1,
+                        spaceBetween: 15
+                    },
+                    780: {
                         slidesPerView: 2,
                         spaceBetween: 15
                     },
-                    700: {
+                    1520: {
                         slidesPerView: 3,
                         spaceBetween: 15
                     }
@@ -28,9 +32,9 @@ export default function CarouselComponent() {
             >
                 {ServiceData.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <div className="w-[328px] mb-20 h-[395px]">
-                            <div className="fixed w-[332px] h-[395px] top-0 left-0">
-                                <div className="relative w-[328px] h-[395px] bg-white rounded-[63px] border-b-[21px] [border-bottom-style:solid] border-[#673366]">
+                        <div className="w-[20.5em] mb-20 h-[395px]">
+                            <div className="fixed w-full h-[395px] top-0 left-0">
+                                <div className="relative w-[20.5em] h-[395px] bg-white rounded-[63px] border-b-[21px] [border-bottom-style:solid] border-[#673366]">
                                     <img
                                         className="absolute ms-8 mt-2 w-[69px] h-[69px] top-0 left-[2px]"
                                         alt="Icon"

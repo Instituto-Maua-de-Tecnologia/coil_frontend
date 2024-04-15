@@ -28,12 +28,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <div className="text-sm font-semibold mb-2">
-                            {title}
-                        </div>
+                        <div className="mb-2 font-bold">{title}</div>
                         <div className="flex mb-2">
                             <div className="flex flex-row items-center">
-                                <p className="text-xs mr-2">Languages:</p>
+                                <p className="text-xs mr-2">Languages</p>
 
                                 {languages.map((language, index) => (
                                     <SVGIcon
@@ -46,7 +44,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         </div>
                         <div className="flex mb-2">
                             <div className="flex flex-row items-center">
-                                <p className="text-xs">Country:</p>
+                                <p className="text-xs mr-2">Country</p>
                                 <SVGIcon
                                     src={`https://hatscripts.github.io/circle-flags/flags/${country}.svg`}
                                     className="w-4 m-[1px]"

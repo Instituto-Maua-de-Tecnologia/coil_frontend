@@ -5,10 +5,10 @@ interface TitleHeaderProps {
 
 export default function TitleHeader({ title, className }: TitleHeaderProps) {
     return (
-        <div className={`${className} mx-[1rem] mt-4 max-h-[64px] mb-[1rem]`}>
+        <div className={`${className} max-h-[64px] mb-[1rem]`}>
             <div className="h-[64px] top-0 left-0">
                 <div className="relative mx-auto min-h-[64px] bg-[#2684ff] rounded-[24px]">
-                    <div className="absolute flex flex-row items-center top-[16px] left-[20px] [font-family:'Montserrat-SemiBold',Helvetica] font-semibold text-[#f9fafc] 2xs:text-[28px] lg:text-[30px] tracking-[-1.08px] leading-[normal]">
+                    <div className="absolute flex flex-row items-center top-[16px] left-[20px] [font-family:'Montserrat-SemiBold',Helvetica] font-semibold text-[#f9fafc] 2xs:text-[28px] lg:text-[30px] tracking-[-1.08px] leading-[normal] ml-[1rem]">
                         <div className="lg:hidden pr-[1rem]">
                             <svg
                                 className="w-[2rem]"

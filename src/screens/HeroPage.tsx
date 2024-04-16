@@ -5,6 +5,7 @@ import TrackItem from "@components/TrackItem";
 import CarouselComponent from "@components/Carousel";
 import "../style/hero.css";
 import Footer from "@components/Footer";
+import HeroCard from "@components/HeroCard";
 
 export default function HeroPage() {
     return (
@@ -20,6 +21,7 @@ export default function HeroPage() {
                     ))}
                 </ImageTrack>
             </div>
+            <HeroCard />
             <div className=" w-full h-auto blue-purple-gradient rounded-t-3xl">
                 <CarouselComponent />
             </div>

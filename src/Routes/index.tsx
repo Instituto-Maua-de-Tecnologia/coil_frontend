@@ -21,7 +21,7 @@ export default function AppRoutes() {
                 <Route path={"/Results"} element={<Results />} />
                 <Route path={"/User"} element={<User />} />
                 <Route path={"/Signout"} element={<Signout />} />
-                <Route path={"/landing"} element={<HeroPage />} />
+                <Route path={"/Hero"} element={<HeroPage />} />
             </Routes>
         </BrowserRouter>
     );

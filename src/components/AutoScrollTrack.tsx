@@ -5,12 +5,15 @@ interface TrackItemProps {
 }
 
 const TrackItem: React.FC<TrackItemProps> = ({ trackItem }) => {
-    const { imgUrl, title } = trackItem;
+    const { imgUrl } = trackItem;
 
     return (
-        <div className="flex-shrink-0 w-40 h-40 mr-4">
-            <img src={imgUrl} alt="" className="w-full h-full object-cover" />
-            <div className="mt-1">{title}</div>
+        <div className="w-24 h-24 mx-10">
+            <img
+                src={imgUrl}
+                alt=""
+                className="w-full h-full object-cover rounded-full"
+            />
         </div>
     );
 };
@@ -21,9 +24,12 @@ const AutoScrollTrack: React.FC<{
     return (
         <div
             id="image-track-wrapper"
-            className="w-full h-48 border-2 border-red-500"
+            className="w-screen relative h-24 my-2 border-2 border-red-500 items-center justify-center overflow-hidden"
         >
-            <div id="image-track">
+            <div
+                id="image-track"
+                className="absolute h-full left-0 flex flex-row justify-center items-center "
+            >
                 {trackItems.map((trackItem, index) => (
                     <TrackItem key={index} trackItem={trackItem} />
                 ))}

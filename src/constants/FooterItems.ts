@@ -1,6 +1,18 @@
 import { FaGithub } from "react-icons/fa";
+import { IconType } from "react-icons/lib";
 
-export const sections = [
+export interface FooterSection {
+    title: string;
+    items: string[];
+}
+
+export interface FooterItem {
+    name: string;
+    icon: IconType;
+    link: string;
+}
+
+export const sections: FooterSection[] = [
     {
         title: "Section name",
         items: [
@@ -23,6 +35,6 @@ export const sections = [
     }
 ];
 
-export const items = [
+export const items: FooterItem[] = [
     { name: "Github", icon: FaGithub, link: "https://github.com/" }
 ];

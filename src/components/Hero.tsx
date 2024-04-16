@@ -6,7 +6,6 @@ import "@style/hero.css";
 
 const Hero: React.FC = () => {
     const outerContainerRef = useRef<HTMLDivElement>(null);
-    //I hate this i hate this i hate this i hate this i hate this i hate this i hate this i hate this
     useEffect(() => {
         const handleResize = () => {
             if (outerContainerRef.current) {

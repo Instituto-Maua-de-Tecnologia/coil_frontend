@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 
 const { useState, useEffect, useRef, useCallback } = React;
@@ -67,9 +66,9 @@ export const ImageTrack = function ImageTrack({
                 ref={innerRef}
                 data-animate="true"
             >
-                {[...Array(looperInstances)].map((_, ind) => (
+                {Array.from({ length: looperInstances }).map((_, ind) => (
                     <div
-                        key={ind}
+                        key={`looperInstance${ind}`}
                         className="looper__listInstance flex w-max animate-none"
                         style={{
                             animationDuration: `${speed}s`,

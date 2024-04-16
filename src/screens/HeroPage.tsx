@@ -1,9 +1,9 @@
 import Hero from "@components/Hero.tsx";
 import { ImageTrack } from "@components/ImageTrack";
-import scrollTrackItems from "../constants/ScrollTrackItems";
+import scrollTrackItems from "@constants/ScrollTrackItems";
 import TrackItem from "@components/TrackItem";
 import CarouselComponent from "@components/Carousel";
-import "../style/hero.css";
+import "@style/hero.css";
 import Footer from "@components/Footer";
 import HeroCard from "@components/HeroCard";
 

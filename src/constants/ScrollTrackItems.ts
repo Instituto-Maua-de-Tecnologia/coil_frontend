@@ -1,5 +1,5 @@
-import Fontys from "../assets/fontys.png";
-import Maua from "../assets/maua.png";
+import Fontys from "@assets/fontys.png";
+import Maua from "@assets/maua.png";
 
 const scrollTrackItems: { imgUrl: string; title: string }[] = [
     {

@@ -15,6 +15,7 @@ export default defineConfig({
             "@routes": "/src/routes",
             "@assets": "/src/assets",
             "@style": "/src/style",
+            "@util": "/src/util",
             "@constants": "/src/constants"
         }
     }

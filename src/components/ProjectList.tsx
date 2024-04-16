@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import Search from "./Search";
-import Fontys from "../assets/fontys.jpg";
+import Fontys from "@assets/fontys.jpg";
 
 interface Project {
     id: number;

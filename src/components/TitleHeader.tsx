@@ -16,7 +16,7 @@ interface TitleHeaderProps {
     title: string;
     className?: string;
 }
-// TODO: Deixar mais bonito o navbar de mobile
+
 export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const links = [

@@ -22,7 +22,7 @@ export default function HeroPage() {
                 </ImageTrack>
             </div>
             <HeroCard />
-            <div className=" w-full h-auto blue-purple-gradient rounded-t-3xl">
+            <div className=" w-full h-auto blue-purple-gradient rounded-t-[62px]">
                 <CarouselComponent />
             </div>
             <Footer />

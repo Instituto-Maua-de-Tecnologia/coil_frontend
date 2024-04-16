@@ -3,7 +3,7 @@ import { HeroCardData } from "@constants/HeroCardProperties";
 
 const HeroCard = () => {
     return (
-        <div className="">
+        <div className="pb-80">
             <div className=" relative sm:hidden md:block rounded-r-[63px] lg:w-[70rem] md:w-[40rem] lg:h-[88rem] md:h-[50rem] bg-bcard">
                 <div className="flex flex-row justify-between p-10">
                     <div className="text-white pt-24 px-4">

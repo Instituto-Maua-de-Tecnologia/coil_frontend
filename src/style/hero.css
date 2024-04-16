@@ -1,3 +1,7 @@
+.blue-purple-gradient {
+    background: linear-gradient(#1782e8 21%, #0c5aa4 47.5%, #673366 100%);
+}
+
 .hero-text {
     background: radial-gradient(
         179.06% 60.71% at 50% 50%,
@@ -9,3 +13,62 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+#image-track {
+    animation: slide 20s linear infinite;
+}
+@keyframes slide {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+/* Looper styles */
+@keyframes slideAnim {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.looper__innerList[data-animate="true"] .looper__listInstance {
+    animation: slideAnim linear infinite;
+}
+
+/* Example content styles */
+
+/* .description {
+    margin-bottom: 16px;
+    text-align: center;
+}
+.contentBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    margin: 10px;
+    padding: 16px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 16px;
+}
+.contentBlock--one {
+    width: 120px;
+    background: rgba(255, 255, 255, 0.05);
+    font-weight: 600;
+    font-size: 18px;
+}
+.contentBlock--one:last-of-type {
+    color: var(--green);
+    margin-right: 36px;
+}
+.contentBlock--two {
+    color: var(--green);
+    font-size: 48px;
+    background: rgba(255, 255, 255, 0.05);
+} */

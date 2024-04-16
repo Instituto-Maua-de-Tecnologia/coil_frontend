@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
     return (
         <div
             ref={outerContainerRef}
-            className="relative w-full max-h-screen overflow-hidden"
+            className="relative w-full max-h-screen h-screen overflow-hidden"
         >
             <img
                 className="absolute top-0 left-0 w-full bg-cover"

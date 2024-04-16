@@ -1,4 +1,3 @@
-import React from "react";
 import SVGIcon from "./SVGIcon";
 import { Project } from "../types";
 

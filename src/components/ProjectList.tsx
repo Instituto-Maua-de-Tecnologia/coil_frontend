@@ -14,7 +14,6 @@ export default function ProjectList({ projects }: ProjectListProps) {
     );
     const [filteredProjects, setFilteredProjects] =
         useState<Project[]>(projects);
-
     const handleModalOpen = (project: Project) => {
         setSelectedProject(project);
     };

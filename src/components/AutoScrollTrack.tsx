@@ -1,4 +1,5 @@
 import React from "react";
+import "../style/hero.css";
 
 interface TrackItemProps {
     trackItem: { imgUrl: string; title: string };

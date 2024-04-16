@@ -9,3 +9,16 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+
+#image-track{
+    animation: slide 20s linear infinite;
+}
+@keyframes slide {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -100%;
+  }
+}

@@ -1,10 +1,5 @@
 .blue-purple-gradient {
-    background: linear-gradient(
-        
-        #1782e8 21%,
-        #0c5aa4 47.5%,
-        #673366 100%
-    );
+    background: linear-gradient(#1782e8 21%, #0c5aa4 47.5%, #673366 100%);
 }
 
 .hero-text {

@@ -4,6 +4,7 @@ import scrollTrackItems from "../constants/ScrollTrackItems";
 import TrackItem from "@components/TrackItem";
 import CarouselComponent from "@components/Carousel";
 import "../style/hero.css";
+import Footer from "@components/Footer";
 
 export default function HeroPage() {
     return (
@@ -18,10 +19,11 @@ export default function HeroPage() {
                         <TrackItem key={index} trackItem={trackItem} />
                     ))}
                 </ImageTrack>
-                <div className=" w-full h-auto blue-purple-gradient rounded-t-3xl">
-                    <CarouselComponent />
-                </div>
             </div>
+            <div className=" w-full h-auto blue-purple-gradient rounded-t-3xl">
+                <CarouselComponent />
+            </div>
+            <Footer />
         </div>
     );
 }

@@ -10,7 +10,7 @@ export default function HeroPage() {
     return (
         <div className="bg-white">
             <Hero />
-            <div className="my-48">
+            <div className="my-24 lg:my-48">
                 <h1 className="text-center text-lg font font-semibold text-blue-500 my-2">
                     Our Partners
                 </h1>

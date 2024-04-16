@@ -3,7 +3,7 @@ import React from "react";
 
 const { useState, useEffect, useRef, useCallback } = React;
 
-export const InfiniteLooper = function InfiniteLooper({
+export const ImageTrack = function ImageTrack({
     speed,
     direction,
     children,

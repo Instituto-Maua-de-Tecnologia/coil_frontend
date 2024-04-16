@@ -32,16 +32,11 @@
     }
 }
 
-
 .looper__innerList[data-animate="true"] .looper__listInstance {
     animation: slideAnim linear infinite;
 }
 
-
-
 /* Example content styles */
-
-
 
 /* .description {
     margin-bottom: 16px;

@@ -1,12 +1,18 @@
 import TitleHeader from "@components/TitleHeader.tsx";
 import SideBar from "@components/SideBar.tsx";
-import ContainerSection from "@components/ContainerSection.tsx";
-import { dummyText } from "@constants/ContainerProperties.ts";
+import ProjectList from "@components/ProjectList";
 
 export default function Projects() {
     return (
         <>
-            <TitleHeader title={"Projects Information"} />
+            <div className="m-3">
+                <TitleHeader title={"Projects"} />
+                <div className="flex flex-row">
+                    <SideBar />
+                    <ProjectList />
+                </div>
+            </div>
+            {/* <TitleHeader title={"Projects Information"} />
             <div className="flex flex-row mt-[1rem] lg:ml-0 2xs:m-[1rem]">
                 <SideBar />
                 <div className="flex flex-col w-full">
@@ -28,7 +34,7 @@ export default function Projects() {
                         />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 }

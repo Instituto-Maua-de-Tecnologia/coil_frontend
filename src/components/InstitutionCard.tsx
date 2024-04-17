@@ -1,24 +1,23 @@
 import SVGIcon from "./SVGIcon";
 
-interface Project {
+interface Institution {
     id: number;
     avatarUrl: string;
-    title: string;
-    partnerName: string;
-    status: string;
-    languages: string[];
+    name: string;
+    email: string;
     country: string;
+    website: string;
 }
 
-interface ProjectCardProps {
-    project: Project;
+interface InstitutionCardProps {
+    institution: Institution;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
-    const { avatarUrl, title, status, languages, country } = project;
+export default function InstitutionCard({ institution }: InstitutionCardProps) {
+    const { avatarUrl, name, country } = institution;
     return (
         <li className="flex items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between w-full min-h-20">
                 <div className="flex items-center">
                     <div className="avatar-wrapper mr-4 w-16">
                         <img
@@ -28,20 +27,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <div className="mb-2 font-bold">{title}</div>
-                        <div className="flex mb-2">
-                            <div className="flex flex-row items-center">
-                                <p className="text-xs mr-2">Languages</p>
-
-                                {languages.map((language, index) => (
-                                    <SVGIcon
-                                        key={"ProjectCard SVGIcon " + index}
-                                        src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
-                                        className="w-4 m-[1px]"
-                                    />
-                                ))}
-                            </div>
-                        </div>
+                        <div className="mb-2 font-bold">{name}</div>
                         <div className="flex mb-2">
                             <div className="flex flex-row items-center">
                                 <p className="text-xs mr-2">Country</p>

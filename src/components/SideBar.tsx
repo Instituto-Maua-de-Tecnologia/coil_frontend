@@ -16,11 +16,11 @@ export default function SideBar() {
     // }
 
     return (
-        <div className="flex lg:mx-[1rem]">
+        <div className="flex">
             <div
                 className={`relative hidden lg:block w-[13rem] h-[50rem] bg-sb-bg rounded-3xl`}
             >
-                <div className="flex flex-col pt-12 items-center justify-center">
+                <div className="flex flex-col pt-8 items-center justify-center">
                     <img
                         src={
                             !isDarkTheme
@@ -31,22 +31,22 @@ export default function SideBar() {
                         width={130}
                         height={130}
                     />
-                    <ul className={"pt-9 w-full pointer-events-auto"}>
+                    <ul className={"pt-6 w-full pointer-events-auto"}>
                         {navigation.map((item, index) => (
                             <a key={"SideBar " + index} href={item.url}>
                                 <div>
                                     <li
                                         className={` mb-4                                
                                         ${item.gap && "mt-[3.5rem]"} 
-                                        ${item.purple && "!bg-sb-p !text-white hover:brightness-75"}
+                                        ${item.purple && "!bg-sb-p !text-white hover:opacity-80"}
                                         ${item.blue && "!bg-sb-t !text-white hover:opacity-80"}
                                         ${item.smgap ? "mt-[1.5rem]" : "mt-2"}
                                         ${item.br ? "-mt-[0.4rem]" : "flex items-center justify-left rounded-3xl p-3 mx-[1.5rem] cursor-pointer bg-sb-tb text-sb-t text-md font-medium "}
                                         ${item.url === pathname.pathname && !item.purple ? " !fill-current  !bg-sb-t !text-sb-bg !transition-colors" : ""}
                                         `}
                                     >
-                                        <div className="flex justifty-left ">
-                                            <div className="mt-[0.20rem] mr-1">
+                                        <div className="flex justifty-left items-center">
+                                            <div className="mr-2 p-[0.25rem]">
                                                 {React.createElement(
                                                     item.icon,
                                                     {
@@ -60,7 +60,9 @@ export default function SideBar() {
                                                     }
                                                 )}
                                             </div>
-                                            {item.title}
+                                            <span className="text-sm">
+                                                {item.title}
+                                            </span>
                                         </div>
                                     </li>
                                     {item.br && (

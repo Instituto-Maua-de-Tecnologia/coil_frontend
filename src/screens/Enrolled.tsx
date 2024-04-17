@@ -4,9 +4,11 @@ import SideBar from "../components/SideBar.tsx";
 export default function Enrolled() {
     return (
         <>
-            <TitleHeader title={"Enrolled"} />
-            <SideBar />
-            <div className="pl-[13rem] overflow-hidden"></div>
+            <div className="m-3">
+                <TitleHeader title={"Enrolled"} />
+                <SideBar />
+                <div className="pl-[13rem] overflow-hidden"></div>
+            </div>
         </>
     );
 }

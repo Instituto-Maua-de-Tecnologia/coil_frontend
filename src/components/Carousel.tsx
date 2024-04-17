@@ -94,13 +94,13 @@ export default function CarouselComponent() {
             {isSmallScreen && (
                 <>
                     <button
-                        className="swiper-button-prev bg-transparent absolute left-4 transform -translate-y-1/2 p-2 rounded-full shadow-md z-10 "
+                        className="swiper-button-prev bg-transparent absolute left-4 transform -translate-y-1/2 p-2 z-10"
                         onClick={goPrev}
                     >
                         <img src={chevronLeft} alt={"chevronLeft"} />
                     </button>
                     <button
-                        className="swiper-button-next bg-transparent absolute right-4 transform -translate-y-1/2 p-2 rounded-full shadow-md z-10"
+                        className="swiper-button-next bg-transparent absolute right-4 transform -translate-y-1/2 p-2 z-10"
                         onClick={goNext}
                     >
                         <img src={chevronRight} alt={"chevronRight"} />

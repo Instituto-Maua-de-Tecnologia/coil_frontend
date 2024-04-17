@@ -6,7 +6,6 @@ import "@style/hero.css";
 
 const Hero: React.FC = () => {
     const outerContainerRef = useRef<HTMLDivElement>(null);
-    //I hate this i hate this i hate this i hate this i hate this i hate this i hate this i hate this
     useEffect(() => {
         const handleResize = () => {
             if (outerContainerRef.current) {
@@ -30,7 +29,7 @@ const Hero: React.FC = () => {
     return (
         <div
             ref={outerContainerRef}
-            className="relative w-full max-h-screen overflow-hidden"
+            className="relative w-full max-h-screen h-screen overflow-hidden"
         >
             <img
                 className="absolute top-0 left-0 w-full bg-cover"

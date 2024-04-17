@@ -1,7 +1,7 @@
 // import { useState } from 'react'
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { navigation } from "../constants/SideBarProperties.ts";
+import { navigation } from "@constants/SideBarProperties.ts";
 import { useThemeDetector } from "../util/ThemeDetector";
 
 export default function SideBar() {

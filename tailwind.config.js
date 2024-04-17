@@ -16,7 +16,9 @@ export default {
                 "sb-bg": "#F9FAFC",
                 "sb-t": "#2684FF",
                 "sb-tb": "#F0F3FB",
-                "sb-p": "#673366"
+                "sb-p": "#673366",
+                bcard: "#0077E4",
+                dbcard: "#004587"
             }
         }
     },

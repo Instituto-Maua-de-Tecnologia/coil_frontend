@@ -1,6 +1,6 @@
 import SideBar from "@components/SideBar.tsx";
 import TitleHeader from "@components/TitleHeader.tsx";
-import ProjectList from "@components/ProjectList.tsx";
+import InstitutionList from "@components/InstitutionList.tsx";
 
 export default function Institutions() {
     return (
@@ -9,7 +9,7 @@ export default function Institutions() {
                 <TitleHeader title={"Institutions"} />
                 <div className="flex flex-row">
                     <SideBar />
-                    <ProjectList />
+                    <InstitutionList />
                 </div>
             </div>
         </>

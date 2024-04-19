@@ -28,7 +28,9 @@
             "@assets/*": ["assets/*"],
             "@style/*": ["styles/*"],
             "@util/*": ["util/*"],
-            "@constants/*": ["constants/*"]
+            "@constants/*": ["constants/*"],
+            "@integrations/*": ["integrations/modules/*"],
+            "@enum/*": ["enum/*"]
         }
     },
     "include": ["src", "./config/jest/setupTests.cjs"],

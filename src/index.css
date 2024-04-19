@@ -14,3 +14,21 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F0F3FB;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #D9D9D9;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #c2c2c2;
+}

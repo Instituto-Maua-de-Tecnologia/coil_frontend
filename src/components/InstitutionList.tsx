@@ -1,7 +1,8 @@
 import { useState } from "react";
 import InstitutionCard from "./InstitutionCard";
 import Search from "./Search";
-import Fontys from "../assets/fontys.jpg";
+import Fontys from "@assets/fontys.jpg";
+import Filter from "./Filter.tsx";
 
 interface Institution {
     id: number;
@@ -43,11 +44,12 @@ export default function ProjectList() {
 
     return (
         <div className="w-full ml-4 px-7 py-4 bg-sb-bg rounded-3xl">
-            <div className="mb-4">
+            <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
+                <Filter />
             </div>
             {filteredInstitutions.length > 0 ? (
-                <ul className="w-full">
+                <ul className="w-full max-h-screen pe-5 overflow-y-auto">
                     {filteredInstitutions.map((institution) => (
                         <InstitutionCard
                             key={institution.id}

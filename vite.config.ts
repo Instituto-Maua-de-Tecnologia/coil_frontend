@@ -16,7 +16,12 @@ export default defineConfig({
             "@assets": "/src/assets",
             "@style": "/src/style",
             "@util": "/src/util",
-            "@constants": "/src/constants"
+            "@constants": "/src/constants",
+            "@integrations": "/src/integrations/modules",
+            "@enum": "/src/enum"
         }
     }
 });
+
+//resolve é tipo um then, ele funciona como um return
+//reject é tipo um catch, ele funciona como um throw new Error()

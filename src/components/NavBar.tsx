@@ -1,6 +1,106 @@
-import React from "react";
+import { useEffect } from "react";
+import { useMsal } from "@azure/msal-react";
+import authUser from "@integrations/auth_user.ts";
+import getUser from "@integrations/get_user.ts";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
+    /* eslint-disable */
+    const { instance } = useMsal();
+    const navigate = useNavigate();
+
+    async function delay(ms: number) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    useEffect(() => {
+        let token = localStorage.getItem("token");
+        if (token) {
+            toast
+                .promise(
+                    getUser({ token: token })
+                        .then((user: any) => {
+                            return user;
+                        })
+                        .catch((error) => {
+                            if (error.status === 401) {
+                                localStorage.clear();
+                                throw new Error("Usuário não Autorizado.");
+                            }
+                        }),
+                    {
+                        loading: "Realizando Login...",
+                        success: <b>Usuário logado com sucesso</b>,
+                        error: (error) => error.message
+                    }
+                )
+                .then(async (user: any) => {
+                    await delay(1500);
+                    if (user.user_type === UserTypeEnum.STUDENT) {
+                        navigate("/Home");
+                    } else navigate("/Institutions");
+                });
+        }
+    }, [localStorage.getItem("token")]);
+
+    async function handleLogin() {
+        let response = await instance.loginPopup({
+            scopes: ["User.Read"]
+        });
+        if (response) {
+            await toast
+                .promise(handleGetUser(response.accessToken), {
+                    loading: "Realizando Login...",
+                    success: <b>Usuário logado com sucesso</b>,
+                    error: (error) => error.message
+                })
+                .then(async () => {
+                    let user = JSON.parse(
+                        localStorage.getItem("user") as string
+                    );
+                    await delay(1500);
+                    if (user.user_type === UserTypeEnum.STUDENT)
+                        navigate("/Home");
+                    else navigate("/Institutions");
+                });
+        }
+    }
+
+    async function handleGetUser(accessToken: string) {
+        await authUser({
+            token: accessToken
+        })
+            .then(async (token) => {
+                if (token) {
+                    let user = await getUser({ token: token as string });
+                    localStorage.setItem("user", JSON.stringify(user));
+                    localStorage.setItem("token", token as string);
+                } else {
+                    throw new Error("MissingToken");
+                }
+            })
+            .catch((error) => {
+                if (error.status === 401) {
+                    localStorage.clear();
+                    throw new Error("Usuário não Autorizado.");
+                } else if (error.status === 403)
+                    throw new Error("E-mail deve ser do domínio maua.br!");
+                else if (error.message === "MissingToken")
+                    throw new Error(
+                        "Erro ao localizar o token de acesso. Por favor, tente novamente."
+                    );
+                else
+                    throw new Error(
+                        "Falha ao realizar login. Por favor, tente mais tarde."
+                    );
+            });
+    }
+    /* eslint-enable */
+
     return (
         <nav className="p-2 bg-white bg-opacity-90 w-full">
             <div className="mx-5 flex justify-between items-center">
@@ -12,7 +112,10 @@ const Navbar: React.FC = () => {
                     />
                 </div>
 
-                <button className="bg-purple-900 text-xs md:text-sm lg:text-md text-white py-2 px-6 rounded-full">
+                <button
+                    onClick={() => handleLogin}
+                    className="bg-purple-900 text-xs md:text-sm lg:text-md text-white py-2 px-6 rounded-full"
+                >
                     Login
                 </button>
             </div>

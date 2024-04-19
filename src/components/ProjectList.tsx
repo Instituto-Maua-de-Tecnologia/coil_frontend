@@ -2,8 +2,9 @@ import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import Search from "./Search";
 import Fontys from "@assets/fontys.jpg";
+import Filter from "@components/Filter.tsx";
 
-interface Project {
+type Project = {
     id: number;
     avatarUrl: string;
     title: string;
@@ -11,9 +12,13 @@ interface Project {
     status: string;
     languages: string[];
     country: string;
+};
+
+interface ProjectListProps {
+    isFilter: boolean;
 }
 
-export default function ProjectList() {
+export default function ProjectList({ isFilter }: ProjectListProps) {
     const projects: Project[] = [
         {
             id: 1,
@@ -53,11 +58,12 @@ export default function ProjectList() {
 
     return (
         <div className="w-full ml-4 px-7 py-4 bg-sb-bg rounded-3xl">
-            <div className="mb-4">
+            <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
+                {isFilter && <Filter />}
             </div>
             {filteredProjects.length > 0 ? (
-                <ul className="w-full">
+                <ul className="w-full max-h-screen pe-5 overflow-y-auto">
                     {filteredProjects.map((project) => (
                         <ProjectCard key={project.id} project={project} />
                     ))}

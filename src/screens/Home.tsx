@@ -7,9 +7,9 @@ export default function Home() {
         <>
             <div className="m-3">
                 <TitleHeader title={"Home"} className={""} />
-                <div className="flex flex-row">
+                <div className="flex flex-row ">
                     <SideBar />
-                    <ProjectList />
+                    <ProjectList isFilter={false} />
                 </div>
             </div>
         </>

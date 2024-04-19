@@ -34,7 +34,7 @@ export const navigation: NavigationItem[] = [
         id: "0",
         title: "Home",
         icon: homeIcon,
-        url: "/"
+        url: "/Home"
     },
     {
         id: "1",

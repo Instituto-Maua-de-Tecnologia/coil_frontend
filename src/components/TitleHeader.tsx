@@ -20,7 +20,7 @@ interface TitleHeaderProps {
 export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const links = [
-        { to: "/", label: "Home", icon: homeIcon },
+        { to: "/Home", label: "Home", icon: homeIcon },
         {
             to: "/Institutions",
             label: "Institutions",

@@ -13,15 +13,15 @@ export default function AppRoutes() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="*" element={<Error404 />} />
-                <Route path={"/"} element={<Home />} />
+                <Route path={"*"} element={<Error404 />} />
+                <Route path={"/"} element={<HeroPage />} />
+                <Route path={"/Home"} element={<Home />} />
                 <Route path={"/Institutions"} element={<Institutions />} />
                 <Route path={"/Projects"} element={<Projects />} />
                 <Route path={"/Enrolled"} element={<Enrolled />} />
                 <Route path={"/Results"} element={<Results />} />
                 <Route path={"/User"} element={<User />} />
                 <Route path={"/Signout"} element={<Signout />} />
-                <Route path={"/Hero"} element={<HeroPage />} />
             </Routes>
         </BrowserRouter>
     );

@@ -9,7 +9,7 @@ export default function Projects() {
                 <TitleHeader title={"Projects"} />
                 <div className="flex flex-row">
                     <SideBar />
-                    <ProjectList />
+                    <ProjectList isFilter />
                 </div>
             </div>
             {/* <TitleHeader title={"Projects Information"} />

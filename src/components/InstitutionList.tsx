@@ -49,7 +49,7 @@ export default function ProjectList() {
                 <Filter />
             </div>
             {filteredInstitutions.length > 0 ? (
-                <ul className="w-full max-h-screen pe-5 overflow-y-auto">
+                <ul className="w-full max-h-screen pb-48 pe-5 overflow-y-auto">
                     {filteredInstitutions.map((institution) => (
                         <InstitutionCard
                             key={institution.id}

@@ -16,8 +16,8 @@ interface InstitutionCardProps {
 export default function InstitutionCard({ institution }: InstitutionCardProps) {
     const { avatarUrl, name, country } = institution;
     return (
-        <li className="flex items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
-            <div className="flex items-center justify-between w-full min-h-20">
+        <li className="flex items-center  bg-slate-100 rounded-3xl p-4 mb-4 w-full">
+            <div className="flex items-center justify-between mb-4 w-full min-h-20">
                 <div className="flex items-center">
                     <div className="avatar-wrapper mr-4 w-16">
                         <img

@@ -1,19 +1,17 @@
-interface UserCard {
-    id: number;
-    avatarUrl: string;
-    name: string;
-    course: string;
-    studentID: number;
-    institution: string;
-    semester: number;
-    contact: string;
-}
+type UserCardProps = {
+    userCard: {
+        id: number;
+        avatarUrl: string;
+        name: string;
+        course: string;
+        studentID: number;
+        institution: string;
+        semester: number;
+        contact: string;
+    };
+};
 
-interface UserCardProps {
-    userCard: UserCard;
-}
-
-export default function userCard({ userCard }: UserCardProps) {
+export default function UserCard({ userCard }: UserCardProps) {
     const {
         avatarUrl,
         name,

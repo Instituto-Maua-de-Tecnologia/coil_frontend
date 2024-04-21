@@ -1,6 +1,6 @@
 import UserCard from "./UserCard";
 
-interface User {
+type User = {
     id: number;
     avatarUrl: string;
     name: string;
@@ -9,9 +9,9 @@ interface User {
     institution: string;
     semester: number;
     contact: string;
-}
+};
 
-export default function ProjectList() {
+export default function UserInfo() {
     const userData: User[] = [
         {
             id: 1,

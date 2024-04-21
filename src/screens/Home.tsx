@@ -9,7 +9,7 @@ export default function Home() {
                 <TitleHeader title={"Home"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <InstitutionList></InstitutionList>
+                    <InstitutionList />
                 </div>
             </div>
         </>

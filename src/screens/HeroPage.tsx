@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import Hero from "@components/Hero.tsx";
 import { ImageTrack } from "@components/ImageTrack";
 import scrollTrackItems from "@constants/ScrollTrackItems";

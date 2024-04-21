@@ -15,7 +15,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     };
 
     return (
-        <div className="flex flex-row bg-slate-100 justify-center items-center rounded-full py-1 px-4 my-2 w-80  h-10">
+        <div className="flex flex-row bg-slate-100 justify-center items-center rounded-full py-1 px-4 my-2 w-1/2 sm:w-80  h-10">
             <IoIosSearch className="fill-gray-400" />
             <input
                 className="bg-slate-100 text-black outline-none w-full ml-4"

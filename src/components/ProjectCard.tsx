@@ -17,19 +17,19 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
     const { avatarUrl, title, status, languages, country } = project;
     return (
-        <li className="flex items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
-            <div className="flex items-center justify-between w-full">
-                <div className="flex items-center">
-                    <div className="avatar-wrapper mr-4 w-16">
+        <li className="sm:flex items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
+            <div className="flex sm:relative items-center sm:justify-between w-full">
+                <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
+                    <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
                         <img
                             src={avatarUrl}
                             alt="Avatar"
-                            className="avatar-img w-full rounded-full"
+                            className="avatar-img mx-auto w-16 rounded-full"
                         />
                     </div>
                     <div className="flex flex-col">
                         <div className="mb-2 font-bold">{title}</div>
-                        <div className="flex mb-2">
+                        <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-row items-center">
                                 <p className="text-xs mr-2">Languages</p>
 
@@ -43,7 +43,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                             </div>
                         </div>
                         <div className="flex mb-2">
-                            <div className="flex flex-row items-center">
+                            <div className="flex flex-row w-full sm:justify-start justify-center">
                                 <p className="text-xs mr-2">Country</p>
                                 <SVGIcon
                                     src={`https://hatscripts.github.io/circle-flags/flags/${country}.svg`}
@@ -52,17 +52,17 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="flex items-center flex-col gap-4 justify-end mr-2">
-                    <div
-                        className={` ${status === "Open" ? "text-green-500" : "text-red-500"}`}
-                    >
-                        {status}
+                    <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
+                        <div
+                            className={` ${status === "Open" ? "text-green-500" : "text-red-500"}`}
+                        >
+                            {status}
+                        </div>
+                        <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full">
+                            Enroll
+                        </button>
                     </div>
-                    <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full">
-                        Enroll
-                    </button>
                 </div>
             </div>
         </li>

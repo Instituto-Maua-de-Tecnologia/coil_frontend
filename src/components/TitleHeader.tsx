@@ -27,7 +27,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
             icon: institutionIcon,
             devider: devider
         },
-        { to: "/Project", label: "Project", icon: projectIcon },
+        { to: "/Projects", label: "Projects", icon: projectIcon },
         { to: "/Activity", label: "Activity", icon: activityIcon },
         { to: "/Enrolled", label: "Enrolled", icon: enrolledIcon },
         { to: "/Results", label: "Results", icon: resultsIcon },

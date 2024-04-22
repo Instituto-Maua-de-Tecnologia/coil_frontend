@@ -1,6 +1,6 @@
 import UserCard from "./UserCard";
 
-interface User {
+type User = {
     id: number;
     avatarUrl: string;
     name: string;
@@ -9,9 +9,9 @@ interface User {
     institution: string;
     semester: number;
     contact: string;
-}
+};
 
-export default function ProjectList() {
+export default function UserInfo() {
     const userData: User[] = [
         {
             id: 1,
@@ -26,8 +26,8 @@ export default function ProjectList() {
     ];
 
     return (
-        <div className="w-full lg:ml-4 px-7 py-4 bg-sb-bg rounded-3xl ">
-            <div className="w-full h-full ">
+        <div className="w-full max-h-[85%] lg:ml-4 px-7 py-4 bg-sb-bg rounded-3xl ">
+            <div className="w-full h-full my-auto">
                 {userData.map((User) => (
                     <UserCard key={User.id} userCard={User} />
                 ))}

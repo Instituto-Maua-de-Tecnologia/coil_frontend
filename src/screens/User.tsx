@@ -5,9 +5,9 @@ import UserInfo from "@components/UserInfo.tsx";
 export default function User() {
     return (
         <>
-            <div className="m-3">
+            <div className="max-h-screen flex flex-col">
                 <TitleHeader title={"User"} />
-                <div className="flex w-full flex-row">
+                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
                     <UserInfo />
                 </div>

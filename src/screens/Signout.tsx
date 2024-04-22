@@ -4,9 +4,12 @@ import SideBar from "@components/SideBar.tsx";
 export default function Signout() {
     return (
         <>
-            <TitleHeader title={"Sign Out"} />
-            <SideBar />
-            <div className="pl-[13rem] overflow-hidden"></div>
+            <div className="max-h-screen flex flex-col">
+                <TitleHeader title={"Sign Out"} />
+                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
+                    <SideBar />
+                </div>
+            </div>
         </>
     );
 }

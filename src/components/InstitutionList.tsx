@@ -4,16 +4,16 @@ import Search from "./Search";
 import Fontys from "@assets/fontys.jpg";
 import Filter from "./Filter.tsx";
 
-interface Institution {
+type Institution = {
     id: number;
     avatarUrl: string;
     name: string;
     email: string;
     country: string;
     website: string;
-}
+};
 
-export default function ProjectList() {
+export default function InstitutionList() {
     const institutions: Institution[] = [
         {
             id: 1,
@@ -43,13 +43,13 @@ export default function ProjectList() {
     };
 
     return (
-        <div className="w-full ml-4 px-7 py-4 bg-sb-bg rounded-3xl">
+        <div className="w-full lg:ml-4 px-7 py-4 bg-sb-bg rounded-3xl">
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
                 <Filter />
             </div>
             {filteredInstitutions.length > 0 ? (
-                <ul className="w-full max-h-screen pe-5 overflow-y-auto">
+                <ul className="w-full max-h-screen pb-48 pe-5 overflow-y-auto">
                     {filteredInstitutions.map((institution) => (
                         <InstitutionCard
                             key={institution.id}
@@ -59,7 +59,7 @@ export default function ProjectList() {
                 </ul>
             ) : (
                 <p className="mx-auto my-5 text-center text-2xl">
-                    No project matched the search criteria
+                    No Institution matched the search criteria
                 </p>
             )}
         </div>

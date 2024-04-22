@@ -5,9 +5,9 @@ import InstitutionList from "@components/InstitutionList.tsx";
 export default function Institutions() {
     return (
         <>
-            <div className="m-3">
+            <div className="max-h-screen flex flex-col">
                 <TitleHeader title={"Institutions"} />
-                <div className="flex flex-row">
+                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
                     <InstitutionList />
                 </div>

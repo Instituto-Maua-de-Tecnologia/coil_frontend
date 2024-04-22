@@ -4,10 +4,11 @@ import SideBar from "../components/SideBar.tsx";
 export default function Enrolled() {
     return (
         <>
-            <div className="m-3">
+            <div className="max-h-screen flex flex-col">
                 <TitleHeader title={"Enrolled"} />
-                <SideBar />
-                <div className="pl-[13rem] overflow-hidden"></div>
+                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row ">
+                    <SideBar />
+                </div>
             </div>
         </>
     );

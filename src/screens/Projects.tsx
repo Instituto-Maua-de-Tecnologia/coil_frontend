@@ -5,9 +5,9 @@ import ProjectList from "@components/ProjectList";
 export default function Projects() {
     return (
         <>
-            <div className="m-3">
+            <div className="max-h-screen flex flex-col">
                 <TitleHeader title={"Projects"} />
-                <div className="flex flex-row">
+                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
                     <ProjectList isFilter />
                 </div>

@@ -63,7 +63,7 @@ export default function ProjectList({ isFilter }: ProjectListProps) {
                 {isFilter && <Filter />}
             </div>
             {filteredProjects.length > 0 ? (
-                <ul className="w-full max-h-screen pe-5 overflow-y-auto">
+                <ul className="w-full max-h-screen pb-48 pe-5 overflow-y-auto">
                     {filteredProjects.map((project) => (
                         <ProjectCard key={project.id} project={project} />
                     ))}

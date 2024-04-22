@@ -16,11 +16,11 @@ export default function AppRoutes() {
                 <Route path={"*"} element={<Error404 />} />
                 <Route path={"/"} element={<HeroPage />} />
                 <Route path={"/Home"} element={<Home />} />
-                <Route path={"/Institutions"} element={<Institutions />} />
+                <Route path={"/Institution"} element={<Institutions />} />
                 <Route path={"/Projects"} element={<Projects />} />
                 <Route path={"/Enrolled"} element={<Enrolled />} />
                 <Route path={"/Results"} element={<Results />} />
-                <Route path={"/User"} element={<User />} />
+                <Route path={"/user"} element={<User />} />
                 <Route path={"/Signout"} element={<Signout />} />
             </Routes>
         </BrowserRouter>

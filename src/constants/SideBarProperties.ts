@@ -38,7 +38,7 @@ export const navigation: NavigationItem[] = [
     },
     {
         id: "1",
-        title: "Institutions",
+        title: "Institution",
         icon: institutionIcon,
         url: "/Institutions"
     },

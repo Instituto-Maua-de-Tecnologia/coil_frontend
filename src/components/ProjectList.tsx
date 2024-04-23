@@ -16,9 +16,10 @@ type Project = {
 
 interface ProjectListProps {
     isFilter: boolean;
+    isSearch: boolean;
 }
 
-export default function ProjectList({ isFilter }: ProjectListProps) {
+export default function ProjectList({ isFilter, isSearch }: ProjectListProps) {
     const projects: Project[] = [
         {
             id: 1,
@@ -57,13 +58,13 @@ export default function ProjectList({ isFilter }: ProjectListProps) {
     };
 
     return (
-        <div className="w-full ml-4 px-7 py-4 bg-sb-bg rounded-3xl">
+        <div className="w-full px-7 py-4 bg-sb-bg rounded-3xl">
             <div className="mb-4 flex">
-                <Search onSearch={handleSearch} />
+                {isSearch && <Search onSearch={handleSearch} />}
                 {isFilter && <Filter />}
             </div>
             {filteredProjects.length > 0 ? (
-                <ul className="w-full max-h-screen pb-48 pe-5 overflow-y-auto">
+                <ul className="w-full max-h-screen pe-5 overflow-y-auto">
                     {filteredProjects.map((project) => (
                         <ProjectCard key={project.id} project={project} />
                     ))}

@@ -18,7 +18,9 @@ export default function ContainerSection({
             >
                 {title}
             </h1>
-            <div className="2xs:pt-[1rem] lg:pt-[2rem]">{description}</div>
+            {description && (
+                <div className="2xs:pt-[1rem] lg:pt-[2rem]">{description}</div>
+            )}
             {children}
         </div>
     );

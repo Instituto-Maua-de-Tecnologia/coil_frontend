@@ -26,7 +26,7 @@ export default function UserInfo() {
     ];
 
     return (
-        <div className="w-full max-h-[85%] lg:ml-4 px-7 py-4 bg-sb-bg rounded-3xl ">
+        <div className="w-full px-7 py-4 bg-sb-bg rounded-3xl ">
             <div className="w-full h-full my-auto">
                 {userData.map((User) => (
                     <UserCard key={User.id} userCard={User} />

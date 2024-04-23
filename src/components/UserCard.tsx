@@ -23,41 +23,27 @@ export default function UserCard({ userCard }: UserCardProps) {
     } = userCard;
 
     return (
-        <div className="flex items- rounded-3xl  mb-4 ">
-            <div className="flex wrap items-center w-full min-h-20 ">
-                <div className="sm:flex xsm:flex-wrap w-full h-full lg:mt-20">
-                    <div className="w-full">
-                        <img
-                            src={avatarUrl}
-                            alt="Avatar"
-                            className="avatar-img sm:-mx-auto mx-auto w-[70%] h-full rounded-full "
-                        />
-                    </div>
-                    <div className="flex-col w-full h-full items-center mt-10 ">
-                        <p className=" bg-slate-100 rounded-3xl p-4 mb-5">
-                            {name}
-                        </p>
-                        <div className="flex items-center mb-5">
-                            <p className="w-1/2 bg-slate-100 rounded-3xl p-4 me-5">
-                                {`${studentID.toString().substring(0, 2)}.${studentID.toString().substring(2, 7)}-${studentID.toString().substring(7, 9)}`}
-                            </p>
-                            <p className="w-1/2 bg-slate-100 rounded-3xl p-4">
-                                {institution}
-                            </p>
-                        </div>
-                        <div className="flex mb-5">
-                            <select className="w-1/2 cursor-pointer bg-slate-100 rounded-3xl p-4 me-5">
-                                <option value={course}>{course}</option>
-                            </select>
-                            <select className="w-1/2 cursor-pointer bg-slate-100 rounded-3xl p-4 ">
-                                <option value={semester}>{semester}</option>
-                            </select>
-                        </div>
-                        <p className="w-full bg-slate-100 rounded-3xl p-4 mb-5">
-                            {contact}
-                        </p>
-                    </div>
+        <div className="flex items-center justify-center rounded-3xl mb-4 p-4">
+            <img
+                src={avatarUrl}
+                alt="Avatar"
+                className="avatar-img w-24 h-24 rounded-full mr-4"
+            />
+            <div className="flex flex-col flex-grow">
+                <p className="text-lg font-bold mb-2">{name}</p>
+                <div className="flex mb-2">
+                    <p className="w-1/2 mr-2">{`${studentID.toString().substring(0, 2)}.${studentID.toString().substring(2, 7)}-${studentID.toString().substring(7, 9)}`}</p>
+                    <p className="w-1/2">{institution}</p>
                 </div>
+                <div className="flex mb-2">
+                    <select className="w-1/2 mr-2 bg-gray-200 rounded-3xl p-2 cursor-pointer">
+                        <option value={course}>{course}</option>
+                    </select>
+                    <select className="w-1/2 bg-gray-200 rounded-3xl p-2 cursor-pointer">
+                        <option value={semester}>{semester}</option>
+                    </select>
+                </div>
+                <p className="bg-gray-200 rounded-3xl p-2">{contact}</p>
             </div>
         </div>
     );

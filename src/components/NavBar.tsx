@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
-import authUser from "@integrations/auth_user.ts";
-import getUser from "@integrations/get_user.ts";
+import authUser from "@integrations/user/authentification/auth_user.ts";
+import getUser from "@integrations/user/authentification/get_user.ts";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
@@ -42,14 +42,14 @@ const Navbar = () => {
                     await delay(1500);
                     if (user.user_type === UserTypeEnum.STUDENT) {
                         navigate("/Home");
-                    } else navigate("/Institutions");
+                    } else navigate("/Institution");
                 });
         }
     }, [localStorage.getItem("token")]);
 
     async function handleLogin() {
         let response = await instance.loginPopup({
-            scopes: ["User.Read"]
+            scopes: ["user.Read"]
         });
         if (response) {
             await toast
@@ -65,12 +65,13 @@ const Navbar = () => {
                     await delay(1500);
                     if (user.user_type === UserTypeEnum.STUDENT)
                         navigate("/Home");
-                    else navigate("/Institutions");
+                    else navigate("/Institution");
                 });
         }
     }
 
     async function handleGetUser(accessToken: string) {
+        console.log(accessToken);
         await authUser({
             token: accessToken
         })
@@ -113,7 +114,7 @@ const Navbar = () => {
                 </div>
 
                 <button
-                    onClick={() => handleLogin}
+                    onClick={handleLogin} // eslint-disable-line
                     className="bg-purple-900 text-xs md:text-sm lg:text-md text-white py-2 px-6 rounded-full"
                 >
                     Login

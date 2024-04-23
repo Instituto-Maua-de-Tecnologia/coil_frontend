@@ -22,8 +22,8 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const links = [
         { to: "/Home", label: "Home", icon: homeIcon },
         {
-            to: "/Institutions",
-            label: "Institutions",
+            to: "/Institution",
+            label: "Institution",
             icon: institutionIcon,
             devider: devider
         },

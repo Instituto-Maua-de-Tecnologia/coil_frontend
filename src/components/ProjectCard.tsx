@@ -1,21 +1,23 @@
 import SVGIcon from "./SVGIcon";
-
-interface Project {
-    id: number;
-    avatarUrl: string;
-    title: string;
-    partnerName: string;
-    status: string;
-    languages: string[];
-    country: string;
-}
+import { countryCodes, Project } from "../types";
 
 interface ProjectCardProps {
     project: Project;
+    onClick: (project: Project) => void;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, onClick }: ProjectCardProps) {
     const { avatarUrl, title, status, languages, country } = project;
+    function getCountryFullName(code: string): string {
+        const countryCode = code.toLowerCase();
+        return countryCodes[countryCode] || "Country not found";
+    }
+    const countryName = getCountryFullName(project.country);
+
+    const handleOnClick = () => {
+        onClick(project);
+    };
+
     return (
         <li className="sm:flex items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
             <div className="flex sm:relative items-center sm:justify-between w-full">
@@ -31,8 +33,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         <div className="mb-2 font-bold">{title}</div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-row items-center">
-                                <p className="text-xs mr-2">Languages</p>
-
+                                <p className="text-xs mr-2">Languages:</p>
                                 {languages.map((language, index) => (
                                     <SVGIcon
                                         key={"ProjectCard SVGIcon " + index}
@@ -44,7 +45,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         </div>
                         <div className="flex mb-2">
                             <div className="flex flex-row w-full sm:justify-start justify-center">
-                                <p className="text-xs mr-2">Country</p>
+                                <p className="text-xs mr-2">{countryName}</p>
                                 <SVGIcon
                                     src={`https://hatscripts.github.io/circle-flags/flags/${country}.svg`}
                                     className="w-4 m-[1px]"
@@ -59,7 +60,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                         >
                             {status}
                         </div>
-                        <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full">
+                        <button
+                            onClick={handleOnClick}
+                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                        >
                             Enroll
                         </button>
                     </div>

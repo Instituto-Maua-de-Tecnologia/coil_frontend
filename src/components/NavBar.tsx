@@ -114,7 +114,7 @@ const Navbar = () => {
                 </div>
 
                 <button
-                    onClick={() => handleLogin}
+                    onClick={handleLogin} // eslint-disable-line
                     className="bg-purple-900 text-xs md:text-sm lg:text-md text-white py-2 px-6 rounded-full"
                 >
                     Login

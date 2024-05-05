@@ -34,12 +34,13 @@ const customStyles: StylesConfig = {
         borderRadius: "30px",
         boxShadow: "0 0 2px #1D232C50"
     }),
-    option: (provided) => ({
+    option: (provided, state) => ({
         ...provided,
         margin: "0px 0px 8px 0px",
+        maxWidth: "240px",
         color: "#FFFFFF",
         borderRadius: "30px",
-        backgroundColor: "#673366",
+        backgroundColor: state.isFocused ? "#673366" : "#512650",
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis"
@@ -124,6 +125,7 @@ const CreateProjectForm: React.FC = () => {
                 <div className="form-row-1 flex flex-col mx-2 max-w-[50%] min-w-[420px]">
                     <label htmlFor="projectName">Project Name</label>
                     <input
+                        className="placeholder:text-[#CBD0DD]"
                         type="text"
                         placeholder="Type the name..."
                         style={inputStyle}
@@ -202,6 +204,7 @@ const CreateProjectForm: React.FC = () => {
                                 Aplication Start Date
                             </label>
                             <input
+                                className="placeholder:text-[#CBD0DD]"
                                 type="text"
                                 placeholder="XX/XX/XXXX"
                                 style={inputStyle}
@@ -213,6 +216,7 @@ const CreateProjectForm: React.FC = () => {
                                 Aplication End Date
                             </label>
                             <input
+                                className="placeholder:text-[#CBD0DD]"
                                 type="text"
                                 placeholder="XX/XX/XXXX"
                                 style={inputStyle}
@@ -226,7 +230,7 @@ const CreateProjectForm: React.FC = () => {
                             Project Description
                         </label>
                         <textarea
-                            className="mt-2"
+                            className="mt-2 placeholder:text-[#CBD0DD]"
                             placeholder="Type the description..."
                             rows={19}
                             style={textAreaStyle}
@@ -248,7 +252,7 @@ const CreateProjectForm: React.FC = () => {
                                         }}
                                     />
                                     <input
-                                        className="w-full ms-2"
+                                        className="w-full ms-2 placeholder:text-[#CBD0DD]"
                                         type="text"
                                         placeholder="Type your criteria..."
                                         style={inputStyle}
@@ -273,9 +277,12 @@ const CreateProjectForm: React.FC = () => {
                         </ul>
                     </div>
                 </div>
-                <button className="confirm text-white px-4 p-2 bg-[#2684ff] rounded-3xl">
-                    Confirm
-                </button>
+                <div className="button-row flex">
+                    <div className="w-full"></div>
+                    <button className="confirm text-white px-4 p-2 bg-[#2684ff] rounded-3xl">
+                        Confirm
+                    </button>
+                </div>
             </div>
         </div>
     );

@@ -17,6 +17,7 @@ export default async function authUser(props: AuthUserProps) {
         axios
             .get(`${endpoint}/auth-user`, {
                 headers: {
+                    "Content-Type": "application/json",
                     Authorization: props.token
                 }
             })

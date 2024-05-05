@@ -3,6 +3,8 @@ import InstitutionCard from "./InstitutionCard";
 import Search from "./Search";
 import Filter from "./Filter.tsx";
 import { Institution } from "../types.ts";
+import { useThemeDetector } from "@util/ThemeDetector.ts";
+import "../style/scrollbar.css";
 
 interface InstitutionListProps {
     institutions: Institution[];
@@ -20,16 +22,19 @@ export default function InstitutionList({
         );
         setFilteredInstitutions(filtered);
     };
+    const isDarkTheme = useThemeDetector();
 
     return (
-        <div className="w-full lg:ml-4 px-7 py-4 bg-sb-bg rounded-3xl">
+        <div
+            className={`w-full lg:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+        >
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
                 <Filter />
             </div>
             {filteredInstitutions.length > 0 ? (
                 <div>
-                    <ul className="w-full max-h-screen pb-48 pe-5 overflow-y-auto">
+                    <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
                         {filteredInstitutions.map((institution) => (
                             <InstitutionCard
                                 key={institution.id}

@@ -29,6 +29,18 @@ interface NavigationItem {
     }) => ReactElement;
 }
 
+/* eslint-disable */
+const user = () => {
+    try {
+        return JSON.parse(localStorage.getItem("user") || "");
+    } catch {
+        return "";
+    }
+};
+
+const { name } = user();
+/* eslint-enable */
+
 export const navigation: NavigationItem[] = [
     {
         id: "0",
@@ -74,7 +86,7 @@ export const navigation: NavigationItem[] = [
     },
     {
         id: "7",
-        title: "User",
+        title: `${name}`,
         icon: userIcon,
         url: "/User",
         gap: true,

@@ -1,11 +1,20 @@
 import { createPortal } from "react-dom";
 import AppRoutes from "./Routes";
 import { useThemeDetector } from "./util/ThemeDetector";
+import { MsalProvider } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
 
 export default function App() {
+    const msalInstance = new PublicClientApplication({
+        auth: {
+            clientId: import.meta.env.VITE_CLIENT_ID as string,
+            authority: import.meta.env.VITE_AUTHORITY as string,
+            redirectUri: "/"
+        }
+    });
     const isDarkTheme = useThemeDetector();
     return (
-        <>
+        <MsalProvider instance={msalInstance}>
             {createPortal(
                 <link
                     rel="icon"
@@ -21,6 +30,6 @@ export default function App() {
                     | DocumentFragment
             )}
             <AppRoutes />
-        </>
+        </MsalProvider>
     );
 }

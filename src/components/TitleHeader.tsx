@@ -11,6 +11,7 @@ import {
     signOutIcon,
     userIcon
 } from "@assets/icons";
+import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface TitleHeaderProps {
     title: string;
@@ -19,6 +20,7 @@ interface TitleHeaderProps {
 
 export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const isDarkTheme = useThemeDetector();
     const links = [
         { to: "/Home", label: "Home", icon: homeIcon },
         {
@@ -45,7 +47,9 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                 <div
                     className={`relative mx-auto min-h-[64px] lg:rounded-[24px] bg-[#2684ff] ${isNavOpen ? "rounded-tr-3xl rounded-tl-3xl" : "rounded-[24px]"}`}
                 >
-                    <div className="absolute flex flex-row items-center top-[16px] left-[20px] [font-family:'Montserrat-SemiBold',Helvetica] font-semibold text-[#f9fafc] 2xs:text-[28px] lg:text-[30px] tracking-[-1.08px] leading-[normal] ml-[1rem]">
+                    <div
+                        className={`absolute flex flex-row ${isDarkTheme ? "text-[#223A4F]" : "text-[#f9fafc]"} items-center top-[16px] left-[20px] [font-family:'Montserrat-SemiBold',Helvetica] font-semibold 2xs:text-[28px] lg:text-[30px] tracking-[-1.08px] leading-[normal] ml-[1rem]`}
+                    >
                         <div className="lg:hidden pr-[1rem]">
                             <button onClick={handleNavOpen}>
                                 {isNavOpen ? (
@@ -55,7 +59,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 24 24"
-                                            stroke="currentColor"
+                                            stroke={`${isDarkTheme ? "#223A4F" : "#f9fafc"}`}
                                         >
                                             <path
                                                 strokeLinecap="round"
@@ -94,18 +98,19 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                             {links.map((link, index) => (
                                 <li
                                     key={"MobileNavLink" + index}
-                                    className={"w-full flex items-center"}
+                                    className={
+                                        "w-full mx-1 bg-whte flex items-center"
+                                    }
                                 >
                                     <Link
                                         to={link.to}
-                                        className="text-white flex items-center w-full"
+                                        className={`text-white ps-5 bg-[#1B60BC] rounded-full flex items-center w-full`}
                                         type="button"
                                     >
                                         {React.createElement(
                                             link.icon,
                                             {
-                                                className:
-                                                    "!fill-current !text-sb-tb !transition-colors"
+                                                className: `!fill-current !text-sb-tb me-2 my-2 !transition-colors`
                                             },
                                             link.devider && (
                                                 <div className="mx-[1rem] border-b-2 border-gray-200"></div>

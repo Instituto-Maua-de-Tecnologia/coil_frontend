@@ -9,6 +9,8 @@ import Signout from "@screens/Signout.tsx";
 import HeroPage from "@screens/HeroPage.tsx";
 import Error404 from "@screens/404.tsx";
 import CreateProject from "@screens/CreateProject.tsx";
+import Activity from "@screens/Activity.tsx";
+import SignUp from "@screens/SignUp.tsx";
 
 export default function AppRoutes() {
     return (
@@ -16,13 +18,15 @@ export default function AppRoutes() {
             <Routes>
                 <Route path={"*"} element={<Error404 />} />
                 <Route path={"/"} element={<HeroPage />} />
+                <Route path={"/Signup"} element={<SignUp />} />
                 <Route path={"/Home"} element={<Home />} />
                 <Route path={"/Institution"} element={<Institutions />} />
                 <Route path={"/Projects"} element={<Projects />} />
                 <Route path={"/CreateProject"} element={<CreateProject />} />
+                <Route path={"/Activity"} element={<Activity />} />
                 <Route path={"/Enrolled"} element={<Enrolled />} />
                 <Route path={"/Results"} element={<Results />} />
-                <Route path={"/user"} element={<User />} />
+                <Route path={"/User"} element={<User />} />
                 <Route path={"/Signout"} element={<Signout />} />
             </Routes>
         </BrowserRouter>

@@ -1,6 +1,7 @@
 import React from "react";
 import SVGIcon from "./SVGIcon";
 import { countryCodes, Project } from "../types";
+import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface ModalProps {
     project: Project; // eslint-disable-line
@@ -14,6 +15,8 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
         return countryCodes[countryCode] || "Country not found";
     }
     const countryName = getCountryFullName(project.country);
+    const isDarkTheme = useThemeDetector();
+
     return (
         <>
             {isOpen && (
@@ -32,7 +35,9 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                             &#8203;
                         </span>
                         <div className="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-[560px] sm:w-full">
-                            <div className="bg-[#2684FF] px-4 pt-5 pb-4 sm:p-6 sm:pb-6">
+                            <div
+                                className={`${isDarkTheme ? "bg-[#0F1820]" : "bg-[#2684FF]"} px-4 pt-5 pb-4 sm:p-6 sm:pb-6`}
+                            >
                                 <div className="sm:flex sm:items-center">
                                     <div className="avatar-wrapper text-center flex-col w-24">
                                         <img
@@ -97,7 +102,9 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-white gap-1 px-4 w-full items-center py-3 sm:px-6 flex flex-row-reverse ms-2">
+                            <div
+                                className={`${isDarkTheme ? "bg-[#223A4F]" : "bg-white"} gap-1 px-4 w-full items-center py-3 sm:px-6 flex flex-row-reverse`}
+                            >
                                 <button
                                     onClick={onClose}
                                     type="button"

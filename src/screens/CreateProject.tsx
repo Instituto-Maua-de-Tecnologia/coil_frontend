@@ -1,16 +1,15 @@
 import TitleHeader from "@components/TitleHeader.tsx";
 import SideBar from "@components/SideBar.tsx";
-import ProjectList from "@components/ProjectList";
-import { ProjectProps } from "@constants/ProjectListProperties.ts";
+import CreateProjectForm from "@components/CreateProjectForm.tsx";
 
 export default function Projects() {
     return (
         <>
             <div className="max-h-screen flex flex-col">
-                <TitleHeader title={"Projects"} />
+                <TitleHeader title={"Your Project"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <ProjectList isFilter projects={ProjectProps} />
+                    <CreateProjectForm />
                 </div>
             </div>
             {/* <TitleHeader title={"Projects Information"} />

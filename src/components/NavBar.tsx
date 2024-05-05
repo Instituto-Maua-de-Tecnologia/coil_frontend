@@ -68,9 +68,9 @@ const Navbar = () => {
 
     function handleNavigate(user: any) {
         if (user.user_type === UserTypeEnum.STUDENT) {
-            if (!user.course || !user.semester_course) navigate("");
-        }
-        navigate("/Home");
+            if (user.course === null || user.semester_course === null)
+                navigate("/Signup");
+        } else navigate("/Home");
     }
 
     async function handleGetUser(accessToken: string) {

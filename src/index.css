@@ -15,16 +15,16 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        background-color: #0F1820;
+        background-color: #0f1820;
         color: white;
     }
 
     ::-webkit-scrollbar-track {
-        background: #0F1820;
+        background: #0f1820;
     }
 
     ::-webkit-scrollbar-thumb {
-        background-color: #223A4F;
+        background-color: #223a4f;
     }
 
     ::-webkit-scrollbar-thumb:hover {
@@ -35,7 +35,7 @@
 @media (prefers-color-scheme: light) {
     :root {
         background-color: #e5e9ec;
-        color: #1D232C;
+        color: #1d232c;
     }
 
     ::-webkit-scrollbar-track {

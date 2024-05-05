@@ -24,6 +24,7 @@ export default async function getUser(props: GetUserProps) {
         axios
             .get(`${endpoint}/get-user`, {
                 headers: {
+                    "Content-Type": "application/json",
                     Authorization: props.token
                 }
             })

@@ -4,6 +4,8 @@ import Search from "./Search";
 import Filter from "@components/Filter.tsx";
 import { Project } from "../types";
 import Modal from "./Modal";
+import { useThemeDetector } from "@util/ThemeDetector.ts";
+import "../style/scrollbar.css";
 
 interface ProjectListProps {
     projects: Project[];
@@ -36,16 +38,19 @@ export default function ProjectList({ projects, isFilter }: ProjectListProps) {
         );
         setFilteredProjects(filtered);
     };
+    const isDarkTheme = useThemeDetector();
 
     return (
-        <div className="w-full ml-4 px-7 py-4 bg-sb-bg rounded-3xl">
+        <div
+            className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+        >
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
                 {isFilter && <Filter />}
             </div>
             {filteredProjects.length > 0 ? (
                 <div>
-                    <ul className="w-full max-h-screen pb-48 pe-5 overflow-y-auto">
+                    <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
                         {filteredProjects.map((project) => (
                             <ProjectCard
                                 key={project.id}

@@ -1,36 +1,17 @@
 import UserCard from "./UserCard";
-
-type User = {
-    id: number;
-    avatarUrl: string;
-    name: string;
-    course: string;
-    studentID: number;
-    institution: string;
-    semester: number;
-    contact: string;
-};
-
+import { useThemeDetector } from "@util/ThemeDetector.ts";
 export default function UserInfo() {
-    const userData: User[] = [
-        {
-            id: 1,
-            avatarUrl: "/maua-fontys-dark.svg",
-            name: "Íris Melero",
-            course: "Computer Science",
-            studentID: 23011092,
-            institution: "Institute Maua of Technology",
-            semester: 2,
-            contact: "iris.melero@outlook.com"
-        }
-    ];
-
+    /* eslint-disable */
+    const user = JSON.parse(localStorage.getItem("user") || "");
+    console.log(user);
+    /* eslint-enable */
+    const isDarkTheme = useThemeDetector();
     return (
-        <div className="w-full max-h-[85%] lg:ml-4 px-7 py-4 bg-sb-bg rounded-3xl ">
+        <div
+            className={`w-full max-h-[85%] lg:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-sb-bg"} rounded-3xl`}
+        >
             <div className="w-full h-full my-auto">
-                {userData.map((User) => (
-                    <UserCard key={User.id} userCard={User} />
-                ))}
+                <UserCard userCard={user} /> {/* eslint-disable-line */}
             </div>
         </div>
     );

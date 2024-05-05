@@ -1,4 +1,5 @@
 import Select from "react-select";
+import TrashButton from "./TrashButton";
 
 // interface CreateProjectProps {
 //     projects: Project[];
@@ -69,6 +70,28 @@ export default function CreateProject() {
                             Aplication End Date
                         </label>
                         <input type="text" />
+                    </div>
+                </div>
+                <div className="form-row-4 flex">
+                    <div className="project-description flex flex-col">
+                        <label htmlFor="projectDescription">
+                            Project Description
+                        </label>
+                        <input type="text" />
+                    </div>
+                    <div className="project-criteria">
+                        <label htmlFor="projectCriteria">
+                            Project Criteria
+                        </label>
+                        <ul>
+                            <li className="criteria-item flex">
+                                <TrashButton />
+                                <input type="text" />
+                            </li>
+                            <button className="add-criteria">
+                                + Add Criteria
+                            </button>
+                        </ul>
                     </div>
                 </div>
             </div>

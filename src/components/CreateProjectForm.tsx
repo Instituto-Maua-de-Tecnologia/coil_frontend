@@ -1,16 +1,96 @@
-import Select from "react-select";
+import Select, { StylesConfig } from "react-select";
 import TrashButton from "./TrashButton";
+import DropdownIndicator from "./DropdownIndicator";
 
-// interface CreateProjectProps {
-//     projects: Project[];
-//     isFilter: boolean;
-// }
+const inputStyle = {
+    backgroundColor: "#F0F3FB",
+    border: "none",
+    borderRadius: "30px",
+    padding: "9px 12px",
+    outline: "none"
+};
 
-const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" }
+const textAreaStyle = {
+    backgroundColor: "#F0F3FB",
+    border: "none",
+    borderRadius: "18px",
+    padding: "8px 12px",
+    outline: "none",
+    resize: "none"
+};
+
+const customStyles: StylesConfig = {
+    control: (provided) => ({
+        ...provided,
+        backgroundColor: "#F0F3FB",
+        border: "none",
+        boxShadow: "none",
+        borderRadius: "30px"
+    }),
+    menu: () => ({
+        backgroundColor: "#F0F3FB",
+        padding: "8px",
+        borderRadius: "30px",
+        boxShadow: "0 0 2px #1D232C50"
+    }),
+    option: (provided) => ({
+        ...provided,
+        margin: "0px 0px 8px 0px",
+        color: "#FFFFFF",
+        borderRadius: "30px",
+        backgroundColor: "#673366",
+        maxWidth: "240px",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+    }),
+    multiValue: (provided) => ({
+        ...provided,
+        color: "#FFFFFF",
+        padding: "1px 4px",
+        borderRadius: "30px",
+        backgroundColor: "#673366",
+        maxWidth: "240px",
+        fontSize: "20px",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+    }),
+    multiValueLabel: (provided) => ({
+        ...provided,
+        color: "#FFFFFF"
+    }),
+    multiValueRemove: (provided) => ({
+        ...provided,
+        color: "#FFFFFF", // Defina a cor desejada para o ícone de remoção
+        ":hover": {
+            backgroundColor: "transparent" // Remova o fundo ao passar o mouse
+        }
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        color: "#FFFFFF",
+        padding: "4px 12px",
+        borderRadius: "30px",
+        backgroundColor: "#673366"
+    }),
+    dropdownIndicator: (provided) => ({
+        ...provided,
+        color: "#1D232C"
+    }),
+    placeholder: (provided) => ({
+        ...provided,
+        color: "#CBD0DD"
+    })
+};
+
+const langOptions = [
+    { value: "portuguese", label: "Portuguese" },
+    { value: "english", label: "English" },
+    { value: "dutch", label: "Dutch" }
 ];
+
+const courseOptions = [{ value: "computerScience", label: "Computer Science" }];
 
 const partnerInstitutionOptions = [
     { value: "fontys", label: "Fontys University of Applied Sciences" },
@@ -28,67 +108,132 @@ const projectStatusOptions = [
 export default function CreateProject() {
     return (
         <div className="w-full ml-4 px-7 py-4 bg-sb-bg rounded-3xl">
-            <div className="form">
-                <div className="form-row-1 flex flex-col">
+            <div className="form [font-family:'Inter',Helvetica] font-semibold space-y-2">
+                <div className="form-row-1 flex flex-col mx-2 max-w-[50%] min-w-[420px]">
                     <label htmlFor="projectName">Project Name</label>
-                    <input type="text" />
+                    <input
+                        type="text"
+                        placeholder="Type the name..."
+                        style={inputStyle}
+                    />
                 </div>
-                <div className="form-row-2 flex">
-                    <div className="langMultiSelect">
+                <div className="form-row-2 flex min-w-[320px]">
+                    <div className="langMultiSelect flex flex-col mx-2 w-full">
                         <label htmlFor="languages">Languages</label>
-                        <Select isMulti options={options} />
+                        <Select
+                            isMulti
+                            options={langOptions}
+                            menuPosition="fixed"
+                            components={{
+                                IndicatorSeparator: () => null,
+                                DropdownIndicator: () => <DropdownIndicator />
+                            }}
+                            styles={customStyles}
+                        />
                     </div>
-                    <div className="courseMultiSelect">
+                    <div className="courseMultiSelect flex flex-col w-full mx-2">
                         <label htmlFor="selectableCourses">
                             Selectable Courses
                         </label>
-                        <Select isMulti options={options} />
+                        <Select
+                            isMulti
+                            menuPosition="fixed"
+                            isClearable={true}
+                            isSearchable={true}
+                            styles={customStyles}
+                            components={{
+                                IndicatorSeparator: () => null,
+                                DropdownIndicator: () => <DropdownIndicator />
+                            }}
+                            options={courseOptions}
+                        />
                     </div>
                 </div>
-                <div className="form-row-3 flex">
-                    <div className="partner-institution-select">
-                        <label htmlFor="partnerInstitution">
-                            Partner Institution
-                        </label>
-                        <Select options={partnerInstitutionOptions}></Select>
+                <div className="form-row-3 flex min-w-[320px]">
+                    <div className="form-row-3-1 flex w-full min-w-[50%]">
+                        <div className="partner-institution-select w-full mx-2">
+                            <label htmlFor="partnerInstitution">
+                                Partner Institution
+                            </label>
+                            <Select
+                                options={partnerInstitutionOptions}
+                                menuPosition="fixed"
+                                components={{
+                                    IndicatorSeparator: () => null,
+                                    DropdownIndicator: () => (
+                                        <DropdownIndicator />
+                                    )
+                                }}
+                                styles={customStyles}
+                            />
+                        </div>
+                        <div className="project-status-select  w-full mx-2">
+                            <label htmlFor="partnerInstitution">
+                                Project Status
+                            </label>
+                            <Select
+                                options={projectStatusOptions}
+                                menuPosition="fixed"
+                                components={{
+                                    IndicatorSeparator: () => null,
+                                    DropdownIndicator: () => (
+                                        <DropdownIndicator />
+                                    )
+                                }}
+                                styles={customStyles}
+                            />
+                        </div>
                     </div>
-                    <div className="project-status-select">
-                        <label htmlFor="partnerInstitution">
-                            Project Status
-                        </label>
-                        <Select options={projectStatusOptions}></Select>
-                    </div>
-                    <div className="application-start-date flex flex-col">
-                        <label htmlFor="applicationStartDate">
-                            Aplication Start Date
-                        </label>
-                        <input type="text" />
-                    </div>
-                    <span className="arrow">{">"}</span>
-                    <div className="application-end-date flex flex-col">
-                        <label htmlFor="applicationEndDate">
-                            Aplication End Date
-                        </label>
-                        <input type="text" />
+                    <div className="form-row-3-2 flex min-w-[50%] w-full">
+                        <div className="application-start-date flex flex-col w-full mx-2">
+                            <label htmlFor="applicationStartDate">
+                                Aplication Start Date
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="XX/XX/XXXX"
+                                style={inputStyle}
+                            />
+                        </div>
+                        <span className="arrow pt-7">{">"}</span>
+                        <div className="application-end-date flex flex-col w-full mx-2">
+                            <label htmlFor="applicationEndDate">
+                                Aplication End Date
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="XX/XX/XXXX"
+                                style={inputStyle}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="form-row-4 flex">
-                    <div className="project-description flex flex-col">
+                    <div className="project-description flex flex-col w-full mx-2">
                         <label htmlFor="projectDescription">
                             Project Description
                         </label>
-                        <input type="text" />
+                        <textarea
+                            placeholder="Type the description..."
+                            rows={10}
+                            style={textAreaStyle}
+                        />
                     </div>
-                    <div className="project-criteria">
+                    <div className="project-criteria mx-2 w-full">
                         <label htmlFor="projectCriteria">
                             Project Criteria
                         </label>
                         <ul>
-                            <li className="criteria-item flex">
+                            <li className="criteria-item flex items-center">
                                 <TrashButton />
-                                <input type="text" />
+                                <input
+                                    className="w-full ms-2"
+                                    type="text"
+                                    placeholder="Type your criteria..."
+                                    style={inputStyle}
+                                />
                             </li>
-                            <button className="add-criteria">
+                            <button className="add-criteria text-[#2684FF] text-semibold">
                                 + Add Criteria
                             </button>
                         </ul>

@@ -1,6 +1,10 @@
-const TrashButton = () => {
+type TrashProps = {
+    onRemoveCriteria: () => void;
+};
+
+const TrashButton: React.FC<TrashProps> = ({ onRemoveCriteria }) => {
     return (
-        <div className="trash-button mx-2">
+        <button onClick={onRemoveCriteria} className="trash-button mx-2">
             <svg
                 width="20"
                 viewBox="0 0 25 25"
@@ -12,7 +16,7 @@ const TrashButton = () => {
                     fill="#673366"
                 />
             </svg>
-        </div>
+        </button>
     );
 };
 

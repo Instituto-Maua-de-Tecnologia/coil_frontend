@@ -1,6 +1,7 @@
 import Select, { StylesConfig } from "react-select";
 import TrashButton from "./TrashButton";
 import DropdownIndicator from "./DropdownIndicator";
+import React, { useState } from "react";
 
 const inputStyle = {
     backgroundColor: "#F0F3FB",
@@ -39,7 +40,6 @@ const customStyles: StylesConfig = {
         color: "#FFFFFF",
         borderRadius: "30px",
         backgroundColor: "#673366",
-        maxWidth: "240px",
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis"
@@ -105,7 +105,19 @@ const projectStatusOptions = [
     { value: "cancelled", label: "Cancelled" }
 ];
 
-export default function CreateProject() {
+const CreateProjectForm: React.FC = () => {
+    const [criterias, setCriterias] = useState<string[]>([""]);
+
+    const handleAddCriteria = () => {
+        setCriterias([...criterias, ""]);
+    };
+
+    const handleRemoveCriteria = (index: number) => {
+        const newCriterias = [...criterias];
+        newCriterias.splice(index, 1);
+        setCriterias(newCriterias);
+    };
+
     return (
         <div className="w-full ml-4 px-7 py-4 bg-sb-bg rounded-3xl">
             <div className="form [font-family:'Inter',Helvetica] font-semibold space-y-2">
@@ -214,8 +226,9 @@ export default function CreateProject() {
                             Project Description
                         </label>
                         <textarea
+                            className="mt-2"
                             placeholder="Type the description..."
-                            rows={10}
+                            rows={19}
                             style={textAreaStyle}
                         />
                     </div>
@@ -224,7 +237,25 @@ export default function CreateProject() {
                             Project Criteria
                         </label>
                         <ul>
-                            <li className="criteria-item flex items-center">
+                            {criterias.map((c, index) => (
+                                <li
+                                    key={index}
+                                    className="criteria-item flex items-center mt-2 mb-4"
+                                >
+                                    <TrashButton
+                                        onRemoveCriteria={() => {
+                                            handleRemoveCriteria(index);
+                                        }}
+                                    />
+                                    <input
+                                        className="w-full ms-2"
+                                        type="text"
+                                        placeholder="Type your criteria..."
+                                        style={inputStyle}
+                                    />
+                                </li>
+                            ))}
+                            {/* <li className="criteria-item flex items-center mt-2">
                                 <TrashButton />
                                 <input
                                     className="w-full ms-2"
@@ -232,14 +263,22 @@ export default function CreateProject() {
                                     placeholder="Type your criteria..."
                                     style={inputStyle}
                                 />
-                            </li>
-                            <button className="add-criteria text-[#2684FF] text-semibold">
+                            </li> */}
+                            <button
+                                onClick={handleAddCriteria}
+                                className="add-criteria text-[#2684FF] mt-2 text-semibold"
+                            >
                                 + Add Criteria
                             </button>
                         </ul>
                     </div>
                 </div>
+                <button className="confirm text-white px-4 p-2 bg-[#2684ff] rounded-3xl">
+                    Confirm
+                </button>
             </div>
         </div>
     );
-}
+};
+
+export default CreateProjectForm;

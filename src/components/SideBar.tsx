@@ -31,14 +31,14 @@ export default function SideBar() {
     return (
         <div className={`flex`}>
             <div
-                className={`lg:block relative hidden w-[13rem] bg-sb-bg rounded-3xl`}
+                className={`lg:block relative hidden w-[13rem] ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
             >
                 <div
                     className={`flex  flex-col ${shouldRemovePaddingAndMargin ? "pt-0" : "pt-[2vh]"} items-center justify-center`}
                 >
                     <img
                         src={
-                            !isDarkTheme
+                            isDarkTheme
                                 ? "maua-fontys-light.svg"
                                 : "maua-fontys-dark.svg"
                         }
@@ -52,13 +52,15 @@ export default function SideBar() {
                         {navigation.map((item, index) => (
                             <a key={"SideBar " + index} href={item.url}>
                                 <li
-                                    className={`${shouldRemovePaddingAndMargin ? "mb-2" : "mb-[1.25vh]"}                              
+                                    className={`!truncate !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
+                                    ${shouldRemovePaddingAndMargin ? "mb-2" : "mb-[1.25vh]"}                              
                                     ${item.gap && `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[5vh]"}`} 
                                     ${item.purple && `!bg-sb-p ${screenHeight >= 700 ? "absolute bottom-0 w-12" : ""} ${shouldRemovePaddingAndMargin ? "mb-0" : "mb-[2vh]"} w-[75%] !text-white hover:opacity-80`}
-                                    ${item.blue && `!bg-sb-t ${screenHeight >= 700 ? "absolute bottom-16" : ""} !text-white hover:opacity-80 w-[75%]`}
+                                    ${item.blue && `${isDarkTheme ? "!bg-[#223A4F] !text-black" : "!bg-sb-t !text-white"} ${screenHeight >= 700 ? "absolute bottom-16" : ""} hover:opacity-80 w-[75%]`}
                                     ${item.smgap ? `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[4vh]"}` : `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[1vh]"}`}
-                                    ${item.br ? "-mt-[0.4rem]" : `flex items-center justify-left rounded-3xl p-[1vh] mx-[1.5rem] cursor-pointer bg-sb-tb text-sb-t text-md font-medium `}
-                                    ${item.url === pathname.pathname && !item.purple ? "!fill-current  !bg-sb-t !text-sb-bg !transition-colors" : ""}
+                                    ${item.br ? "-mt-[0.4rem]" : `flex items-center justify-left rounded-3xl p-[1vh] mx-[1.5rem] cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-sb-tb"}  text-sb-t text-md font-medium `}
+                                    ${item.url === pathname.pathname && !item.purple ? `!fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
+                                    ${item.id === "7" ? "!bg-[#2684FF] !text-wrap !break-words" /*dark Mode Config*/ : "" /*light Mode Config*/}
                                     `}
                                 >
                                     <div className="flex justifty-left items-center">
@@ -67,8 +69,8 @@ export default function SideBar() {
                                                 className: `${
                                                     item.url ===
                                                     pathname.pathname
-                                                        ? "!fill-current !text-sb-tb !transition-colors"
-                                                        : "!fill-current !text-sb-t !transition-colors"
+                                                        ? `!fill-current ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-tb"} !transition-colors`
+                                                        : "!fill-current !transition-colors"
                                                 }`,
                                                 fill: ""
                                             })}
@@ -80,7 +82,7 @@ export default function SideBar() {
                                 </li>
                                 {item.br && (
                                     <div
-                                        className={`mx-[1rem] ${shouldRemovePaddingAndMargin ? "border-0" : "border-b-2"} border-gray-200`}
+                                        className={`mx-[1rem] ${isDarkTheme ? "border-[#0F1820]" : "border-gray-200"} ${shouldRemovePaddingAndMargin ? "border-0" : "border-b-2"}`}
                                     ></div>
                                 )}
                             </a>

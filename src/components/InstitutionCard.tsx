@@ -1,5 +1,6 @@
 import SVGIcon from "./SVGIcon";
 import { countryCodes, Institution } from "../types";
+import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface InstitutionCardProps {
     institution: Institution;
@@ -12,9 +13,12 @@ export default function InstitutionCard({ institution }: InstitutionCardProps) {
         return countryCodes[countryCode] || "Country not found";
     }
     const countryName = getCountryFullName(institution.country);
+    const isDarkTheme = useThemeDetector();
 
     return (
-        <li className="sm:flex cursor-pointer items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
+        <li
+            className={`sm:flex cursor-pointer items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+        >
             <div className="flex sm:relative items-center sm:justify-between mb-4 w-full sm:min-h-20">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="sm:avatar-wrapper sm:flex flex-col mr-4">

@@ -8,20 +8,11 @@ import CarouselComponent from "@components/Carousel";
 import "@style/hero.css";
 import Footer from "@components/Footer";
 import HeroCard from "@components/HeroCard";
-import { MsalProvider } from "@azure/msal-react";
-import { PublicClientApplication } from "@azure/msal-browser";
 import ToasterContainer from "@components/ToasterContainer.tsx";
 
 export default function HeroPage() {
-    const msalInstance = new PublicClientApplication({
-        auth: {
-            clientId: import.meta.env.VITE_CLIENT_ID as string,
-            authority: import.meta.env.VITE_AUTHORITY as string,
-            redirectUri: "/"
-        }
-    });
     return (
-        <MsalProvider instance={msalInstance}>
+        <>
             <ToasterContainer />
             <div className="bg-white">
                 <Hero />
@@ -41,6 +32,6 @@ export default function HeroPage() {
                 </div>
                 <Footer />
             </div>
-        </MsalProvider>
+        </>
     );
 }

@@ -40,9 +40,7 @@ const Navbar = () => {
                 )
                 .then(async (user: any) => {
                     await delay(1500);
-                    if (user.user_type === UserTypeEnum.STUDENT) {
-                        navigate("/Home");
-                    } else navigate("/Institution");
+                    handleNavigate(user);
                 });
         }
     }, [localStorage.getItem("token")]);
@@ -63,11 +61,16 @@ const Navbar = () => {
                         localStorage.getItem("user") as string
                     );
                     await delay(1500);
-                    if (user.user_type === UserTypeEnum.STUDENT)
-                        navigate("/Home");
-                    else navigate("/Institution");
+                    handleNavigate(user);
                 });
         }
+    }
+
+    function handleNavigate(user: any) {
+        if (user.user_type === UserTypeEnum.STUDENT) {
+            if (!user.course || !user.semester_course) navigate("");
+        }
+        navigate("/Home");
     }
 
     async function handleGetUser(accessToken: string) {

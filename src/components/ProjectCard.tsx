@@ -1,5 +1,6 @@
 import SVGIcon from "./SVGIcon";
 import { countryCodes, Project } from "../types";
+import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface ProjectCardProps {
     project: Project;
@@ -17,9 +18,12 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
     const handleOnClick = () => {
         onClick(project);
     };
+    const isDarkTheme = useThemeDetector();
 
     return (
-        <li className="sm:flex items-center bg-slate-100 rounded-3xl p-4 mb-4 w-full">
+        <li
+            className={`sm:flex items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+        >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="sm:avatar-wrapper sm:flex flex-col mr-4">

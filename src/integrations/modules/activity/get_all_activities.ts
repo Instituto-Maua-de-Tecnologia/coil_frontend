@@ -1,54 +1,54 @@
 import axios, { AxiosError } from "axios";
 
-interface GetActivityProps {
+interface GetAllActivityProps {
     type_activity: string;
 }
 
-interface GetActivityResponse {
-    message: "string";
+interface GetAllActivityResponse {
+    message: string;
     data: [
         {
-            id?: "string";
-            title?: "string";
-            start_date?: "string";
-            end_date?: "string";
-            created_at?: "string";
-            updated_at?: "string";
+            id?: string;
+            title?: string;
+            start_date?: string;
+            end_date?: string;
+            created_at?: string;
+            updated_at?: string;
             courses?: [
                 {
                     course_id?: number;
                     course?: {
-                        name: "string";
+                        name: string;
                     };
                 }
             ];
             languages?: [
                 {
-                    language?: "string";
+                    language?: string;
                 }
             ];
             partner_institutions?: [
                 {
-                    institution_id?: "string";
+                    institution_id?: string;
                     institution?: {
-                        name: "string";
-                        images: ["string"];
+                        name: string;
+                        images: [string];
                     };
                 }
             ];
             activity_status?: {
                 id: number;
-                name: "string";
+                name: string;
             };
             activity_type?: {
                 id: number;
-                name: "string";
+                name: string;
             };
         }
     ];
 }
 
-export default async function getAllActivities(props: GetActivityProps) {
+export default async function getAllActivities(props: GetAllActivityProps) {
     const token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT as string;
@@ -63,13 +63,13 @@ export default async function getAllActivities(props: GetActivityProps) {
                 }
             )
             .then((response) => {
-                const responseData: GetActivityResponse =
-                    response.data as GetActivityResponse;
+                const responseData: GetAllActivityResponse =
+                    response.data as GetAllActivityResponse;
                 resolve(responseData.data);
             })
             .catch((error: AxiosError) => {
-                const convertedError: AxiosError<GetActivityResponse> =
-                    error as AxiosError<GetActivityResponse>;
+                const convertedError: AxiosError<GetAllActivityResponse> =
+                    error as AxiosError<GetAllActivityResponse>;
                 const errorResponse = convertedError.response;
                 if (errorResponse) {
                     reject({

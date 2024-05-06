@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import Search from "./Search";
 import Filter from "@components/Filter.tsx";
@@ -6,12 +6,34 @@ import { Project } from "../types";
 import Modal from "./Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../style/scrollbar.css";
+import getAllActivities from "@integrations/activity/get_all_activities.ts";
+import Maua from "@assets/maua.png";
+import Fontys from "@assets/fontys.jpg";
 
 interface ProjectListProps {
-    projects: Project[];
     isFilter: boolean;
 }
-export default function ProjectList({ projects, isFilter }: ProjectListProps) {
+export default function ProjectList({ isFilter }: ProjectListProps) {
+    const projects = [
+        {
+            id: 1,
+            avatarUrl: Maua,
+            title: "Project Manager",
+            partnerName: "Mauá",
+            status: "Open",
+            languages: ["be", "nl", "br"],
+            country: "br"
+        },
+        {
+            id: 2,
+            avatarUrl: Fontys,
+            title: "Collaborative Online International...",
+            partnerName: "Fontys",
+            status: "Closed",
+            languages: ["be", "nl", "br"],
+            country: "nl"
+        }
+    ];
     const [selectedProject, setSelectedProject] = useState<Project | null>(
         null
     );
@@ -20,7 +42,6 @@ export default function ProjectList({ projects, isFilter }: ProjectListProps) {
     const handleModalOpen = (project: Project) => {
         setSelectedProject(project);
     };
-    console.log(localStorage.getItem("token") as string);
 
     const handleModalClose = () => {
         setSelectedProject(null);
@@ -41,6 +62,29 @@ export default function ProjectList({ projects, isFilter }: ProjectListProps) {
     };
     const isDarkTheme = useThemeDetector();
 
+    /* eslint-disable */
+
+    useEffect(() => {
+        let project = localStorage.getItem("project");
+        if (project) {
+            handleGetAllActivities()
+                .then()
+                .catch((error) => {
+                    throw new Error(
+                        "Não foi possível buscar projetos " + error
+                    );
+                });
+        }
+    }, [localStorage.getItem("project")]);
+
+    async function handleGetAllActivities() {
+        let project = await getAllActivities({ type_activity: "1" });
+        console.log(project);
+        localStorage.setItem("project", JSON.stringify(project));
+    }
+
+    handleGetAllActivities();
+    /* eslint-enable */
     return (
         <div
             className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}

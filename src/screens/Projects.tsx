@@ -1,7 +1,6 @@
 import TitleHeader from "@components/TitleHeader.tsx";
 import SideBar from "@components/SideBar.tsx";
 import ProjectList from "@components/ProjectList";
-import { ProjectProps } from "@constants/ProjectListProperties.ts";
 
 export default function Projects() {
     return (
@@ -10,7 +9,7 @@ export default function Projects() {
                 <TitleHeader title={"Projects"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <ProjectList isFilter projects={ProjectProps} />
+                    <ProjectList isFilter />
                 </div>
             </div>
             {/* <TitleHeader title={"Projects Information"} />

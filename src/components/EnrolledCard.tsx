@@ -4,10 +4,9 @@ import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface EnrolledCardProps {
     enrolled: Enrolled;
-    onClick: (enrolled: Enrolled) => void;
 }
 
-export default function EnrolledCard({ enrolled, onClick }: EnrolledCardProps) {
+export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
     const { avatarUrl, title, status, languages, country } = enrolled;
     function getCountryFullName(code: string): string {
         const countryCode = code.toLowerCase();
@@ -15,9 +14,6 @@ export default function EnrolledCard({ enrolled, onClick }: EnrolledCardProps) {
     }
     const countryName = getCountryFullName(enrolled.country);
 
-    const handleOnClick = () => {
-        onClick(enrolled);
-    };
     const isDarkTheme = useThemeDetector();
 
     return (
@@ -64,12 +60,9 @@ export default function EnrolledCard({ enrolled, onClick }: EnrolledCardProps) {
                         >
                             {status}
                         </div>
-                        <button
-                            onClick={handleOnClick}
-                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
-                        >
-                            Enroll
-                        </button>
+                        <div className="border-2 border-blue-500 text-blue-500 text-sm px-4 py-2 rounded-full">
+                            Enrolled
+                        </div>
                     </div>
                 </div>
             </div>

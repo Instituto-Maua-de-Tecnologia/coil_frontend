@@ -1,7 +1,7 @@
 import TitleHeader from "@components/TitleHeader.tsx";
 import SideBar from "@components/SideBar.tsx";
-import { ProjectProps } from "@constants/ProjectListProperties.ts";
 import MobilityList from "@components/MobilityList";
+import { MobilityProps } from "@constants/MobilityProperties";
 
 const userAdmin = true;
 
@@ -15,7 +15,7 @@ export default function Mobilities() {
                     <MobilityList
                         isFilter
                         isAdmin={userAdmin}
-                        mobilitys={ProjectProps}
+                        mobilitys={MobilityProps}
                     />
                 </div>
             </div>

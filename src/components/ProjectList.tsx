@@ -54,7 +54,7 @@ export default function ProjectList({
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
                 <div className="button-container flex absolute right-12">
-                    {isAdmin ? <Add /> : null}
+                    {isAdmin ? <Add url="/CreateProject" /> : null}
                     {isFilter && <Filter />}
                 </div>
             </div>

@@ -4,6 +4,9 @@ import { useLocation } from "react-router-dom";
 import { navigation } from "@constants/SideBarProperties.ts";
 import { useThemeDetector } from "../util/ThemeDetector";
 
+// TROCAR ESSE VALOR PELO TIPO DE USUARIO DO USUARIO E AJUSTAR O OPERADOR TERNARIO QUE GERA OS BOTÕES VERIFICANDO SE O USUÁRIO É ESTUDANTE
+const access = "student";
+
 export default function SideBar() {
     const isDarkTheme = useThemeDetector();
     const pathname = useLocation();
@@ -49,10 +52,11 @@ export default function SideBar() {
                     <ul
                         className={`${shouldRemovePaddingAndMargin ? "pt-0" : "pt-[2vh]"} w-full pointer-events-auto`}
                     >
-                        {navigation.map((item, index) => (
-                            <a key={"SideBar " + index} href={item.url}>
-                                <li
-                                    className={`!truncate !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
+                        {navigation.map((item, index) =>
+                            item.access == undefined ? (
+                                <a key={"SideBar " + index} href={item.url}>
+                                    <li
+                                        className={`!truncate !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
                                     ${shouldRemovePaddingAndMargin ? "mb-2" : "mb-[1.25vh]"}                              
                                     ${item.gap && `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[5vh]"}`} 
                                     ${item.purple && `!bg-sb-p ${screenHeight >= 700 ? "absolute bottom-0 w-12" : ""} ${shouldRemovePaddingAndMargin ? "mb-0" : "mb-[2vh]"} w-[75%] !text-white hover:opacity-80`}
@@ -62,31 +66,75 @@ export default function SideBar() {
                                     ${item.url === pathname.pathname && !item.purple ? `!fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
                                     ${item.id === "7" ? "!bg-[#2684FF] !text-wrap !break-words" /*dark Mode Config*/ : "" /*light Mode Config*/}
                                     `}
-                                >
-                                    <div className="flex justifty-left items-center">
-                                        <div className="mr-2 p-[0.25rem]">
-                                            {React.createElement(item.icon, {
-                                                className: `${
-                                                    item.url ===
-                                                    pathname.pathname
-                                                        ? `!fill-current ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-tb"} !transition-colors`
-                                                        : "!fill-current !transition-colors"
-                                                }`,
-                                                fill: ""
-                                            })}
+                                    >
+                                        <div className="flex justifty-left items-center">
+                                            <div className="mr-2 p-[0.25rem]">
+                                                {React.createElement(
+                                                    item.icon,
+                                                    {
+                                                        className: `${
+                                                            item.url ===
+                                                            pathname.pathname
+                                                                ? `!fill-current ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-tb"} !transition-colors`
+                                                                : "!fill-current !transition-colors"
+                                                        }`,
+                                                        fill: ""
+                                                    }
+                                                )}
+                                            </div>
+                                            <span className="text-sm">
+                                                {item.title}
+                                            </span>
                                         </div>
-                                        <span className="text-sm">
-                                            {item.title}
-                                        </span>
-                                    </div>
-                                </li>
-                                {item.br && (
-                                    <div
-                                        className={`mx-[1rem] ${isDarkTheme ? "border-[#0F1820]" : "border-gray-200"} ${shouldRemovePaddingAndMargin ? "border-0" : "border-b-2"}`}
-                                    ></div>
-                                )}
-                            </a>
-                        ))}
+                                    </li>
+                                    {item.br && (
+                                        <div
+                                            className={`mx-[1rem] ${isDarkTheme ? "border-[#0F1820]" : "border-gray-200"} ${shouldRemovePaddingAndMargin ? "border-0" : "border-b-2"}`}
+                                        ></div>
+                                    )}
+                                </a>
+                            ) : item.access == access ? (
+                                <a key={"SideBar " + index} href={item.url}>
+                                    <li
+                                        className={`!truncate !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
+                                    ${shouldRemovePaddingAndMargin ? "mb-2" : "mb-[1.25vh]"}                              
+                                    ${item.gap && `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[5vh]"}`} 
+                                    ${item.purple && `!bg-sb-p ${screenHeight >= 700 ? "absolute bottom-0 w-12" : ""} ${shouldRemovePaddingAndMargin ? "mb-0" : "mb-[2vh]"} w-[75%] !text-white hover:opacity-80`}
+                                    ${item.blue && `${isDarkTheme ? "!bg-[#223A4F] !text-black" : "!bg-sb-t !text-white"} ${screenHeight >= 700 ? "absolute bottom-16" : ""} hover:opacity-80 w-[75%]`}
+                                    ${item.smgap ? `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[4vh]"}` : `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[1vh]"}`}
+                                    ${item.br ? "-mt-[0.4rem]" : `flex items-center justify-left rounded-3xl p-[1vh] mx-[1.5rem] cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-sb-tb"}  text-sb-t text-md font-medium `}
+                                    ${item.url === pathname.pathname && !item.purple ? `!fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
+                                    ${item.id === "7" ? "!bg-[#2684FF] !text-wrap !break-words" /*dark Mode Config*/ : "" /*light Mode Config*/}
+                                    `}
+                                    >
+                                        <div className="flex justifty-left items-center">
+                                            <div className="mr-2 p-[0.25rem]">
+                                                {React.createElement(
+                                                    item.icon,
+                                                    {
+                                                        className: `${
+                                                            item.url ===
+                                                            pathname.pathname
+                                                                ? `!fill-current ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-tb"} !transition-colors`
+                                                                : "!fill-current !transition-colors"
+                                                        }`,
+                                                        fill: ""
+                                                    }
+                                                )}
+                                            </div>
+                                            <span className="text-sm">
+                                                {item.title}
+                                            </span>
+                                        </div>
+                                    </li>
+                                    {item.br && (
+                                        <div
+                                            className={`mx-[1rem] ${isDarkTheme ? "border-[#0F1820]" : "border-gray-200"} ${shouldRemovePaddingAndMargin ? "border-0" : "border-b-2"}`}
+                                        ></div>
+                                    )}
+                                </a>
+                            ) : null
+                        )}
                     </ul>
                 </div>
             </div>

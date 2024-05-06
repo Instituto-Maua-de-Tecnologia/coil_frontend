@@ -1,3 +1,11 @@
+export interface Student {
+    id: number;
+    ra: string;
+    name: string;
+    course: string;
+    approval: boolean;
+}
+
 export interface Project {
     id: number;
     avatarUrl: string;

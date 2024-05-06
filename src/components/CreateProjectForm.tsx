@@ -290,7 +290,7 @@ const CreateProjectForm: React.FC = () => {
                             {criterias.map((c, index) => (
                                 <li
                                     key={index}
-                                    className={`${c}      criteria-item flex items-center mt-1 mb-3`}
+                                    className={`${c} criteria-item flex items-center mt-1 mb-3`}
                                 >
                                     <TrashButton
                                         onRemoveCriteria={() => {

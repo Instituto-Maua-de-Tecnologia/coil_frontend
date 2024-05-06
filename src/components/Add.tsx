@@ -2,20 +2,23 @@ import addLight from "@assets/Add.png";
 import addDark from "@assets/Add_dark.png";
 import { useThemeDetector } from "@util/ThemeDetector";
 
-export default function Add() {
+interface AddProps {
+    url: string;
+}
+
+export default function Add({ url }: AddProps) {
     const isDarkTheme = useThemeDetector();
 
     return (
         <div>
-            <button
-                onClick={() => {}}
-                className="h-[56px] w-[56px] rounded-full"
-            >
-                <img
-                    width="40px"
-                    src={isDarkTheme ? addDark : addLight}
-                    alt="Add Button"
-                />
+            <button className="h-[56px] w-[56px] rounded-full">
+                <a href={url}>
+                    <img
+                        width="40px"
+                        src={isDarkTheme ? addDark : addLight}
+                        alt="Add Button"
+                    />
+                </a>
             </button>
         </div>
     );

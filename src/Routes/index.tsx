@@ -11,6 +11,7 @@ import Error404 from "@screens/404.tsx";
 import CreateProject from "@screens/CreateProject.tsx";
 import SignUp from "@screens/SignUp.tsx";
 import Mobilities from "@screens/Mobilities.tsx";
+import ViewEnrolledStudents from "@screens/ViewEnrolledStudents";
 
 export default function AppRoutes() {
     return (
@@ -28,6 +29,10 @@ export default function AppRoutes() {
                 <Route path={"/Results"} element={<Results />} />
                 <Route path={"/User"} element={<User />} />
                 <Route path={"/Signout"} element={<Signout />} />
+                <Route
+                    path={"/ViewEnrolledStudents"}
+                    element={<ViewEnrolledStudents />}
+                />
             </Routes>
         </BrowserRouter>
     );

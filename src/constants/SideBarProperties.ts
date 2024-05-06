@@ -75,7 +75,8 @@ export const navigation: NavigationItem[] = [
         id: "5",
         title: "Enrolled",
         url: "/Enrolled",
-        icon: enrolledIcon
+        icon: enrolledIcon,
+        smgap: true
     },
     {
         id: "6",

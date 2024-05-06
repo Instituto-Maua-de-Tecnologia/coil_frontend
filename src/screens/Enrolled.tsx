@@ -8,6 +8,7 @@ export default function Enrolled() {
                 <TitleHeader title={"Enrolled"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row ">
                     <SideBar />
+                    <Enrolled />
                 </div>
             </div>
         </>

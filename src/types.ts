@@ -18,6 +18,16 @@ export interface Mobility {
     country: string;
 }
 
+export interface Enrolled {
+    id: number;
+    avatarUrl: string;
+    title: string;
+    partnerName: string;
+    status: string;
+    languages: string[];
+    country: string;
+}
+
 export interface Institution {
     id: number;
     avatarUrl: string;

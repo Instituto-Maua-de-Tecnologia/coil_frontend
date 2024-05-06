@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { navigation } from "@constants/SideBarProperties.ts";
-import { useThemeDetector } from "../util/ThemeDetector";
+import { useThemeDetector } from "../../util/ThemeDetector";
 
 export default function SideBar() {
     const isDarkTheme = useThemeDetector();

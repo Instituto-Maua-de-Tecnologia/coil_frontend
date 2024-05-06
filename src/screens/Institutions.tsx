@@ -1,6 +1,6 @@
-import SideBar from "@components/SideBar.tsx";
-import TitleHeader from "@components/TitleHeader.tsx";
-import InstitutionList from "@components/InstitutionList.tsx";
+import SideBar from "@components/GenericComponents/SideBar";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
+import InstitutionList from "@components/Institution/InstitutionList";
 import { InstitutionsProps } from "@constants/InstitutionListProperties.ts";
 
 export default function Institutions() {

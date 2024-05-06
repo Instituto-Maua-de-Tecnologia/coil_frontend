@@ -1,18 +1,18 @@
-import SVGIcon from "./SVGIcon";
-import { countryCodes, Result } from "../types";
+import SVGIcon from "../ImageInstances/SVGIcon";
+import { countryCodes, Enrolled } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
-interface ResultCardProps {
-    result: Result;
+interface EnrolledCardProps {
+    enrolled: Enrolled;
 }
 
-export default function ResultCard({ result }: ResultCardProps) {
-    const { avatarUrl, title, status, languages, country } = result;
+export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
+    const { avatarUrl, title, status, languages, country } = enrolled;
     function getCountryFullName(code: string): string {
         const countryCode = code.toLowerCase();
         return countryCodes[countryCode] || "Country not found";
     }
-    const countryName = getCountryFullName(result.country);
+    const countryName = getCountryFullName(enrolled.country);
 
     const isDarkTheme = useThemeDetector();
 
@@ -36,7 +36,7 @@ export default function ResultCard({ result }: ResultCardProps) {
                                 <p className="text-xs mr-2">Languages:</p>
                                 {languages.map((language, index) => (
                                     <SVGIcon
-                                        key={"ResultCard SVGIcon " + index}
+                                        key={"EnrolledCard SVGIcon " + index}
                                         src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
                                         className="w-4 m-[1px]"
                                     />
@@ -61,7 +61,7 @@ export default function ResultCard({ result }: ResultCardProps) {
                             {status}
                         </div>
                         <div className="border-2 border-blue-500 text-blue-500 text-sm px-4 py-2 rounded-full">
-                            {result.approvation}
+                            Enrolled
                         </div>
                     </div>
                 </div>

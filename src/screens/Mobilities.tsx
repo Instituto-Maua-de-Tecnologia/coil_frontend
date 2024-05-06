@@ -1,6 +1,6 @@
-import TitleHeader from "@components/TitleHeader.tsx";
-import SideBar from "@components/SideBar.tsx";
-import MobilityList from "@components/MobilityList";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
+import SideBar from "@components/GenericComponents/SideBar";
+import MobilityList from "@components/Mobility/MobilityList";
 import { MobilityProps } from "@constants/MobilityProperties";
 
 const userAdmin = true;

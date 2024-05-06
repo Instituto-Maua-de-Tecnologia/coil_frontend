@@ -1,6 +1,6 @@
-import TitleHeader from "@components/TitleHeader.tsx";
-import SideBar from "@components/SideBar.tsx";
-import CreateProjectForm from "@components/CreateProjectForm.tsx";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
+import SideBar from "@components/GenericComponents/SideBar";
+import CreateProjectForm from "@components/Project/CreateProjectForm";
 
 export default function Projects() {
     return (

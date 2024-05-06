@@ -1,10 +1,10 @@
 import { useState } from "react";
-import InstitutionCard from "./InstitutionCard";
-import Search from "./Search";
-import { Institution } from "../types.ts";
+import InstitutionCard from "./InstitutionCard.tsx";
+import Search from "../GenericComponents/Search.tsx";
+import { Institution } from "../../types.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../style/scrollbar.css";
-import Add from "./Add.tsx";
+import Add from "../GenericComponents/Add.tsx";
 
 interface InstitutionListProps {
     institutions: Institution[];

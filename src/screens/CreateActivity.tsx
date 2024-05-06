@@ -1,6 +1,6 @@
-import TitleHeader from "@components/TitleHeader.tsx";
-import SideBar from "@components/SideBar.tsx";
-import CreateActivityForm from "@components/CreateActivityForm.tsx";
+import TitleHeader from "@components/GenericComponents/TitleHeader.tsx";
+import SideBar from "@components/GenericComponents/SideBar.tsx";
+import CreateActivityForm from "@components/Project/CreateActivityForm.tsx";
 import { ActivityTypeEnum } from "@enum/ActivityTypeEnum.ts";
 
 interface ActivityProps {

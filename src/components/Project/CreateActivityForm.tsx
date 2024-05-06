@@ -1,8 +1,8 @@
 import Select, { StylesConfig } from "react-select";
-import TrashButton from "./TrashButton";
-import DropdownIndicator from "./DropdownIndicator";
+import TrashButton from "./TrashButton.tsx";
+import DropdownIndicator from "../GenericComponents/DropdownIndicator.tsx";
 import { useEffect, useState } from "react";
-import { useThemeDetector } from "@util/ThemeDetector";
+import { useThemeDetector } from "@util/ThemeDetector.ts";
 import toast from "react-hot-toast";
 import getAllCourses from "@integrations/course/get_all_courses.ts";
 import createActivity from "@integrations/activity/admin&moderator/create_activity.ts";

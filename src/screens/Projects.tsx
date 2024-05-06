@@ -1,7 +1,7 @@
-import TitleHeader from "@components/TitleHeader.tsx";
-import SideBar from "@components/SideBar.tsx";
-import ProjectList from "@components/ProjectList";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
+import SideBar from "@components/GenericComponents/SideBar";
+import ProjectList from "@components/Project/ProjectList";
 
 export default function Projects() {
     const user_type = JSON.parse(

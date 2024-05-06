@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
-import Search from "./Search";
-import Filter from "@components/Filter.tsx";
-import { Project } from "../types";
-import Modal from "./Modal";
+import Search from "../GenericComponents/Search";
+import Filter from "@components/GenericComponents/Filter";
+import { Project } from "../../types";
+import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../style/scrollbar.css";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import Maua from "@assets/maua.png";
 import Fontys from "@assets/fontys.jpg";
-import Add from "./Add";
+import Add from "../GenericComponents/Add";
 
 interface ProjectListProps {
     isFilter: boolean;

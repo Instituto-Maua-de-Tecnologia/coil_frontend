@@ -1,6 +1,6 @@
-import TitleHeader from "@components/TitleHeader.tsx";
-import SideBar from "@components/SideBar.tsx";
-import ResultList from "@components/ResultList";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
+import SideBar from "@components/GenericComponents/SideBar";
+import ResultList from "@components/Result/ResultList";
 import { ResultProps } from "@constants/ResultListProperties";
 
 export default function Results() {

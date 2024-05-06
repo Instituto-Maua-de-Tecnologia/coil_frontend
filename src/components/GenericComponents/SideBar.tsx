@@ -1,10 +1,9 @@
-// import { useState } from 'react'
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { navigation } from "@constants/SideBarProperties.ts";
-import { useThemeDetector } from "../util/ThemeDetector";
 import darkMauaLogo from "@assets/maua-fontys-dark.svg";
 import lightMauaLogo from "@assets/maua-fontys-light.svg";
+import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 export default function SideBar() {
     const isDarkTheme = useThemeDetector();

@@ -62,15 +62,14 @@ export const navigation: NavigationItem[] = [
     },
     {
         id: "3",
-        br: true,
-        icon: devider
+        title: "Mobility",
+        url: "/Mobilities",
+        icon: activityIcon
     },
     {
         id: "4",
-        title: "Activity",
-        url: "/Activity",
-        icon: activityIcon,
-        smgap: true
+        br: true,
+        icon: devider
     },
     {
         id: "5",

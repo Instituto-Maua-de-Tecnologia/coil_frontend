@@ -10,7 +10,7 @@ export default function Institutions() {
                 <TitleHeader title={"Institutions"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <InstitutionList institutions={InstitutionsProps} />
+                    <InstitutionList isAdmin institutions={InstitutionsProps} />
                 </div>
             </div>
         </>

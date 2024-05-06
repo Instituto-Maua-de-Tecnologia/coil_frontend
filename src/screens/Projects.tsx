@@ -10,7 +10,7 @@ export default function Projects() {
                 <TitleHeader title={"Projects"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <ProjectList isFilter projects={ProjectProps} />
+                    <ProjectList isFilter isAdmin projects={ProjectProps} />
                 </div>
             </div>
             {/* <TitleHeader title={"Projects Information"} />

@@ -6,12 +6,18 @@ import { Project } from "../types";
 import Modal from "./Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../style/scrollbar.css";
+import Add from "./Add";
 
 interface ProjectListProps {
     projects: Project[];
     isFilter: boolean;
+    isAdmin: boolean;
 }
-export default function ProjectList({ projects, isFilter }: ProjectListProps) {
+export default function ProjectList({
+    projects,
+    isFilter,
+    isAdmin
+}: ProjectListProps) {
     const [selectedProject, setSelectedProject] = useState<Project | null>(
         null
     );
@@ -47,7 +53,10 @@ export default function ProjectList({ projects, isFilter }: ProjectListProps) {
         >
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
-                {isFilter && <Filter />}
+                <div className="button-container flex absolute right-12">
+                    {isAdmin ? <Add /> : null}
+                    {isFilter && <Filter />}
+                </div>
             </div>
             {filteredProjects.length > 0 ? (
                 <div>

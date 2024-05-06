@@ -42,8 +42,7 @@ const CreateProjectForm: React.FC = () => {
         border: "none",
         borderRadius: "18px",
         padding: "8px 12px",
-        outline: "none",
-        resize: "none"
+        outline: "none"
     };
 
     const multiStyle: StylesConfig = {
@@ -69,6 +68,7 @@ const CreateProjectForm: React.FC = () => {
             borderRadius: "30px",
             backgroundColor: state.isFocused ? "#673366" : "#512650",
             whiteSpace: "nowrap",
+            cursor: "pointer",
             overflow: "hidden",
             textOverflow: "ellipsis"
         }),
@@ -119,16 +119,19 @@ const CreateProjectForm: React.FC = () => {
             borderRadius: "30px",
             boxShadow: "0 0 2px #1D232C50"
         }),
-        option: (provided) => ({
+        option: (provided, state) => ({
             ...provided,
             margin: "0px 0px 8px 0px",
             width: "100%",
-            background: "transparent",
             color: isDarkTheme ? "#FFFFFF" : "#1D232C",
             whiteSpace: "nowrap",
             overflow: "hidden",
             borderRadius: "30px",
-            textOverflow: "ellipsis"
+            textOverflow: "ellipsis",
+            cursor: "pointer",
+            background: state.isFocused
+                ? "rgba(112,155,210,0.49)"
+                : "transparent"
         }),
         singleValue: (provided) => ({
             ...provided,

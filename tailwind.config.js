@@ -4,6 +4,10 @@ import defaultTheme from "tailwindcss/defaultTheme";
 export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
+        fontFamily: {
+            inter: ["Inter", "sans-serif"],
+            montserrat: ["Montserrat", "sans-serif"]
+        },
         screens: {
             "2xs": "100px",
             xs: "515px",

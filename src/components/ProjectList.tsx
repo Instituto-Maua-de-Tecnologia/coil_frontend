@@ -20,6 +20,7 @@ export default function ProjectList({ projects, isFilter }: ProjectListProps) {
     const handleModalOpen = (project: Project) => {
         setSelectedProject(project);
     };
+    console.log(localStorage.getItem("token") as string);
 
     const handleModalClose = () => {
         setSelectedProject(null);

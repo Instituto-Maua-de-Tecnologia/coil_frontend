@@ -8,6 +8,7 @@ import User from "@screens/User.tsx";
 import Signout from "@screens/Signout.tsx";
 import HeroPage from "@screens/HeroPage.tsx";
 import Error404 from "@screens/404.tsx";
+import CreateProject from "@screens/CreateProject.tsx";
 import Activity from "@screens/Activity.tsx";
 import SignUp from "@screens/SignUp.tsx";
 
@@ -21,6 +22,7 @@ export default function AppRoutes() {
                 <Route path={"/Home"} element={<Home />} />
                 <Route path={"/Institution"} element={<Institutions />} />
                 <Route path={"/Projects"} element={<Projects />} />
+                <Route path={"/CreateProject"} element={<CreateProject />} />
                 <Route path={"/Activity"} element={<Activity />} />
                 <Route path={"/Enrolled"} element={<Enrolled />} />
                 <Route path={"/Results"} element={<Results />} />

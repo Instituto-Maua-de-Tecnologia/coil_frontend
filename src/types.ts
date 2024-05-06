@@ -8,6 +8,16 @@ export interface Project {
     country: string;
 }
 
+export interface Mobility {
+    id: number;
+    avatarUrl: string;
+    title: string;
+    partnerName: string;
+    status: string;
+    languages: string[];
+    country: string;
+}
+
 export interface Institution {
     id: number;
     avatarUrl: string;

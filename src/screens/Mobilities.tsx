@@ -1,16 +1,22 @@
 import TitleHeader from "@components/TitleHeader.tsx";
 import SideBar from "@components/SideBar.tsx";
-import ProjectList from "@components/ProjectList.tsx";
 import { ProjectProps } from "@constants/ProjectListProperties.ts";
+import MobilityList from "@components/MobilityList";
 
-export default function Activity() {
+const userAdmin = true;
+
+export default function Mobilities() {
     return (
         <>
             <div className="max-h-screen flex flex-col">
-                <TitleHeader title={"Activity"} />
+                <TitleHeader title={"Academic International Mobility"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <ProjectList isFilter projects={ProjectProps} />
+                    <MobilityList
+                        isFilter
+                        isAdmin={userAdmin}
+                        mobilitys={ProjectProps}
+                    />
                 </div>
             </div>
         </>

@@ -1,21 +1,21 @@
 import TitleHeader from "@components/TitleHeader.tsx";
 import SideBar from "@components/SideBar.tsx";
-import ProjectList from "@components/ProjectList";
-import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
+import MobilityList from "@components/MobilityList";
+import { MobilityProps } from "@constants/MobilityProperties";
 
-export default function Projects() {
-    const user_type = JSON.parse(
-        localStorage.getItem("user") as string
-    ).user_type;
+const userAdmin = true;
+
+export default function Mobilities() {
     return (
         <>
             <div className="max-h-screen flex flex-col">
-                <TitleHeader title={"Projects"} />
+                <TitleHeader title={"Academic International Mobility"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <ProjectList
+                    <MobilityList
                         isFilter
-                        isAdmin={user_type === UserTypeEnum.ADMIN}
+                        isAdmin={userAdmin}
+                        mobilitys={MobilityProps}
                     />
                 </div>
             </div>

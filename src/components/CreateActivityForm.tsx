@@ -1,8 +1,13 @@
 import Select, { StylesConfig } from "react-select";
 import TrashButton from "./TrashButton";
 import DropdownIndicator from "./DropdownIndicator";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { useThemeDetector } from "@util/ThemeDetector";
+import toast from "react-hot-toast";
+import getAllCourses from "@integrations/course/get_all_courses.ts";
+import createActivity from "@integrations/activity/admin&moderator/create_activity.ts";
+import { useNavigate } from "react-router-dom";
+import { CourseProps } from "@screens/SignUp.tsx";
 
 const langOptions = [
     { value: "portuguese", label: "Portuguese" },
@@ -10,22 +15,18 @@ const langOptions = [
     { value: "dutch", label: "Dutch" }
 ];
 
-const courseOptions = [{ value: "computerScience", label: "Computer Science" }];
-
 const partnerInstitutionOptions = [
     { value: "fontys", label: "Fontys University of Applied Sciences" },
     { value: "maua", label: "Instituto Mauá de Tecnologia" }
 ];
 
-const projectStatusOptions = [
-    { value: "to_start", label: "To Start" },
-    { value: "active", label: "Open" },
-    { value: "on_hold", label: "On Hold" },
-    { value: "ended", label: "Closed" },
-    { value: "cancelled", label: "Cancelled" }
-];
+interface ActivityFormProps {
+    isProject: boolean;
+}
 
-const CreateProjectForm: React.FC = () => {
+const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
+    const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
+    const navigate = useNavigate();
     const isDarkTheme = useThemeDetector();
 
     const inputStyle = {
@@ -163,6 +164,86 @@ const CreateProjectForm: React.FC = () => {
         setCriterias(newCriterias);
     };
 
+    async function delay(ms: number) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    const handleGetAllCourses = async () => {
+        try {
+            const courseValues = (await getAllCourses()) as CourseProps;
+            setCourses(courseValues);
+        } catch (error) {
+            console.error("Erro ao obter cursos:", error);
+        }
+    };
+    //TODO: fazer verificação do: titulo(não pode ser repetido(dar um get para saber quais titulos estão em uso), não pode ser maior que 255 e menor que 3 caracteres), descrição(pode ir até ), imagens(base64), data(só pode ter número, data de ínicio tem que ser menor que a de fim, mandar informações usando dateTime() formato dd/mm/yy)
+
+    useEffect(() => {
+        handleGetAllCourses();
+    }); // TODO
+
+    async function handlePostActivity() {
+        await createActivity({
+            body: {
+                title: "string",
+                description: "string",
+                start_date: "string",
+                end_date: "string",
+                languages: ["string"],
+                partner_institutions: ["string"],
+                course: [
+                    {
+                        id: 1,
+                        name: "string"
+                    }
+                ],
+                criterias: ["string"],
+                type_activity: 1
+            }
+        })
+            .then()
+            .catch((error) => {
+                if (error.status === 401) {
+                    localStorage.clear();
+                    throw new Error("Usuário não Autorizado.");
+                } else if (error.status === 403)
+                    throw new Error("E-mail deve ser do domínio maua.br!");
+                else if (error.message === "MissingToken")
+                    throw new Error(
+                        "Erro ao localizar o token de acesso. Por favor, tente novamente."
+                    );
+                else if (
+                    error.status === 422 &&
+                    error.message === "Activity with this title already exists"
+                ) {
+                    throw new Error("Título já em uso");
+                } else
+                    throw new Error(
+                        "Falha ao realizar cadastro. Por favor, tente mais tarde."
+                    );
+            });
+    }
+
+    async function handlePost() {
+        await toast
+            .promise(handlePostActivity(), {
+                loading: `Criando ${isProject ? "Projeto" : "Mobilidade Acadêmica"}...`,
+                success: <b>Usuário cadastrado com sucesso</b>,
+                error: (error) => error.message
+            })
+            .then(async () => {
+                await delay(3000);
+                //TODO: navigate runs before toast be completed
+            })
+            .then(() => navigate("/Home")); // TODO: validação de campos vazios no if/else
+    }
+
+    const courseOptions = courses.map((course) => ({
+        value: course.id,
+        label: course.name
+    }));
     return (
         <div
             className={`w-full md:ml-4 px-4 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl overflow-auto`}
@@ -217,22 +298,6 @@ const CreateProjectForm: React.FC = () => {
                             </label>
                             <Select
                                 options={partnerInstitutionOptions}
-                                menuPosition="fixed"
-                                components={{
-                                    IndicatorSeparator: () => null,
-                                    DropdownIndicator: () => (
-                                        <DropdownIndicator />
-                                    )
-                                }}
-                                styles={singleStyle}
-                            />
-                        </div>
-                        <div className="project-status-select  w-full mx-2 space-y-2">
-                            <label htmlFor="partnerInstitution">
-                                Project Status
-                            </label>
-                            <Select
-                                options={projectStatusOptions}
                                 menuPosition="fixed"
                                 components={{
                                     IndicatorSeparator: () => null,
@@ -316,7 +381,10 @@ const CreateProjectForm: React.FC = () => {
                 </div>
                 <div className="button-row flex">
                     <div className="w-full"></div>
-                    <button className="confirm text-white px-4 p-2 bg-[#2684ff] rounded-3xl">
+                    <button
+                        className="confirm text-white px-4 p-2 bg-[#2684ff] rounded-3xl"
+                        onClick={handlePost}
+                    >
                         Confirm
                     </button>
                 </div>
@@ -325,4 +393,4 @@ const CreateProjectForm: React.FC = () => {
     );
 };
 
-export default CreateProjectForm;
+export default CreateActivityForm;

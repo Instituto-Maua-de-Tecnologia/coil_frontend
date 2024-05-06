@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { navigation } from "@constants/SideBarProperties.ts";
 import { useThemeDetector } from "../util/ThemeDetector";
+import darkMauaLogo from "@assets/maua-fontys-dark.svg";
+import lightMauaLogo from "@assets/maua-fontys-light.svg";
 
 export default function SideBar() {
     const isDarkTheme = useThemeDetector();
@@ -34,14 +36,10 @@ export default function SideBar() {
                 className={`lg:block relative hidden w-[13rem] ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
             >
                 <div
-                    className={`flex  flex-col ${shouldRemovePaddingAndMargin ? "pt-0" : "pt-[2vh]"} items-center justify-center`}
+                    className={`flex flex-col ${shouldRemovePaddingAndMargin ? "pt-0" : "pt-[2vh]"} items-center justify-center`}
                 >
                     <img
-                        src={
-                            isDarkTheme
-                                ? "maua-fontys-light.svg"
-                                : "maua-fontys-dark.svg"
-                        }
+                        src={isDarkTheme ? lightMauaLogo : darkMauaLogo}
                         alt="COIL logo"
                         width={screenHeight <= 590 ? 100 : 130}
                         height={screenHeight <= 590 ? 100 : 130}
@@ -56,8 +54,8 @@ export default function SideBar() {
                                     ${shouldRemovePaddingAndMargin ? "mb-2" : "mb-[1.25vh]"}                              
                                     ${item.gap && `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[5vh]"}`} 
                                     ${item.purple && `!bg-sb-p ${screenHeight >= 700 ? "absolute bottom-0 w-12" : ""} ${shouldRemovePaddingAndMargin ? "mb-0" : "mb-[2vh]"} w-[75%] !text-white hover:opacity-80`}
-                                    ${item.blue && `${isDarkTheme ? "!bg-[#223A4F] !text-black" : "!bg-sb-t !text-white"} ${screenHeight >= 700 ? "absolute bottom-16" : ""} hover:opacity-80 w-[75%]`}
-                                    ${item.smgap ? `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[4vh]"}` : `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[1vh]"}`}
+                                    ${item.blue && `${isDarkTheme ? "!bg-[#223A4F] !text-black" : "!bg-sb-t !text-white"} ${screenHeight >= 700 ? "absolute bottom-14" : ""} hover:opacity-80 w-[75%]`}
+                                    ${item.smgap ? `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[2.75vh]"}` : `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[1vh]"}`}
                                     ${item.br ? "-mt-[0.4rem]" : `flex items-center justify-left rounded-3xl p-[1vh] mx-[1.5rem] cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-sb-tb"}  text-sb-t text-md font-medium `}
                                     ${item.url === pathname.pathname && !item.purple ? `!fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
                                     ${item.id === "7" ? "!bg-[#2684FF] !text-wrap !break-words" /*dark Mode Config*/ : "" /*light Mode Config*/}

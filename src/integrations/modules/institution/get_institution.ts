@@ -5,6 +5,7 @@ interface GetInstitutionProps {
 }
 
 interface GetInstitutionResponse {
+    message: string;
     data: {
         id: string;
         name: string;
@@ -41,7 +42,7 @@ export default async function getInstitution(props: GetInstitutionProps) {
                 if (errorResponse) {
                     reject({
                         status: errorResponse.status,
-                        message: errorResponse.data
+                        message: errorResponse.data.message
                     });
                 }
             });

@@ -80,3 +80,4 @@ export default async function getAllActivities(props: GetAllActivityProps) {
             });
     });
 }
+//TODO: colocar em todas as rotas o negócio de 401 retornar ele pra hero page dando um aviso que o token

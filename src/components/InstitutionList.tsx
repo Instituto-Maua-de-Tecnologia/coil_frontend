@@ -1,17 +1,19 @@
 import { useState } from "react";
 import InstitutionCard from "./InstitutionCard";
 import Search from "./Search";
-import Filter from "./Filter.tsx";
 import { Institution } from "../types.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../style/scrollbar.css";
+import Add from "./Add.tsx";
 
 interface InstitutionListProps {
     institutions: Institution[];
+    isAdmin: boolean;
 }
 
 export default function InstitutionList({
-    institutions
+    institutions,
+    isAdmin
 }: InstitutionListProps) {
     const [filteredInstitutions, setFilteredInstitutions] =
         useState<Institution[]>(institutions);
@@ -30,7 +32,9 @@ export default function InstitutionList({
         >
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
-                <Filter />
+                <div className="button-container flex absolute right-12">
+                    {isAdmin ? <Add /> : null}
+                </div>
             </div>
             {filteredInstitutions.length > 0 ? (
                 <div>

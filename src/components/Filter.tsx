@@ -13,12 +13,13 @@ export default function Filter() {
     const isDarkTheme = useThemeDetector();
 
     return (
-        <div>
+        <div className="grid justify-items-end static">
             <button
                 onClick={toggleFilter}
-                className="h-[56px] w-[56px] rounded-full absolute right-12"
+                className="h-[56px] w-[56px] rounded-full"
             >
                 <img
+                    width={"40px"}
                     src={isDarkTheme ? filterDark : filterLight}
                     alt="filter image"
                 />
@@ -26,11 +27,9 @@ export default function Filter() {
 
             {isOpen && (
                 <div
-                    className={`${isDarkTheme ? "bg-[#0F1820]" : "bg-white"} w-[21.2vw] rounded-xl p-4 flex flex-col text-wrap break-words xl:flex-row justify-between`}
+                    className={`${isDarkTheme ? "bg-[#0F1820]" : "bg-white"} absolute rounded-xl p-4 mt-14 flex flex-col text-wrap break-words xl:flex-row justify-between`}
                     style={{
                         position: "absolute",
-                        top: "160px",
-                        left: "calc(50% + 28vw)",
                         zIndex: 10,
                         boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)"
                     }}

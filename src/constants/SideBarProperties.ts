@@ -62,21 +62,21 @@ export const navigation: NavigationItem[] = [
     },
     {
         id: "3",
-        br: true,
-        icon: devider
+        title: "Mobility",
+        url: "/Mobilities",
+        icon: activityIcon
     },
     {
         id: "4",
-        title: "Activity",
-        url: "/Activity",
-        icon: activityIcon,
-        smgap: true
+        br: true,
+        icon: devider
     },
     {
         id: "5",
         title: "Enrolled",
         url: "/Enrolled",
-        icon: enrolledIcon
+        icon: enrolledIcon,
+        smgap: true
     },
     {
         id: "6",
@@ -86,10 +86,9 @@ export const navigation: NavigationItem[] = [
     },
     {
         id: "7",
-        title: `${name}`,
+        title: `${name.substring(0, name.indexOf(" "))}`,
         icon: userIcon,
         url: "/User",
-        gap: true,
         blue: true
     },
     {

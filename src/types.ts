@@ -8,6 +8,37 @@ export interface Project {
     country: string;
 }
 
+export interface Mobility {
+    id: number;
+    avatarUrl: string;
+    title: string;
+    partnerName: string;
+    status: string;
+    languages: string[];
+    country: string;
+}
+
+export interface Enrolled {
+    id: number;
+    avatarUrl: string;
+    title: string;
+    partnerName: string;
+    status: string;
+    languages: string[];
+    country: string;
+}
+
+export interface Result {
+    id: number;
+    avatarUrl: string;
+    title: string;
+    partnerName: string;
+    status: string;
+    languages: string[];
+    country: string;
+    approvation: string;
+}
+
 export interface Institution {
     id: number;
     avatarUrl: string;

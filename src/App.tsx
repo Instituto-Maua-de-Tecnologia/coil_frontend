@@ -33,3 +33,4 @@ export default function App() {
         </MsalProvider>
     );
 }
+//TODO: colocar um useEffect que verifica se o token

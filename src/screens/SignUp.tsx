@@ -7,7 +7,7 @@ import { useThemeDetector } from "@util/ThemeDetector.ts";
 import ToasterContainer from "@components/ToasterContainer.tsx";
 import getAllCourses from "@integrations/course/get_all_courses.ts";
 
-type CourseProps = [
+export type CourseProps = [
     {
         id: number;
         name: string;

@@ -1,6 +1,6 @@
 const DropdownIndicator = () => {
     return (
-        <div className="trash-button m-4">
+        <div className="dropdown-indicator m-4">
             <svg
                 width="12"
                 viewBox="0 0 18 15"

@@ -9,11 +9,13 @@ import "../style/scrollbar.css";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import Maua from "@assets/maua.png";
 import Fontys from "@assets/fontys.jpg";
+import Add from "./Add";
 
 interface ProjectListProps {
     isFilter: boolean;
+    isAdmin: boolean;
 }
-export default function ProjectList({ isFilter }: ProjectListProps) {
+export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
     const projects = [
         {
             id: 1,
@@ -91,7 +93,10 @@ export default function ProjectList({ isFilter }: ProjectListProps) {
         >
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
-                {isFilter && <Filter />}
+                <div className="button-container flex absolute right-12">
+                    {isAdmin ? <Add /> : null}
+                    {isFilter && <Filter />}
+                </div>
             </div>
             {filteredProjects.length > 0 ? (
                 <div>

@@ -86,7 +86,7 @@ export const navigation: NavigationItem[] = [
     },
     {
         id: "7",
-        title: `${name}`,
+        title: `${name.substring(0, name.indexOf(" "))}`,
         icon: userIcon,
         url: "/User",
         blue: true

@@ -1,5 +1,4 @@
 import axios, { AxiosError } from "axios";
-import getUser from "@integrations/user/authentification/get_user.ts";
 
 interface UpdateUserProps {
     body: {
@@ -15,10 +14,7 @@ interface UpdateUserResponse {
         name: string;
         email: string;
         user_type: number;
-        course: {
-            id: number;
-            name: string;
-        };
+        course: string;
         semester_course: number;
         created_at: string;
         updated_at: string;
@@ -37,11 +33,11 @@ export default async function updateUser(props: UpdateUserProps) {
                     Authorization: token
                 }
             })
-            .then(async (response) => {
+            .then((response) => {
                 const responseData: UpdateUserResponse =
                     response.data as UpdateUserResponse;
-                const user = await getUser({ token: token as string });
-                localStorage.setItem("user", JSON.stringify(user));
+                const user = JSON.stringify(responseData.data);
+                localStorage.setItem("user", user);
                 resolve(responseData.data);
             })
             .catch((error: AxiosError) => {

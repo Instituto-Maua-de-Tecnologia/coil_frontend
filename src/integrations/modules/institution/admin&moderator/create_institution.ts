@@ -2,12 +2,11 @@ import axios, { AxiosError } from "axios";
 
 interface CreateInstitutionProps {
     body: {
-        institution_id: string;
-        name?: string;
-        description?: string;
-        email?: string;
-        country?: string;
-        images?: [string];
+        name: string;
+        description: string;
+        email: string;
+        country: string;
+        images: [string];
         social_medias?: [
             {
                 media?: string;

@@ -1,27 +1,26 @@
 import axios, { AxiosError } from "axios";
 
 interface AssignUserToActivityProps {
-    type_activity: string;
+    activity_id: string;
 }
 
-interface AssignUserToActivityResponse {}
+interface AssignUserToActivityResponse {
+    message: string;
+}
 
-export default async function getAllActivities(
+export default async function assignUserToActivities(
     props: AssignUserToActivityProps
 ) {
     const token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT as string;
         axios
-            .get(
-                `${endpoint}/get-all-activities?type_activity=${props.type_activity}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: token as string
-                    }
+            .get(`${endpoint}/assing-user?activity_id=${props.activity_id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token as string
                 }
-            )
+            })
             .then((response) => {
                 const responseData: AssignUserToActivityResponse =
                     response.data as AssignUserToActivityResponse;

@@ -26,7 +26,7 @@ export default async function getUser(props: GetUserProps) {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: props.token
-                }
+                } //requisição do repositório e não da entidade
             })
             .then((response) => {
                 const responseData: GetUserResponse =

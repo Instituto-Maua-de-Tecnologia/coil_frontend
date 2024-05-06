@@ -1,6 +1,6 @@
-import TitleHeader from "../components/TitleHeader.tsx";
-import SideBar from "../components/SideBar.tsx";
-import EnrolledList from "@components/EnrolledList.tsx";
+import TitleHeader from "../components/GenericComponents/TitleHeader.tsx";
+import SideBar from "../components/GenericComponents/SideBar.tsx";
+import EnrolledList from "@components/GenericComponents/EnrolledList.tsx";
 import { MobilityProps } from "@constants/MobilityProperties.ts";
 
 export default function Enrolled() {

@@ -1,5 +1,5 @@
-import SVGIcon from "./SVGIcon";
-import { countryCodes, Institution } from "../types";
+import SVGIcon from "../ImageInstances/SVGIcon";
+import { countryCodes, Institution } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface InstitutionCardProps {

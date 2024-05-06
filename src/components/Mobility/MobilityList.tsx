@@ -1,12 +1,12 @@
 import { useState } from "react";
 import MobilityCard from "./MobilityCard";
-import Search from "./Search";
-import Filter from "@components/Filter.tsx";
-import { Mobility } from "../types";
-import Modal from "./Modal";
+import Search from "../GenericComponents/Search";
+import Filter from "@components/GenericComponents/Filter";
+import { Mobility } from "../../types";
+import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../style/scrollbar.css";
-import Add from "./Add";
+import Add from "../GenericComponents/Add";
 
 interface MobilityListProps {
     mobilitys: Mobility[];

@@ -1,6 +1,6 @@
-import TitleHeader from "@components/TitleHeader.tsx";
-import SideBar from "@components/SideBar.tsx";
-import UserInfo from "@components/UserInfo.tsx";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
+import SideBar from "@components/GenericComponents/SideBar";
+import UserInfo from "@components/User/UserInfo";
 
 export default function User() {
     return (

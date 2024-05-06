@@ -1,6 +1,6 @@
 import Select, { StylesConfig } from "react-select";
 import TrashButton from "./TrashButton";
-import DropdownIndicator from "./DropdownIndicator";
+import DropdownIndicator from "../GenericComponents/DropdownIndicator";
 import React, { useState } from "react";
 import { useThemeDetector } from "@util/ThemeDetector";
 

@@ -1,23 +1,19 @@
-import SVGIcon from "./SVGIcon";
-import { countryCodes, Mobility } from "../types";
+import SVGIcon from "../ImageInstances/SVGIcon";
+import { countryCodes, Result } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
-interface MobilityCardProps {
-    mobility: Mobility;
-    onClick: (mobility: Mobility) => void;
+interface ResultCardProps {
+    result: Result;
 }
 
-export default function MobilityCard({ mobility, onClick }: MobilityCardProps) {
-    const { avatarUrl, title, status, languages, country } = mobility;
+export default function ResultCard({ result }: ResultCardProps) {
+    const { avatarUrl, title, status, languages, country } = result;
     function getCountryFullName(code: string): string {
         const countryCode = code.toLowerCase();
         return countryCodes[countryCode] || "Country not found";
     }
-    const countryName = getCountryFullName(mobility.country);
+    const countryName = getCountryFullName(result.country);
 
-    const handleOnClick = () => {
-        onClick(mobility);
-    };
     const isDarkTheme = useThemeDetector();
 
     return (
@@ -40,7 +36,7 @@ export default function MobilityCard({ mobility, onClick }: MobilityCardProps) {
                                 <p className="text-xs mr-2">Languages:</p>
                                 {languages.map((language, index) => (
                                     <SVGIcon
-                                        key={"MobilityCard SVGIcon " + index}
+                                        key={"ResultCard SVGIcon " + index}
                                         src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
                                         className="w-4 m-[1px]"
                                     />
@@ -64,12 +60,9 @@ export default function MobilityCard({ mobility, onClick }: MobilityCardProps) {
                         >
                             {status}
                         </div>
-                        <button
-                            onClick={handleOnClick}
-                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
-                        >
-                            Enroll
-                        </button>
+                        <div className="border-2 border-blue-500 text-blue-500 text-sm px-4 py-2 rounded-full">
+                            {result.approvation}
+                        </div>
                     </div>
                 </div>
             </div>

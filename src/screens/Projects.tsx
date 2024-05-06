@@ -1,6 +1,6 @@
-import TitleHeader from "@components/TitleHeader.tsx";
-import SideBar from "@components/SideBar.tsx";
-import ProjectList from "@components/ProjectList";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
+import SideBar from "@components/GenericComponents/SideBar";
+import ProjectList from "@components/Project/ProjectList";
 import { ProjectProps } from "@constants/ProjectListProperties.ts";
 
 export default function Projects() {

@@ -1,5 +1,7 @@
 import TitleHeader from "@components/TitleHeader.tsx";
 import SideBar from "@components/SideBar.tsx";
+import ResultList from "@components/ResultList";
+import { ResultProps } from "@constants/ResultListProperties";
 
 export default function Results() {
     return (
@@ -8,6 +10,7 @@ export default function Results() {
                 <TitleHeader title={"Results"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
+                    <ResultList results={ResultProps} />
                 </div>
             </div>
         </>

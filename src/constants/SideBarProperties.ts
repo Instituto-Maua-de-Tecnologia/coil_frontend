@@ -89,7 +89,6 @@ export const navigation: NavigationItem[] = [
         title: `${name}`,
         icon: userIcon,
         url: "/User",
-        gap: true,
         blue: true
     },
     {

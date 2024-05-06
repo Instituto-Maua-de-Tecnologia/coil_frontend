@@ -17,9 +17,9 @@ export default function InstitutionCard({ institution }: InstitutionCardProps) {
 
     return (
         <li
-            className={`sm:flex cursor-pointer items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
-            <div className="flex sm:relative items-center sm:justify-between mb-4 w-full sm:min-h-20">
+            <div className="flex sm:relative items-center sm:justify-between w-full sm:min-h-20">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
                         <img

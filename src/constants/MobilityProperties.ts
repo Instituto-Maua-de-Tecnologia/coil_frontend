@@ -1,5 +1,5 @@
-import Fontys from "@assets/fontys.jpg";
-import Maua from "@assets/maua.png";
+import Fontys from "@assets/logo/fontys.jpg";
+import Maua from "@assets/logo/maua.png";
 import { Mobility } from "../types";
 
 export const MobilityProps: Mobility[] = [

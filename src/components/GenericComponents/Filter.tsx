@@ -1,6 +1,6 @@
 import { useState } from "react";
-import filterLight from "@assets/Filter.png";
-import filterDark from "@assets/Filter-dark.png";
+import filterLight from "@assets/icons/Filter.png";
+import filterDark from "@assets/icons/Filter-dark.png";
 import { FilterProperties } from "@constants/FilterProperties.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import React from "react";

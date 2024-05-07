@@ -1,10 +1,18 @@
-import TitleHeader from "@components/TitleHeader.tsx";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import updateUser from "@integrations/user/authentification/update_user.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import ToasterContainer from "@components/ToasterContainer.tsx";
+import ToasterContainer from "@components/GenericComponents/ToasterContainer";
+import getAllCourses from "@integrations/course/get_all_courses.ts";
+
+export type CourseProps = [
+    {
+        id: number;
+        name: string;
+    }
+];
 
 export default function SignUp() {
     /* eslint-disable */
@@ -12,13 +20,14 @@ export default function SignUp() {
         useState<string>("");
     const [selectedSemesterOption, setSelectedSemesterOption] =
         useState<number>(0);
+    const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
 
     const navigate = useNavigate();
-    function handleCourseOption(event: React.ChangeEvent<HTMLSelectElement>) {
+    function handleCourseOption(event: any) {
         setSelectedCourseOption(event.target.value);
     }
     function handleSemesterOption(event: React.ChangeEvent<HTMLSelectElement>) {
-        const selectedSemester = parseInt(event.target.value, 10); // Convertendo para número inteiro
+        const selectedSemester = parseInt(event.target.value, 10);
         setSelectedSemesterOption(selectedSemester);
     }
 
@@ -34,6 +43,8 @@ export default function SignUp() {
     });
 
     async function handlePostCS() {
+        console.log(selectedCourseOption);
+        console.log(typeof selectedCourseOption);
         if (selectedSemesterOption && selectedCourseOption) {
             await updateUser({
                 body: {
@@ -63,42 +74,34 @@ export default function SignUp() {
     }
 
     async function handlePost() {
-        await toast
-            .promise(handlePostCS(), {
-                loading: "Realizando Cadastro...",
-                success: <b>Usuário cadastrado com sucesso</b>,
-                error: (error) => error.message
-            })
-            .then(async () => {
-                await delay(3000);
-                handleNavigate();
-            });
+        if (selectedCourseOption != "" && selectedSemesterOption != null) {
+            await toast
+                .promise(handlePostCS(), {
+                    loading: "Realizando Cadastro...",
+                    success: <b>Usuário cadastrado com sucesso</b>,
+                    error: (error) => error.message
+                })
+                .then(async () => {
+                    await delay(3000);
+                    navigate("/Home"); //TODO: navigate runs before toast be completed
+                });
+        } else alert("Preencha corretamente os dados");
     }
 
-    function handleNavigate() {
-        navigate("/Home");
-    }
+    const handleGetAllCourses = async () => {
+        try {
+            const courseValues = (await getAllCourses()) as CourseProps;
+            setCourses(courseValues);
+        } catch (error) {
+            console.error("Erro ao obter cursos:", error);
+        }
+    };
 
-    const courseValues: string[] = [
-        "Administração",
-        "Arquitetura e Urbanismo",
-        "Ciência da Computação",
-        "Design",
-        "Engenharia Civil",
-        "Engenharia de Alimentos",
-        "Engenharia de Computação",
-        "Engenharia de Controle e Automação",
-        "Engenharia de Produção",
-        "Engenharia Elétrica",
-        "Engenharia Eletrônica",
-        "Engenharia Mecânica",
-        "Engenharia Química",
-        "Inteligência Artificial e Ciência de Dados",
-        "Relações Internacionais",
-        "Sistemas de Informação"
-    ];
+    useEffect(() => {
+        handleGetAllCourses();
+    }, []);
 
-    const semesterValues: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const semesterValues: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // TODO: validation on semester based in which course the user selected
 
     const isDarkTheme = useThemeDetector();
 
@@ -117,17 +120,19 @@ export default function SignUp() {
                             value={selectedCourseOption}
                             onChange={handleCourseOption}
                         >
-                            {courseValues.map((course, index) => (
-                                <option
-                                    key={"courseOption " + index}
-                                    className={
-                                        "text-wrap break-words overflow-ellipsis"
-                                    }
-                                    value={course}
-                                >
-                                    {course}
-                                </option>
-                            ))}
+                            <option value="" disabled hidden>
+                                Selecione seu curso...
+                            </option>
+                            {Array.from({ length: courses.length }).map(
+                                (_, index) => (
+                                    <option
+                                        key={"courseOption " + index}
+                                        value={courses[index].name}
+                                    >
+                                        {courses[index].name}
+                                    </option>
+                                )
+                            )}
                         </select>
                     </div>
                     <div className={"flex justify-center mt-10"}>
@@ -137,6 +142,9 @@ export default function SignUp() {
                             value={selectedSemesterOption}
                             onChange={handleSemesterOption}
                         >
+                            <option value="" disabled hidden>
+                                Selecione seu semestre...
+                            </option>
                             {semesterValues.map((semester, index) => (
                                 <option
                                     key={"semesterOption " + index}

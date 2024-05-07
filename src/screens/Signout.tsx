@@ -1,5 +1,5 @@
-import TitleHeader from "@components/TitleHeader.tsx";
-import SideBar from "@components/SideBar.tsx";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
+import SideBar from "@components/GenericComponents/SideBar";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";

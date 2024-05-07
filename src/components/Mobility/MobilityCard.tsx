@@ -1,19 +1,23 @@
-import SVGIcon from "./SVGIcon";
-import { countryCodes, Enrolled } from "../types";
+import SVGIcon from "../ImageInstances/SVGIcon";
+import { countryCodes, Mobility } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
-interface EnrolledCardProps {
-    enrolled: Enrolled;
+interface MobilityCardProps {
+    mobility: Mobility;
+    onClick: (mobility: Mobility) => void;
 }
 
-export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
-    const { avatarUrl, title, status, languages, country } = enrolled;
+export default function MobilityCard({ mobility, onClick }: MobilityCardProps) {
+    const { avatarUrl, title, status, languages, country } = mobility;
     function getCountryFullName(code: string): string {
         const countryCode = code.toLowerCase();
         return countryCodes[countryCode] || "Country not found";
     }
-    const countryName = getCountryFullName(enrolled.country);
+    const countryName = getCountryFullName(mobility.country);
 
+    const handleOnClick = () => {
+        onClick(mobility);
+    };
     const isDarkTheme = useThemeDetector();
 
     return (
@@ -36,7 +40,7 @@ export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
                                 <p className="text-xs mr-2">Languages:</p>
                                 {languages.map((language, index) => (
                                     <SVGIcon
-                                        key={"EnrolledCard SVGIcon " + index}
+                                        key={"MobilityCard SVGIcon " + index}
                                         src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
                                         className="w-4 m-[1px]"
                                     />
@@ -60,9 +64,12 @@ export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
                         >
                             {status}
                         </div>
-                        <div className="border-2 border-blue-500 text-blue-500 text-sm px-4 py-2 rounded-full">
-                            Enrolled
-                        </div>
+                        <button
+                            onClick={handleOnClick}
+                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                        >
+                            Enroll
+                        </button>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import ImageCard from "./ImageCard";
+import ImageCard from "../ImageInstances/ImageCard";
 import { HeroCardData } from "@constants/HeroCardProperties";
 
 const HeroCard = () => {

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
-import Curve from "@assets/hero-curve.svg";
-import HeroImg from "@assets/hero-img.png";
-import Navbar from "./NavBar";
+import Curve from "@assets/hero/hero-curve.svg";
+import HeroImg from "@assets/hero/hero-img.png";
+import Navbar from "../GenericComponents/NavBar";
 import "@style/hero.css";
 
 const Hero: React.FC = () => {

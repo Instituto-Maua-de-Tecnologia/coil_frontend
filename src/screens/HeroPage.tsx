@@ -1,14 +1,14 @@
 /* eslint-disable */
 
-import Hero from "@components/Hero.tsx";
-import { ImageTrack } from "@components/ImageTrack";
+import Hero from "@components/Hero/Hero";
+import { ImageTrack } from "@components/ImageInstances/ImageTrack";
 import scrollTrackItems from "@constants/ScrollTrackItems";
-import TrackItem from "@components/TrackItem";
-import CarouselComponent from "@components/Carousel";
+import TrackItem from "@components/GenericComponents/TrackItem";
+import CarouselComponent from "@components/Hero/Carousel";
 import "@style/hero.css";
-import Footer from "@components/Footer";
-import HeroCard from "@components/HeroCard";
-import ToasterContainer from "@components/ToasterContainer.tsx";
+import Footer from "@components/Hero/Footer";
+import HeroCard from "@components/Hero/HeroCard";
+import ToasterContainer from "@components/GenericComponents/ToasterContainer";
 
 export default function HeroPage() {
     return (

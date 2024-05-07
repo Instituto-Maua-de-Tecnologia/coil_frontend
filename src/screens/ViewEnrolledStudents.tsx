@@ -1,6 +1,6 @@
 import EnrolledStudentsList from "@components/EnrolledStudentsList";
-import SideBar from "@components/SideBar";
-import TitleHeader from "@components/TitleHeader";
+import SideBar from "@components/GenericComponents/SideBar";
+import TitleHeader from "@components/GenericComponents/TitleHeader";
 import { StudentListProps } from "@constants/StudentListProperties";
 
 export default function ViewEnrolledStudents() {

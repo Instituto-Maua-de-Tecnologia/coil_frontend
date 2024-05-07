@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Search from "./Search";
+import Search from "./GenericComponents/Search";
 import { Student } from "../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../style/scrollbar.css";

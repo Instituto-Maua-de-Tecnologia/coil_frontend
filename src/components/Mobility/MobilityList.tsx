@@ -1,49 +1,49 @@
 import { useState } from "react";
-import ProjectCard from "./ProjectCard";
-import Search from "./Search";
-import Filter from "@components/Filter.tsx";
-import { Project } from "../types";
-import Modal from "./Modal";
+import MobilityCard from "./MobilityCard";
+import Search from "../GenericComponents/Search";
+import Filter from "@components/GenericComponents/Filter";
+import { Mobility } from "../../types";
+import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import "../style/scrollbar.css";
-import Add from "./Add";
+import "@style/scrollbar.css";
+import Add from "../GenericComponents/Add";
 
-interface ProjectListProps {
-    projects: Project[];
+interface MobilityListProps {
+    mobilitys: Mobility[];
     isFilter: boolean;
     isAdmin: boolean;
 }
-export default function ProjectList({
-    projects,
+export default function MobilityList({
+    mobilitys,
     isFilter,
     isAdmin
-}: ProjectListProps) {
-    const [selectedProject, setSelectedProject] = useState<Project | null>(
+}: MobilityListProps) {
+    const [selectedMobility, setSelectedMobility] = useState<Mobility | null>(
         null
     );
-    const [filteredProjects, setFilteredProjects] =
-        useState<Project[]>(projects);
-    const handleModalOpen = (project: Project) => {
-        setSelectedProject(project);
+    const [filteredMobilitys, setFilteredMobilitys] =
+        useState<Mobility[]>(mobilitys);
+    const handleModalOpen = (mobility: Mobility) => {
+        setSelectedMobility(mobility);
     };
     console.log(localStorage.getItem("token") as string);
 
     const handleModalClose = () => {
-        setSelectedProject(null);
+        setSelectedMobility(null);
     };
 
     const handleSearch = (searchTerm: string) => {
-        const filtered = projects.filter(
-            (project) =>
-                project.title
+        const filtered = mobilitys.filter(
+            (mobility) =>
+                mobility.title
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                project.partnerName
+                mobility.partnerName
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                project.status.toLowerCase().includes(searchTerm.toLowerCase())
+                mobility.status.toLowerCase().includes(searchTerm.toLowerCase())
         );
-        setFilteredProjects(filtered);
+        setFilteredMobilitys(filtered);
     };
     const isDarkTheme = useThemeDetector();
 
@@ -54,24 +54,24 @@ export default function ProjectList({
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
                 <div className="button-container flex absolute right-12">
-                    {isAdmin ? <Add url="/CreateProject" /> : null}
+                    {isAdmin ? <Add url="/CreateMobility" /> : null}
                     {isFilter && <Filter />}
                 </div>
             </div>
-            {filteredProjects.length > 0 ? (
+            {filteredMobilitys.length > 0 ? (
                 <div>
                     <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                        {filteredProjects.map((project) => (
-                            <ProjectCard
-                                key={project.id}
-                                project={project}
+                        {filteredMobilitys.map((mobility) => (
+                            <MobilityCard
+                                key={mobility.id}
+                                mobility={mobility}
                                 onClick={handleModalOpen}
                             />
                         ))}
                     </ul>
-                    {selectedProject && (
+                    {selectedMobility && (
                         <Modal
-                            project={selectedProject}
+                            project={selectedMobility}
                             isOpen={true}
                             onClose={handleModalClose}
                         />
@@ -79,7 +79,7 @@ export default function ProjectList({
                 </div>
             ) : (
                 <p className="mx-auto my-5 text-center text-2xl">
-                    No project matched the search criteria
+                    No mobility matched the search criteria
                 </p>
             )}
         </div>

@@ -1,4 +1,4 @@
-import account_circle from "@assets/account_circle.png";
+import account_circle from "@assets/icons/account_circle.png";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 export type UserCardProps = {
@@ -7,10 +7,7 @@ export type UserCardProps = {
         name: string;
         email: string;
         user_type: number;
-        course: {
-            id: number;
-            name: string;
-        };
+        course: string;
         semester_course: number;
         created_at: string;
         updated_at: string;
@@ -43,7 +40,7 @@ export default function UserCard({ userCard }: UserCardProps) {
                             <p
                                 className={`w-1/2 ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 me-5`}
                             >
-                                {email.substring(0, 10)}
+                                {email.substring(0, email.indexOf("@"))}
                             </p>
                             <p
                                 className={`w-1/2 ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4`}
@@ -55,9 +52,7 @@ export default function UserCard({ userCard }: UserCardProps) {
                             <select
                                 className={`w-1/2 cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 me-5`}
                             >
-                                <option value={course?.name}>
-                                    {course?.name}
-                                </option>
+                                <option value={course}>{course}</option>
                             </select>
                             <select
                                 className={`w-1/2 cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 me-5`}

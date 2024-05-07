@@ -1,4 +1,4 @@
-import account_circle from "@assets/account_circle.png";
+import account_circle from "@assets/icons/account_circle.png";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 export type UserCardProps = {

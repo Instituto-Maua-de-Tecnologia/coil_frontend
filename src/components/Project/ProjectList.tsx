@@ -5,10 +5,10 @@ import Filter from "@components/GenericComponents/Filter";
 import { Project } from "../../types";
 import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import "../style/scrollbar.css";
+import "@style/scrollbar.css";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
-import Maua from "@assets/maua.png";
-import Fontys from "@assets/fontys.jpg";
+import Maua from "@assets/logo/maua.png";
+import Fontys from "@assets/logo/fontys.jpg";
 import Add from "../GenericComponents/Add";
 
 interface ProjectListProps {
@@ -94,7 +94,7 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
                 <div className="button-container flex absolute right-12">
-                    {isAdmin ? <Add /> : null}
+                    {isAdmin ? <Add url="/CreateProject" /> : null}
                     {isFilter && <Filter />}
                 </div>
             </div>

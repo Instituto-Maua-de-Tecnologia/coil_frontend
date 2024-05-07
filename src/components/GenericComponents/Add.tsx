@@ -1,15 +1,19 @@
-import addLight from "@assets/Add.png";
-import addDark from "@assets/Add_dark.png";
+import addLight from "@assets/icons/Add.png";
+import addDark from "@assets/icons/Add_dark.png";
 import { useThemeDetector } from "@util/ThemeDetector";
 import { useNavigate } from "react-router-dom";
 
-export default function Add() {
+interface AddProps {
+    url: string;
+}
+
+export default function Add({ url }: AddProps) {
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();
     return (
         <div>
             <button
-                onClick={() => navigate("/CreateProject")}
+                onClick={() => navigate(url)}
                 className="h-[56px] w-[56px] rounded-full"
             >
                 <img

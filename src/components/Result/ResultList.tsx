@@ -3,7 +3,7 @@ import ResultCard from "./ResultCard";
 import Search from "../GenericComponents/Search";
 import { Result } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import "../style/scrollbar.css";
+import "@style/scrollbar.css";
 
 interface ResultListProps {
     results: Result[];

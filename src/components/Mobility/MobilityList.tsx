@@ -5,7 +5,7 @@ import Filter from "@components/GenericComponents/Filter";
 import { Mobility } from "../../types";
 import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import "../style/scrollbar.css";
+import "@style/scrollbar.css";
 import Add from "../GenericComponents/Add";
 
 interface MobilityListProps {
@@ -54,7 +54,7 @@ export default function MobilityList({
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
                 <div className="button-container flex absolute right-12">
-                    {isAdmin ? <Add /> : null}
+                    {isAdmin ? <Add url="/CreateMobility" /> : null}
                     {isFilter && <Filter />}
                 </div>
             </div>

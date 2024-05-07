@@ -20,6 +20,8 @@ interface NavigationItem {
     br?: boolean;
     purple?: boolean;
     blue?: boolean;
+    access?: string;
+
     icon: ({
         className,
         fill
@@ -76,13 +78,15 @@ export const navigation: NavigationItem[] = [
         title: "Enrolled",
         url: "/Enrolled",
         icon: enrolledIcon,
-        smgap: true
+        smgap: true,
+        access: "student"
     },
     {
         id: "6",
         title: "Results",
         icon: resultsIcon,
-        url: "/Results"
+        url: "/Results",
+        access: "student"
     },
     {
         id: "7",

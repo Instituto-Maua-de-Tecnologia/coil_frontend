@@ -3,7 +3,7 @@ import InstitutionCard from "./InstitutionCard.tsx";
 import Search from "../GenericComponents/Search.tsx";
 import { Institution } from "../../types.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import "../style/scrollbar.css";
+import "@style/scrollbar.css";
 import Add from "../GenericComponents/Add.tsx";
 
 interface InstitutionListProps {
@@ -33,7 +33,7 @@ export default function InstitutionList({
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} />
                 <div className="button-container flex absolute right-12">
-                    {isAdmin ? <Add /> : null}
+                    {isAdmin ? <Add url="/CreateProject" /> : null}
                 </div>
             </div>
             {filteredInstitutions.length > 0 ? (

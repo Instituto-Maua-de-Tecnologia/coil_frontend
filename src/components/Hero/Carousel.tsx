@@ -6,8 +6,8 @@ import SwiperInstance from "swiper";
 import { Pagination, FreeMode, Navigation, Autoplay } from "swiper/modules";
 import { ServiceData } from "@constants/CarouselProperties.ts";
 import { useEffect, useState } from "react";
-import chevronLeft from "@assets/chevronLeft.png";
-import chevronRight from "@assets/chevronRight.png";
+import chevronLeft from "@assets/icons/chevronLeft.png";
+import chevronRight from "@assets/icons/chevronRight.png";
 
 export default function CarouselComponent() {
     const [swiper, setSwiper] = useState<SwiperInstance | null>(null);

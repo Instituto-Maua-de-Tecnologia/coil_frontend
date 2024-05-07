@@ -8,9 +8,10 @@ import User from "@screens/User.tsx";
 import Signout from "@screens/Signout.tsx";
 import HeroPage from "@screens/HeroPage.tsx";
 import Error404 from "@screens/404.tsx";
-import CreateActivity from "@screens/CreateActivity.tsx";
+import CreateActivity from "@screens/CreateActivity";
 import SignUp from "@screens/SignUp.tsx";
 import Mobilities from "@screens/Mobilities.tsx";
+import ViewEnrolledStudents from "@screens/ViewEnrolledStudents";
 import { ActivityTypeEnum } from "@enum/ActivityTypeEnum.ts";
 
 export default function AppRoutes() {
@@ -44,6 +45,10 @@ export default function AppRoutes() {
                 <Route path={"/Results"} element={<Results />} />
                 <Route path={"/User"} element={<User />} />
                 <Route path={"/Signout"} element={<Signout />} />
+                <Route
+                    path={"/ViewEnrolledStudents"}
+                    element={<ViewEnrolledStudents />}
+                />
             </Routes>
         </BrowserRouter>
     );

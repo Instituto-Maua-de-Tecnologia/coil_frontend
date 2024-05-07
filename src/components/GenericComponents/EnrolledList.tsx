@@ -3,7 +3,7 @@ import EnrolledCard from "./EnrolledCard.tsx";
 import Search from "./Search.tsx";
 import { Enrolled } from "../../types.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import "../style/scrollbar.css";
+import "@style/scrollbar.css";
 
 interface EnrolledListProps {
     enrolleds: Enrolled[];

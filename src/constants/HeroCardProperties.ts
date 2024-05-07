@@ -1,6 +1,6 @@
-import infoImg1 from "@assets/heroCard/Info 1 Image.png";
-import infoImg2 from "@assets/heroCard/Info 2 Image.png";
-import infoImg3 from "@assets/heroCard/Info 3 Image.png";
+import infoImg1 from "@assets/hero/heroCard/Info 1 Image.png";
+import infoImg2 from "@assets/hero/heroCard/Info 2 Image.png";
+import infoImg3 from "@assets/hero/heroCard/Info 3 Image.png";
 
 export const HeroCardData = [
     {

@@ -31,12 +31,12 @@ export default function EnrolledStudentList({
             </div>
             {filteredEnrolledStudents.length > 0 ? (
                 <>
-                    <div className="table-header flex">
-                        <h1 className="font-bold">Name</h1>
-                        <h1 className="font-bold">R.A.</h1>
-                        <h1 className="font-bold">Course</h1>
-                        <h1 className="font-bold">Approval Status</h1>
-                    </div>
+                    {/* <div className="table-header flex p-4 mb-2">
+                        <h1 className="font-bold text-[#0F1820]">Name</h1>
+                        <h1 className="font-bold text-[#0F1820]">R.A.</h1>
+                        <h1 className="font-bold text-[#0F1820]">Course</h1>
+                        <h1 className="font-bold text-[#0F1820]">Approval</h1>
+                    </div> */}
                     <div>
                         <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
                             {filteredEnrolledStudents.map((student) => (

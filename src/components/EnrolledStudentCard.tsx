@@ -21,19 +21,23 @@ export default function EnrolledStudentCard({
         <li
             className={`sm:flex items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-2 w-full`}
         >
-            <div className="flex sm:relative items-center sm:justify-between w-full">
-                <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
-                    <div className="font-bold">{enrolledStudent.name}</div>
-                    <div className="font-bold">{enrolledStudent.ra}</div>
-                    <div className="font-bold">{enrolledStudent.course}</div>
-                    <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
+            <div className="flex sm:relative sm:justify-between w-full">
+                <div className="sm:flex w-full sm:items-center">
+                    <div className="font-bold w-full">
+                        {enrolledStudent.name}
+                    </div>
+                    <div className="font-bold w-full">{enrolledStudent.ra}</div>
+                    <div className="font-bold w-full">
+                        {enrolledStudent.course}
+                    </div>
+                    <div className="mr-2">
                         <button onClick={handleToggleApprovation}>
                             {isApproved ? (
-                                <div className="text-blue-500 bg-[#223A4F] text-sm px-4 py-2 rounded-full">
+                                <div className="text-blue-500 bg-[#223A4F] text-sm px-4 py-2 my-2 rounded-full">
                                     Unapproved
                                 </div>
                             ) : (
-                                <div className="text-white min-w-[112px] bg-[#2684FF] text-sm px-4 py-2 rounded-full">
+                                <div className="text-white min-w-[112px] bg-[#2684FF] text-sm px-4 py-2 my-2 rounded-full">
                                     Approved
                                 </div>
                             )}

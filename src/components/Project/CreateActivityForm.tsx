@@ -8,16 +8,20 @@ import getAllCourses from "@integrations/course/get_all_courses.ts";
 import createActivity from "@integrations/activity/admin&moderator/create_activity.ts";
 import { useNavigate } from "react-router-dom";
 import { CourseProps } from "@screens/SignUp.tsx";
+import getAllInstitutions from "@integrations/institution/get_all_institution.ts";
+
+type InstitutionProps = [
+    {
+        id: number;
+        name: string;
+        logo: string;
+    }
+];
 
 const langOptions = [
     { value: "portuguese", label: "Portuguese" },
     { value: "english", label: "English" },
     { value: "dutch", label: "Dutch" }
-];
-
-const partnerInstitutionOptions = [
-    { value: "fontys", label: "Fontys University of Applied Sciences" },
-    { value: "maua", label: "Instituto Mauá de Tecnologia" }
 ];
 
 interface ActivityFormProps {
@@ -26,6 +30,9 @@ interface ActivityFormProps {
 
 const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
+    const [institutions, setInstitutions] = useState<InstitutionProps>([
+        { id: 0, name: "", logo: "" }
+    ]);
     const navigate = useNavigate();
     const isDarkTheme = useThemeDetector();
 
@@ -172,6 +179,9 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
 
     const handleGetAllCourses = async () => {
         try {
+            const institutionValues =
+                (await getAllInstitutions()) as InstitutionProps;
+            setInstitutions(institutionValues);
             const courseValues = (await getAllCourses()) as CourseProps;
             setCourses(courseValues);
         } catch (error) {
@@ -182,7 +192,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
 
     useEffect(() => {
         handleGetAllCourses();
-    }); // TODO
+    }, []);
 
     async function handlePostActivity() {
         await createActivity({
@@ -244,6 +254,12 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         value: course.id,
         label: course.name
     }));
+
+    const institutionsOptions = institutions.map((institution) => ({
+        value: institution.name,
+        label: institution.name
+    }));
+
     return (
         <div
             className={`w-full md:ml-4 px-4 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl overflow-auto`}
@@ -297,7 +313,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 Partner Institution
                             </label>
                             <Select
-                                options={partnerInstitutionOptions}
+                                options={institutionsOptions}
                                 menuPosition="fixed"
                                 components={{
                                     IndicatorSeparator: () => null,

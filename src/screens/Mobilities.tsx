@@ -2,10 +2,12 @@ import TitleHeader from "@components/GenericComponents/TitleHeader";
 import SideBar from "@components/GenericComponents/SideBar";
 import MobilityList from "@components/Mobility/MobilityList";
 import { MobilityProps } from "@constants/MobilityProperties";
-
-const userAdmin = true;
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
 export default function Mobilities() {
+    const user_type = JSON.parse(
+        localStorage.getItem("user") as string
+    ).user_type;
     return (
         <>
             <div className="max-h-screen flex flex-col">
@@ -14,7 +16,7 @@ export default function Mobilities() {
                     <SideBar />
                     <MobilityList
                         isFilter
-                        isAdmin={userAdmin}
+                        isAdmin={user_type === UserTypeEnum.ADMIN}
                         mobilitys={MobilityProps}
                     />
                 </div>

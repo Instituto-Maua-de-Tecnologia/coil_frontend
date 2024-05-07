@@ -29,6 +29,8 @@ module.exports = {
         "@typescript-eslint/no-misused-promises": "warn",
         "@typescript-eslint/no-unsafe-return": "warn",
         "@typescript-eslint/no-floating-promises": "warn",
+        "@typescript-eslint/no-unsafe-argument": "warn",
+        "@typescript-eslint/no-explicit-any": "warn",
         "react-refresh/only-export-components": [
             "warn",
             { allowConstantExport: true }

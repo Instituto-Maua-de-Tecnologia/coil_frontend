@@ -4,7 +4,10 @@ interface GetAllActivitiesProps {
     activity_id: string;
 }
 
-interface GetAllActivitiesResponse {}
+interface GetAllActivitiesResponse {
+    message: string;
+    data: string;
+}
 
 export default async function getActivity(props: GetAllActivitiesProps) {
     const token = localStorage.getItem("token");

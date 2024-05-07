@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import Hero from "@components/Hero/Hero";
 import { ImageTrack } from "@components/ImageInstances/ImageTrack";
 import scrollTrackItems from "@constants/ScrollTrackItems";

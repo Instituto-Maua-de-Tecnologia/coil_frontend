@@ -6,15 +6,15 @@ interface CreateActivityProps {
         description: string;
         start_date: string;
         end_date: string;
-        languages: [string];
-        partner_institutions: [string];
-        course: [
+        languages: string[];
+        partner_institutions: string[];
+        courses: [
             {
                 id?: number;
                 name?: string;
             }
         ];
-        criterias: [string];
+        criterias: string[];
         type_activity: number;
     };
 }
@@ -49,6 +49,7 @@ export default async function createActivity(props: CreateActivityProps) {
                         status: errorResponse.status,
                         message: errorResponse.data.message
                     });
+                    console.log(errorResponse.data.message);
                 }
             });
     });

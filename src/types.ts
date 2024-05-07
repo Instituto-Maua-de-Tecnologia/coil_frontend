@@ -14,6 +14,8 @@ export interface Project {
     status: string;
     languages: string[];
     country: string;
+    applicationStart: string;
+    applicationEnd: string;
 }
 
 export interface Mobility {

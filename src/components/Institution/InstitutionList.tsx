@@ -10,7 +10,7 @@ export interface AllInstitutions {
     id: string;
     name: string;
     logo: string;
-}
+} // TODO: Esperar o backend terminar de implementar a lógica de colocar os países para serem exibidos aqui também
 
 interface InstitutionListProps {
     isAdmin: boolean;
@@ -39,6 +39,7 @@ export default function InstitutionList({ isAdmin }: InstitutionListProps) {
             institution.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredInstitutions(filtered);
+        //TODO: melhorar a lógica de pesquisa, pois quando se pesquisa por uma instituição existe, e apagar o texto do input, as instituições não voltam a aparecer
     };
 
     const isDarkTheme = useThemeDetector();

@@ -1,7 +1,7 @@
 import account_circle from "@assets/icons/account_circle.png";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import updateUser from "@integrations/user/authentification/update_user";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CourseProps } from "@screens/SignUp";
 import getAllCourses from "@integrations/course/get_all_courses";
 

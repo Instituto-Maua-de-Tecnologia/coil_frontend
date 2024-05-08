@@ -90,7 +90,7 @@ export const navigation: NavigationItem[] = [
     },
     {
         id: "7",
-        title: `${name?.substring(0, name.indexOf(" "))}`,
+        title: `${name?.substring(0, name.indexOf(" ")) || name !== null ? name : ""}`,
         icon: userIcon,
         url: "/User",
         blue: true

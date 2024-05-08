@@ -16,6 +16,7 @@ import { ActivityTypeEnum } from "@enum/ActivityTypeEnum.ts";
 import ProjectInfo from "@screens/ProjectInfo";
 import { useEffect } from "react";
 import getUser from "@integrations/user/authentification/get_user.ts";
+import InstitutionInfo from "@screens/InstitutionInfo";
 
 export default function AppRoutes() {
     useEffect(() => {
@@ -47,6 +48,10 @@ export default function AppRoutes() {
                 <Route path={"/Signup"} element={<SignUp />} />
                 <Route path={"/Home"} element={<Home />} />
                 <Route path={"/Institution"} element={<Institutions />} />
+                <Route
+                    path={"/InstitutionInfo"}
+                    element={<InstitutionInfo />}
+                />
                 <Route path={"/Projects"} element={<Projects />} />
                 <Route path={"/ProjectInfo"} element={<ProjectInfo />} />
                 <Route

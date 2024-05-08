@@ -9,18 +9,46 @@ export default function InstitutionInformation() {
                 className={`flex 2xs:flex-col sm:flex-row wrap ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl p-4 w-full md:h-25%`}
             >
                 <div className="self-center p-2 sm:w-1/6">
-                    <img src="" alt="institution-img"></img>
+                    <img
+                        src="src\assets\logo\maua2.png"
+                        alt="institution-img"
+                        className="avatar-img mx-auto sm:-mx-auto w-[23vw] rounded-full "
+                    />
                 </div>
-                <div className="2xs:text-center sm:text-left p-2 sm:w-4/6">
-                    <div className="font-extrabold">name</div>
-                    <div className="">location</div>
-                    <div className="">catchphrase</div>
-                    <div>website link</div>
+                <div className="2xs:text-center sm:text-left self-center p-2 sm:w-4/6">
+                    <div className="font-extrabold">
+                        Mauá Institute of Technology
+                    </div>
+                    <div className="">Brazil</div>
+                    <div className="font-semibold">
+                        "Brilliant minds meet here"
+                    </div>
+                    <a
+                        href="https://maua.br/"
+                        className="text-blue-500 underline"
+                    >
+                        visit website
+                    </a>
                 </div>
                 <div className="2xs:text-center xs:text-right place-content-center xs:place-items-end pl-10 md:pl-0 pr-10 md:pr-1 flex">
-                    <div className="pt-1 pb-1 ">social media</div>
-                    <div className="p-1">social media</div>
-                    <div className="pt-1 pb-1 ">social media</div>
+                    <div className="pt-1 pb-1 ">
+                        <img
+                            src="src\assets\icons\instagram.png"
+                            alt="instagram link"
+                        />
+                    </div>
+                    <div className="p-1">
+                        <img
+                            src="src\assets\icons\Facebook.png"
+                            alt="facebook link"
+                        />
+                    </div>
+                    <div className="pt-1 pb-1 ">
+                        <img
+                            src="src\assets\icons\twitter.png"
+                            alt="twiter link"
+                        />
+                    </div>
                 </div>
             </div>
             <div className="mt-4 md:flex w-full md:h-3/4">
@@ -31,7 +59,21 @@ export default function InstitutionInformation() {
                         Institution information
                     </div>
                     <div className="custom-scrollbar overflow-y-auto  h-full p-3">
-                        dumy
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Sed eleifend vestibulum urna, eget sollicitudin tortor
+                        fringilla eget. Fusce sit amet elit vitae libero
+                        scelerisque venenatis. Vestibulum nec vestibulum leo.
+                        Nulla facilisi. Phasellus non hendrerit ante, a pulvinar
+                        nibh. Vivamus eget libero euismod, blandit ex vel,
+                        cursus odio. Integer nec nulla quis felis rutrum
+                        eleifend non a nisi. Maecenas quis tellus quis purus
+                        sodales lobortis. Sed et justo vitae magna viverra
+                        varius. Phasellus interdum, magna et cursus bibendum,
+                        velit arcu viverra justo, id vehicula arcu dui vel mi.
+                        Ut eu est felis. Cras id leo nec nulla dapibus posuere.
+                        Nullam ac est vitae eros dictum fermentum id et libero.
+                        Aliquam ac odio eleifend, fringilla elit non, facilisis
+                        risus.
                     </div>
                 </div>
                 <div
@@ -41,7 +83,21 @@ export default function InstitutionInformation() {
                         Institution pictures
                     </div>
                     <div className="custom-scrollbar overflow-y-auto h-full p-3">
-                        dumy
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Sed eleifend vestibulum urna, eget sollicitudin tortor
+                        fringilla eget. Fusce sit amet elit vitae libero
+                        scelerisque venenatis. Vestibulum nec vestibulum leo.
+                        Nulla facilisi. Phasellus non hendrerit ante, a pulvinar
+                        nibh. Vivamus eget libero euismod, blandit ex vel,
+                        cursus odio. Integer nec nulla quis felis rutrum
+                        eleifend non a nisi. Maecenas quis tellus quis purus
+                        sodales lobortis. Sed et justo vitae magna viverra
+                        varius. Phasellus interdum, magna et cursus bibendum,
+                        velit arcu viverra justo, id vehicula arcu dui vel mi.
+                        Ut eu est felis. Cras id leo nec nulla dapibus posuere.
+                        Nullam ac est vitae eros dictum fermentum id et libero.
+                        Aliquam ac odio eleifend, fringilla elit non, facilisis
+                        risus.
                     </div>
                 </div>
             </div>

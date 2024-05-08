@@ -1,7 +1,6 @@
 import SideBar from "@components/GenericComponents/SideBar";
 import TitleHeader from "@components/GenericComponents/TitleHeader";
 import InstitutionList from "@components/Institution/InstitutionList";
-import { InstitutionsProps } from "@constants/InstitutionListProperties.ts";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
 export default function Institutions() {
@@ -16,7 +15,6 @@ export default function Institutions() {
                     <SideBar />
                     <InstitutionList
                         isAdmin={user_type === UserTypeEnum.ADMIN}
-                        institutions={InstitutionsProps}
                     />
                 </div>
             </div>

@@ -1,29 +1,46 @@
-import { useState } from "react";
-import InstitutionCard from "./InstitutionCard.tsx";
+import { useEffect, useState } from "react";
 import Search from "../GenericComponents/Search.tsx";
-import { Institution } from "../../types.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "@style/scrollbar.css";
 import Add from "../GenericComponents/Add.tsx";
+import getAllInstitutions from "@integrations/institution/get_all_institution.ts";
+import InstitutionCard from "@components/Institution/InstitutionCard.tsx";
+
+export interface AllInstitutions {
+    id: string;
+    name: string;
+    logo: string;
+}
 
 interface InstitutionListProps {
-    institutions: Institution[];
     isAdmin: boolean;
 }
 
-export default function InstitutionList({
-    institutions,
-    isAdmin
-}: InstitutionListProps) {
-    const [filteredInstitutions, setFilteredInstitutions] =
-        useState<Institution[]>(institutions);
+export default function InstitutionList({ isAdmin }: InstitutionListProps) {
+    const [filteredInstitutions, setFilteredInstitutions] = useState<
+        AllInstitutions[]
+    >([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const institutionsData = await getAllInstitutions();
+                setFilteredInstitutions(institutionsData as AllInstitutions[]);
+            } catch (error) {
+                console.error("Error fetching institutions:", error);
+            }
+        }
+
+        fetchData();
+    }, []);
 
     const handleSearch = (searchTerm: string) => {
-        const filtered = institutions.filter((institution) =>
+        const filtered = filteredInstitutions.filter((institution) =>
             institution.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredInstitutions(filtered);
     };
+
     const isDarkTheme = useThemeDetector();
 
     return (
@@ -37,19 +54,17 @@ export default function InstitutionList({
                 </div>
             </div>
             {filteredInstitutions.length > 0 ? (
-                <div>
-                    <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                        {filteredInstitutions.map((institution) => (
-                            <InstitutionCard
-                                key={institution.id}
-                                institution={institution}
-                            />
-                        ))}
-                    </ul>
-                </div>
+                <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
+                    {filteredInstitutions.map((institution) => (
+                        <InstitutionCard
+                            key={institution.id}
+                            institution={institution}
+                        />
+                    ))}
+                </ul>
             ) : (
                 <p className="mx-auto my-5 text-center text-2xl">
-                    No Institution matched the search criteria
+                    No institutions matched the search criteria
                 </p>
             )}
         </div>

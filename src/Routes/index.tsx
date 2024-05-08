@@ -14,8 +14,31 @@ import Mobilities from "@screens/Mobilities.tsx";
 import ViewEnrolledStudents from "@screens/ViewEnrolledStudents";
 import { ActivityTypeEnum } from "@enum/ActivityTypeEnum.ts";
 import ProjectInfo from "@screens/ProjectInfo";
+import { useEffect } from "react";
+import getUser from "@integrations/user/authentification/get_user.ts";
 
 export default function AppRoutes() {
+    useEffect(() => {
+        if (!(window.location.pathname === "/")) {
+            if (
+                !localStorage.getItem("user") ||
+                !localStorage.getItem("token")
+            ) {
+                window.location.href = "/";
+                localStorage.clear();
+                alert("Token inválido ou expirado, faça o login novamente");
+            } else
+                getUser({
+                    token: localStorage.getItem("token") as string
+                }).catch((error) => {
+                    window.location.href = "/";
+                    localStorage.clear();
+                    alert("Token inválido ou expirado, faça o login novamente");
+                    throw new Error(error);
+                });
+        }
+    }, []);
+
     return (
         <BrowserRouter>
             <Routes>

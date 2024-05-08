@@ -1,5 +1,9 @@
 import account_circle from "@assets/icons/account_circle.png";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
+import updateUser from "@integrations/user/authentification/update_user";
+import { useEffect, useState } from "react";
+import { CourseProps } from "@screens/SignUp";
+import getAllCourses from "@integrations/course/get_all_courses";
 
 export type UserCardProps = {
     userCard: {
@@ -16,6 +20,56 @@ export type UserCardProps = {
 
 export default function UserCard({ userCard }: UserCardProps) {
     const { name, course, email, semester_course } = userCard;
+    const [updatedCourseOption, setUpdatedCourseOption] =
+        useState<string>(course);
+    const [updatedSemesterOption, setUpdatedSemesterOption] =
+        useState<number>(semester_course);
+    const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
+
+    const handleGetAllCourses = async () => {
+        try {
+            const courseValues = (await getAllCourses()) as CourseProps;
+            setCourses(courseValues);
+            console.log(courses);
+        } catch (error) {
+            console.error("Erro ao obter cursos:", error);
+        }
+    };
+
+    function handleCourseOption(event: any) {
+        setUpdatedCourseOption(event.target.value);
+        handleProfileUpdates();
+    }
+
+    function handleSemesterOption(event: React.ChangeEvent<HTMLSelectElement>) {
+        const selectedSemester = parseInt(event.target.value, 10);
+        setUpdatedSemesterOption(selectedSemester);
+        handleProfileUpdates();
+    }
+
+    async function handleProfileUpdates() {
+        if (
+            updatedCourseOption != course ||
+            updatedSemesterOption != semester_course
+        ) {
+            await updateUser({
+                body: {
+                    course: updatedCourseOption,
+                    semester_course: updatedSemesterOption
+                }
+            }).catch((error) => {
+                if (error.message === "MissingToken")
+                    throw new Error(
+                        "Erro ao localizar o token de acesso. Por favor, tente novamente."
+                    );
+                else throw new Error("Falha ao atualizar dados");
+            });
+        }
+    }
+
+    useEffect(() => {
+        handleGetAllCourses();
+    }, []);
 
     const isDarkTheme = useThemeDetector();
 
@@ -51,14 +105,30 @@ export default function UserCard({ userCard }: UserCardProps) {
                         <div className="flex mb-5">
                             <select
                                 className={`w-1/2 cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 me-5`}
+                                value={updatedCourseOption}
+                                onChange={handleCourseOption}
                             >
-                                <option value={course}>{course}</option>
+                                <option value={updatedCourseOption} hidden>
+                                    {updatedCourseOption}
+                                </option>
+                                {Array.from({ length: courses.length }).map(
+                                    (_, index) => (
+                                        <option
+                                            key={"courseOption " + index}
+                                            value={courses[index].name}
+                                        >
+                                            {courses[index].name}
+                                        </option>
+                                    )
+                                )}
                             </select>
                             <select
-                                className={`w-1/2 cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 me-5`}
+                                className={`w-1/2 cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 me-5 ellipsis`}
+                                value={updatedSemesterOption}
+                                onChange={handleSemesterOption}
                             >
-                                <option value={semester_course}>
-                                    {semester_course}
+                                <option value={updatedSemesterOption}>
+                                    {updatedSemesterOption}
                                 </option>
                             </select>
                         </div>

@@ -20,14 +20,14 @@ interface UpdateInstitutionResponse {
     message: string;
 }
 
-export default async function createModerator(props: UpdateInstitutionProps) {
+export default async function updateInstitution(props: UpdateInstitutionProps) {
     const token = localStorage.getItem("token");
     console.log(JSON.stringify(props.body));
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
             .post(
-                `${endpoint}/create-institution`,
+                `${endpoint}/update-institution`,
                 JSON.stringify(props.body),
                 {
                     headers: {

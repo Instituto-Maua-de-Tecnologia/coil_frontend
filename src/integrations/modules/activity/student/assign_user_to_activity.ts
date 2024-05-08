@@ -15,7 +15,7 @@ export default async function assignUserToActivities(
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT as string;
         axios
-            .get(`${endpoint}/assing-user?activity_id=${props.activity_id}`, {
+            .get(`${endpoint}/assign-user?activity_id=${props.activity_id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: token as string

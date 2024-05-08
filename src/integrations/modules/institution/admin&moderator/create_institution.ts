@@ -7,7 +7,7 @@ interface CreateInstitutionProps {
         email: string;
         country: string;
         images: [string];
-        social_medias?: [
+        social_medias: [
             {
                 media?: string;
                 link?: string;
@@ -20,7 +20,7 @@ interface CreateInstitutionResponse {
     message: string;
 }
 
-export default async function createModerator(props: CreateInstitutionProps) {
+export default async function createInstitution(props: CreateInstitutionProps) {
     const token = localStorage.getItem("token");
     console.log(JSON.stringify(props.body));
     return new Promise((resolve, reject) => {

@@ -1,24 +1,34 @@
 import { useThemeDetector } from "@util/ThemeDetector";
+import { Project } from "../../types";
 
-export type ProjectProps = {
-    projectSumUp: {
-        id: number;
-        name: string;
-        language: string;
-        contry: string;
-        applicationStart: string;
-        applicationEnd: string;
-        Status: any;
-    };
-};
+// export type ProjectInfo = {
+//     projectSumUp: {
+//         id: number;
+//         name: string;
+//         language: string;
+//         contry: string;
+//         applicationStart: string;
+//         applicationEnd: string;
+//         Status: any;
+//     };
 
-export default function ProjectInformation() {
+// };
+
+interface ProjectProps {
+    project: Project;
+    onClick: (project: Project) => void;
+}
+
+export default function ProjectInformation({ project, onClick }: ProjectProps) {
     // const { avatarUrl, title, status, languages, country, applicationStart, applicationEnd } = project;
+    const handleOnClick = () => {
+        onClick(project);
+    };
 
     const isDarkTheme = useThemeDetector();
 
     return (
-        <div className="md:custom-scrollbar overflow-y-auto flex-col w-full m-3 mb-0 mt-0 ">
+        <div className="custom-scrollbar overflow-y-auto lg:overflow-y-visible flex-col w-full m-3 mb-0 mt-0 ">
             <div
                 className={`flex 2xs:flex-col sm:flex-row wrap ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl p-4 w-full md:h-25%`}
             >
@@ -32,11 +42,15 @@ export default function ProjectInformation() {
                     <div className="">contry</div>
                 </div>
                 <div className="2xs:text-center md:text-right sm:w-1/6">
-                    <div className="">status</div>
+                    <div
+                        className={` ${status === "Open" ? "text-green-500" : "text-red-500"}`}
+                    >
+                        status
+                    </div>
                     <div className="font{20px}">application-start</div>
                     <div className="mb-2">application-end</div>
                     <button
-                        // onClick={handleOnClick}
+                        onClick={handleOnClick}
                         className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
                     >
                         Enrol
@@ -45,17 +59,17 @@ export default function ProjectInformation() {
             </div>
             <div className="mt-4 md:flex w-full md:h-3/4">
                 <div
-                    className={` justify rounded-3xl p-4 pb-0 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:w-2/3 md:mr-2`}
+                    className={` justify rounded-3xl p-4 md:pb-20 pb-0 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:w-2/3 md:mr-2`}
                 >
                     <div className="p-3 font-extrabold ">
                         Project description
                     </div>
-                    <div className="custom-scrollbar overflow-y-auto h-full p-3">
-                        dumy{" "}
+                    <div className="custom-scrollbar overflow-y-auto  h-full p-3">
+                        dumy
                     </div>
                 </div>
                 <div
-                    className={` justify rounded-3xl p-4 pb-0 mt-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:mt-0 md:w-1/3 md:ml-2`}
+                    className={` justify rounded-3xl p-4 pb-0 md:pb-20 mt-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:mt-0 md:w-1/3 md:ml-2`}
                 >
                     <div className="p-3 font-extrabold">Project criteria</div>
                     <div className="custom-scrollbar overflow-y-auto h-full p-3">

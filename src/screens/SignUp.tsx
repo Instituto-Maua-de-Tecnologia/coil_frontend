@@ -43,8 +43,6 @@ export default function SignUp() {
     });
 
     async function handlePostCS() {
-        console.log(selectedCourseOption);
-        console.log(typeof selectedCourseOption);
         if (selectedSemesterOption && selectedCourseOption) {
             await updateUser({
                 body: {

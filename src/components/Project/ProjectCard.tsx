@@ -1,6 +1,8 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
 import { countryCodes, Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
+import { useNavigate } from "react-router-dom";
+import React from "react";
 
 interface ProjectCardProps {
     project: Project;
@@ -15,14 +17,19 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
     }
     const countryName = getCountryFullName(project.country);
 
-    const handleOnClick = () => {
+    const handleOnClick = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        e.stopPropagation();
         onClick(project);
     };
     const isDarkTheme = useThemeDetector();
+    const navigate = useNavigate();
 
     return (
         <li
-            className={`sm:flex items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            onClick={() => navigate("/ProjectInfo")}
+            className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">

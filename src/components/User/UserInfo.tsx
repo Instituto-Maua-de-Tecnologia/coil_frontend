@@ -31,8 +31,7 @@ export default function UserInfo() {
                 }
             });
         }
-        console.log(localStorage.getItem("token") as string);
-    }, []);
+    }, [localStorage.getItem("user")]);
 
     const isDarkTheme = useThemeDetector();
     return (
@@ -40,8 +39,7 @@ export default function UserInfo() {
             className={`w-full max-h-[85%] lg:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-sb-bg"} rounded-3xl`}
         >
             <div className="w-full h-full my-auto">
-                {user && <UserCard userCard={user.userCard} />}{" "}
-                {/* eslint-disable-line */}
+                {user && <UserCard userCard={user.userCard} />}
             </div>
         </div>
     );

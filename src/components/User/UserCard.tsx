@@ -25,46 +25,58 @@ export default function UserCard({ userCard }: UserCardProps) {
     const [updatedSemesterOption, setUpdatedSemesterOption] =
         useState<number>(semester_course);
     const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
+    const [updatable, setUpdatable] = useState(false);
+    const [showArrow, setShowArrow] = useState({ WebkitAppearance: "none" });
+
+    const semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     const handleGetAllCourses = async () => {
         try {
             const courseValues = (await getAllCourses()) as CourseProps;
             setCourses(courseValues);
-            console.log(courses);
         } catch (error) {
             console.error("Erro ao obter cursos:", error);
         }
     };
 
+    const toggleUpdatable = () => {
+        setUpdatable(!updatable);
+        const showArrow = updatable
+            ? { WebkitAppearance: "none" }
+            : { WebkitAppearance: "auto" };
+        setShowArrow(showArrow);
+    };
+
     function handleCourseOption(event: any) {
         setUpdatedCourseOption(event.target.value);
-        handleProfileUpdates();
     }
 
     function handleSemesterOption(event: React.ChangeEvent<HTMLSelectElement>) {
         const selectedSemester = parseInt(event.target.value, 10);
         setUpdatedSemesterOption(selectedSemester);
-        handleProfileUpdates();
     }
 
     async function handleProfileUpdates() {
+        toggleUpdatable();
         if (
             updatedCourseOption != course ||
             updatedSemesterOption != semester_course
-        ) {
+        )
             await updateUser({
                 body: {
                     course: updatedCourseOption,
                     semester_course: updatedSemesterOption
                 }
-            }).catch((error) => {
-                if (error.message === "MissingToken")
-                    throw new Error(
-                        "Erro ao localizar o token de acesso. Por favor, tente novamente."
-                    );
-                else throw new Error("Falha ao atualizar dados");
-            });
-        }
+            })
+                .then(() => {})
+                .catch((error) => {
+                    console.log(error);
+                    if (error.message === "MissingToken")
+                        throw new Error(
+                            "Erro ao localizar o token de acesso. Por favor, tente novamente."
+                        );
+                    else throw new Error("Falha ao atualizar dados");
+                });
     }
 
     useEffect(() => {
@@ -107,6 +119,8 @@ export default function UserCard({ userCard }: UserCardProps) {
                                 className={`w-1/2 cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 me-5`}
                                 value={updatedCourseOption}
                                 onChange={handleCourseOption}
+                                disabled={!updatable}
+                                style={showArrow}
                             >
                                 <option value={updatedCourseOption} hidden>
                                     {updatedCourseOption}
@@ -126,10 +140,20 @@ export default function UserCard({ userCard }: UserCardProps) {
                                 className={`w-1/2 cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 me-5 ellipsis`}
                                 value={updatedSemesterOption}
                                 onChange={handleSemesterOption}
+                                disabled={!updatable}
+                                style={showArrow}
                             >
-                                <option value={updatedSemesterOption}>
+                                <option value={updatedSemesterOption} hidden>
                                     {updatedSemesterOption}
                                 </option>
+                                {semesters.map((_, index) => (
+                                    <option
+                                        key={"courseOption " + index}
+                                        value={semesters[index]}
+                                    >
+                                        {semesters[index]}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                         <p
@@ -137,6 +161,20 @@ export default function UserCard({ userCard }: UserCardProps) {
                         >
                             {email}
                         </p>
+                        <button
+                            onClick={toggleUpdatable}
+                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                        >
+                            {!updatable ? "Update" : "Cancel"}
+                        </button>
+                        {updatable ? (
+                            <button
+                                onClick={handleProfileUpdates}
+                                className="bg-blue-500 text-white ml-2 text-sm px-4 py-2 rounded-full"
+                            >
+                                Save Changes
+                            </button>
+                        ) : null}
                     </div>
                 </div>
             </div>

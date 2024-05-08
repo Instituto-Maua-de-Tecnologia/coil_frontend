@@ -31,7 +31,6 @@ export default function UserInfo() {
                 }
             });
         }
-        console.log(localStorage.getItem("token") as string);
     }, [localStorage.getItem("user")]);
 
     const isDarkTheme = useThemeDetector();

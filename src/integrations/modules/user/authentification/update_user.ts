@@ -23,7 +23,6 @@ interface UpdateUserResponse {
 
 export default async function updateUser(props: UpdateUserProps) {
     const token = localStorage.getItem("token");
-    console.log(JSON.stringify(props.body));
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios

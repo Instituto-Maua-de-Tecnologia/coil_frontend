@@ -13,6 +13,7 @@ import SignUp from "@screens/SignUp.tsx";
 import Mobilities from "@screens/Mobilities.tsx";
 import ViewEnrolledStudents from "@screens/ViewEnrolledStudents";
 import { ActivityTypeEnum } from "@enum/ActivityTypeEnum.ts";
+import ProjectInfo from "@screens/ProjectInfo";
 import { useEffect } from "react";
 import getUser from "@integrations/user/authentification/get_user.ts";
 
@@ -47,6 +48,7 @@ export default function AppRoutes() {
                 <Route path={"/Home"} element={<Home />} />
                 <Route path={"/Institution"} element={<Institutions />} />
                 <Route path={"/Projects"} element={<Projects />} />
+                <Route path={"/ProjectInfo"} element={<ProjectInfo />} />
                 <Route
                     path={"/CreateProject"}
                     element={

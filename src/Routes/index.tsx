@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "@screens/Home.tsx";
 import Institutions from "@screens/Institutions.tsx";
 import Enrolled from "@screens/Enrolled.tsx";
@@ -71,7 +71,12 @@ export default function AppRoutes() {
                     }
                 />
                 <Route path={"/Mobilities"} element={<Mobilities />} />
-                <Route path={"/Enrolled"} element={<Enrolled />} />
+                <Route
+                    path={"/Enrolled"}
+                    element={
+                        <Enrolled activity_type={ActivityTypeEnum.PROJECT} />
+                    }
+                />
                 <Route path={"/Results"} element={<Results />} />
                 <Route path={"/User"} element={<User />} />
                 <Route path={"/Signout"} element={<Signout />} />

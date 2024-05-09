@@ -1,7 +1,6 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
 import { Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-// import { useNavigate } from "react-router-dom";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +18,6 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
     };
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();
-    console.log(project.id);
 
     return (
         <li

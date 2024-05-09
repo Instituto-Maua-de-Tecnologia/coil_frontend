@@ -8,7 +8,7 @@ interface AssignUserToActivityResponse {
     message: string;
 }
 
-export default async function assignUserToActivities(
+export default async function assignUserToActivity(
     props: AssignUserToActivityProps
 ) {
     const token = localStorage.getItem("token");

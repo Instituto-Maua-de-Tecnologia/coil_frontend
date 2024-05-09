@@ -51,20 +51,21 @@ interface GetAllActivityResponse {
 export default async function getAllActivities(props: GetAllActivityProps) {
     const token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-        const endpoint: string = import.meta.env.VITE_ENDPOINT as string;
+        const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
-            .get(
-                `${endpoint}/get-all-activities?type_activity=${props.type_activity}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: token as string
-                    }
+            .get(`${endpoint}/get-all-activities`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token as string
+                },
+                params: {
+                    type_activity: props.type_activity
                 }
-            )
+            })
             .then((response) => {
                 const responseData: GetAllActivityResponse =
                     response.data as GetAllActivityResponse;
+                console.log(responseData.data);
                 resolve(responseData.data);
             })
             .catch((error: AxiosError) => {

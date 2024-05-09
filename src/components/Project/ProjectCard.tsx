@@ -1,7 +1,7 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { countryCodes, Project } from "../../types";
+import { Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import React from "react";
 
 interface ProjectCardProps {
@@ -10,13 +10,6 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, onClick }: ProjectCardProps) {
-    const { avatarUrl, title, status, languages, country } = project;
-    function getCountryFullName(code: string): string {
-        const countryCode = code.toLowerCase();
-        return countryCodes[countryCode] || "Country not found";
-    }
-    const countryName = getCountryFullName(project.country);
-
     const handleOnClick = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
@@ -24,31 +17,34 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         onClick(project);
     };
     const isDarkTheme = useThemeDetector();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     return (
         <li
-            onClick={() => navigate("/ProjectInfo")}
+            // onClick={() => navigate("/ProjectInfo", {state: {project: project.id}})}
             className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
                         <img
-                            src={avatarUrl}
+                            src={
+                                project.partner_institutions[0].institution
+                                    .images[0].image
+                            }
                             alt="Avatar"
                             className="avatar-img mx-auto w-16 rounded-full"
                         />
                     </div>
                     <div className="flex flex-col">
-                        <div className="mb-2 font-bold">{title}</div>
+                        <div className="mb-2 font-bold">{project.title}</div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
-                                {languages.map((language, index) => (
+                                {project.languages.map((language, index) => (
                                     <SVGIcon
                                         key={"ProjectCard SVGIcon " + index}
-                                        src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
+                                        src={`https://hatscripts.github.io/circle-flags/flags/${language.language[index]}.svg`}
                                         className="w-4 m-[1px]"
                                     />
                                 ))}
@@ -56,9 +52,14 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
                         </div>
                         <div className="flex mb-2">
                             <div className="flex flex-row w-full sm:justify-start justify-center">
-                                <p className="text-xs mr-2">{countryName}</p>
+                                <p className="text-xs mr-2">
+                                    {
+                                        project.partner_institutions[0]
+                                            .institution.country
+                                    }
+                                </p>
                                 <SVGIcon
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${country}.svg`}
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions[0].institution.country}.svg`}
                                     className="w-4 m-[1px]"
                                 />
                             </div>
@@ -66,10 +67,8 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
                     </div>
 
                     <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
-                        <div
-                            className={` ${status === "Open" ? "text-green-500" : "text-red-500"}`}
-                        >
-                            {status}
+                        <div className={"text-blue-500"}>
+                            {project.activity_status.name}
                         </div>
                         <button
                             onClick={handleOnClick}

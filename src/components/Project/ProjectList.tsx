@@ -9,32 +9,101 @@ import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import Add from "../GenericComponents/Add";
 import { Project } from "types";
 
-type ProjectProps = [
-    {
+type ProjectProps = {
+    activity_status: {
         id: number;
-        avatarUrl: string;
-        title: string;
-        partnerName: string;
-        status: string;
-        languages: string[];
-        country: string;
-    }
-];
+        name: string;
+    };
+    activity_type: {
+        id: number;
+        name: string;
+    };
+    courses: [
+        {
+            course: {
+                name: string;
+            };
+            course_id: number;
+        }
+    ];
+    created_at: string;
+    end_date: string;
+    id: string;
+    languages: [
+        {
+            language: string;
+        }
+    ];
+    partner_institutions: [
+        {
+            institution: {
+                country: string;
+                id: string;
+                images: [
+                    {
+                        image: string;
+                    }
+                ];
+                name: string;
+            };
+            institution_id: string;
+        }
+    ];
+    start_date: string;
+    title: string;
+    updated_at: string;
+};
 
 interface ProjectListProps {
     isFilter: boolean;
     isAdmin: boolean;
 }
+
 export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
-    const [projects, setProjects] = useState<ProjectProps>([
+    const [projects, setProjects] = useState<ProjectProps[]>([
         {
-            id: 0,
-            avatarUrl: "",
+            activity_status: {
+                id: 0,
+                name: ""
+            },
+            activity_type: {
+                id: 0,
+                name: ""
+            },
+            courses: [
+                {
+                    course: {
+                        name: ""
+                    },
+                    course_id: 0
+                }
+            ],
+            created_at: "",
+            end_date: "",
+            id: "",
+            languages: [
+                {
+                    language: ""
+                }
+            ],
+            partner_institutions: [
+                {
+                    institution: {
+                        country: "",
+                        id: "",
+                        images: [
+                            {
+                                image: ""
+                            }
+                        ],
+                        name: ""
+                    },
+                    institution_id: ""
+                }
+            ],
+            start_date: "",
             title: "",
-            partnerName: "",
-            status: "",
-            languages: [""],
-            country: ""
+            updated_at: ""
         }
     ]);
 
@@ -42,9 +111,8 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
         try {
             const projectValues = (await getAllActivities({
                 type_activity: "1"
-            })) as ProjectProps;
+            })) as ProjectProps[];
             setProjects(projectValues);
-            console.log(projects);
         } catch (error) {
             console.error("Erro ao obter projetos:", error);
         }
@@ -54,7 +122,8 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
         null
     );
     const [filteredProjects, setFilteredProjects] =
-        useState<Project[]>(projects);
+        useState<ProjectProps[]>(projects);
+
     const handleModalOpen = (project: Project) => {
         setSelectedProject(project);
     };
@@ -69,10 +138,12 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
                 project.title
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                project.partnerName
+                project.partner_institutions[0].institution.name
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                project.status.toLowerCase().includes(searchTerm.toLowerCase())
+                project.activity_status.name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
         );
         setFilteredProjects(filtered);
     };
@@ -81,25 +152,9 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
     /* eslint-disable */
 
     useEffect(() => {
-        let project = localStorage.getItem("project");
-        if (project) {
-            handleGetAllProjects()
-                .then()
-                .catch((error) => {
-                    throw new Error(
-                        "Não foi possível buscar projetos " + error
-                    );
-                });
-        }
-    }, [localStorage.getItem("project")]);
+        handleGetAllProjects();
+    }, []);
 
-    async function handleGetAllActivities() {
-        let project = await getAllActivities({ type_activity: "1" });
-        console.log(project);
-        localStorage.setItem("project", JSON.stringify(project));
-    }
-
-    handleGetAllActivities();
     /* eslint-enable */
     return (
         <div
@@ -115,7 +170,7 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
             {filteredProjects.length > 0 ? (
                 <div>
                     <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                        {filteredProjects.map((project) => (
+                        {projects.map((project) => (
                             <ProjectCard
                                 key={project.id}
                                 project={project}

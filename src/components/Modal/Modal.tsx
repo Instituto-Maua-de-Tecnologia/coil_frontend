@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import SVGIcon from "../ImageInstances/SVGIcon";
 import { Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import assignUserToActivities from "@integrations/activity/student/assign_user_to_activity";
+import { MoonLoader } from "react-spinners";
 
 interface ModalProps {
     project: Project; // eslint-disable-line
@@ -11,13 +12,18 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
+    const [enrolling, setEnrolling] = useState<boolean>(false);
     const isDarkTheme = useThemeDetector();
 
     const handleEnrollment = async () => {
+        setEnrolling(true);
         try {
             await assignUserToActivities({ activity_id: project.id });
         } catch (error) {
             console.error("A inscrição não teve sucesso", error);
+        } finally {
+            setEnrolling(false);
+            onClose();
         }
     };
 
@@ -130,16 +136,22 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                 <button
                                     onClick={onClose}
                                     type="button"
-                                    className="inline-flex max-h-[45px] max-w-[128px] justify-center rounded-full border border-transparent shadow-sm py-1 px-4 bg-[#673366] text-base font-medium text-white hover:bg-opacity-80 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
+                                    disabled={enrolling}
+                                    className="inline-flex max-h-[45px] max-w-[128px] justify-center rounded-full shadow-sm py-1 px-4 bg-[#673366] text-base font-medium text-white hover:bg-opacity-80 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     onClick={handleEnrollment}
+                                    disabled={enrolling}
                                     type="button"
-                                    className="inline-flex max-h-[45px] max-w-[128px] justify-center rounded-full border border-transparent shadow-sm px-3 py-1 bg-[#2684FF] text-base font-medium text-white hover:bg-opacity-75 focus:outline-none sm:ml-3 w-auto sm:text-sm"
+                                    className={`inline-flex max-h-[45px] max-w-[128px] justify-center rounded-full shadow-sm px-3 py-1 bg-[#2684FF] text-base font-medium text-white hover:bg-opacity-75 focus:outline-none sm:ml-3 w-auto sm:text-sm ${enrolling ? "min-w-[77.5px]" : null}`}
                                 >
-                                    Confirm
+                                    {enrolling ? (
+                                        <MoonLoader color="#FFFFFF" size={15} />
+                                    ) : (
+                                        "Confirm"
+                                    )}
                                 </button>
                             </div>
                         </div>

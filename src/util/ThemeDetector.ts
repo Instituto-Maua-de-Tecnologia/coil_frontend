@@ -11,7 +11,7 @@ export const useThemeDetector = () => {
 
     useEffect(() => {
         const mq = getWatchMedia();
-        mq.addListener(mqListener); // best practice is use addEventListener instead of addListener, but when we change for addEventListener the page doesn't update automatically
+        mq.addListener(mqListener); // best practice is use addEventListener instead of addListener, but when we change to addEventListener the page doesn't update automatically
         return () => mq.removeListener(mqListener);
     }, []);
     return isDarkTheme;

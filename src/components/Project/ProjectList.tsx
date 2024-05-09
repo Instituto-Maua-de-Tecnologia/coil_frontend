@@ -8,6 +8,7 @@ import "@style/scrollbar.css";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import Add from "../GenericComponents/Add";
 import { Project } from "types";
+import { MoonLoader } from "react-spinners";
 
 type ProjectProps = {
     activity_status: {
@@ -106,6 +107,7 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
             updated_at: ""
         }
     ]);
+    const [loaded, setLoaded] = useState<boolean>(false);
 
     const handleGetAllProjects = async () => {
         try {
@@ -115,6 +117,8 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
             setProjects(projectValues);
         } catch (error) {
             console.error("Erro ao obter projetos:", error);
+        } finally {
+            setLoaded(true);
         }
     };
 
@@ -161,7 +165,7 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
             className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
-                <Search onSearch={handleSearch} />
+                <Search disabled={!loaded} onSearch={handleSearch} />
                 <div className="button-container flex absolute right-12">
                     {isAdmin ? <Add url="/CreateProject" /> : null}
                     {isFilter && <Filter />}
@@ -169,22 +173,28 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
             </div>
             {filteredProjects.length > 0 ? (
                 <div>
-                    <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                        {projects.map((project) => (
-                            <ProjectCard
-                                key={project.id}
-                                project={project}
-                                onClick={handleModalOpen}
-                            />
-                        ))}
-                    </ul>
-                    {selectedProject && (
+                    {loaded ? (
+                        <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
+                            {projects.map((project) => (
+                                <ProjectCard
+                                    key={project.id}
+                                    project={project}
+                                    onClick={handleModalOpen}
+                                />
+                            ))}
+                        </ul>
+                    ) : (
+                        <div className="flex justify-center items-center mt-[25vh]">
+                            <MoonLoader color="#FFFFFF" size={35} />
+                        </div>
+                    )}
+                    {selectedProject ? (
                         <Modal
                             project={selectedProject}
                             isOpen={true}
                             onClose={handleModalClose}
                         />
-                    )}
+                    ) : null}
                 </div>
             ) : (
                 <p className="mx-auto my-5 text-center text-2xl">

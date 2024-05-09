@@ -20,6 +20,9 @@ export default defineConfig({
             "@integrations": "/src/integrations/modules",
             "@enum": "/src/enum"
         }
+    },
+    optimizeDeps: {
+        exclude: ["react-spinners"]
     }
 });
 

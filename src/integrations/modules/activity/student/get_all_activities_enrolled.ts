@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 
 interface GetAllActivitiesProps {
-    type_activity: number;
+    type_activity: string;
 }
 
 interface GetAllActivitiesResponse {
@@ -86,7 +86,7 @@ export default async function getAllActivitiesEnrolled({
             .then((response) => {
                 const responseData: GetAllActivitiesResponse =
                     response.data as GetAllActivitiesResponse;
-                resolve(responseData);
+                resolve(responseData.data);
             })
             .catch((error: AxiosError) => {
                 const convertedError: AxiosError<GetAllActivitiesResponse> =

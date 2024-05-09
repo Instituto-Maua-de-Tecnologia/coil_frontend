@@ -65,7 +65,6 @@ export default async function getAllActivities(props: GetAllActivityProps) {
             .then((response) => {
                 const responseData: GetAllActivityResponse =
                     response.data as GetAllActivityResponse;
-                console.log(responseData.data);
                 resolve(responseData.data);
             })
             .catch((error: AxiosError) => {

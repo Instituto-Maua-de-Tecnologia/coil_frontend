@@ -2,14 +2,18 @@ import SVGIcon from "../ImageInstances/SVGIcon";
 import { Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 // import { useNavigate } from "react-router-dom";
-import React from "react";
 
 interface ProjectCardProps {
     project: Project;
+    enrolled: boolean;
     onClick: (project: Project) => void;
 }
 
-export default function ProjectCard({ project, onClick }: ProjectCardProps) {
+export default function ProjectCard({
+    project,
+    enrolled,
+    onClick
+}: ProjectCardProps) {
     const handleOnClick = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
@@ -74,7 +78,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
                             onClick={handleOnClick}
                             className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
                         >
-                            Enroll
+                            {enrolled ? "Disenroll" : "Enroll"}
                         </button>
                     </div>
                 </div>

@@ -9,6 +9,7 @@ import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import Add from "../GenericComponents/Add";
 import { Project } from "types";
 import { MoonLoader } from "react-spinners";
+import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
 
 type ProjectProps = {
     activity_status: {
@@ -107,6 +108,9 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
             updated_at: ""
         }
     ]);
+    const [enrolledProjectsIds, setEnrolledProjectsIds] = useState<string[]>(
+        []
+    );
     const [loaded, setLoaded] = useState<boolean>(false);
 
     const handleGetAllProjects = async () => {
@@ -122,6 +126,24 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
         }
     };
 
+    const enrolledIdsToArray = (enrolledProjects: ProjectProps[]) => {
+        return enrolledProjects.map((project) => {
+            return `${project.id}`;
+        });
+    };
+
+    const handleGetEnrolledProjects = async () => {
+        await getAllActivitiesEnrolled({ type_activity: "1" })
+            .then((response) => {
+                setEnrolledProjectsIds(
+                    enrolledIdsToArray(response as ProjectProps[])
+                );
+            })
+            .catch((error) => {
+                console.error("Erro ao obter projetos:", error);
+            });
+    };
+
     const [selectedProject, setSelectedProject] = useState<Project | null>(
         null
     );
@@ -134,6 +156,11 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
 
     const handleModalClose = () => {
         setSelectedProject(null);
+    };
+
+    const handleVerifyEnrollment = (id: string) => {
+        if (enrolledProjectsIds.includes(id)) return true;
+        else return false;
     };
 
     const handleSearch = (searchTerm: string) => {
@@ -151,13 +178,24 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
         );
         setFilteredProjects(filtered);
     };
+
     const isDarkTheme = useThemeDetector();
 
     /* eslint-disable */
 
     useEffect(() => {
-        handleGetAllProjects();
+        const handleGets = async () => {
+            await handleGetEnrolledProjects();
+            await handleGetAllProjects();
+        };
+        handleGets();
     }, []);
+
+    // useEffect(() => {
+    //     if (enrolledProjectsIds.length > 0) {
+    //         console.log(enrolledProjectsIds);
+    //     }
+    // }, [enrolledProjectsIds])
 
     /* eslint-enable */
     return (
@@ -179,6 +217,9 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
                                 <ProjectCard
                                     key={project.id}
                                     project={project}
+                                    enrolled={handleVerifyEnrollment(
+                                        project.id
+                                    )}
                                     onClick={handleModalOpen}
                                 />
                             ))}

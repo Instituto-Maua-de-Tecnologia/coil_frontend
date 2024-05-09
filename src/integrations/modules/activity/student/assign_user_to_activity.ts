@@ -13,7 +13,7 @@ export default async function assignUserToActivity(
 ) {
     const token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-        const endpoint: string = import.meta.env.VITE_ENDPOINT as string;
+        const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
             .get(`${endpoint}/assign-user?activity_id=${props.activity_id}`, {
                 headers: {

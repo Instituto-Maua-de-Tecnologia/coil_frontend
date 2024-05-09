@@ -72,13 +72,61 @@ export interface Mobility {
 }
 
 export interface Enrolled {
-    id: number;
-    avatarUrl: string;
-    title: string;
-    partnerName: string;
-    status: string;
-    languages: string[];
-    country: string;
+    id?: string;
+    title?: string;
+    description?: string;
+    status_id?: number;
+    type_id?: number;
+    start_date?: string;
+    end_date?: string;
+    created_at?: string;
+    updated_at?: string;
+    courses?: [
+        {
+            course_id?: number;
+            course?: {
+                name: string;
+            };
+        }
+    ];
+    languages?: [
+        {
+            language?: string;
+        }
+    ];
+    partner_institutions?: [
+        {
+            institution_id?: string;
+            institution?: {
+                id: string;
+                name: string;
+                country: string;
+                images: [
+                    {
+                        image?: string;
+                    }
+                ];
+            };
+        }
+    ];
+    activity_status?: {
+        id: number;
+        name: string;
+    };
+    activity_type?: {
+        id: number;
+        name: string;
+    };
+    applications?: [
+        {
+            id?: number;
+            user_id?: string;
+            activity_id?: string;
+            status?: boolean;
+            created_at?: string;
+            updated_at?: string;
+        }
+    ];
 }
 
 export interface Result {
@@ -102,57 +150,57 @@ export interface Institution {
 }
 
 export const countryCodes: { [key: string]: string } = {
-    nl: "Netherlands",
-    us: "United States",
-    gb: "United Kingdom",
-    fr: "France",
-    de: "Germany",
-    it: "Italy",
-    es: "Spain",
-    jp: "Japan",
-    cn: "China",
-    br: "Brazil",
-    in: "India",
-    ru: "Russia",
-    ca: "Canada",
-    au: "Australia",
-    mx: "Mexico",
-    ar: "Argentina",
-    za: "South Africa",
-    ch: "Switzerland",
-    se: "Sweden",
-    no: "Norway",
-    dk: "Denmark",
-    fi: "Finland",
-    pt: "Portugal",
-    gr: "Greece",
-    kr: "South Korea",
-    sa: "Saudi Arabia",
-    ae: "United Arab Emirates",
-    eg: "Egypt",
-    id: "Indonesia",
-    th: "Thailand",
-    tr: "Turkey",
-    ng: "Nigeria",
-    ke: "Kenya",
-    co: "Colombia",
-    ve: "Venezuela",
-    pe: "Peru",
-    bo: "Bolivia",
-    cl: "Chile",
-    ec: "Ecuador",
-    uy: "Uruguay",
-    pa: "Panama",
-    cr: "Costa Rica",
-    do: "Dominican Republic",
-    cu: "Cuba",
-    jm: "Jamaica",
-    bb: "Barbados",
-    tt: "Trinidad and Tobago",
-    ph: "Philippines",
-    vn: "Vietnam",
-    my: "Malaysia",
-    sg: "Singapore",
-    hk: "Hong Kong",
-    tw: "Taiwan"
+    netherlands: "nl",
+    "united states": "us",
+    "united kingdom": "gb",
+    france: "fr",
+    germany: "de",
+    italy: "it",
+    spain: "es",
+    japan: "jp",
+    china: "cn",
+    brazil: "br",
+    india: "in",
+    russia: "ru",
+    canada: "ca",
+    australia: "au",
+    mexico: "mx",
+    argentina: "ar",
+    "south africa": "za",
+    switzerland: "ch",
+    sweden: "se",
+    norway: "no",
+    denmark: "dk",
+    finland: "fi",
+    portugal: "pt",
+    greece: "gr",
+    "south korea": "kr",
+    "saudi arabia": "sa",
+    "united arab emirates": "ae",
+    egypt: "eg",
+    indonesia: "id",
+    thailand: "th",
+    turkey: "tr",
+    nigeria: "ng",
+    kenya: "ke",
+    colombia: "co",
+    venezuela: "ve",
+    peru: "pe",
+    bolivia: "bo",
+    chile: "cl",
+    ecuador: "ec",
+    uruguay: "uy",
+    panama: "pa",
+    "costa rica": "cr",
+    "dominican republic": "do",
+    cuba: "cu",
+    jamaica: "jm",
+    barbados: "bb",
+    "trinidad and tobago": "tt",
+    philippines: "ph",
+    vietnam: "vn",
+    malaysia: "my",
+    singapore: "sg",
+    "hong kong": "hk",
+    taiwan: "tw"
 };

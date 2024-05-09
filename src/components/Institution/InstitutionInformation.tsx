@@ -1,4 +1,8 @@
 import { useThemeDetector } from "@util/ThemeDetector";
+import maua2 from "@assets/logo/maua2.png";
+import instagramLogo from "@assets/icons/instagram.png";
+import facebookLogo from "@assets/icons/facebook.png";
+import twitterLogo from "@assets/icons/twitter.png";
 
 export default function InstitutionInformation() {
     const isDarkTheme = useThemeDetector();
@@ -10,7 +14,7 @@ export default function InstitutionInformation() {
             >
                 <div className="self-center p-2 sm:w-1/6">
                     <img
-                        src="src\assets\logo\maua2.png"
+                        src={maua2}
                         alt="institution-img"
                         className="avatar-img mx-auto sm:-mx-auto w-[23vw] rounded-full "
                     />
@@ -32,22 +36,13 @@ export default function InstitutionInformation() {
                 </div>
                 <div className="2xs:text-center xs:text-right place-content-center xs:place-items-end pl-10 md:pl-0 pr-10 md:pr-1 flex">
                     <div className="pt-1 pb-1 ">
-                        <img
-                            src="src\assets\icons\instagram.png"
-                            alt="instagram link"
-                        />
+                        <img src={instagramLogo} alt="instagram link" />
                     </div>
                     <div className="p-1">
-                        <img
-                            src="src\assets\icons\Facebook.png"
-                            alt="facebook link"
-                        />
+                        <img src={facebookLogo} alt="facebook link" />
                     </div>
                     <div className="pt-1 pb-1 ">
-                        <img
-                            src="src\assets\icons\twitter.png"
-                            alt="twiter link"
-                        />
+                        <img src={twitterLogo} alt="twiter link" />
                     </div>
                 </div>
             </div>

@@ -65,12 +65,6 @@ export default function UserCard({ userCard }: UserCardProps) {
 
     async function handleProfileUpdates() {
         toggleUpdatable();
-        // await toast
-        //     .promise(handleGetUser(response.accessToken), {
-        //         loading: "Realizando Login...",
-        //         success: <b>Usuário logado com sucesso</b>,
-        //         error: (error) => error.message
-        //     })
         if (
             updatedCourseOption != course ||
             updatedSemesterOption != semester_course

@@ -6,6 +6,7 @@ import updateUser from "@integrations/user/authentification/update_user.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import ToasterContainer from "@components/GenericComponents/ToasterContainer";
 import getAllCourses from "@integrations/course/get_all_courses.ts";
+import { MoonLoader } from "react-spinners";
 
 export type CourseProps = [
     {
@@ -21,6 +22,7 @@ export default function SignUp() {
     const [selectedSemesterOption, setSelectedSemesterOption] =
         useState<number>(0);
     const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
+    const [loaded, setLoaded] = useState<boolean>(false);
 
     const navigate = useNavigate();
     function handleCourseOption(event: any) {
@@ -90,6 +92,7 @@ export default function SignUp() {
         try {
             const courseValues = (await getAllCourses()) as CourseProps;
             setCourses(courseValues);
+            setLoaded(true);
         } catch (error) {
             console.error("Erro ao obter cursos:", error);
         }
@@ -113,25 +116,31 @@ export default function SignUp() {
                 >
                     <div className={"flex justify-center"}>
                         <h1>Selecione seu curso: </h1>
-                        <select
-                            className={`ms-2 text-wrap break-words overflow-ellipsis rounded-xl p-1 ${isDarkTheme ? "bg-[#0F1820]" : "bg-white"}`}
-                            value={selectedCourseOption}
-                            onChange={handleCourseOption}
-                        >
-                            <option value="" disabled hidden>
-                                Selecione seu curso...
-                            </option>
-                            {Array.from({ length: courses.length }).map(
-                                (_, index) => (
-                                    <option
-                                        key={"courseOption " + index}
-                                        value={courses[index].name}
-                                    >
-                                        {courses[index].name}
-                                    </option>
-                                )
-                            )}
-                        </select>
+                        {loaded ? (
+                            <select
+                                className={`ms-2 text-wrap break-words overflow-ellipsis rounded-xl p-1 ${isDarkTheme ? "bg-[#0F1820]" : "bg-white"}`}
+                                value={selectedCourseOption}
+                                onChange={handleCourseOption}
+                            >
+                                <option value="" disabled hidden>
+                                    Selecione seu curso...
+                                </option>
+                                {Array.from({ length: courses.length }).map(
+                                    (_, index) => (
+                                        <option
+                                            key={"courseOption " + index}
+                                            value={courses[index].name}
+                                        >
+                                            {courses[index].name}
+                                        </option>
+                                    )
+                                )}
+                            </select>
+                        ) : (
+                            <div className="flex justify-center items-center mt-[25vh]">
+                                <MoonLoader color="#FFFFFF" size={35} />
+                            </div>
+                        )}
                     </div>
                     <div className={"flex justify-center mt-10"}>
                         <h1>Selecione seu semestre: </h1>

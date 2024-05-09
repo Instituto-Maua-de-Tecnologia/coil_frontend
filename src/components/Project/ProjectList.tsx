@@ -159,8 +159,7 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
     };
 
     const handleVerifyEnrollment = (id: string) => {
-        if (enrolledProjectsIds.includes(id)) return true;
-        else return false;
+        return enrolledProjectsIds.includes(id);
     };
 
     const handleSearch = (searchTerm: string) => {

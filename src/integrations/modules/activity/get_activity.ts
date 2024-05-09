@@ -12,7 +12,7 @@ interface GetAllActivitiesResponse {
 export default async function getActivity(props: GetAllActivitiesProps) {
     const token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
-        const endpoint: string = import.meta.env.VITE_ENDPOINT as string;
+        const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
             .get(`${endpoint}/get-activity?activity_id=${props.activity_id}`, {
                 headers: {

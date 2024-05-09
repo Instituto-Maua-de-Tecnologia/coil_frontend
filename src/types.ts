@@ -7,15 +7,58 @@ export interface Student {
 }
 
 export interface Project {
-    id: number;
-    avatarUrl: string;
+    activity_status: {
+        id: number;
+        name: string;
+    };
+    activity_type: {
+        id: number;
+        name: string;
+    };
+    courses: [
+        {
+            course: {
+                name: string;
+            };
+            course_id: number;
+        }
+    ];
+    created_at: string;
+    end_date: string;
+    id: string;
+    languages: [
+        {
+            language: string;
+        }
+    ];
+    partner_institutions: [
+        {
+            institution: {
+                country: string;
+                id: string;
+                images: [
+                    {
+                        image: string;
+                    }
+                ];
+                name: string;
+            };
+            institution_id: string;
+        }
+    ];
+    start_date: string;
     title: string;
-    partnerName: string;
-    status: string;
-    languages: string[];
-    country: string;
-    applicationStart: string;
-    applicationEnd: string;
+    updated_at: string;
+
+    // id: string;
+    // avatarUrl: string;
+    // title: string;
+    // partnerName: string;
+    // status: string;
+    // languages: string[];
+    // country: string;
+    // start_date: string;
+    // end_date: string;
 }
 
 export interface Mobility {

@@ -1,7 +1,8 @@
 import React from "react";
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { countryCodes, Project } from "../../types";
+import { Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
+import assignUserToActivities from "@integrations/activity/student/assign_user_to_activity";
 
 interface ModalProps {
     project: Project; // eslint-disable-line
@@ -10,12 +11,15 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
-    function getCountryFullName(code: string): string {
-        const countryCode = code.toLowerCase();
-        return countryCodes[countryCode] || "Country not found";
-    }
-    const countryName = getCountryFullName(project.country);
     const isDarkTheme = useThemeDetector();
+
+    const handleEnrollment = async () => {
+        try {
+            await assignUserToActivities({ activity_id: project.id });
+        } catch (error) {
+            console.error("A inscrição não teve sucesso", error);
+        }
+    };
 
     return (
         <>
@@ -26,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                             className="fixed inset-0 transition-opacity"
                             aria-hidden="true"
                         >
-                            <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                            <div className="absolute inset-0 bg-black opacity-50"></div>
                         </div>
                         <span
                             className="hidden sm:inline-block sm:align-middle sm:h-screen"
@@ -41,14 +45,20 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                 <div className="sm:flex sm:items-center">
                                     <div className="avatar-wrapper text-center flex-col w-24">
                                         <img
-                                            src={project.avatarUrl}
+                                            src={
+                                                project.partner_institutions[0]
+                                                    .institution.images[0].image
+                                            }
                                             alt="Avatar"
                                             className="avatar-img w-full rounded-full bg-white"
                                         />
                                         <h3
                                             className={"text-white font-medium"}
                                         >
-                                            {project.partnerName}
+                                            {
+                                                project.partner_institutions[0]
+                                                    .institution.name
+                                            }
                                         </h3>
                                     </div>
 
@@ -66,7 +76,7 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                                         (language, index) => (
                                                             <SVGIcon
                                                                 key={index}
-                                                                src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
+                                                                src={`https://hatscripts.github.io/circle-flags/flags/${language.language[index]}.svg`}
                                                                 className="w-4 m-[1px]"
                                                             />
                                                         )
@@ -74,10 +84,15 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                                 </div>
                                                 <div className="flex flex-row items-center">
                                                     <p className="text-sm pe-2 text-white">
-                                                        {countryName}
+                                                        {
+                                                            project
+                                                                .partner_institutions[0]
+                                                                .institution
+                                                                .country
+                                                        }
                                                     </p>
                                                     <SVGIcon
-                                                        src={`https://hatscripts.github.io/circle-flags/flags/${project.country}.svg`}
+                                                        src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions[0].institution.country}.svg`}
                                                         className="w-4 m-[1px]"
                                                     />
                                                 </div>
@@ -85,17 +100,24 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
 
                                             <div>
                                                 <p
-                                                    className={`text-lg text-end font-bold ${project.status === "Open" ? "text-[#44DF54]" : "text-red-500"}`}
+                                                    className={`text-lg text-end font-bold text-blue-500`}
                                                 >
-                                                    {project.status}
+                                                    {
+                                                        project.activity_status
+                                                            .name
+                                                    }
                                                 </p>
                                                 <p className="text-white text-sm text-end">
                                                     Application start date:{" "}
-                                                    <span>09-04-2024</span>
+                                                    <span>
+                                                        {project.start_date}
+                                                    </span>
                                                 </p>
                                                 <p className="text-white text-sm text-end">
                                                     Application end date:{" "}
-                                                    <span>14-06-2024</span>
+                                                    <span>
+                                                        {project.end_date}
+                                                    </span>
                                                 </p>
                                             </div>
                                         </div>
@@ -113,6 +135,7 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                     Cancel
                                 </button>
                                 <button
+                                    onClick={handleEnrollment}
                                     type="button"
                                     className="inline-flex max-h-[45px] max-w-[128px] justify-center rounded-full border border-transparent shadow-sm px-3 py-1 bg-[#2684FF] text-base font-medium text-white hover:bg-opacity-75 focus:outline-none sm:ml-3 w-auto sm:text-sm"
                                 >

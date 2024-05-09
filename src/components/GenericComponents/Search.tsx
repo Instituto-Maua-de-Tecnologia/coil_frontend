@@ -4,6 +4,7 @@ import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface SearchBarProps {
     onSearch: (searchTerm: string) => void;
+    disabled: boolean;
 }
 
 export default function SearchBar({ onSearch }: SearchBarProps) {

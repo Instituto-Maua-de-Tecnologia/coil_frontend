@@ -1,0 +1,17 @@
+import TitleHeader from "@components/GenericComponents/TitleHeader";
+import SideBar from "@components/GenericComponents/SideBar";
+import InstitutionInformation from "@components/Institution/InstitutionInformation";
+
+export default function InstitutionInfo() {
+    return (
+        <>
+            <div className="max-h-screen flex flex-col">
+                <TitleHeader title={"Project Information"} />
+                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
+                    <SideBar />
+                    <InstitutionInformation />
+                </div>
+            </div>
+        </>
+    );
+}

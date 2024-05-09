@@ -1,12 +1,20 @@
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import { AllInstitutions } from "@components/Institution/InstitutionList.tsx";
+import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
+import { countryCodes } from "../../types.ts";
 
 interface InstitutionCardProps {
     institution: AllInstitutions;
 }
 
 export default function InstitutionCard({ institution }: InstitutionCardProps) {
-    const { logo, name } = institution;
+    const { logo, name, country } = institution;
+    console.log(country);
+    function getCountryFullName(code: string): string {
+        const countryCode = code.toLowerCase();
+        return countryCodes[countryCode] || "Country not found";
+    }
+    const countryCode = getCountryFullName(institution.country);
     const isDarkTheme = useThemeDetector();
     return (
         <li
@@ -23,6 +31,15 @@ export default function InstitutionCard({ institution }: InstitutionCardProps) {
                     </div>
                     <div className="flex flex-col">
                         <div className="mb-2 font-bold">{name}</div>
+                        <div className="flex mb-2 w-full sm:justify-start justify-center">
+                            <div className="flex flex-row items-center">
+                                <p className="text-xs mr-2">{country}</p>
+                                <SVGIcon
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryCode}.svg`}
+                                    className="w-4 m-[1px]"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

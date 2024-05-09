@@ -7,12 +7,26 @@ interface EnrolledCardProps {
 }
 
 export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
-    const { avatarUrl, title, status, languages, country } = enrolled;
-    function getCountryFullName(code: string): string {
-        const countryCode = code.toLowerCase();
-        return countryCodes[countryCode] || "Country not found";
+    const { title, applications, languages, partner_institutions } = enrolled;
+    function getCountryFullName(codes: string[]): string {
+        const countryNames = codes.map((code) => {
+            const normalizedCode = code.toLowerCase();
+            return countryCodes[normalizedCode] || "Country not found";
+        });
+        return countryNames.join(", ");
     }
-    const countryName = getCountryFullName(enrolled.country);
+    const country = partner_institutions?.map(
+        (fds) => fds.institution?.country
+    );
+    const countryName = getCountryFullName(
+        enrolled.partner_institutions?.map(
+            (fds) => fds.institution?.country
+        ) as string[]
+    );
+    const status = applications?.map((fds) => fds.status);
+    const avatarUrl = partner_institutions?.flatMap((fds) =>
+        fds.institution?.images.map((img) => img.image)
+    )[0];
 
     const isDarkTheme = useThemeDetector();
 
@@ -34,20 +48,24 @@ export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
-                                {languages.map((language, index) => (
-                                    <SVGIcon
-                                        key={"EnrolledCard SVGIcon " + index}
-                                        src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
-                                        className="w-4 m-[1px]"
-                                    />
-                                ))}
+                                {languages
+                                    ?.map((fds) => fds.language)
+                                    .map((language, index) => (
+                                        <SVGIcon
+                                            key={
+                                                "EnrolledCard SVGIcon " + index
+                                            }
+                                            src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
+                                            className="w-4 m-[1px]"
+                                        />
+                                    ))}
                             </div>
                         </div>
                         <div className="flex mb-2">
                             <div className="flex flex-row w-full sm:justify-start justify-center">
-                                <p className="text-xs mr-2">{countryName}</p>
+                                <p className="text-xs mr-2">{country}</p>
                                 <SVGIcon
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${country}.svg`}
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryName}.svg`}
                                     className="w-4 m-[1px]"
                                 />
                             </div>
@@ -56,7 +74,7 @@ export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
 
                     <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
                         <div
-                            className={` ${status === "Open" ? "text-green-500" : "text-red-500"}`}
+                            className={` ${status ? "text-green-500" : "text-red-500"}`}
                         >
                             {status}
                         </div>

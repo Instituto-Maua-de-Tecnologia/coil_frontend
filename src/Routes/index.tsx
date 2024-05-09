@@ -76,7 +76,7 @@ export default function AppRoutes() {
                 <Route path={"/User"} element={<User />} />
                 <Route path={"/Signout"} element={<Signout />} />
                 <Route
-                    path={"/ViewEnrolledStudents"}
+                    path={"/EnrolledStudents"}
                     element={<ViewEnrolledStudents />}
                 />
             </Routes>

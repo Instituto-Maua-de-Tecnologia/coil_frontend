@@ -14,7 +14,7 @@ export default async function getActivity(props: GetAllActivitiesProps) {
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
-            .get(`${endpoint}/get-activity?activity_id=${props.activity_id}`, {
+            .get(`${endpoint}/get-activity/activity_id=${props.activity_id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: token as string

@@ -1,7 +1,8 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
 import { Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-// import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ProjectCardProps {
     project: Project;
@@ -21,11 +22,13 @@ export default function ProjectCard({
         onClick(project);
     };
     const isDarkTheme = useThemeDetector();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     return (
         <li
-            // onClick={() => navigate("/ProjectInfo", {state: {project: project.id}})}
+            onClick={() =>
+                navigate("/ProjectInfo", { state: { project: project.id } })
+            }
             className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
@@ -72,7 +75,7 @@ export default function ProjectCard({
 
                     <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
                         <div className={"text-blue-500"}>
-                            {project.activity_status.name}
+                            {project.activity_status.name.replace("_", " ")}
                         </div>
                         <button
                             onClick={handleOnClick}

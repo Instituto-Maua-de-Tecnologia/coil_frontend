@@ -131,7 +131,8 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
                 </div>
             ) : (
                 <p className="mx-auto my-5 text-center text-2xl">
-                    No enrolled matched the search criteria
+                    No enrolled matched the search criteria or you aren't
+                    enrolled in any activity
                 </p>
             )}
         </div>

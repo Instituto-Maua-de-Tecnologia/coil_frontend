@@ -1,20 +1,6 @@
 import { useThemeDetector } from "@util/ThemeDetector";
-// import { Project } from "../../types";
 import getActivity from "@integrations/activity/get_activity";
 import { useEffect, useState } from "react";
-
-// export type ProjectInfo = {
-//     projectSumUp: {
-//         id: number;
-//         name: string;
-//         language: string;
-//         contry: string;
-//         applicationStart: string;
-//         applicationEnd: string;
-//         Status: any;
-//     };
-
-// };
 
 type ProjectProps = {
     activity_status: {

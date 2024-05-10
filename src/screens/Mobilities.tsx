@@ -1,7 +1,6 @@
 import TitleHeader from "@components/GenericComponents/TitleHeader";
 import SideBar from "@components/GenericComponents/SideBar";
 import MobilityList from "@components/Mobility/MobilityList";
-import { MobilityProps } from "@constants/MobilityProperties";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
 export default function Mobilities() {
@@ -17,7 +16,6 @@ export default function Mobilities() {
                     <MobilityList
                         isFilter
                         isAdmin={user_type === UserTypeEnum.ADMIN}
-                        mobilitys={MobilityProps}
                     />
                 </div>
             </div>

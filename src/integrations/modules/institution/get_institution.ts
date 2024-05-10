@@ -11,8 +11,13 @@ interface GetInstitutionResponse {
         name: string;
         email: string;
         country: string;
-        images: [string];
-        social_medias: string;
+        images: string[];
+        social_medias: [
+            {
+                media: string;
+                link: string;
+            }
+        ];
     };
 }
 
@@ -22,7 +27,7 @@ export default async function getInstitution(props: GetInstitutionProps) {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
             .get(
-                `${endpoint}/get-institution/institution_id=${props.institution_id}`,
+                `${endpoint}/get-institution?institution_id=${props.institution_id}`,
                 {
                     headers: {
                         "Content-Type": "application/json",

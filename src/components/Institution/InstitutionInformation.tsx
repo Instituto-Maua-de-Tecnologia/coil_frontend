@@ -3,9 +3,9 @@ import instagramLogo from "@assets/icons/instagram.png";
 import facebookLogo from "@assets/icons/facebook.png";
 import twitterLogo from "@assets/icons/twitter.png";
 import { useEffect, useState } from "react";
-import getActivity from "@integrations/activity/get_activity.ts";
 import { countryCodes } from "../../types.ts";
 import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
+import getInstitution from "@integrations/institution/get_institution.ts";
 
 type InstitutionProps = {
     id: string;
@@ -31,8 +31,8 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
     });
     const handleGetInstitution = async () => {
         try {
-            const institutionValue = (await getActivity({
-                activity_id: id
+            const institutionValue = (await getInstitution({
+                institution_id: id
             })) as InstitutionProps;
             setInstitution(institutionValue);
         } catch (error) {

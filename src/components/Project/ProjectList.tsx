@@ -225,7 +225,10 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
                         </ul>
                     ) : (
                         <div className="flex justify-center items-center mt-[25vh]">
-                            <MoonLoader color="#FFFFFF" size={35} />
+                            <MoonLoader
+                                color={`${isDarkTheme ? "#fff" : "#000"}`}
+                                size={35}
+                            />
                         </div>
                     )}
                     {selectedProject ? (

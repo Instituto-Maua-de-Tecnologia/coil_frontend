@@ -29,7 +29,7 @@ export default function ResultList({ results }: ResultListProps) {
             className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
-                <Search onSearch={handleSearch} />
+                <Search onSearch={handleSearch} disabled={true} />
             </div>
             {filteredResults.length > 0 ? (
                 <div>

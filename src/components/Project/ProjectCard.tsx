@@ -62,11 +62,10 @@ export default function ProjectCard({
                             <div className="flex flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
                                 {project.languages.map((language, index) => (
-                                    <>
-                                        <p
-                                            className={"text-xs"}
-                                            key={"ProjectCard SVGIcon " + index}
-                                        >
+                                    <React.Fragment
+                                        key={"Project SVGICon Language" + index}
+                                    >
+                                        <p className={"text-xs"}>
                                             {" "}
                                             {language.language}
                                         </p>
@@ -74,7 +73,7 @@ export default function ProjectCard({
                                             src={`https://hatscripts.github.io/circle-flags/flags/${countryName.substring(0, 2)}.svg`}
                                             className="w-4 m-[1px]"
                                         />
-                                    </>
+                                    </React.Fragment>
                                 ))}
                             </div>
                         </div>

@@ -28,7 +28,9 @@ export default function UserCard({ userCard }: UserCardProps) {
         useState<number>(semester_course);
     const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
     const [updatable, setUpdatable] = useState(false);
-    const [showArrow, setShowArrow] = useState({ WebkitAppearance: "none" });
+    const [showArrow, setShowArrow] = useState<{ [key: string]: string }>({
+        WebkitAppearance: "none"
+    });
     const [aqMudou, setAqMudou] = useState<boolean>(false);
 
     const semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

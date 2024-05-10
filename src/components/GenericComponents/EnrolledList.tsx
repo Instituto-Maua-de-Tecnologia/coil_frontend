@@ -93,7 +93,7 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
     };
 
     async function getEnrolledData() {
-        const activity = type_activity ? 1 : 2;
+        const activity = type_activity ? "1" : "2";
         try {
             const allActivitiesEnrolledData = await getAllActivitiesEnrolled({
                 type_activity: activity
@@ -116,7 +116,7 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
             className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
-                <Search onSearch={handleSearch} />
+                <Search onSearch={handleSearch} disabled={false} />
             </div>
             {filteredEnrolleds.length > 0 ? (
                 <div>

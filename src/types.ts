@@ -62,13 +62,48 @@ export interface Project {
 }
 
 export interface Mobility {
-    id: number;
-    avatarUrl: string;
+    activity_status: {
+        id: number;
+        name: string;
+    };
+    activity_type: {
+        id: number;
+        name: string;
+    };
+    courses: [
+        {
+            course: {
+                name: string;
+            };
+            course_id: number;
+        }
+    ];
+    created_at: string;
+    end_date: string;
+    id: string;
+    languages: [
+        {
+            language: string;
+        }
+    ];
+    partner_institutions: [
+        {
+            institution: {
+                country: string;
+                id: string;
+                images: [
+                    {
+                        image: string;
+                    }
+                ];
+                name: string;
+            };
+            institution_id: string;
+        }
+    ];
+    start_date: string;
     title: string;
-    partnerName: string;
-    status: string;
-    languages: string[];
-    country: string;
+    updated_at: string;
 }
 
 export interface Enrolled {
@@ -202,5 +237,78 @@ export const countryCodes: { [key: string]: string } = {
     malaysia: "my",
     singapore: "sg",
     "hong kong": "hk",
-    taiwan: "tw"
+    taiwan: "tw",
+    portuguese: "br", // Brasil
+    dutch: "nl", // Netherlands (Países Baixos)
+    english: "us", // United States (Estados Unidos)
+    english_gb: "gb", // United Kingdom (Reino Unido)
+    french: "fr", // France (França)
+    german: "de", // Germany (Alemanha)
+    italian: "it", // Italy (Itália)
+    spanish: "es", // Spain (Espanha)
+    japanese: "jp", // Japan (Japão)
+    chinese: "cn", // China (China)
+    hindi: "in", // India (Índia)
+    russian: "ru", // Russia (Rússia)
+    zulu: "za", // South Africa (África do Sul)
+    swedish: "se", // Sweden (Suécia)
+    norwegian: "no", // Norway (Noruega)
+    danish: "dk", // Denmark (Dinamarca)
+    finnish: "fi", // Finland (Finlândia)
+    greek: "gr", // Greece (Grécia)
+    korean: "kr", // South Korea (Coreia do Sul)
+    arabic: "sa", // Saudi Arabia (Arábia Saudita)
+    indonesian: "id", // Indonesia (Indonésia)
+    thai: "th", // Thailand (Tailândia)
+    turkish: "tr", // Turkey (Turquia)
+    swahili: "ke", // Kenya (Quênia)
+    quechua: "bo", // Bolivia (Bolívia)
+    aymara: "bo", // Bolivia (Bolívia)
+    tamil: "in", // India (Índia)
+    punjabi: "in", // India (Índia)
+    catalan: "es", // Spain (Espanha)
+    basque: "es", // Spain (Espanha)
+    tagalog: "ph", // Philippines (Filipinas)
+    vietnamese: "vn", // Vietnam (Vietnã)
+    malay: "my", // Malaysia (Malásia)
+    sinhalese: "lk", // Sri Lanka (Sri Lanka)
+    filipino: "ph", // Philippines (Filipinas)
+    khmer: "kh", // Cambodia (Camboja)
+    lao: "la", // Laos (Laos)
+    burmese: "mm", // Myanmar (Mianmar)
+    mongolian: "mn", // Mongolia (Mongólia)
+    nepali: "np", // Nepal (Nepal)
+    bengali: "bd", // Bangladesh (Bangladesh)
+    telugu: "in", // India (Índia)
+    marathi: "in", // India (Índia)
+    gujarati: "in", // India (Índia)
+    kannada: "in", // India (Índia)
+    malayalam: "in", // India (Índia)
+    oriya: "in", // India (Índia)
+    urdu: "pk", // Pakistan (Paquistão)
+    pashto: "af", // Afghanistan (Afeganistão)
+    persian: "ir", // Iran (Irã)
+    armenian: "am", // Armenia (Armênia)
+    georgian: "ge", // Georgia (Geórgia)
+    hebrew: "il", // Israel (Israel)
+    maltese: "mt", // Malta (Malta)
+    slovak: "sk", // Slovakia (Eslováquia)
+    slovenian: "si", // Slovenia (Eslovênia)
+    latvian: "lv", // Latvia (Letônia)
+    lithuanian: "lt", // Lithuania (Lituânia)
+    estonian: "ee", // Estonia (Estônia)
+    bulgarian: "bg", // Bulgaria (Bulgária)
+    romanian: "ro", // Romania (Romênia)
+    hungarian: "hu", // Hungary (Hungria)
+    croatian: "hr", // Croatia (Croácia)
+    serbian: "rs", // Serbia (Sérvia)
+    bosnian: "ba", // Bosnia and Herzegovina (Bósnia e Herzegovina)
+    albanian: "al", // Albania (Albânia)
+    macedonian: "mk", // North Macedonia (Macedônia do Norte)
+    greek_cy: "cy", // Cyprus (Chipre)
+    bulgarian_gr: "gr", // Greece (Grécia)
+    turkish_gr: "gr", // Greece (Grécia)
+    romanian_gr: "gr", // Greece (Grécia)
+    serbian_ba: "ba", // Bosnia and Herzegovina (Bósnia e Herzegovina)
+    croatian_ba: "ba" // Bosnia and Herzegovina (Bósnia e Herzegovina)
 };

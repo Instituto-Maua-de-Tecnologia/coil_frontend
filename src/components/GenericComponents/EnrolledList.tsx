@@ -5,12 +5,14 @@ import { Enrolled } from "../../types.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "@style/scrollbar.css";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
+import { MoonLoader } from "react-spinners";
 
 interface EnrolledListProps {
     type_activity: boolean;
 }
 
 export default function EnrolledList({ type_activity }: EnrolledListProps) {
+    const [loaded, setLoaded] = useState(false);
     const [filteredEnrolleds, setFilteredEnrolleds] = useState<Enrolled[]>([
         {
             id: "",
@@ -75,13 +77,12 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
         if (filteredEnrolleds) {
             const filtered = filteredEnrolleds.filter(
                 (enrolled) =>
-                    enrolled.title
-                        .toLowerCase()
+                    enrolled?.title
+                        ?.toLowerCase()
                         .includes(searchTerm.toLowerCase()) ||
                     enrolled.partner_institutions
                         ?.map((fds) => fds.institution)
-                        .map((fds) => fds?.name)
-                        .toLowerCase()
+                        .map((fds) => fds?.name?.toLowerCase())
                         .includes(searchTerm.toLowerCase()) ||
                     enrolled.applications
                         ?.map((fds) => (fds.status ? "sa" : "dsa"))
@@ -99,9 +100,10 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
                 type_activity: activity
             });
             setFilteredEnrolleds(allActivitiesEnrolledData as Enrolled[]);
-            console.log(filteredEnrolleds);
         } catch (error) {
             console.error("Error fetching institutions:", error);
+        } finally {
+            setLoaded(true);
         }
     }
 
@@ -116,18 +118,27 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
             className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
-                <Search onSearch={handleSearch} disabled={false} />
+                <Search onSearch={handleSearch} disabled={!loaded} />
             </div>
             {filteredEnrolleds.length > 0 ? (
                 <div>
-                    <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                        {filteredEnrolleds.map((enrolled) => (
-                            <EnrolledCard
-                                key={enrolled.id}
-                                enrolled={enrolled}
+                    {loaded ? (
+                        <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
+                            {filteredEnrolleds.map((enrolled) => (
+                                <EnrolledCard
+                                    key={enrolled.id}
+                                    enrolled={enrolled}
+                                />
+                            ))}
+                        </ul>
+                    ) : (
+                        <div className="flex justify-center items-center mt-[25vh]">
+                            <MoonLoader
+                                color={`${isDarkTheme ? "#fff" : "#000"}`}
+                                size={35}
                             />
-                        ))}
-                    </ul>
+                        </div>
+                    )}
                 </div>
             ) : (
                 <p className="mx-auto my-5 text-center text-2xl">

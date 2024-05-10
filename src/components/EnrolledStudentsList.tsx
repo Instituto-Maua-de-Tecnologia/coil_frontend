@@ -27,7 +27,7 @@ export default function EnrolledStudentList({
             className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
-                <Search onSearch={handleSearch} />
+                <Search disabled={false} onSearch={handleSearch} />
             </div>
             {filteredEnrolledStudents.length > 0 ? (
                 <>

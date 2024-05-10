@@ -25,6 +25,3 @@ export default defineConfig({
         exclude: ["react-spinners"]
     }
 });
-
-//resolve é tipo um then, ele funciona como um return
-//reject é tipo um catch, ele funciona como um throw new Error()

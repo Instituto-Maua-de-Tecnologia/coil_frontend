@@ -26,7 +26,7 @@ export default function ProjectCard({
             const normalizedCode = code.toLowerCase();
             return countryCodes[normalizedCode] || "Country not found";
         });
-        return countryNames.join(", ");
+        return countryNames.join(" ");
     }
     const countryCodesArray = project.languages.map((fds) => fds.language);
     const countryInstitutionArray = project.partner_institutions.map(
@@ -36,7 +36,6 @@ export default function ProjectCard({
     const countryName = getCountryFullName(countryCodesArray);
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();
-
     return (
         <li
             onClick={() =>
@@ -66,13 +65,19 @@ export default function ProjectCard({
                                         key={"Project SVGICon Language" + index}
                                     >
                                         <p className={"text-xs"}>
-                                            {" "}
                                             {language.language}
                                         </p>
-                                        <SVGIcon
-                                            src={`https://hatscripts.github.io/circle-flags/flags/${countryName.substring(0, 2)}.svg`}
-                                            className="w-4 m-[1px]"
-                                        />
+                                        {index % 2 === 0 ? (
+                                            <SVGIcon
+                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(0, 2)}.svg`}
+                                                className="w-4 m-[1px]"
+                                            />
+                                        ) : (
+                                            <SVGIcon
+                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(3, 5)}.svg`}
+                                                className="w-4 m-[1px]"
+                                            />
+                                        )}
                                     </React.Fragment>
                                 ))}
                             </div>
@@ -85,6 +90,7 @@ export default function ProjectCard({
                                             .institution.country
                                     }
                                 </p>
+
                                 <SVGIcon
                                     src={`https://hatscripts.github.io/circle-flags/flags/${country.substring(0, 2)}.svg`}
                                     className="w-4 m-[1px]"

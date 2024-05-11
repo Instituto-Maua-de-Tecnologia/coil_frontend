@@ -10,7 +10,7 @@ export default function InstitutionInfo() {
     return (
         <>
             <div className="max-h-screen flex flex-col">
-                <TitleHeader title={"Project Information"} />
+                <TitleHeader title={"Institution Information"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
                     <InstitutionInformation id={institution} />

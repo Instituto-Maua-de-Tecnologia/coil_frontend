@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
 import {
     devider,
-    enrolledIcon,
+    //enrolledIcon,
     activityIcon,
     homeIcon,
-    institutionIcon,
+    //institutionIcon,
     projectIcon,
     resultsIcon,
     signOutIcon,
@@ -50,12 +50,12 @@ export const navigation: NavigationItem[] = [
         icon: homeIcon,
         url: "/Home"
     },
-    {
-        id: "1",
-        title: "Institution",
-        icon: institutionIcon,
-        url: "/Institution"
-    },
+    // {
+    //     id: "1",
+    //     title: "Institution",
+    //     icon: institutionIcon,
+    //     url: "/Institution"
+    // },
     {
         id: "2",
         title: "Projects",
@@ -73,14 +73,14 @@ export const navigation: NavigationItem[] = [
         br: true,
         icon: devider
     },
-    {
-        id: "5",
-        title: "Enrolled",
-        url: "/Enrolled",
-        icon: enrolledIcon,
-        smgap: true,
-        access: "student"
-    },
+    // {
+    //     id: "5",
+    //     title: "Enrolled",
+    //     url: "/Enrolled",
+    //     icon: enrolledIcon,
+    //     smgap: true,
+    //     access: "student"
+    // },
     {
         id: "6",
         title: "Results",

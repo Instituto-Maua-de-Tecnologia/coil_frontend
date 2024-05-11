@@ -186,8 +186,8 @@ export interface Institution {
 
 export const countryCodes: { [key: string]: string } = {
     netherlands: "nl",
-    "united states": "us",
-    "united kingdom": "gb",
+    united_states: "us",
+    united_kingdom: "gb",
     france: "fr",
     germany: "de",
     italy: "it",
@@ -201,7 +201,7 @@ export const countryCodes: { [key: string]: string } = {
     australia: "au",
     mexico: "mx",
     argentina: "ar",
-    "south africa": "za",
+    south_africa: "za",
     switzerland: "ch",
     sweden: "se",
     norway: "no",
@@ -209,9 +209,9 @@ export const countryCodes: { [key: string]: string } = {
     finland: "fi",
     portugal: "pt",
     greece: "gr",
-    "south korea": "kr",
-    "saudi arabia": "sa",
-    "united arab emirates": "ae",
+    south_korea: "kr",
+    saudi_arabia: "sa",
+    united_arab_emirates: "ae",
     egypt: "eg",
     indonesia: "id",
     thailand: "th",
@@ -226,89 +226,41 @@ export const countryCodes: { [key: string]: string } = {
     ecuador: "ec",
     uruguay: "uy",
     panama: "pa",
-    "costa rica": "cr",
-    "dominican republic": "do",
+    costa_rica: "cr",
+    dominican_republic: "do",
     cuba: "cu",
     jamaica: "jm",
     barbados: "bb",
-    "trinidad and tobago": "tt",
+    trinidad_and_tobago: "tt",
     philippines: "ph",
     vietnam: "vn",
     malaysia: "my",
     singapore: "sg",
-    "hong kong": "hk",
+    hong_kong: "hk",
     taiwan: "tw",
-    portuguese: "br", // Brasil
-    dutch: "nl", // Netherlands (Países Baixos)
-    english: "us", // United States (Estados Unidos)
-    english_gb: "gb", // United Kingdom (Reino Unido)
-    french: "fr", // France (França)
-    german: "de", // Germany (Alemanha)
-    italian: "it", // Italy (Itália)
-    spanish: "es", // Spain (Espanha)
-    japanese: "jp", // Japan (Japão)
-    chinese: "cn", // China (China)
-    hindi: "in", // India (Índia)
-    russian: "ru", // Russia (Rússia)
-    zulu: "za", // South Africa (África do Sul)
-    swedish: "se", // Sweden (Suécia)
-    norwegian: "no", // Norway (Noruega)
-    danish: "dk", // Denmark (Dinamarca)
-    finnish: "fi", // Finland (Finlândia)
-    greek: "gr", // Greece (Grécia)
-    korean: "kr", // South Korea (Coreia do Sul)
-    arabic: "sa", // Saudi Arabia (Arábia Saudita)
-    indonesian: "id", // Indonesia (Indonésia)
-    thai: "th", // Thailand (Tailândia)
-    turkish: "tr", // Turkey (Turquia)
-    swahili: "ke", // Kenya (Quênia)
-    quechua: "bo", // Bolivia (Bolívia)
-    aymara: "bo", // Bolivia (Bolívia)
-    tamil: "in", // India (Índia)
-    punjabi: "in", // India (Índia)
-    catalan: "es", // Spain (Espanha)
-    basque: "es", // Spain (Espanha)
-    tagalog: "ph", // Philippines (Filipinas)
-    vietnamese: "vn", // Vietnam (Vietnã)
-    malay: "my", // Malaysia (Malásia)
-    sinhalese: "lk", // Sri Lanka (Sri Lanka)
-    filipino: "ph", // Philippines (Filipinas)
-    khmer: "kh", // Cambodia (Camboja)
-    lao: "la", // Laos (Laos)
-    burmese: "mm", // Myanmar (Mianmar)
-    mongolian: "mn", // Mongolia (Mongólia)
-    nepali: "np", // Nepal (Nepal)
-    bengali: "bd", // Bangladesh (Bangladesh)
-    telugu: "in", // India (Índia)
-    marathi: "in", // India (Índia)
-    gujarati: "in", // India (Índia)
-    kannada: "in", // India (Índia)
-    malayalam: "in", // India (Índia)
-    oriya: "in", // India (Índia)
-    urdu: "pk", // Pakistan (Paquistão)
-    pashto: "af", // Afghanistan (Afeganistão)
-    persian: "ir", // Iran (Irã)
-    armenian: "am", // Armenia (Armênia)
-    georgian: "ge", // Georgia (Geórgia)
-    hebrew: "il", // Israel (Israel)
-    maltese: "mt", // Malta (Malta)
-    slovak: "sk", // Slovakia (Eslováquia)
-    slovenian: "si", // Slovenia (Eslovênia)
-    latvian: "lv", // Latvia (Letônia)
-    lithuanian: "lt", // Lithuania (Lituânia)
-    estonian: "ee", // Estonia (Estônia)
-    bulgarian: "bg", // Bulgaria (Bulgária)
-    romanian: "ro", // Romania (Romênia)
-    hungarian: "hu", // Hungary (Hungria)
-    croatian: "hr", // Croatia (Croácia)
-    serbian: "rs", // Serbia (Sérvia)
-    bosnian: "ba", // Bosnia and Herzegovina (Bósnia e Herzegovina)
-    albanian: "al", // Albania (Albânia)
-    macedonian: "mk", // North Macedonia (Macedônia do Norte)
-    greek_cy: "cy", // Cyprus (Chipre)
-    bulgarian_gr: "gr", // Greece (Grécia)
-    turkish_gr: "gr", // Greece (Grécia)
-    romanian_gr: "gr", // Greece (Grécia)
-    serbian_ba: "ba", // Bosnia and Herzegovina (Bósnia e Herzegovina)
-    croatian_ba: "ba" // Bosnia and Herzegovina (Bósnia e Herzegovina)
+    english: "us",
+    portuguese: "br",
+    french: "fr",
+    german: "de",
+    italian: "it",
+    spanish: "es",
+    japanese: "jp",
+    mandarin: "cn",
+    dutch: "nl",
+    hindi: "in",
+    russian: "ru",
+    swedish: "se",
+    norwegian: "no",
+    danish: "dk",
+    finnish: "fi",
+    greek: "gr",
+    korean: "kr",
+    arabic: "sa",
+    indonesian: "id",
+    thai: "th",
+    turkish: "tr",
+    zulu: "za",
+    xhosa: "za",
+    afrikaans: "za",
+    romansh: "ch"
 };

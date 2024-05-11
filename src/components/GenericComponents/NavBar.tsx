@@ -4,7 +4,7 @@ import authUser from "@integrations/user/authentification/auth_user.ts";
 import getUser from "@integrations/user/authentification/get_user.ts";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
+//import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
 const Navbar = () => {
     /* eslint-disable */
@@ -38,9 +38,9 @@ const Navbar = () => {
                         error: (error) => error.message
                     }
                 )
-                .then(async (user: any) => {
+                .then(async () => {
                     await delay(1500);
-                    handleNavigate(user);
+                    handleNavigate();
                 });
         }
     }, [localStorage.getItem("token")]);
@@ -57,20 +57,18 @@ const Navbar = () => {
                     error: (error) => error.message
                 })
                 .then(async () => {
-                    let user = JSON.parse(
-                        localStorage.getItem("user") as string
-                    );
                     await delay(1500);
-                    handleNavigate(user);
+                    handleNavigate();
                 });
         }
     }
 
-    function handleNavigate(user: any) {
-        if (user.user_type === UserTypeEnum.STUDENT) {
-            if (user.course === null || user.semester_course === null)
-                navigate("/Signup");
-        } else navigate("/Home");
+    function handleNavigate() {
+        // if (user.user_type === UserTypeEnum.STUDENT) {
+        //     if (user.course === null || user.semester_course === null)
+        //         navigate("/Signup");
+        // } else navigate("/Home"); adicionar parâmetro na função user: any
+        navigate("/Home");
     }
 
     async function handleGetUser(accessToken: string) {

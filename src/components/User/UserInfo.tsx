@@ -9,8 +9,8 @@ export default function UserInfo() {
             name: "",
             email: "",
             user_type: 0,
-            course: "",
-            semester_course: 0,
+            // course: "",
+            // semester_course: 0,
             created_at: "",
             updated_at: ""
         }
@@ -24,8 +24,8 @@ export default function UserInfo() {
                     name: JSON.parse(userTemp).name,
                     email: JSON.parse(userTemp).email,
                     user_type: JSON.parse(userTemp).user_type,
-                    course: JSON.parse(userTemp).course,
-                    semester_course: JSON.parse(userTemp).semester_course,
+                    // course: JSON.parse(userTemp).course,
+                    // semester_course: JSON.parse(userTemp).semester_course,
                     created_at: JSON.parse(userTemp).created_at,
                     updated_at: JSON.parse(userTemp).updated_at
                 }

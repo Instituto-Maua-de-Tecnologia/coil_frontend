@@ -37,21 +37,21 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
                     language: ""
                 }
             ],
-            partner_institutions: [
-                {
-                    institution_id: "",
-                    institution: {
-                        id: "",
-                        name: "",
-                        country: "",
-                        images: [
-                            {
-                                image: ""
-                            }
-                        ]
-                    }
-                }
-            ],
+            // partner_institutions: [
+            //     {
+            //         institution_id: "",
+            //         institution: {
+            //             id: "",
+            //             name: "",
+            //             country: "",
+            //             images: [
+            //                 {
+            //                     image: ""
+            //                 }
+            //             ]
+            //         }
+            //     }
+            // ],
             activity_status: {
                 id: 0,
                 name: ""
@@ -80,10 +80,10 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
                     enrolled?.title
                         ?.toLowerCase()
                         .includes(searchTerm.toLowerCase()) ||
-                    enrolled.partner_institutions
-                        ?.map((fds) => fds.institution)
-                        .map((fds) => fds?.name?.toLowerCase())
-                        .includes(searchTerm.toLowerCase()) ||
+                    // enrolled.partner_institutions
+                    //     ?.map((fds) => fds.institution)
+                    //     .map((fds) => fds?.name?.toLowerCase())
+                    //     .includes(searchTerm.toLowerCase()) ||
                     enrolled.applications
                         ?.map((fds) => (fds.status ? "sa" : "dsa"))
                         .map((sla) => sla.toLowerCase())
@@ -115,7 +115,7 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
 
     return (
         <div
-            className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+            className={`w-full mt-4 md:mt-0 ml-0 md:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} disabled={!loaded} />

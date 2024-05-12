@@ -129,21 +129,21 @@ export interface Enrolled {
             language?: string;
         }
     ];
-    partner_institutions?: [
-        {
-            institution_id?: string;
-            institution?: {
-                id: string;
-                name: string;
-                country: string;
-                images: [
-                    {
-                        image?: string;
-                    }
-                ];
-            };
-        }
-    ];
+    // partner_institutions?: [
+    //     {
+    //         institution_id?: string;
+    //         institution?: {
+    //             id: string;
+    //             name: string;
+    //             country: string;
+    //             images: [
+    //                 {
+    //                     image?: string;
+    //                 }
+    //             ];
+    //         };
+    //     }
+    // ];
     activity_status?: {
         id: number;
         name: string;

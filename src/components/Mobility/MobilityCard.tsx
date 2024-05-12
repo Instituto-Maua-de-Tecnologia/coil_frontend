@@ -1,6 +1,7 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
 import { countryCodes, Mobility } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
 interface MobilityCardProps {
     mobility: Mobility;
@@ -91,12 +92,15 @@ export default function MobilityCard({
                         <div className={`text-blue-500`}>
                             {mobility.activity_status.name.replace("_", " ")}
                         </div>
-                        <button
-                            onClick={handleOnClick}
-                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
-                        >
-                            {enrolled ? "Disenroll" : "Enroll"}
-                        </button>
+                        {JSON.parse(localStorage.getItem("user") as string)
+                            .user_type === UserTypeEnum.STUDENT && (
+                            <button
+                                onClick={handleOnClick}
+                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                            >
+                                {enrolled ? "Disenroll" : "Enroll"}
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

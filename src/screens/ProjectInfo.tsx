@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 export default function ProjectInfo() {
     const location = useLocation();
-    const project = location?.state?.project;
+    const project = location.state.projectID;
 
     return (
         <>

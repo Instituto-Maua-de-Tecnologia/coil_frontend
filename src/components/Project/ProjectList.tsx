@@ -199,7 +199,7 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
     /* eslint-enable */
     return (
         <div
-            className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+            className={`w-full ml-0 md:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
                 <Search disabled={!loaded} onSearch={handleSearch} />

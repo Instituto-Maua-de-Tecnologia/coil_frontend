@@ -13,8 +13,8 @@ export type UserCardProps = {
         name: string;
         email: string;
         user_type: number;
-        course: string;
-        semester_course: number;
+        // course: string;
+        // semester_course: number;
         created_at: string;
         updated_at: string;
     };

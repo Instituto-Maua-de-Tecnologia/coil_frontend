@@ -1,5 +1,5 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { countryCodes, Enrolled } from "../../types";
+import { Enrolled } from "../../types"; // countryCodes
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface EnrolledCardProps {
@@ -7,26 +7,26 @@ interface EnrolledCardProps {
 }
 
 export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
-    const { title, applications, languages, partner_institutions } = enrolled;
-    function getCountryFullName(codes: string[]): string {
-        const countryNames = codes.map((code) => {
-            const normalizedCode = code.toLowerCase();
-            return countryCodes[normalizedCode] || "Country not found";
-        });
-        return countryNames.join(", ");
-    }
-    const country = partner_institutions?.map(
-        (fds) => fds.institution?.country
-    );
-    const countryName = getCountryFullName(
-        enrolled.partner_institutions?.map(
-            (fds) => fds.institution?.country
-        ) as string[]
-    );
+    const { title, applications, languages } = enrolled; // partner_institutions
+    // function getCountryFullName(codes: string[]): string {
+    //     const countryNames = codes.map((code) => {
+    //         const normalizedCode = code.toLowerCase();
+    //         return countryCodes[normalizedCode] || "Country not found";
+    //     });
+    //     return countryNames.join(", ");
+    // }
+    // const country = partner_institutions?.map(
+    //     (fds) => fds.institution?.country
+    // );
+    // const countryName = getCountryFullName(
+    //     enrolled.partner_institutions?.map(
+    //         (fds) => fds.institution?.country
+    //     ) as string[]
+    // );
     const status = applications?.map((fds) => fds.status);
-    const avatarUrl = partner_institutions?.flatMap((fds) =>
-        fds.institution?.images.map((img) => img.image)
-    )[0];
+    // const avatarUrl = partner_institutions?.flatMap((fds) =>
+    //     fds.institution?.images.map((img) => img.image)
+    // )[0];
 
     const isDarkTheme = useThemeDetector();
 
@@ -36,13 +36,13 @@ export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
-                    <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
-                        <img
-                            src={avatarUrl}
-                            alt="Avatar"
-                            className="avatar-img mx-auto w-16 rounded-full"
-                        />
-                    </div>
+                    {/*<div className="sm:avatar-wrapper sm:flex flex-col mr-4">*/}
+                    {/*    <img*/}
+                    {/*        src={avatarUrl}*/}
+                    {/*        alt="Avatar"*/}
+                    {/*        className="avatar-img mx-auto w-16 rounded-full"*/}
+                    {/*    />*/}
+                    {/*</div>*/}
                     <div className="flex flex-col">
                         <div className="mb-2 font-bold">{title}</div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
@@ -62,13 +62,13 @@ export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
                             </div>
                         </div>
                         <div className="flex mb-2">
-                            <div className="flex flex-row w-full sm:justify-start justify-center">
-                                <p className="text-xs mr-2">{country}</p>
-                                <SVGIcon
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryName}.svg`}
-                                    className="w-4 m-[1px]"
-                                />
-                            </div>
+                            {/*<div className="flex flex-row w-full sm:justify-start justify-center">*/}
+                            {/*    <p className="text-xs mr-2">{country}</p>*/}
+                            {/*    <SVGIcon*/}
+                            {/*        src={`https://hatscripts.github.io/circle-flags/flags/${countryName}.svg`}*/}
+                            {/*        className="w-4 m-[1px]"*/}
+                            {/*    />*/}
+                            {/*</div>*/}
                         </div>
                     </div>
 

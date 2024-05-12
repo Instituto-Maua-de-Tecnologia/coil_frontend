@@ -3,6 +3,7 @@ import { countryCodes, Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
 interface ProjectCardProps {
     project: Project;
@@ -39,7 +40,7 @@ export default function ProjectCard({
     return (
         <li
             onClick={() =>
-                navigate("/ProjectInfo", { state: { project: project.id } })
+                navigate("/ProjectInfo", { state: { projectID: project.id } })
             }
             className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
@@ -103,12 +104,15 @@ export default function ProjectCard({
                         <div className={"text-blue-500"}>
                             {project.activity_status.name.replace("_", " ")}
                         </div>
-                        <button
-                            onClick={handleOnClick}
-                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
-                        >
-                            {enrolled ? "Disenroll" : "Enroll"}
-                        </button>
+                        {JSON.parse(localStorage.getItem("user") as string)
+                            .user_type === UserTypeEnum.STUDENT && (
+                            <button
+                                onClick={handleOnClick}
+                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                            >
+                                {enrolled ? "Disenroll" : "Enroll"}
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>

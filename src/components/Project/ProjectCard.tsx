@@ -53,17 +53,17 @@ export default function ProjectCard({
                         />
                     </div>
                     <div className="flex flex-col">
-                        <div className="mb-2 text-start font-bold">
+                        <div className="mb-2 text-center sm:text-start font-bold">
                             {project.title}
                         </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
-                            <div className="flex flex-row items-center">
+                            <div className="flex flex-col sm:flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
                                 {project.languages.map((language, index) => (
                                     <div
                                         key={"Project SVGICon Language" + index}
                                         className={
-                                            "border-[#673366] border-[1px] ms-2 pe-1 ps-2 py-1 items-center flex rounded-full text-[#673366]"
+                                            "border-[#673366] mt-2 sm:mt-0 flex-row border-[1px] ms-2 pe-1 ps-2 py-1 items-center flex rounded-full text-[#673366]"
                                         }
                                     >
                                         <p className={"text-xs me-2"}>

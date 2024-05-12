@@ -93,7 +93,8 @@ export default function ProjectCard({
                         <div className={"text-blue-500"}>
                             {project.activity_status.name.replace("_", " ")}
                         </div>
-                        {user.user_type === UserTypeEnum.STUDENT ? (
+                        {project.activity_status.name !== "ON_HOLD" &&
+                        user.user_type === UserTypeEnum.STUDENT ? (
                             <button
                                 onClick={handleOnClick}
                                 className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"

@@ -17,6 +17,7 @@ import ProjectInfo from "@screens/ProjectInfo";
 import { useEffect } from "react";
 import getUser from "@integrations/user/authentification/get_user.ts";
 import InstitutionInfo from "@screens/InstitutionInfo";
+import toast from "react-hot-toast";
 
 export default function AppRoutes() {
     useEffect(() => {
@@ -27,14 +28,14 @@ export default function AppRoutes() {
             ) {
                 window.location.href = "/";
                 localStorage.clear();
-                alert("Token inválido ou expirado, faça o login novamente");
+                toast.error("deu ruim irmao");
             } else
                 getUser({
                     token: localStorage.getItem("token") as string
                 }).catch((error) => {
                     window.location.href = "/";
                     localStorage.clear();
-                    alert("Token inválido ou expirado, faça o login novamente");
+                    toast.error("deu ruim irmao");
                     throw new Error(error);
                 });
         }

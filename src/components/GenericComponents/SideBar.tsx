@@ -6,9 +6,11 @@ import lightMauaLogo from "@assets/maua-fontys-light.svg";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 // TROCAR ESSE VALOR PELO TIPO DE USUARIO DO USUARIO E AJUSTAR O OPERADOR TERNARIO QUE GERA OS BOTÕES VERIFICANDO SE O USUÁRIO É ESTUDANTE
-const access = "student";
 
 export default function SideBar() {
+    const access = JSON.parse(
+        localStorage.getItem("user") as string
+    )?.user_type;
     const isDarkTheme = useThemeDetector();
     const pathname = useLocation();
     // const [openNavigation, setOpenNavigation] = useState(false)

@@ -1,4 +1,7 @@
+import { useThemeDetector } from "@util/ThemeDetector.ts";
+
 const DropdownIndicator = () => {
+    const isDarkTheme = useThemeDetector();
     return (
         <div className="dropdown-indicator m-4">
             <svg
@@ -9,7 +12,7 @@ const DropdownIndicator = () => {
             >
                 <path
                     d="M7.26795 14C8.03775 15.3333 9.96225 15.3333 10.7321 14L16.7942 3.5C17.564 2.16667 16.6018 0.5 15.0622 0.5H2.93782C1.39822 0.5 0.435971 2.16667 1.20577 3.5L7.26795 14Z"
-                    fill="#1D232C"
+                    fill={`${isDarkTheme ? "#fff" : "#1D232C"}`}
                 />
             </svg>
         </div>

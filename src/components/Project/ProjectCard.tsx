@@ -16,11 +16,14 @@ export default function ProjectCard({
     enrolled,
     onClick
 }: ProjectCardProps) {
+    const user = JSON.parse(localStorage.getItem("user") as string);
     const handleOnClick = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         e.stopPropagation();
-        onClick(project);
+        if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
+        else if (user.user_type === UserTypeEnum.ADMIN)
+            navigate("/CreateProject", { state: { userStatus: 3 } });
     };
     function getCountryFullName(codes: string[]): string {
         const countryNames = codes.map((code) => {
@@ -76,7 +79,7 @@ export default function ProjectCard({
                                             />
                                         ) : (
                                             <SVGIcon
-                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(3, 5)}.svg`}
+                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(index + 2, index + 4)}.svg`}
                                                 className="w-4 m-[1px]"
                                             />
                                         )}
@@ -90,13 +93,19 @@ export default function ProjectCard({
                         <div className={"text-blue-500"}>
                             {project.activity_status.name.replace("_", " ")}
                         </div>
-                        {JSON.parse(localStorage.getItem("user") as string)
-                            .user_type === UserTypeEnum.STUDENT && (
+                        {user.user_type === UserTypeEnum.STUDENT ? (
                             <button
                                 onClick={handleOnClick}
                                 className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
                             >
                                 {enrolled ? "Disenroll" : "Enroll"}
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleOnClick}
+                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                            >
+                                Edit
                             </button>
                         )}
                     </div>

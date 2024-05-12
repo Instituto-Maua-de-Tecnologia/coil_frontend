@@ -2,6 +2,7 @@ import SVGIcon from "../ImageInstances/SVGIcon";
 import { countryCodes, Mobility } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
+import { useNavigate } from "react-router-dom";
 
 interface MobilityCardProps {
     mobility: Mobility;
@@ -14,6 +15,7 @@ export default function MobilityCard({
     onClick,
     enrolled
 }: MobilityCardProps) {
+    const user = JSON.parse(localStorage.getItem("user") as string);
     function getCountryFullName(codes: string[]): string {
         const countryNames = codes.map((code) => {
             const normalizedCode = code.toLowerCase();
@@ -27,9 +29,12 @@ export default function MobilityCard({
         (fds) => fds.institution.country
     );
     const country = getCountryFullName(countryInstitutionArray);
+    const navigate = useNavigate();
 
     const handleOnClick = () => {
-        onClick(mobility);
+        if (user.user_type === UserTypeEnum.STUDENT) onClick(mobility);
+        else if (user.user_type === UserTypeEnum.ADMIN)
+            navigate("/CreateProject", { state: { userStatus: 3 } });
     };
     const isDarkTheme = useThemeDetector();
     return (
@@ -72,7 +77,7 @@ export default function MobilityCard({
                                             />
                                         ) : (
                                             <SVGIcon
-                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(3, 5)}.svg`}
+                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(index + 2, index + 4)}.svg`}
                                                 className="w-4 m-[1px]"
                                             />
                                         )}
@@ -100,13 +105,19 @@ export default function MobilityCard({
                         <div className={`text-blue-500`}>
                             {mobility.activity_status.name.replace("_", " ")}
                         </div>
-                        {JSON.parse(localStorage.getItem("user") as string)
-                            .user_type === UserTypeEnum.STUDENT && (
+                        {user.user_type === UserTypeEnum.STUDENT ? (
                             <button
                                 onClick={handleOnClick}
                                 className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
                             >
                                 {enrolled ? "Disenroll" : "Enroll"}
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleOnClick}
+                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                            >
+                                Edit
                             </button>
                         )}
                     </div>

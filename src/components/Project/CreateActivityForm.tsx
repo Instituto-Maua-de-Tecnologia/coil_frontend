@@ -113,9 +113,8 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         }),
         option: (provided, state) => ({
             ...provided,
-            margin: "0px 0px 8px 0px",
-            maxWidth: "240px",
-            width: "100%",
+            margin: "0 0 8px 0",
+            width: "80%",
             color: "#FFFFFF",
             borderRadius: "30px",
             backgroundColor: state.isFocused ? "#673366" : "#512650",
@@ -153,7 +152,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         }),
         placeholder: (provided) => ({
             ...provided,
-            color: isDarkTheme ? "#0F1820" : "#CBD0DD"
+            color: isDarkTheme ? "#CBD0DD" : "#0F1820"
         })
     };
 
@@ -199,7 +198,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         }),
         placeholder: (provided) => ({
             ...provided,
-            color: isDarkTheme ? "#0F1820" : "#CBD0DD"
+            color: isDarkTheme ? "#CBD0DD" : "#0F1820"
         })
     };
 
@@ -237,10 +236,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     useEffect(() => {
         handleGetAllCoursesAndInstitutions();
     }, []);
-
-    useEffect(() => {
-        console.log(projectNameRef.current?.value);
-    });
 
     async function handlePostActivity() {
         const startDatePart = startDateRef.current?.value.split("/");
@@ -413,10 +408,13 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                         <DropdownIndicator />
                                     )
                                 }}
-                                value={selectedCourses.map((course) => ({
-                                    value: course.id,
-                                    label: course.name
-                                }))}
+                                value={selectedCourses.map((course) => {
+                                    if (course.name !== "")
+                                        return {
+                                            value: course.id,
+                                            label: course.name
+                                        };
+                                })}
                                 onChange={handleSelectCourse}
                                 options={courseOptions}
                             />
@@ -429,6 +427,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                     Partner Institution
                                 </label>
                                 <Select
+                                    className={"placeholder:text-white"}
                                     options={institutionsOptions}
                                     menuPosition="fixed"
                                     components={{

@@ -30,10 +30,6 @@ export default function ProjectCard({
         return countryNames.join(" ");
     }
     const countryCodesArray = project.languages.map((fds) => fds.language);
-    const countryInstitutionArray = project.partner_institutions.map(
-        (fds) => fds.institution.country
-    );
-    const country = getCountryFullName(countryInstitutionArray);
     const countryName = getCountryFullName(countryCodesArray);
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();
@@ -57,15 +53,20 @@ export default function ProjectCard({
                         />
                     </div>
                     <div className="flex flex-col">
-                        <div className="mb-2 font-bold">{project.title}</div>
+                        <div className="mb-2 text-start font-bold">
+                            {project.title}
+                        </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
                                 {project.languages.map((language, index) => (
-                                    <React.Fragment
+                                    <div
                                         key={"Project SVGICon Language" + index}
+                                        className={
+                                            "border-[#673366] border-[1px] ms-2 pe-1 ps-2 py-1 items-center flex rounded-full text-[#673366]"
+                                        }
                                     >
-                                        <p className={"text-xs"}>
+                                        <p className={"text-xs me-2"}>
                                             {language.language}
                                         </p>
                                         {index % 2 === 0 ? (
@@ -79,23 +80,8 @@ export default function ProjectCard({
                                                 className="w-4 m-[1px]"
                                             />
                                         )}
-                                    </React.Fragment>
+                                    </div>
                                 ))}
-                            </div>
-                        </div>
-                        <div className="flex mb-2">
-                            <div className="flex flex-row w-full sm:justify-start justify-center">
-                                <p className="text-xs mr-2">
-                                    {
-                                        project.partner_institutions[0]
-                                            .institution.country
-                                    }
-                                </p>
-
-                                <SVGIcon
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${country.substring(0, 2)}.svg`}
-                                    className="w-4 m-[1px]"
-                                />
                             </div>
                         </div>
                     </div>

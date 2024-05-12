@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { Project } from "../../types";
+import { countryCodes, Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import assignUserToActivities from "@integrations/activity/student/assign_user_to_activity";
 import { MoonLoader } from "react-spinners";
+import { format } from "date-fns";
 
 interface ModalProps {
     project: Project; // eslint-disable-line
@@ -14,6 +15,10 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
     const [enrolling, setEnrolling] = useState<boolean>(false);
     const isDarkTheme = useThemeDetector();
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return format(date, "dd/MM/yyyy");
+    };
 
     const handleEnrollment = async () => {
         setEnrolling(true);
@@ -28,6 +33,22 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
             onClose();
         }
     };
+    function getCountryFullName(codes: string[]): string {
+        const countryNames = codes.map((code) => {
+            const normalizedCode = code.toLowerCase();
+            return countryCodes[normalizedCode] || "Country not found";
+        });
+        return countryNames.join(" ");
+    }
+    const countryCodesArray = project.languages.map((fds) => fds.language);
+    function getCountryFullNameString(code: string): string {
+        const countryCode = code.toLowerCase();
+        return countryCodes[countryCode] || "Country not found";
+    }
+    const countryCode = getCountryFullNameString(
+        project.partner_institutions[0].institution.country
+    );
+    const countryName = getCountryFullName(countryCodesArray);
 
     return (
         <>
@@ -63,10 +84,12 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                         <h3
                                             className={"text-white font-medium"}
                                         >
-                                            {
-                                                project.partner_institutions[0]
-                                                    .institution.name
-                                            }
+                                            {project.partner_institutions[0].institution.name.slice(
+                                                0,
+                                                project.partner_institutions[0].institution.name.indexOf(
+                                                    " "
+                                                )
+                                            )}
                                         </h3>
                                     </div>
 
@@ -81,12 +104,26 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                                         Languages
                                                     </p>
                                                     {project.languages.map(
-                                                        (language, index) => (
-                                                            <SVGIcon
-                                                                key={index}
-                                                                src={`https://hatscripts.github.io/circle-flags/flags/${language.language[index]}.svg`}
-                                                                className="w-4 m-[1px]"
-                                                            />
+                                                        (_, index) => (
+                                                            <React.Fragment
+                                                                key={
+                                                                    "languageModalIcon " +
+                                                                    index
+                                                                }
+                                                            >
+                                                                {index % 2 ===
+                                                                0 ? (
+                                                                    <SVGIcon
+                                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(0, 2)}.svg`}
+                                                                        className="w-4 m-[1px]"
+                                                                    />
+                                                                ) : (
+                                                                    <SVGIcon
+                                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(index + 2, index + 4)}.svg`}
+                                                                        className="w-4 m-[1px]"
+                                                                    />
+                                                                )}
+                                                            </React.Fragment>
                                                         )
                                                     )}
                                                 </div>
@@ -100,7 +137,7 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                                         }
                                                     </p>
                                                     <SVGIcon
-                                                        src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions[0].institution.country}.svg`}
+                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryCode}.svg`}
                                                         className="w-4 m-[1px]"
                                                     />
                                                 </div>
@@ -110,21 +147,25 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                                 <p
                                                     className={`text-lg text-end font-bold text-blue-500`}
                                                 >
-                                                    {
-                                                        project.activity_status
-                                                            .name
-                                                    }
+                                                    {project.activity_status.name.replace(
+                                                        "_",
+                                                        " "
+                                                    )}
                                                 </p>
                                                 <p className="text-white text-sm text-end">
                                                     Application start date:{" "}
                                                     <span>
-                                                        {project.start_date}
+                                                        {formatDate(
+                                                            project.start_date
+                                                        )}
                                                     </span>
                                                 </p>
                                                 <p className="text-white text-sm text-end">
                                                     Application end date:{" "}
                                                     <span>
-                                                        {project.end_date}
+                                                        {formatDate(
+                                                            project.end_date
+                                                        )}
                                                     </span>
                                                 </p>
                                             </div>

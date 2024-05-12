@@ -63,6 +63,14 @@ export default function AppRoutes() {
                     }
                 />
                 <Route
+                    path={"/CreateProject"}
+                    element={
+                        <CreateActivity
+                            activity_type={ActivityTypeEnum.ACADEMIC_MOBILITY}
+                        />
+                    }
+                />
+                <Route
                     path={"/CreateMobility"}
                     element={
                         <CreateActivity

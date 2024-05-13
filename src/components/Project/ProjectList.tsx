@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import Search from "../GenericComponents/Search";
-import Filter from "@components/GenericComponents/Filter";
+// import Filter from "@components/GenericComponents/Filter";
 import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "@style/scrollbar.css";
@@ -57,11 +57,10 @@ type ProjectProps = {
 };
 
 interface ProjectListProps {
-    isFilter: boolean;
     isAdmin: boolean;
 }
 
-export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
+export default function ProjectList({ isAdmin }: ProjectListProps) {
     const [projects, setProjects] = useState<ProjectProps[]>([
         {
             activity_status: {
@@ -199,19 +198,19 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
     /* eslint-enable */
     return (
         <div
-            className={`w-full ml-0 md:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+            className={`w-full lg:ml-4 p-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
                 <Search disabled={!loaded} onSearch={handleSearch} />
                 <div className="button-container flex absolute right-12">
                     {isAdmin ? <Add url="/CreateProject" /> : null}
-                    {isFilter && <Filter />}
+                    {/* {isFilter && <Filter />} */}
                 </div>
             </div>
             {filteredProjects.length > 0 ? (
                 <div>
                     {loaded ? (
-                        <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
+                        <ul className="w-full max-h-screen pe-5 custom-scrollbar overflow-y-auto">
                             {projects.map((project) => (
                                 <ProjectCard
                                     key={project.id}
@@ -234,6 +233,11 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
                     {selectedProject ? (
                         <Modal
                             project={selectedProject}
+                            enrolled={
+                                enrolledProjectsIds.includes(selectedProject.id)
+                                    ? true
+                                    : false
+                            }
                             isOpen={true}
                             onClose={handleModalClose}
                         />

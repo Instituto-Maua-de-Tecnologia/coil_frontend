@@ -3,6 +3,7 @@ import AppRoutes from "./Routes";
 import { useThemeDetector } from "./util/ThemeDetector";
 import { MsalProvider } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
+import ToasterContainer from "@components/GenericComponents/ToasterContainer.tsx";
 
 export default function App() {
     const msalInstance = new PublicClientApplication({
@@ -15,6 +16,7 @@ export default function App() {
     const isDarkTheme = useThemeDetector();
     return (
         <MsalProvider instance={msalInstance}>
+            <ToasterContainer></ToasterContainer>
             {createPortal(
                 <link
                     rel="icon"

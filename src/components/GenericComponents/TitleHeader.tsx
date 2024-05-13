@@ -12,6 +12,7 @@ import {
     userIcon
 } from "@assets/icons";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
+import { navigation } from "@constants/SideBarProperties.ts";
 
 interface TitleHeaderProps {
     title: string;
@@ -33,7 +34,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
         { to: "/Activity", label: "Activity", icon: activityIcon },
         { to: "/Enrolled", label: "Enrolled", icon: enrolledIcon },
         { to: "/Results", label: "Results", icon: resultsIcon },
-        { to: "/User", label: "User", icon: userIcon },
+        { to: "/User", label: navigation[5].title, icon: userIcon },
         { to: "/Signout", label: "Sign Out", icon: signOutIcon }
     ];
 

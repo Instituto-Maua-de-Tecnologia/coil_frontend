@@ -9,10 +9,16 @@ import { format } from "date-fns";
 interface ModalProps {
     project: Project; // eslint-disable-line
     isOpen: boolean;
+    enrolled: boolean;
     onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
+const Modal: React.FC<ModalProps> = ({
+    project,
+    isOpen,
+    enrolled,
+    onClose
+}) => {
     const [enrolling, setEnrolling] = useState<boolean>(false);
     const isDarkTheme = useThemeDetector();
     const formatDate = (dateString: string) => {
@@ -198,7 +204,9 @@ const Modal: React.FC<ModalProps> = ({ project, isOpen, onClose }) => {
                                     {enrolling ? (
                                         <MoonLoader color="#FFFFFF" size={15} />
                                     ) : (
-                                        "Confirm"
+                                        <span>
+                                            {enrolled ? "Withdraw" : "Apply"}
+                                        </span>
                                     )}
                                 </button>
                             </div>

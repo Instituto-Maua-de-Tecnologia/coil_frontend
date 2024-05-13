@@ -13,10 +13,7 @@ export default function Projects() {
                 <TitleHeader title={"Projects"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <ProjectList
-                        isFilter
-                        isAdmin={user_type === UserTypeEnum.ADMIN}
-                    />
+                    <ProjectList isAdmin={user_type === UserTypeEnum.ADMIN} />
                 </div>
             </div>
         </>

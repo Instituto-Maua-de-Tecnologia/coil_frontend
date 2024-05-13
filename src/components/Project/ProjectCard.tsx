@@ -43,63 +43,102 @@ export default function ProjectCard({
             }
             className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
-            <div className="flex sm:relative items-center sm:justify-between w-full">
+            <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
-                    <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
-                        <img
-                            src={
-                                project.partner_institutions[0].institution
-                                    .images[0].image
-                            }
-                            alt="Avatar"
-                            className="avatar-img mx-auto w-16 rounded-full"
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="mb-2 text-center sm:text-start font-bold">
-                            {project.title}
+                    <div className="w-full flex">
+                        <div className="sm:avatar-wrapper sm:flex flex-col sm:mr-4">
+                            <img
+                                src={
+                                    project.partner_institutions[0].institution
+                                        .images[0].image
+                                }
+                                alt="Avatar"
+                                className="avatar-img mx-auto w-16 rounded-full"
+                            />
                         </div>
-                        <div className="flex mb-2 w-full sm:justify-start justify-center">
-                            <div className="flex flex-col sm:flex-row items-center">
-                                <p className="text-xs mr-2">Languages:</p>
-                                {project.languages.map((language, index) => (
-                                    <div
-                                        key={"Project SVGICon Language" + index}
-                                        className={
-                                            "border-[#673366] mt-2 sm:mt-0 flex-row border-[1px] ms-2 pe-1 ps-2 py-1 items-center flex rounded-full text-[#673366]"
-                                        }
-                                    >
-                                        <p className={"text-xs me-2"}>
-                                            {language.language}
-                                        </p>
-                                        {index % 2 === 0 ? (
-                                            <SVGIcon
-                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(0, 2)}.svg`}
-                                                className="w-4 m-[1px]"
-                                            />
-                                        ) : (
-                                            <SVGIcon
-                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(index + 2, index + 4)}.svg`}
-                                                className="w-4 m-[1px]"
-                                            />
-                                        )}
-                                    </div>
-                                ))}
+                        <div className="flex flex-col">
+                            <div className="mb-2 text-center sm:text-start font-bold">
+                                {project.title}
+                            </div>
+                            <div className="flex mb-2 w-full sm:justify-start justify-center">
+                                <div className="flex flex-col sm:flex-row items-center">
+                                    <p className="text-xs mr-2">Languages:</p>
+                                    {project.languages.map(
+                                        (language, index) => (
+                                            <div
+                                                key={
+                                                    "Project SVGICon Language" +
+                                                    index
+                                                }
+                                                className={
+                                                    "border-[#673366] mt-2 sm:mt-0 flex-row border-[1px] ms-2 pe-1 ps-2 py-1 items-center flex rounded-full text-[#673366]"
+                                                }
+                                            >
+                                                <p className={"text-xs me-2"}>
+                                                    {language.language
+                                                        .charAt(0)
+                                                        .toUpperCase() +
+                                                        language.language.slice(
+                                                            1
+                                                        )}
+                                                </p>
+                                                {index % 2 === 0 ? (
+                                                    <SVGIcon
+                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(0, 2)}.svg`}
+                                                        className="w-4 m-[1px]"
+                                                    />
+                                                ) : (
+                                                    <SVGIcon
+                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(index + 2, index + 4)}.svg`}
+                                                        className="w-4 m-[1px]"
+                                                    />
+                                                )}
+                                            </div>
+                                        )
+                                    )}
+                                </div>
+                            </div>
+                            <div className="flex">
+                                <p className={"text-xs me-2"}>
+                                    {
+                                        project.partner_institutions[0]
+                                            .institution.country
+                                    }
+                                </p>
+                                <SVGIcon
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryCodes[project.partner_institutions[0].institution.country.toLowerCase()]}.svg`}
+                                    className="w-4 m-[1px]"
+                                />
                             </div>
                         </div>
                     </div>
 
-                    <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
+                    <div className="flex items-end w-full gap-4 flex-col mr-2">
                         <div className={"text-blue-500"}>
                             {project.activity_status.name.replace("_", " ")}
                         </div>
+
                         {project.activity_status.name !== "ON_HOLD" &&
                         user.user_type === UserTypeEnum.STUDENT ? (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    project.activity_status.name !== "ACTIVE"
+                                        ? true
+                                        : false
+                                }
+                                className="bg-blue-500 disabled:opacity-50 min-w-[95px] text-white text-sm px-4 py-2 rounded-full"
                             >
-                                {enrolled ? "Disenroll" : "Enroll"}
+                                <span
+                                    title={
+                                        project.activity_status.name !==
+                                        "ACTIVE"
+                                            ? "This project is not appliable"
+                                            : `Apply for ${project.title}`
+                                    }
+                                >
+                                    {enrolled ? "Withdraw" : "Apply"}
+                                </span>
                             </button>
                         ) : (
                             <button

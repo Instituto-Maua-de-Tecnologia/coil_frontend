@@ -20,7 +20,7 @@ interface NavigationItem {
     br?: boolean;
     purple?: boolean;
     blue?: boolean;
-    access?: string;
+    access?: number;
 
     icon: ({
         className,
@@ -86,7 +86,7 @@ export const navigation: NavigationItem[] = [
         title: "Results",
         icon: resultsIcon,
         url: "/Results",
-        access: "student",
+        access: 1,
         smgap: true
     },
     {

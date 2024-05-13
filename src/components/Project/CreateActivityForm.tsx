@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { CourseProps } from "@screens/SignUp.tsx";
 import getAllInstitutions from "@integrations/institution/get_all_institution.ts";
 import ToasterContainer from "@components/GenericComponents/ToasterContainer.tsx";
+import { Calendar } from "primereact/calendar";
+import { Nullable } from "primereact/ts-helpers";
+import "primeicons/primeicons.css";
 
 type InstitutionProps = [
     {
@@ -48,6 +51,8 @@ interface ActivityFormProps {
 
 const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
+    const [dates, setDates] = useState<Nullable<(Date | null)[]>>(null);
+    const [date, setDate] = useState<Nullable<Date>>(null);
     const [selectedCourses, setSelectedCourses] = useState<CourseProps>([
         { id: 0, name: "" }
     ]);
@@ -441,30 +446,61 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                             </div>
                         </div>
                         <div className="form-row-3-2 md:flex w-full">
-                            <div className="application-start-date flex flex-col mx-2 space-y-2 w-full">
+                            <div className="application-start-date flex flex-col mx-2 space-y-2 w-[60%]">
                                 <label htmlFor="applicationStartDate">
-                                    Aplication Start Date
+                                    Aplication Start and End Date
                                 </label>
-                                <input
-                                    ref={startDateRef}
-                                    className={`placeholder:text-[${inputStyle["placeholderColor"]}]`}
-                                    type="text"
-                                    placeholder="XX/XX/XXXX"
-                                    style={inputStyle}
-                                />
+                                <div
+                                    className={`flex h-[52%] rounded-full justify-center w-full shadow-md p-4 ${isDarkTheme ? "text-white bg-[#223A4F]" : "text-black bg-[#F0F3FB]"}`}
+                                >
+                                    <Calendar
+                                        className={"w-full "}
+                                        value={dates}
+                                        onChange={(e) => setDates(e.value)}
+                                        selectionMode="range"
+                                        readOnlyInput
+                                        showIcon
+                                        inputStyle={{
+                                            backgroundColor: "transparent",
+                                            color: `${isDarkTheme ? "white" : "black"}`,
+                                            border: "none",
+                                            outline: "none",
+                                            padding: "0",
+                                            width: "100%",
+                                            height: "100%",
+                                            textAlign: "center"
+                                        }}
+                                        hideOnRangeSelection
+                                    />
+                                </div>
                             </div>
-                            <span className="arrow pt-10">{">"}</span>
-                            <div className="application-end-date flex flex-col mx-2 space-y-2 w-full">
+                            <div className="application-end-date flex flex-col mx-2 space-y-2 w-[40%]">
                                 <label htmlFor="applicationEndDate">
-                                    Aplication End Date
+                                    Enrollment period
                                 </label>
-                                <input
-                                    ref={endDateRef}
-                                    className={`placeholder:text-[${inputStyle["placeholderColor"]}]`}
-                                    type="text"
-                                    placeholder="XX/XX/XXXX"
-                                    style={inputStyle}
-                                />
+                                <div
+                                    className={`flex h-[52%] rounded-full justify-center w-full shadow-md px-4 ${isDarkTheme ? "text-white bg-[#223A4F]" : "text-black bg-[#F0F3FB]"}`}
+                                >
+                                    <Calendar
+                                        value={date}
+                                        onChange={(e) => setDate(e.value)}
+                                        showIcon
+                                        timeOnly
+                                        icon={() => (
+                                            <i className="pi mx-1 pi-clock" />
+                                        )}
+                                        inputStyle={{
+                                            backgroundColor: "transparent",
+                                            color: `${isDarkTheme ? "white" : "black"}`,
+                                            border: "none",
+                                            outline: "none",
+                                            padding: "0",
+                                            width: "100%",
+                                            height: "100%",
+                                            textAlign: "center"
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

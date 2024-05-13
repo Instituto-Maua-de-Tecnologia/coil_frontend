@@ -159,6 +159,7 @@ export default function ProjectList({ isFilter, isAdmin }: ProjectListProps) {
     };
 
     const handleVerifyEnrollment = (id: string) => {
+        console.log(enrolledProjectsIds);
         return enrolledProjectsIds.includes(id);
     };
 

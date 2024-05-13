@@ -86,7 +86,8 @@ export const navigation: NavigationItem[] = [
         title: "Results",
         icon: resultsIcon,
         url: "/Results",
-        access: "student"
+        access: "student",
+        smgap: true
     },
     {
         id: "7",

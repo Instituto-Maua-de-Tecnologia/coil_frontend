@@ -561,7 +561,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                     <div className="button-row flex">
                         <div className="w-full"></div>
                         <button
-                            className="confirm w-[110px] text-white px-4 p-2 bg-red-600 me-5 rounded-3xl"
+                            className="confirm w-[110px] text-white px-4 p-2 bg-[#673366] me-5 rounded-3xl"
                             onClick={() =>
                                 navigate(isProject ? "/Projects" : "/Activity")
                             }

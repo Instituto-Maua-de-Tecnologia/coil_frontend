@@ -46,7 +46,7 @@ export default function ProjectCard({
             <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="w-full flex">
-                        <div className="sm:avatar-wrapper sm:flex flex-col sm:mr-4">
+                        {/* <div className="sm:avatar-wrapper sm:flex flex-col sm:mr-4">
                             <img
                                 src={
                                     project.partner_institutions[0].institution
@@ -55,8 +55,8 @@ export default function ProjectCard({
                                 alt="Avatar"
                                 className="avatar-img mx-auto w-16 rounded-full"
                             />
-                        </div>
-                        <div className="flex flex-col">
+                        </div> */}
+                        <div className="flex flex-col ml-2">
                             <div className="mb-2 text-center sm:text-start font-bold">
                                 {project.title}
                             </div>

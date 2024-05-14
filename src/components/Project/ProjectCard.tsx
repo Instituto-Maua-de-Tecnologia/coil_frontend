@@ -124,8 +124,6 @@ export default function ProjectCard({
                                 onClick={handleOnClick}
                                 disabled={
                                     project.activity_status.name !== "ACTIVE"
-                                        ? true
-                                        : false
                                 }
                                 className="bg-blue-500 disabled:opacity-50 min-w-[95px] text-white text-sm px-4 py-2 rounded-full"
                             >

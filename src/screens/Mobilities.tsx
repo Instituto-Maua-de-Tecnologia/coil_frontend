@@ -1,7 +1,7 @@
 import TitleHeader from "@components/GenericComponents/TitleHeader";
 import SideBar from "@components/GenericComponents/SideBar";
-import MobilityList from "@components/Mobility/MobilityList";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
+import ProjectList from "@components/Project/ProjectList";
 
 export default function Mobilities() {
     const user_type = JSON.parse(
@@ -13,9 +13,10 @@ export default function Mobilities() {
                 <TitleHeader title={"Academic International Mobility"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <MobilityList
-                        isFilter
+                    <ProjectList
                         isAdmin={user_type === UserTypeEnum.ADMIN}
+                        type={2}
+                        showBadges={false}
                     />
                 </div>
             </div>

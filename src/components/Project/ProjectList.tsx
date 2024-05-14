@@ -11,9 +11,15 @@ import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface ProjectListProps {
     isAdmin: boolean;
+    type?: number;
+    showBadges?: boolean;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ isAdmin }) => {
+const ProjectList: React.FC<ProjectListProps> = ({
+    isAdmin,
+    type,
+    showBadges = true
+}) => {
     const isDarkTheme = useThemeDetector();
     const [projects, setProjects] = useState<Project[]>([]);
     const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
@@ -41,7 +47,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ isAdmin }) => {
                     .filter((project) => project) as Project[];
 
                 setProjects(uniqueProjects);
-                setFilteredProjects(uniqueProjects);
+                setFilteredProjects(
+                    uniqueProjects.filter((project) =>
+                        type ? project.activity_type.id === type : true
+                    )
+                );
             } catch (error) {
                 console.error("Error fetching projects:", error);
             } finally {
@@ -50,7 +60,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ isAdmin }) => {
         };
 
         fetchData();
-    }, []);
+    }, [type]);
 
     const handleGetAllProjects = async (type: string): Promise<Project[]> => {
         const projectValues = await getAllActivities({ type_activity: type });
@@ -63,7 +73,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ isAdmin }) => {
                 type_activity: "1"
             });
             if (Array.isArray(response)) {
-                const enrolledIds = response.map(({ id }) => `${id}`);
+                const enrolledIds = response.map((project) => `${project.id}`);
                 setEnrolledProjectsIds(enrolledIds);
             } else {
                 console.error("Invalid response format for enrolled projects.");
@@ -106,7 +116,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ isAdmin }) => {
                     {isAdmin && <Add url="/CreateProject" />}
                 </div>
             </div>
-            {projects.length > 0 ? (
+            {filteredProjects.length > 0 ? (
                 <div>
                     {loaded ? (
                         <ul className="w-full max-h-screen pe-5 custom-scrollbar overflow-y-auto">
@@ -118,6 +128,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ isAdmin }) => {
                                         project.id
                                     )}
                                     onClick={handleModalOpen}
+                                    showBadge={showBadges}
                                 />
                             ))}
                         </ul>

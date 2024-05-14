@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import Search from "../GenericComponents/Search";
-// import Filter from "@components/GenericComponents/Filter";
+//import Filter from "@components/GenericComponents/Filter";
 import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "@style/scrollbar.css";
@@ -11,121 +11,103 @@ import { Project } from "types";
 import { MoonLoader } from "react-spinners";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
 
-type ProjectProps = {
-    activity_status: {
-        id: number;
-        name: string;
-    };
-    activity_type: {
-        id: number;
-        name: string;
-    };
-    courses: [
-        {
-            course: {
-                name: string;
-            };
-            course_id: number;
-        }
-    ];
-    created_at: string;
-    end_date: string;
-    id: string;
-    languages: [
-        {
-            language: string;
-        }
-    ];
-    partner_institutions: [
-        {
-            institution: {
-                country: string;
-                id: string;
-                images: [
-                    {
-                        image: string;
-                    }
-                ];
-                name: string;
-            };
-            institution_id: string;
-        }
-    ];
-    start_date: string;
-    title: string;
-    updated_at: string;
-};
+// type ProjectProps = {
+//     activity_status: {
+//         id: number;
+//         name: string;
+//     };
+//     activity_type: {
+//         id: number;
+//         name: string;
+//     };
+//     courses: [
+//         {
+//             course: {
+//                 name: string;
+//             };
+//             course_id: number;
+//         }
+//     ];
+//     created_at: string;
+//     end_date: string;
+//     id: string;
+//     languages: [
+//         {
+//             language: string;
+//         }
+//     ];
+//     partner_institutions: [
+//         {
+//             institution: {
+//                 country: string;
+//                 id: string;
+//                 images: [
+//                     {
+//                         image: string;
+//                     }
+//                 ];
+//                 name: string;
+//             };
+//             institution_id: string;
+//         }
+//     ];
+//     start_date: string;
+//     title: string;
+//     updated_at: string;
+// };
 
 interface ProjectListProps {
     isAdmin: boolean;
 }
 
 export default function ProjectList({ isAdmin }: ProjectListProps) {
-    const [projects, setProjects] = useState<ProjectProps[]>([
-        {
-            activity_status: {
-                id: 0,
-                name: ""
-            },
-            activity_type: {
-                id: 0,
-                name: ""
-            },
-            courses: [
-                {
-                    course: {
-                        name: ""
-                    },
-                    course_id: 0
-                }
-            ],
-            created_at: "",
-            end_date: "",
-            id: "",
-            languages: [
-                {
-                    language: ""
-                }
-            ],
-            partner_institutions: [
-                {
-                    institution: {
-                        country: "",
-                        id: "",
-                        images: [
-                            {
-                                image: ""
-                            }
-                        ],
-                        name: ""
-                    },
-                    institution_id: ""
-                }
-            ],
-            start_date: "",
-            title: "",
-            updated_at: ""
-        }
-    ]);
+    console.log(isAdmin);
+    const isDarkTheme = useThemeDetector();
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [filteredProjects, setFilteredProjects] =
+        useState<Project[]>(projects);
     const [enrolledProjectsIds, setEnrolledProjectsIds] = useState<string[]>(
         []
     );
     const [loaded, setLoaded] = useState<boolean>(false);
 
-    const handleGetAllProjects = async () => {
+    const handleGetAllProjects = async (type: string) => {
         try {
-            const projectValues = (await getAllActivities({
-                type_activity: "1"
-            })) as ProjectProps[];
-            setProjects(projectValues);
+            const projectValues = await getAllActivities({
+                type_activity: type
+            });
+            return projectValues as Project[];
         } catch (error) {
-            console.error("Erro ao obter projetos:", error);
+            console.error("Error fetching projects:", error);
+            return [];
         } finally {
             setLoaded(true);
         }
     };
 
-    const enrolledIdsToArray = (enrolledProjects: ProjectProps[]) => {
+    useEffect(() => {
+        const handleGets = async () => {
+            const mobilityProjects = await handleGetAllProjects("1");
+            const regularProjects = await handleGetAllProjects("2");
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const enrolledProjects = await handleGetEnrolledProjects();
+            const allProjects = [...mobilityProjects, ...regularProjects];
+
+            const uniqueProjects = Array.from(
+                new Set(allProjects.map((project) => project.id))
+            )
+                .map((id) => {
+                    return allProjects.find((project) => project.id === id);
+                })
+                .filter((project) => project !== undefined) as Project[];
+            setProjects(uniqueProjects);
+        };
+        handleGets();
+    }, []);
+
+    console.table(filteredProjects);
+
+    const enrolledIdsToArray = (enrolledProjects: Project[]) => {
         return enrolledProjects.map((project) => {
             return `${project.id}`;
         });
@@ -135,7 +117,7 @@ export default function ProjectList({ isAdmin }: ProjectListProps) {
         await getAllActivitiesEnrolled({ type_activity: "1" })
             .then((response) => {
                 setEnrolledProjectsIds(
-                    enrolledIdsToArray(response as ProjectProps[])
+                    enrolledIdsToArray(response as Project[])
                 );
             })
             .catch((error) => {
@@ -146,9 +128,6 @@ export default function ProjectList({ isAdmin }: ProjectListProps) {
     const [selectedProject, setSelectedProject] = useState<Project | null>(
         null
     );
-    const [filteredProjects, setFilteredProjects] =
-        useState<ProjectProps[]>(projects);
-
     const handleModalOpen = (project: Project) => {
         setSelectedProject(project);
     };
@@ -162,40 +141,14 @@ export default function ProjectList({ isAdmin }: ProjectListProps) {
     };
 
     const handleSearch = (searchTerm: string) => {
-        const filtered = projects.filter(
-            (project) =>
-                project.title
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||
-                project.partner_institutions[0].institution.name
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||
-                project.activity_status.name
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())
+        const filtered = projects.filter((project) =>
+            project.title
+                .toLocaleLowerCase()
+                .includes(searchTerm.toLocaleLowerCase())
         );
         setFilteredProjects(filtered);
     };
 
-    const isDarkTheme = useThemeDetector();
-
-    /* eslint-disable */
-
-    useEffect(() => {
-        const handleGets = async () => {
-            await handleGetEnrolledProjects();
-            await handleGetAllProjects();
-        };
-        handleGets();
-    }, []);
-
-    // useEffect(() => {
-    //     if (enrolledProjectsIds.length > 0) {
-    //         console.log(enrolledProjectsIds);
-    //     }
-    // }, [enrolledProjectsIds])
-
-    /* eslint-enable */
     return (
         <div
             className={`w-full lg:ml-4 p-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
@@ -211,7 +164,7 @@ export default function ProjectList({ isAdmin }: ProjectListProps) {
                 <div>
                     {loaded ? (
                         <ul className="w-full max-h-screen pe-5 custom-scrollbar overflow-y-auto">
-                            {projects.map((project) => (
+                            {filteredProjects.map((project) => (
                                 <ProjectCard
                                     key={project.id}
                                     project={project}

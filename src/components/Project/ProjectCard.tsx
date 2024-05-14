@@ -1,7 +1,7 @@
+import React from "react";
 import SVGIcon from "../ImageInstances/SVGIcon";
 import { countryCodes, Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
@@ -9,14 +9,18 @@ interface ProjectCardProps {
     project: Project;
     enrolled: boolean;
     onClick: (project: Project) => void;
+    showBadge?: boolean; // New prop to control badge display
 }
 
-export default function ProjectCard({
+const ProjectCard: React.FC<ProjectCardProps> = ({
     project,
     enrolled,
-    onClick
-}: ProjectCardProps) {
+    onClick,
+    showBadge = true
+}) => {
     const user = JSON.parse(localStorage.getItem("user") as string);
+    const navigate = useNavigate();
+    const isDarkTheme = useThemeDetector();
     const handleOnClick = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
@@ -34,14 +38,15 @@ export default function ProjectCard({
     }
     const countryCodesArray = project.languages.map((fds) => fds.language);
     const countryName = getCountryFullName(countryCodesArray);
-    const isDarkTheme = useThemeDetector();
-    const navigate = useNavigate();
+
     return (
         <li
             onClick={() =>
                 navigate("/ProjectInfo", { state: { projectID: project.id } })
             }
-            className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex items-center cursor-pointer ${
+                isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"
+            } rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
@@ -59,22 +64,24 @@ export default function ProjectCard({
                         <div className="flex flex-col">
                             <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold">
                                 {project.title}
-                                <div
-                                    title={
-                                        project.activity_type.id === 1
-                                            ? "Project"
-                                            : "Mobility"
-                                    }
-                                    className={`h-5 w-5 flex justify-center items-center rounded-full p-1 ml-2 text-xs font-medium ${
-                                        project.activity_type.id === 1
-                                            ? "bg-blue-50 text-blue-700"
-                                            : "bg-yellow-50 text-yellow-700"
-                                    }`}
-                                >
-                                    {project?.activity_type.id === 1
-                                        ? "P"
-                                        : "M"}
-                                </div>
+                                {showBadge && ( // Conditionally render badge
+                                    <div
+                                        title={
+                                            project.activity_type.id === 1
+                                                ? "Project"
+                                                : "Mobility"
+                                        }
+                                        className={`h-5 w-5 flex justify-center items-center rounded-full p-1 ml-2 text-xs font-medium ${
+                                            project.activity_type.id === 1
+                                                ? "bg-blue-50 text-blue-700"
+                                                : "bg-yellow-50 text-yellow-700"
+                                        }`}
+                                    >
+                                        {project?.activity_type.id === 1
+                                            ? "P"
+                                            : "M"}
+                                    </div>
+                                )}
                             </div>
                             <div className="flex mb-2 w-full sm:justify-start justify-center">
                                 <div className="flex flex-col sm:flex-row items-center">
@@ -100,12 +107,18 @@ export default function ProjectCard({
                                                 </p>
                                                 {index % 2 === 0 ? (
                                                     <SVGIcon
-                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(0, 2)}.svg`}
+                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(
+                                                            0,
+                                                            2
+                                                        )}.svg`}
                                                         className="w-4 m-[1px]"
                                                     />
                                                 ) : (
                                                     <SVGIcon
-                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(index + 2, index + 4)}.svg`}
+                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(
+                                                            index + 2,
+                                                            index + 4
+                                                        )}.svg`}
                                                         className="w-4 m-[1px]"
                                                     />
                                                 )}
@@ -149,7 +162,7 @@ export default function ProjectCard({
                                     title={
                                         project.activity_status.name !==
                                         "ACTIVE"
-                                            ? "This project is not appliable"
+                                            ? "This project is not applicable"
                                             : `Apply for ${project.title}`
                                     }
                                 >
@@ -169,4 +182,6 @@ export default function ProjectCard({
             </div>
         </li>
     );
-}
+};
+
+export default ProjectCard;

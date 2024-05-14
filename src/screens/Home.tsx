@@ -49,7 +49,7 @@ export default function Home() {
                             {user && <UserHome userHome={user.userHome} />}
                         </div>
                         <div className="mt-4 md:flex h-full w-full md:h-3/4">
-                            <ProjectList isFilter={false} isAdmin={false} />
+                            <ProjectList isAdmin={false} />
                             <EnrolledList type_activity={true} />
                         </div>
                     </div>

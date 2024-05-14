@@ -46,10 +46,18 @@ const Hero: React.FC = () => {
                     alt=""
                 />
                 <div className="absolute top-20 md:top-40 left-8">
-                    <h1 className="hero-text text-2xl md:text-4xl lg:text-6xl font-bold w-1/2">
-                        A lot of opportunities around the world
+                    <h1 className="hero-text text-2xl md:text-4xl lg:text-6xl font-semibold w-1/2 bg-gradient-to-r from-[#673366] from-[21%] via-[#0C5AA4] via-[47%] to-[#1782E8] to-[100%] text-transparent bg-clip-text">
+                        A lot of opportunities around <br />
+                        the world
                     </h1>
                 </div>
+            </div>
+            <div className="absolute bottom-0 left-3/4">
+                <h1 className="lg:text-xl md:text-lg 2xs:hidden md:block  font-medium bg-gradient-to-r from-[#673366] from-[21%] via-[#0C5AA4] via-[47%] to-[#1782E8] to-[100%] text-transparent bg-clip-text">
+                    Through the COIL initiative, students have the opportunity
+                    to engage with diverse cultures and enhance their skills
+                    online.
+                </h1>
             </div>
         </div>
     );

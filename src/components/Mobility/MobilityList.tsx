@@ -225,6 +225,7 @@ export default function MobilityList({ isFilter, isAdmin }: MobilityListProps) {
                             project={selectedMobility}
                             isOpen={true}
                             onClose={handleModalClose}
+                            enrolled={false}
                         />
                     ) : null}
                 </div>

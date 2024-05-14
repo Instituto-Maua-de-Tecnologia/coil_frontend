@@ -46,20 +46,35 @@ export default function ProjectCard({
             <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="w-full flex">
-                        <div className="sm:avatar-wrapper sm:flex flex-col sm:mr-4">
+                        <div className="sm:avatar-wrapper sm:flex flex-col ">
                             <img
                                 src={
                                     project.partner_institutions[0].institution
                                         .images[0].image
                                 }
                                 alt="Avatar"
-                                className="avatar-img mx-auto w-16 rounded-full"
+                                className="avatar-img m-auto w-16 rounded-full mr-4"
                             />
                         </div>
                         <div className="flex flex-col">
-                            <div className="mb-2 text-center sm:text-start font-bold">
+                            <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold">
                                 {project.title}
+                                <div
+                                    title={
+                                        project.activity_type.id === 1
+                                            ? "Mobility"
+                                            : "Project"
+                                    }
+                                    className={`h-5 w-5 flex justify-center items-center rounded-full p-1 ml-2 text-xs font-medium ${
+                                        project.activity_type.id === 1
+                                            ? "bg-blue-50 text-blue-700"
+                                            : "bg-yellow-50 text-yellow-700"
+                                    }`}
+                                >
+                                    {project.activity_type.id === 1 ? "M" : "P"}
+                                </div>
                             </div>
+
                             <div className="flex mb-2 w-full sm:justify-start justify-center">
                                 <div className="flex flex-col sm:flex-row items-center">
                                     <p className="text-xs mr-2">Languages:</p>

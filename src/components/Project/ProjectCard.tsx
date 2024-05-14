@@ -46,14 +46,14 @@ export default function ProjectCard({
             <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="w-full flex">
-                        <div className="sm:avatar-wrapper sm:flex flex-col ">
+                        <div className="sm:avatar-wrapper sm:flex flex-col sm:mr-4">
                             <img
                                 src={
                                     project.partner_institutions[0].institution
                                         .images[0].image
                                 }
                                 alt="Avatar"
-                                className="avatar-img m-auto w-16 rounded-full mr-4"
+                                className="avatar-img mx-auto w-16 rounded-full"
                             />
                         </div>
                         <div className="flex flex-col">
@@ -74,7 +74,6 @@ export default function ProjectCard({
                                     {project.activity_type.id === 1 ? "M" : "P"}
                                 </div>
                             </div>
-
                             <div className="flex mb-2 w-full sm:justify-start justify-center">
                                 <div className="flex flex-col sm:flex-row items-center">
                                     <p className="text-xs mr-2">Languages:</p>

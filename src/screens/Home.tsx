@@ -4,8 +4,7 @@ import ProjectList from "@components/Project/ProjectList";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 import UserHome, { UserHomeProps } from "@components/User/UserHome";
 import { useState, useEffect } from "react";
-import ResultList from "@components/Result/ResultList";
-import { ResultProps } from "@constants/ResultListProperties";
+import MobilityList from "@components/Mobility/MobilityList";
 
 export default function Home() {
     const [user, setUser] = useState<UserHomeProps>({
@@ -55,11 +54,10 @@ export default function Home() {
                         </div>
                         <div className="mt-4 md:flex h-full w-full md:h-3/4">
                             <ProjectList
-                                isFilter={false}
                                 isAdmin={user_type === UserTypeEnum.ADMIN}
                             />
-                            <ResultList
-                                results={ResultProps}
+                            <MobilityList
+                                isFilter
                                 isAdmin={user_type === UserTypeEnum.ADMIN}
                             />
                         </div>

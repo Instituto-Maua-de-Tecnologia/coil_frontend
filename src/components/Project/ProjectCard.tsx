@@ -46,24 +46,31 @@ export default function ProjectCard({
             <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="w-full flex">
-                        {/* <div className="sm:avatar-wrapper sm:flex flex-col sm:mr-4">
-                            <img
-                                src={
-                                    project.partner_institutions[0].institution
-                                        .images[0].image
-                                }
-                                alt="Avatar"
-                                className="avatar-img mx-auto w-16 rounded-full"
-                            />
-                        </div> */}
-                        <div className="flex flex-col ml-2">
-                            <div className="mb-2 text-center sm:text-start font-bold">
+                        </div>
+                        <div className="flex flex-col">
+                            <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold">
                                 {project.title}
+                                <div
+                                    title={
+                                        project.activity_type.id === 1
+                                            ? "Project"
+                                            : "Mobility"
+                                    }
+                                    className={`h-5 w-5 flex justify-center items-center rounded-full p-1 ml-2 text-xs font-medium ${
+                                        project.activity_type.id === 1
+                                            ? "bg-blue-50 text-blue-700"
+                                            : "bg-yellow-50 text-yellow-700"
+                                    }`}
+                                >
+                                    {project?.activity_type.id === 1
+                                        ? "P"
+                                        : "M"}
+                                </div>
                             </div>
                             <div className="flex mb-2 w-full sm:justify-start justify-center">
                                 <div className="flex flex-col sm:flex-row items-center">
                                     <p className="text-xs mr-2">Languages:</p>
-                                    {project.languages.map(
+                                    {project?.languages.map(
                                         (language, index) => (
                                             <div
                                                 key={
@@ -101,12 +108,12 @@ export default function ProjectCard({
                             <div className="flex">
                                 <p className={"text-xs me-2"}>
                                     {
-                                        project.partner_institutions[0]
-                                            .institution.country
+                                        project?.partner_institutions[0]
+                                            ?.institution.country
                                     }
                                 </p>
                                 <SVGIcon
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryCodes[project.partner_institutions[0].institution.country.toLowerCase()]}.svg`}
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryCodes[project?.partner_institutions[0]?.institution.country.toLowerCase()]}.svg`}
                                     className="w-4 m-[1px]"
                                 />
                             </div>

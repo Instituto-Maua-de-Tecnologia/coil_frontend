@@ -2,10 +2,8 @@ import TitleHeader from "@components/GenericComponents/TitleHeader";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import updateUser from "@integrations/user/authentification/update_user.ts";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import ToasterContainer from "@components/GenericComponents/ToasterContainer";
-import getAllCourses from "@integrations/course/get_all_courses.ts";
 import { MoonLoader } from "react-spinners";
 
 export type CourseProps = [

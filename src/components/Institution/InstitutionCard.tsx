@@ -9,12 +9,13 @@ interface InstitutionCardProps {
 }
 
 export default function InstitutionCard({ institution }: InstitutionCardProps) {
-    const { logo, name, country, id } = institution;
+    const { logo, name, id } = institution;
+    let country = "Netherlands"; //mudar para pegar do back DEPOIS
     function getCountryFullName(code: string): string {
         const countryCode = code.toLowerCase();
         return countryCodes[countryCode] || "Country not found";
     }
-    const countryCode = getCountryFullName(institution.country);
+    const countryCode = getCountryFullName(country);
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();
 

@@ -35,6 +35,7 @@ export default function InstitutionList({ isAdmin }: InstitutionListProps) {
         async function fetchData() {
             try {
                 const institutionsData = await getAllInstitutions();
+                console.log(institutionsData);
                 setInstitutions(institutionsData as AllInstitutions[]);
                 setFilteredInstitutions(institutionsData as AllInstitutions[]);
             } catch (error) {

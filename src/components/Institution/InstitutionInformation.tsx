@@ -10,10 +10,8 @@ import getInstitution from "@integrations/institution/get_institution.ts";
 type InstitutionProps = {
     id: string;
     name: string;
-    email: string;
+    logo: string;
     country: string;
-    images: [string];
-    social_medias: string;
 };
 
 interface InstitutionInfoProps {
@@ -24,11 +22,10 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
     const [institution, setInstitution] = useState<InstitutionProps>({
         id: "",
         name: "",
-        email: "",
-        country: "",
-        images: [""],
-        social_medias: ""
+        logo: "",
+        country: ""
     });
+    const country = "Netherlands";
     const handleGetInstitution = async () => {
         try {
             const institutionValue = (await getInstitution({
@@ -49,7 +46,7 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
         const countryCode = code.toLowerCase();
         return countryCodes[countryCode] || "Country not found";
     }
-    const countryCode = getCountryFullName(institution.country);
+    const countryCode = getCountryFullName(country);
 
     return (
         <div className="custom-scrollbar overflow-y-auto lg:overflow-y-visible flex-col w-full m-3 mb-0 mt-0 ">
@@ -58,7 +55,7 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
             >
                 <div className="self-center p-2 sm:w-1/6">
                     <img
-                        src={institution?.images[0]}
+                        src={institution?.logo}
                         alt="institution-img"
                         className="avatar-img mx-auto sm:-mx-auto w-[23vw] rounded-full "
                     />
@@ -77,10 +74,10 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                     </div>
                     <p>Website: </p>
                     <a
-                        href={institution?.social_medias}
+                        // href={institution?.social_medias}
                         className="text-blue-500 underline"
                     >
-                        {institution?.social_medias}
+                        {/* {institution?.social_medias} */}
                     </a>
                 </div>
                 <div className="2xs:text-center xs:text-right place-content-center xs:place-items-end pl-10 md:pl-0 pr-10 md:pr-1 flex">
@@ -127,13 +124,13 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                         Institution pictures
                     </div>
                     <div className="custom-scrollbar overflow-y-auto h-full p-3">
-                        {institution.images.map((image, index) => (
+                        {/* {institution.images.map((image, index) => (
                             <img
                                 key={"Institution image: " + index}
                                 src={image}
                                 alt={"image"}
                             />
-                        ))}
+                        ))} */}
                     </div>
                 </div>
             </div>

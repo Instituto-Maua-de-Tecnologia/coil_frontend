@@ -4,7 +4,6 @@ import DropdownIndicator from "../GenericComponents/DropdownIndicator.tsx";
 import { useEffect, useRef, useState } from "react";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import toast from "react-hot-toast";
-import getAllCourses from "@integrations/course/get_all_courses.ts";
 import createActivity from "@integrations/activity/admin&moderator/create_activity.ts";
 import { useNavigate } from "react-router-dom";
 import { CourseProps } from "@screens/SignUp.tsx";
@@ -29,13 +28,13 @@ interface ActivityFromData {
     end_date: string;
     languages: string[];
     partner_institutions: string[];
-    courses: [
+    courses: number[];
+    criterias: [
         {
-            id: number;
-            name: string;
+            id?: string | null;
+            criteria: string | null;
         }
     ];
-    criterias: string[];
     type_activity: number;
 }
 
@@ -69,13 +68,13 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         end_date: "",
         languages: [""],
         partner_institutions: [""],
-        courses: [
+        courses: [],
+        criterias: [
             {
-                id: 0,
-                name: ""
+                id: null,
+                criteria: null
             }
         ],
-        criterias: [""],
         type_activity: isProject ? 1 : 2
     });
     const projectNameRef = useRef<HTMLInputElement>(null);
@@ -229,8 +228,8 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             const institutionValues =
                 (await getAllInstitutions()) as InstitutionProps;
             setInstitutions(institutionValues);
-            const courseValues = (await getAllCourses()) as CourseProps;
-            setCourses(courseValues);
+            // const courseValues = (await getAllCourses()) as CourseProps;
+            // setCourses(courseValues);
         } catch (error) {
             console.error("Erro ao obter cursos:", error);
         }

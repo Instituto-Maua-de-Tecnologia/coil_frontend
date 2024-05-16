@@ -1,66 +1,63 @@
 import axios, { AxiosError } from "axios";
 
-interface GetAllActivitiesProps {
-    type_activity: string;
+interface GetAllActivitiesEnrolledProps {
+    type_activity?: number;
 }
 
-interface GetAllActivitiesResponse {
+interface GetAllActivitiesEnrolledResponse {
     message: string;
     data: [
         {
             id?: string;
             title?: string;
-            description?: string;
-            status_id?: number;
-            type_id?: number;
             start_date?: string;
             end_date?: string;
-            created_at?: string;
-            updated_at?: string;
-            courses?: [
-                {
-                    course_id?: number;
-                    course?: {
-                        name: string;
-                    };
-                }
-            ];
+            description?: string;
             languages?: [
                 {
-                    language?: string;
+                    id: number;
+                    language: string;
+                    language_code: string;
                 }
             ];
             partner_institutions?: [
                 {
-                    institution_id?: string;
-                    institution?: {
-                        id: string;
-                        name: string;
-                        country: string;
-                        images: [
-                            {
-                                image?: string;
-                            }
-                        ];
-                    };
+                    id: string;
+                    name: string;
+                    email: string;
+                    countries: [
+                        {
+                            id: number;
+                            country: {
+                                id?: number;
+                                country?: string;
+                                country_code?: string;
+                            };
+                        }
+                    ];
+                    images: string[];
+                    social_medias: string[];
                 }
             ];
-            activity_status?: {
-                id: number;
-                name: string;
-            };
-            activity_type?: {
-                id: number;
-                name: string;
-            };
-            applications?: [
+            criterias?: [
                 {
-                    id?: number;
-                    user_id?: string;
-                    activity_id?: string;
+                    id: number;
+                    criteria: string;
+                }
+            ];
+            status_activity?: number;
+            type_activity?: number;
+            created_at?: string;
+            updated_at?: string;
+            applicants?: [
+                {
                     status?: boolean;
-                    created_at?: string;
-                    updated_at?: string;
+                }
+            ];
+            courses?: [
+                {
+                    id: number;
+                    course: string;
                 }
             ];
         }
@@ -69,7 +66,7 @@ interface GetAllActivitiesResponse {
 
 export default async function getAllActivitiesEnrolled({
     type_activity
-}: GetAllActivitiesProps) {
+}: GetAllActivitiesEnrolledProps) {
     const token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
@@ -84,13 +81,13 @@ export default async function getAllActivitiesEnrolled({
                 }
             )
             .then((response) => {
-                const responseData: GetAllActivitiesResponse =
-                    response.data as GetAllActivitiesResponse;
+                const responseData: GetAllActivitiesEnrolledResponse =
+                    response.data as GetAllActivitiesEnrolledResponse;
                 resolve(responseData.data);
             })
             .catch((error: AxiosError) => {
-                const convertedError: AxiosError<GetAllActivitiesResponse> =
-                    error as AxiosError<GetAllActivitiesResponse>;
+                const convertedError: AxiosError<GetAllActivitiesEnrolledResponse> =
+                    error as AxiosError<GetAllActivitiesEnrolledResponse>;
                 const errorResponse = convertedError.response;
                 if (errorResponse) {
                     reject({

@@ -16,23 +16,69 @@ interface GetAllActivityResponse {
             updated_at?: string;
             courses?: [
                 {
-                    course_id?: number;
-                    course?: {
-                        name: string;
+                    course_id: number;
+                    course: {
+                        id: number;
+                        course: string;
                     };
                 }
             ];
             languages?: [
                 {
-                    language?: string;
+                    language_id: number;
+                    language: {
+                        id: number;
+                        language: string;
+                        language_code: string;
+                    };
                 }
             ];
+            criterias?: {
+                criteria_id: number;
+                criteria: [
+                    {
+                        id: number;
+                        criteria: string;
+                    }
+                ];
+            };
             partner_institutions?: [
                 {
                     institution_id?: string;
                     institution?: {
+                        id: string;
                         name: string;
-                        images: [string];
+                        description: string;
+                        email: string;
+                        social_medias: [
+                            {
+                                id?: number;
+                                institution_id?: string;
+                                social_media_id?: number;
+                                link?: string;
+                                media?: {
+                                    id: number;
+                                    name: string;
+                                };
+                            }
+                        ];
+                        countries: [
+                            {
+                                id?: number;
+                                institution_id?: string;
+                                country_id?: number;
+                                country?: {
+                                    id: number;
+                                    country: string;
+                                    country_code: string;
+                                };
+                            }
+                        ];
+                        images: [
+                            {
+                                image?: string;
+                            }
+                        ];
                     };
                 }
             ];

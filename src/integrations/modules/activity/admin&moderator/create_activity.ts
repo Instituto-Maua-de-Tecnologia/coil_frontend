@@ -8,13 +8,13 @@ interface CreateActivityProps {
         end_date: string;
         languages: string[];
         partner_institutions: string[];
-        courses: [
+        courses: number[];
+        criterias: [
             {
-                id?: number;
-                name?: string;
+                id?: string | null;
+                criteria: string | null;
             }
         ];
-        criterias: string[];
         type_activity: number;
     };
 }

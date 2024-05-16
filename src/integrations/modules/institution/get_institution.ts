@@ -10,12 +10,25 @@ interface GetInstitutionResponse {
         id: string;
         name: string;
         email: string;
-        country: string;
+        countries: [
+            {
+                id?: number;
+                country?: {
+                    id: number;
+                    country: string;
+                    country_code: string;
+                };
+            }
+        ];
         images: string[];
         social_medias: [
             {
-                media: string;
-                link: string;
+                id?: number;
+                media?: {
+                    id: number;
+                    social_media: string;
+                };
+                link?: string;
             }
         ];
     };

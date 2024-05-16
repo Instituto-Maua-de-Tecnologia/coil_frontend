@@ -5,11 +5,11 @@ interface CreateInstitutionProps {
         name: string;
         description: string;
         email: string;
-        country: string;
-        images: [string];
+        country: number[];
+        images: string[];
         social_medias: [
             {
-                media?: string;
+                id?: number;
                 link?: string;
             }
         ];

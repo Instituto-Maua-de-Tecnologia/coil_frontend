@@ -2,14 +2,14 @@ import axios, { AxiosError } from "axios";
 
 interface UpdateInstitutionProps {
     body: {
-        name: string;
-        description: string;
-        email: string;
-        country: string;
-        images: [string];
-        social_medias: [
+        name?: string;
+        description?: string;
+        email?: string;
+        country?: number[];
+        images?: string[];
+        social_medias?: [
             {
-                media?: string;
+                id?: number;
                 link?: string;
             }
         ];

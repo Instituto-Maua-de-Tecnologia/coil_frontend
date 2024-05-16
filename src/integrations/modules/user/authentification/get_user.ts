@@ -11,8 +11,6 @@ interface GetUserResponse {
         name: string;
         email: string;
         user_type: string;
-        course: string | null;
-        semester_course: number | null;
         created_at: string;
         updated_at: string;
     };

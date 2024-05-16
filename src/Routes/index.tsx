@@ -9,7 +9,6 @@ import Signout from "@screens/Signout.tsx";
 import HeroPage from "@screens/HeroPage.tsx";
 import Error404 from "@screens/404.tsx";
 import CreateActivity from "@screens/CreateActivity";
-import SignUp from "@screens/SignUp.tsx";
 import Mobilities from "@screens/Mobilities.tsx";
 import ViewEnrolledStudents from "@screens/ViewEnrolledStudents";
 import { ActivityTypeEnum } from "@enum/ActivityTypeEnum.ts";
@@ -46,7 +45,6 @@ export default function AppRoutes() {
             <Routes>
                 <Route path={"*"} element={<Error404 />} />
                 <Route path={"/"} element={<HeroPage />} />
-                <Route path={"/Signup"} element={<SignUp />} />
                 <Route path={"/Home"} element={<Home />} />
                 <Route path={"/Institution"} element={<Institutions />} />
                 <Route

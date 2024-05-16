@@ -1,49 +1,41 @@
 import axios, { AxiosError } from "axios";
 
-interface UpdateActivityProps {
+interface UpdateUserStatusProps {
     body: {
         activity_id: string;
-        title: string;
-        description: string;
-        start_date: string;
-        end_date: string;
-        languages: [string];
-        partner_institutions: [string];
-        course: [
-            {
-                id?: number;
-                name?: string;
-            }
-        ];
-        criterias: [string];
-        type_activity: number;
+        applicant_id: string;
     };
 }
 
-interface UpdateActivityResponse {
+interface UpdateUserStatusResponse {
     message: string;
+    data: object;
 }
 
-export default async function updateActivity(props: UpdateActivityProps) {
+export default async function updateActivity(props: UpdateUserStatusProps) {
     const token = localStorage.getItem("token");
     console.log(JSON.stringify(props.body));
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
-            .post(`${endpoint}/update-activity`, JSON.stringify(props.body), {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: token
+            .post(
+                `${endpoint}/update-user-activity`,
+                JSON.stringify(props.body),
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: token
+                    }
                 }
-            })
+            )
             .then((response) => {
-                const responseData: UpdateActivityResponse =
-                    response.data as UpdateActivityResponse;
+                const responseData: UpdateUserStatusResponse =
+                    response.data as UpdateUserStatusResponse;
                 resolve(responseData);
             })
             .catch((error: AxiosError) => {
-                const convertedError: AxiosError<UpdateActivityResponse> =
-                    error as AxiosError<UpdateActivityResponse>;
+                const convertedError: AxiosError<UpdateUserStatusResponse> =
+                    error as AxiosError<UpdateUserStatusResponse>;
                 const errorResponse = convertedError.response;
                 if (errorResponse) {
                     reject({

@@ -11,7 +11,6 @@ export interface AllInstitutions {
     id: string;
     name: string;
     logo: string;
-    country: string;
 } // TODO: Esperar o backend terminar de implementar a lógica de colocar os países para serem exibidos aqui também
 
 interface InstitutionListProps {
@@ -23,8 +22,7 @@ export default function InstitutionList({ isAdmin }: InstitutionListProps) {
         {
             id: "",
             name: "",
-            logo: "",
-            country: ""
+            logo: ""
         }
     ]);
     const [filteredInstitutions, setFilteredInstitutions] =
@@ -35,6 +33,7 @@ export default function InstitutionList({ isAdmin }: InstitutionListProps) {
         async function fetchData() {
             try {
                 const institutionsData = await getAllInstitutions();
+                console.log(institutionsData);
                 setInstitutions(institutionsData as AllInstitutions[]);
                 setFilteredInstitutions(institutionsData as AllInstitutions[]);
             } catch (error) {

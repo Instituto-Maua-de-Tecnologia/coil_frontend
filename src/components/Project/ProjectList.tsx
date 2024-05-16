@@ -11,95 +11,175 @@ import { MoonLoader } from "react-spinners";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
 
 type ProjectProps = {
-    activity_status: {
-        id: number;
-        name: string;
-    };
-    activity_type: {
-        id: number;
-        name: string;
-    };
-    courses: [
+    id?: string;
+    title?: string;
+    start_date?: string;
+    end_date?: string;
+    created_at?: string;
+    updated_at?: string;
+    courses?: [
         {
-            course: {
-                name: string;
-            };
             course_id: number;
+            course: {
+                id: number;
+                course: string;
+            };
         }
     ];
-    created_at: string;
-    end_date: string;
-    id: string;
-    languages: [
+    languages?: [
         {
-            language: string;
+            language_id: number;
+            language: {
+                id: number;
+                language: string;
+                language_code: string;
+            };
         }
     ];
-    partner_institutions: [
+    criterias?: {
+        criteria_id: number;
+        criteria: [
+            {
+                id: number;
+                criteria: string;
+            }
+        ];
+    };
+    partner_institutions?: [
         {
-            institution: {
-                country: string;
+            institution_id?: string;
+            institution?: {
                 id: string;
-                images: [
+                name: string;
+                description: string;
+                email: string;
+                social_medias: [
                     {
-                        image: string;
+                        id?: number;
+                        institution_id?: string;
+                        social_media_id?: number;
+                        link?: string;
+                        media?: {
+                            id: number;
+                            name: string;
+                        };
                     }
                 ];
-                name: string;
+                countries: [
+                    {
+                        id?: number;
+                        institution_id?: string;
+                        country_id?: number;
+                        country?: {
+                            id: number;
+                            country: string;
+                            country_code: string;
+                        };
+                    }
+                ];
+                images: [
+                    {
+                        image?: string;
+                    }
+                ];
             };
-            institution_id: string;
         }
     ];
-    start_date: string;
-    title: string;
-    updated_at: string;
+    activity_status?: {
+        id: number;
+        name: string;
+    };
+    activity_type?: {
+        id: number;
+        name: string;
+    };
 };
 
 export default function ProjectList() {
     const [projects, setProjects] = useState<ProjectProps[]>([
         {
-            activity_status: {
-                id: 0,
-                name: ""
-            },
-            activity_type: {
-                id: 0,
-                name: ""
-            },
+            id: "",
+            title: "",
+            start_date: "",
+            end_date: "",
+            created_at: "",
+            updated_at: "",
             courses: [
                 {
+                    course_id: 0,
                     course: {
-                        name: ""
-                    },
-                    course_id: 0
+                        id: 0,
+                        course: ""
+                    }
                 }
             ],
-            created_at: "",
-            end_date: "",
-            id: "",
             languages: [
                 {
-                    language: ""
+                    language_id: 0,
+                    language: {
+                        id: 0,
+                        language: "",
+                        language_code: ""
+                    }
                 }
             ],
+            criterias: {
+                criteria_id: 0,
+                criteria: [
+                    {
+                        id: 0,
+                        criteria: ""
+                    }
+                ]
+            },
             partner_institutions: [
                 {
+                    institution_id: "",
                     institution: {
-                        country: "",
                         id: "",
+                        course: "",
+                        description: "",
+                        email: "",
+                        social_medias: [
+                            {
+                                id: 0,
+                                institution_id: "",
+                                social_media_id: 0,
+                                link: "",
+                                media: {
+                                    id: 0,
+                                    course: ""
+                                }
+                            }
+                        ],
+                        countries: [
+                            {
+                                id: 0,
+                                institution_id: "",
+                                country_id: 0,
+                                country: {
+                                    id: 0,
+                                    country: "",
+                                    country_code: ""
+                                }
+                            }
+                        ],
                         images: [
                             {
                                 image: ""
                             }
-                        ],
-                        name: ""
-                    },
-                    institution_id: ""
+                        ]
+                    }
                 }
             ],
-            start_date: "",
-            title: "",
-            updated_at: ""
+            activity_status: {
+                id: 0,
+                course: ""
+            },
+            activity_type: {
+                id: 0,
+                course: ""
+            }
         }
     ]);
     const [enrolledProjectsIds, setEnrolledProjectsIds] = useState<string[]>(
@@ -127,7 +207,7 @@ export default function ProjectList() {
     };
 
     const handleGetEnrolledProjects = async () => {
-        await getAllActivitiesEnrolled({ type_activity: "1" })
+        await getAllActivitiesEnrolled({ type_activity: 1 })
             .then((response) => {
                 setEnrolledProjectsIds(
                     enrolledIdsToArray(response as ProjectProps[])
@@ -161,12 +241,12 @@ export default function ProjectList() {
         const filtered = projects.filter(
             (project) =>
                 project.title
+                    ?.toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
+                project.partner_institutions?.[0]?.institution?.name
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                project.partner_institutions[0].institution.name
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||
-                project.activity_status.name
+                project.activity_status?.name
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase())
         );
@@ -210,10 +290,10 @@ export default function ProjectList() {
                         <ul className="w-full max-h-screen pe-5 custom-scrollbar overflow-y-auto">
                             {projects.map((project) => (
                                 <ProjectCard
-                                    key={project.id}
+                                    key={"ProjectCardKey " + project.id}
                                     project={project}
                                     enrolled={handleVerifyEnrollment(
-                                        project.id
+                                        project.id as string
                                     )}
                                     onClick={handleModalOpen}
                                 />
@@ -230,11 +310,9 @@ export default function ProjectList() {
                     {selectedProject ? (
                         <Modal
                             project={selectedProject}
-                            enrolled={
-                                enrolledProjectsIds.includes(selectedProject.id)
-                                    ? true
-                                    : false
-                            }
+                            enrolled={enrolledProjectsIds.includes(
+                                selectedProject.id as string
+                            )}
                             isOpen={true}
                             onClose={handleModalClose}
                         />

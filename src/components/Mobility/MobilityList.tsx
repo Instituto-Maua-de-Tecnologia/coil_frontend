@@ -12,48 +12,88 @@ import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_act
 import { MoonLoader } from "react-spinners";
 
 type MobilityProps = {
-    activity_status: {
-        id: number;
-        name: string;
-    };
-    activity_type: {
-        id: number;
-        name: string;
-    };
-    courses: [
+    id?: string;
+    title?: string;
+    start_date?: string;
+    end_date?: string;
+    created_at?: string;
+    updated_at?: string;
+    courses?: [
         {
-            course: {
-                name: string;
-            };
             course_id: number;
+            course: {
+                id: number;
+                course: string;
+            };
         }
     ];
-    created_at: string;
-    end_date: string;
-    id: string;
-    languages: [
+    languages?: [
         {
-            language: string;
+            language_id: number;
+            language: {
+                id: number;
+                language: string;
+                language_code: string;
+            };
         }
     ];
-    partner_institutions: [
+    criterias?: {
+        criteria_id: number;
+        criteria: [
+            {
+                id: number;
+                criteria: string;
+            }
+        ];
+    };
+    partner_institutions?: [
         {
-            institution: {
-                country: string;
+            institution_id?: string;
+            institution?: {
                 id: string;
-                images: [
+                name: string;
+                description: string;
+                email: string;
+                social_medias: [
                     {
-                        image: string;
+                        id?: number;
+                        institution_id?: string;
+                        social_media_id?: number;
+                        link?: string;
+                        media?: {
+                            id: number;
+                            name: string;
+                        };
                     }
                 ];
-                name: string;
+                countries: [
+                    {
+                        id?: number;
+                        institution_id?: string;
+                        country_id?: number;
+                        country?: {
+                            id: number;
+                            country: string;
+                            country_code: string;
+                        };
+                    }
+                ];
+                images: [
+                    {
+                        image?: string;
+                    }
+                ];
             };
-            institution_id: string;
         }
     ];
-    start_date: string;
-    title: string;
-    updated_at: string;
+    activity_status?: {
+        id: number;
+        name: string;
+    };
+    activity_type?: {
+        id: number;
+        name: string;
+    };
 };
 interface MobilityListProps {
     isFilter: boolean;
@@ -62,48 +102,88 @@ interface MobilityListProps {
 export default function MobilityList({ isFilter, isAdmin }: MobilityListProps) {
     const [mobilities, setMobilities] = useState<MobilityProps[]>([
         {
-            activity_status: {
-                id: 0,
-                name: ""
-            },
-            activity_type: {
-                id: 0,
-                name: ""
-            },
+            id: "",
+            title: "",
+            start_date: "",
+            end_date: "",
+            created_at: "",
+            updated_at: "",
             courses: [
                 {
+                    course_id: 0,
                     course: {
-                        name: ""
-                    },
-                    course_id: 0
+                        id: 0,
+                        course: ""
+                    }
                 }
             ],
-            created_at: "",
-            end_date: "",
-            id: "",
             languages: [
                 {
-                    language: ""
+                    language_id: 0,
+                    language: {
+                        id: 0,
+                        language: "",
+                        language_code: ""
+                    }
                 }
             ],
+            criterias: {
+                criteria_id: 0,
+                criteria: [
+                    {
+                        id: 0,
+                        criteria: ""
+                    }
+                ]
+            },
             partner_institutions: [
                 {
+                    institution_id: "",
                     institution: {
-                        country: "",
                         id: "",
+                        course: "",
+                        description: "",
+                        email: "",
+                        social_medias: [
+                            {
+                                id: 0,
+                                institution_id: "",
+                                social_media_id: 0,
+                                link: "",
+                                media: {
+                                    id: 0,
+                                    course: ""
+                                }
+                            }
+                        ],
+                        countries: [
+                            {
+                                id: 0,
+                                institution_id: "",
+                                country_id: 0,
+                                country: {
+                                    id: 0,
+                                    country: "",
+                                    country_code: ""
+                                }
+                            }
+                        ],
                         images: [
                             {
                                 image: ""
                             }
-                        ],
-                        name: ""
-                    },
-                    institution_id: ""
+                        ]
+                    }
                 }
             ],
-            start_date: "",
-            title: "",
-            updated_at: ""
+            activity_status: {
+                id: 0,
+                course: ""
+            },
+            activity_type: {
+                id: 0,
+                course: ""
+            }
         }
     ]);
     const [enrolledMobilitiesIds, setEnrolledMobilitiesIds] = useState<
@@ -133,7 +213,7 @@ export default function MobilityList({ isFilter, isAdmin }: MobilityListProps) {
     };
 
     const handleGetEnrolledMobilities = async () => {
-        await getAllActivitiesEnrolled({ type_activity: "1" })
+        await getAllActivitiesEnrolled({ type_activity: 2 })
             .then((response) => {
                 setEnrolledMobilitiesIds(
                     enrolledIdsToArray(response as MobilityProps[])
@@ -162,12 +242,12 @@ export default function MobilityList({ isFilter, isAdmin }: MobilityListProps) {
         const filtered = mobilities.filter(
             (mobility) =>
                 mobility.title
+                    ?.toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
+                mobility.partner_institutions?.[0]?.institution?.name
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                mobility.partner_institutions[0].institution.name
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||
-                mobility.activity_status.name
+                mobility.activity_status?.name
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase())
         );
@@ -203,10 +283,10 @@ export default function MobilityList({ isFilter, isAdmin }: MobilityListProps) {
                         <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
                             {mobilities.map((mobility) => (
                                 <MobilityCard
-                                    key={mobility.id}
+                                    key={"MobilityCardKey" + mobility.id}
                                     mobility={mobility}
                                     enrolled={handleVerifyEnrollment(
-                                        mobility.id
+                                        mobility.id as string
                                     )}
                                     onClick={handleModalOpen}
                                 />
@@ -222,6 +302,9 @@ export default function MobilityList({ isFilter, isAdmin }: MobilityListProps) {
                     )}
                     {selectedMobility ? (
                         <Modal
+                            enrolled={enrolledMobilitiesIds.includes(
+                                selectedMobility.id as string
+                            )}
                             project={selectedMobility}
                             isOpen={true}
                             onClose={handleModalClose}

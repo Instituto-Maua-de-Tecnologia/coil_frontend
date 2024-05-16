@@ -1,5 +1,5 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { countryCodes, Mobility } from "../../types";
+import { Mobility } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 import { useNavigate } from "react-router-dom";
@@ -16,19 +16,6 @@ export default function MobilityCard({
     enrolled
 }: MobilityCardProps) {
     const user = JSON.parse(localStorage.getItem("user") as string);
-    function getCountryFullName(codes: string[]): string {
-        const countryNames = codes.map((code) => {
-            const normalizedCode = code.toLowerCase();
-            return countryCodes[normalizedCode] || "Country not found";
-        });
-        return countryNames.join(" ");
-    }
-    const countryCodesArray = mobility.languages.map((fds) => fds.language);
-    const countryName = getCountryFullName(countryCodesArray);
-    const countryInstitutionArray = mobility.partner_institutions.map(
-        (fds) => fds.institution.country
-    );
-    const country = getCountryFullName(countryInstitutionArray);
     const navigate = useNavigate();
 
     const handleOnClick = () => {
@@ -46,8 +33,8 @@ export default function MobilityCard({
                     <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
                         <img
                             src={
-                                mobility.partner_institutions[0].institution
-                                    .images[0].image
+                                mobility.partner_institutions?.[0]?.institution
+                                    ?.images[0].image
                             }
                             alt="Avatar"
                             className="avatar-img mx-auto w-16 rounded-full"
@@ -60,7 +47,7 @@ export default function MobilityCard({
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-col sm:flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
-                                {mobility.languages.map((mobility, index) => (
+                                {mobility.languages?.map((mobility, index) => (
                                     <div
                                         key={"Project SVGICon Language" + index}
                                         className={
@@ -68,19 +55,12 @@ export default function MobilityCard({
                                         }
                                     >
                                         <p className={"text-xs me-2"}>
-                                            {mobility.language}
+                                            {mobility.language.language}
                                         </p>
-                                        {index % 2 === 0 ? (
-                                            <SVGIcon
-                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(0, 2)}.svg`}
-                                                className="w-4 m-[1px]"
-                                            />
-                                        ) : (
-                                            <SVGIcon
-                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(index + 2, index + 4)}.svg`}
-                                                className="w-4 m-[1px]"
-                                            />
-                                        )}
+                                        <SVGIcon
+                                            src={`https://hatscripts.github.io/circle-flags/flags/${mobility.language.language_code}.svg`}
+                                            className="w-4 m-[1px]"
+                                        />
                                     </div>
                                 ))}
                             </div>
@@ -89,12 +69,13 @@ export default function MobilityCard({
                             <div className="flex flex-row w-full sm:justify-start justify-center">
                                 <p className="text-xs mr-2">
                                     {
-                                        mobility.partner_institutions[0]
-                                            .institution.country
+                                        mobility.partner_institutions?.[0]
+                                            ?.institution?.countries[0].country
+                                            ?.country
                                     }
                                 </p>
                                 <SVGIcon
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${country.substring(0, 2)}.svg`}
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${mobility.partner_institutions?.[0]?.institution?.countries[0].country?.country_code}.svg`}
                                     className="w-4 m-[1px]"
                                 />
                             </div>
@@ -103,7 +84,7 @@ export default function MobilityCard({
 
                     <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
                         <div className={`text-blue-500`}>
-                            {mobility.activity_status.name.replace("_", " ")}
+                            {mobility.activity_status?.name.replace("_", " ")}
                         </div>
                         {user.user_type === UserTypeEnum.STUDENT ? (
                             <button

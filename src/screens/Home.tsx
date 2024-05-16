@@ -1,21 +1,16 @@
 import TitleHeader from "@components/GenericComponents/TitleHeader";
 import SideBar from "@components/GenericComponents/SideBar";
 import ProjectList from "@components/Project/ProjectList";
-import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 import UserHome, { UserHomeProps } from "@components/User/UserHome";
 import { useState, useEffect } from "react";
-import ResultList from "@components/Result/ResultList";
-import { ResultProps } from "@constants/ResultListProperties";
 
 export default function Home() {
     const [user, setUser] = useState<UserHomeProps>({
         userHome: {
-            id: "",
             name: "",
+            id: "",
             email: "",
             user_type: 0,
-            // course: "",
-            // semester_course: 0,
             created_at: "",
             updated_at: ""
         }
@@ -37,9 +32,6 @@ export default function Home() {
             });
         }
     }, [localStorage.getItem("user")]);
-    const user_type = JSON.parse(
-        localStorage.getItem("user") as string
-    ).user_type;
 
     return (
         <>
@@ -55,7 +47,6 @@ export default function Home() {
                         </div>
                         <div className="mt-4 lg:flex h-full w-full md:h-3/4">
                             <ProjectList />
-                            <EnrolledList type_activity={true} />
                         </div>
                     </div>
                 </div>

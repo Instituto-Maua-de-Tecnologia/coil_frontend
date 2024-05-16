@@ -28,7 +28,7 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
                 {
                     course_id: 0,
                     course: {
-                        name: ""
+                        course: ""
                     }
                 }
             ],
@@ -54,11 +54,11 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
             // ],
             activity_status: {
                 id: 0,
-                name: ""
+                course: ""
             },
             activity_type: {
                 id: 0,
-                name: ""
+                course: ""
             },
             applications: [
                 {

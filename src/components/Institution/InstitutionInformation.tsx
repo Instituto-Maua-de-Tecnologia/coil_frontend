@@ -3,9 +3,10 @@ import instagramLogo from "@assets/icons/instagram.png";
 import facebookLogo from "@assets/icons/facebook.png";
 import twitterLogo from "@assets/icons/twitter.png";
 import { useEffect, useState } from "react";
-import { countryCodes } from "../../types.ts";
 import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
 import getInstitution from "@integrations/institution/get_institution.ts";
+import getInstitutionsRequirements from "@integrations/institution/admin&moderator/get_institutions_requirements.ts";
+import { RequirementsProps } from "@components/Institution/InstitutionCard.tsx";
 
 type InstitutionProps = {
     id: string;
@@ -25,7 +26,7 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
         logo: "",
         country: ""
     });
-    const country = "Netherlands";
+    const [country, setCountry] = useState<RequirementsProps>();
     const handleGetInstitution = async () => {
         try {
             const institutionValue = (await getInstitution({
@@ -37,16 +38,20 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
         }
     };
     const isDarkTheme = useThemeDetector();
+    const handleGetInstitutionRequirements = async () => {
+        try {
+            const requirementsValues =
+                (await getInstitutionsRequirements()) as RequirementsProps;
+            setCountry(requirementsValues);
+        } catch (error) {
+            console.error("Erro ao obter cursos:", error);
+        }
+    };
 
     useEffect(() => {
         handleGetInstitution();
+        handleGetInstitutionRequirements();
     }, []);
-
-    function getCountryFullName(code: string): string {
-        const countryCode = code.toLowerCase();
-        return countryCodes[countryCode] || "Country not found";
-    }
-    const countryCode = getCountryFullName(country);
 
     return (
         <div className="custom-scrollbar overflow-y-auto lg:overflow-y-visible flex-col w-full m-3 mb-0 mt-0 ">
@@ -65,7 +70,7 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                     <div className="flex flex-row items-center">
                         <p className="text-xs mr-2">{institution?.country}</p>
                         <SVGIcon
-                            src={`https://hatscripts.github.io/circle-flags/flags/${countryCode}.svg`}
+                            src={`https://hatscripts.github.io/circle-flags/flags/${country?.languages[0].language_code}.svg`}
                             className="w-4 m-[1px]"
                         />
                     </div>

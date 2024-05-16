@@ -6,18 +6,27 @@ import { useThemeDetector } from "@util/ThemeDetector.ts";
 import toast from "react-hot-toast";
 import createActivity from "@integrations/activity/admin&moderator/create_activity.ts";
 import { useNavigate } from "react-router-dom";
-import { CourseProps } from "@screens/SignUp.tsx";
 import getAllInstitutions from "@integrations/institution/get_all_institution.ts";
 import ToasterContainer from "@components/GenericComponents/ToasterContainer.tsx";
 import { Calendar } from "primereact/calendar";
 import { Nullable } from "primereact/ts-helpers";
 import "primeicons/primeicons.css";
+import getInstitutionsRequirements from "@integrations/institution/admin&moderator/get_institutions_requirements.ts";
 
 type InstitutionProps = [
     {
         id: number;
         name: string;
         logo: string;
+    }
+];
+
+export type CourseProps = [
+    {
+        courses: {
+            id: number;
+            course: string;
+        };
     }
 ];
 
@@ -49,12 +58,14 @@ interface ActivityFormProps {
 }
 
 const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
-    const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
+    const [courses, setCourses] = useState<CourseProps>([
+        { courses: { id: 0, course: "" } }
+    ]);
     const [dates, setDates] = useState<Nullable<(Date | null)[]>>(null);
     const [startTime, setStartTime] = useState<Nullable<Date>>(null);
     const [endTime, setEndTime] = useState<Nullable<Date>>(null);
     const [selectedCourses, setSelectedCourses] = useState<CourseProps>([
-        { id: 0, name: "" }
+        { courses: { id: 0, course: "" } }
     ]);
     const [institutions, setInstitutions] = useState<InstitutionProps>([
         { id: 0, name: "", logo: "" }
@@ -205,16 +216,16 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         })
     };
 
-    const [criterias, setCriterias] = useState<string[]>([""]);
+    const [criteria, setCriteria] = useState<string[]>([""]);
 
     const handleAddCriteria = () => {
-        setCriterias([...criterias, ""]);
+        setCriteria([...criteria, ""]);
     };
 
     const handleRemoveCriteria = (index: number) => {
-        const newCriterias = [...criterias];
+        const newCriterias = [...criteria];
         newCriterias.splice(index, 1);
-        setCriterias(newCriterias);
+        setCriteria(newCriterias);
     };
 
     async function delay(ms: number) {
@@ -228,8 +239,9 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             const institutionValues =
                 (await getAllInstitutions()) as InstitutionProps;
             setInstitutions(institutionValues);
-            // const courseValues = (await getAllCourses()) as CourseProps;
-            // setCourses(courseValues);
+            const courseValues =
+                (await getInstitutionsRequirements()) as CourseProps;
+            setCourses(courseValues);
         } catch (error) {
             console.error("Erro ao obter cursos:", error);
         }
@@ -270,10 +282,12 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                 convertedEndTime.minutes
             ).toISOString();
         }
+        let criterias = "";
         const title = projectNameRef.current?.value || "";
         const description = projectDescriptionRef.current?.value || "";
-        const courses = selectedCourses;
+        const courses = selectedCourses.map((fds) => fds.courses.id);
         const languages = selectedLanguages.map((fds) => fds);
+        criteria.map((fds) => (criterias = fds));
         const partner_institutions: string[] = institutions.map((institution) =>
             institution.id.toString()
         );
@@ -286,7 +300,12 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             description,
             partner_institutions,
             courses,
-            criterias,
+            criterias: [
+                {
+                    id: "",
+                    criteria: criterias
+                }
+            ],
             languages
         };
         setFormData(newFormData);
@@ -340,8 +359,8 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     }
 
     const courseOptions = courses.map((course) => ({
-        value: course.id,
-        label: course.name
+        value: course.courses.id,
+        label: course.courses.course
     }));
 
     const institutionsOptions = institutions.map((institution) => ({
@@ -414,10 +433,10 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                     )
                                 }}
                                 value={selectedCourses.map((course) => {
-                                    if (course.name !== "")
+                                    if (course.courses.course !== "")
                                         return {
-                                            value: course.id,
-                                            label: course.name
+                                            value: course.courses.id,
+                                            label: course.courses.course
                                         };
                                 })}
                                 onChange={handleSelectCourse}
@@ -551,17 +570,17 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 Project Criteria
                             </label>
                             <ul className="overflow-auto w-max-[460px]">
-                                {criterias.map((c, index) => (
+                                {criteria.map((c, index) => (
                                     <li
                                         key={index}
                                         value={c}
                                         onChange={(event: any) => {
                                             const updatedCriterias = [
-                                                ...criterias
+                                                ...criteria
                                             ];
                                             updatedCriterias[index] =
                                                 event.target.value;
-                                            setCriterias(updatedCriterias);
+                                            setCriteria(updatedCriterias);
                                         }}
                                         className={`${c} criteria-item flex items-center mt-1 mb-3`}
                                     >

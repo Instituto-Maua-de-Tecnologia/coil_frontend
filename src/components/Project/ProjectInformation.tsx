@@ -6,7 +6,6 @@ import { format } from "date-fns";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
 import { ActivityStatusEnum } from "@enum/ActivityStatusEnum.ts";
-import { countryCodes } from "../../types.ts";
 import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
 
 type ProjectProps = {
@@ -16,33 +15,55 @@ type ProjectProps = {
         start_date: string;
         end_date: string;
         description: string;
-        languages: string[];
-        courses: [
+        languages: [
             {
                 id: number;
-                name: string;
+                language: {
+                    id: number;
+                    language: string;
+                    language_code: string;
+                };
             }
         ];
-        // partner_institutions: [
-        //     {
-        //         id?: any;
-        //         institution?: {
-        //             id: string;
-        //             name: string;
-        //             description: string;
-        //             email: string;
-        //             country: string;
-        //             images: string[];
-        //             social_medias: string[];
-        //         };
-        //     }
-        // ];
-        criterias: [
+        partner_institutions: [
             {
-                id?: number;
-                criteria?: string;
+                id?: string;
+                institution?: {
+                    id: string;
+                    name: string;
+                    description: string;
+                    email: string;
+                    countries: [
+                        {
+                            id?: number;
+                            country?: {
+                                id: number;
+                                country: string;
+                                country_code: string;
+                            };
+                        }
+                    ];
+                    images: string[];
+                    social_medias: [
+                        {
+                            id?: number;
+                            media?: {
+                                id: number;
+                                social_media: string;
+                            };
+                            link?: string;
+                        }
+                    ];
+                };
             }
         ];
+        criterias: {
+            id: number;
+            criteria: {
+                id: number;
+                criteria: string;
+            };
+        }[];
         status_activity: number;
         type_activity: number;
         created_at: string;
@@ -50,16 +71,23 @@ type ProjectProps = {
         applicants: [
             {
                 id?: string;
-                status?: boolean;
                 user?: {
                     id: string;
                     name: string;
                     email: string;
                     user_type: number;
-                    course: null;
-                    semester_course: number;
                     created_at: string;
                     updated_at: string;
+                };
+                status?: boolean;
+            }
+        ];
+        courses: [
+            {
+                id: number;
+                course: {
+                    id: number;
+                    course: string;
                 };
             }
         ];
@@ -79,31 +107,55 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
             start_date: "",
             end_date: "",
             description: "",
-            languages: [""],
-            courses: [
+            languages: [
                 {
                     id: 0,
-                    name: ""
+                    language: {
+                        id: 0,
+                        language: "",
+                        language_code: ""
+                    }
                 }
             ],
-            // partner_institutions: [
-            //     {
-            //         id: "",
-            //         institution: {
-            //             id: "",
-            //             name: "",
-            //             description: "",
-            //             email: "",
-            //             country: "",
-            //             images: [""],
-            //             social_medias: [""]
-            //         }
-            //     }
-            // ],
+            partner_institutions: [
+                {
+                    id: "",
+                    institution: {
+                        id: "",
+                        course: "",
+                        description: "",
+                        email: "",
+                        countries: [
+                            {
+                                id: 0,
+                                country: {
+                                    id: 0,
+                                    country: "",
+                                    country_code: ""
+                                }
+                            }
+                        ],
+                        images: [],
+                        social_medias: [
+                            {
+                                id: 0,
+                                media: {
+                                    id: 0,
+                                    social_media: ""
+                                },
+                                link: ""
+                            }
+                        ]
+                    }
+                }
+            ],
             criterias: [
                 {
                     id: 0,
-                    criteria: ""
+                    criteria: {
+                        id: 0,
+                        criteria: ""
+                    }
                 }
             ],
             status_activity: 0,
@@ -113,16 +165,23 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
             applicants: [
                 {
                     id: "",
-                    status: false,
                     user: {
                         id: "",
-                        name: "",
+                        course: "",
                         email: "",
                         user_type: 0,
-                        course: null,
-                        semester_course: 0,
                         created_at: "",
                         updated_at: ""
+                    },
+                    status: false
+                }
+            ],
+            courses: [
+                {
+                    id: 0,
+                    course: {
+                        id: 0,
+                        course: ""
                     }
                 }
             ]
@@ -157,7 +216,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
         []
     );
     const handleGetEnrolledProjects = async () => {
-        await getAllActivitiesEnrolled({ type_activity: "1" })
+        await getAllActivitiesEnrolled({ type_activity: 1 })
             .then((response) => {
                 setEnrolledProjectsIds(
                     enrolledIdsToArray(response as ProjectProps[])
@@ -198,16 +257,6 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                 return "Unknown status";
         }
     };
-    function getCountryFullName(codes: string[]): string {
-        const countryNames = codes.map((code) => {
-            const normalizedCode = code.toLowerCase();
-            return countryCodes[normalizedCode] || "Country not found";
-        });
-        return countryNames.join(" ");
-    }
-    const countryCodesArray = project.data.languages;
-    const countryName = getCountryFullName(countryCodesArray);
-
     const statusText = getStatusText(project.data.status_activity);
 
     return (
@@ -246,19 +295,12 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                             }
                                         >
                                             <p className={"text-xs"}>
-                                                {language}
+                                                {language.language.language}
                                             </p>
-                                            {index % 2 === 0 ? (
-                                                <SVGIcon
-                                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(0, 2)}.svg`}
-                                                    className="w-4 m-[1px]"
-                                                />
-                                            ) : (
-                                                <SVGIcon
-                                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(3, 5)}.svg`}
-                                                    className="w-4 m-[1px]"
-                                                />
-                                            )}
+                                            <SVGIcon
+                                                src={`https://hatscripts.github.io/circle-flags/flags/${language.language.language_code}.svg`}
+                                                className="w-4 m-[1px]"
+                                            />
                                         </React.Fragment>
                                     )
                                 )}
@@ -302,7 +344,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                         >
                             <div className="p-3 font-extrabold">
                                 <h1>Criteria: </h1>
-                                {project.data.criterias[0].criteria}
+                                {project.data.criterias[0].criteria.criteria}
                             </div>
                         </div>
                     </div>

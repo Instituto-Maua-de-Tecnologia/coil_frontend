@@ -60,6 +60,9 @@
     "lint-staged": {
         "*.{json,js,ts,tsx,html}": [
             "prettier . --write"
+        ],
+        "*.{js,ts,tsx}": [
+            "eslint . --fix"
         ]
     }
 }

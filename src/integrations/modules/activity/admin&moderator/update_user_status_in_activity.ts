@@ -9,7 +9,7 @@ interface UpdateUserStatusProps {
 
 interface UpdateUserStatusResponse {
     message: string;
-    data: {};
+    data: object;
 }
 
 export default async function updateActivity(props: UpdateUserStatusProps) {

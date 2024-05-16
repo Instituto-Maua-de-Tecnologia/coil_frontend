@@ -31,7 +31,7 @@ interface GetInstitutionsRequirementsResponse {
     };
 }
 
-export default async function getActivity() {
+export default async function getInstitutionsRequirements() {
     const token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;

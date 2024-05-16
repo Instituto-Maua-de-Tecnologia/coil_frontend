@@ -1,5 +1,5 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { countryCodes, Result } from "../../types";
+import { Result } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 interface ResultCardProps {
@@ -8,12 +8,6 @@ interface ResultCardProps {
 
 export default function ResultCard({ result }: ResultCardProps) {
     const { avatarUrl, title, status, languages, country } = result;
-    function getCountryFullName(code: string): string {
-        const countryCode = code.toLowerCase();
-        return countryCodes[countryCode] || "Country not found";
-    }
-    const countryName = getCountryFullName(result.country);
-
     const isDarkTheme = useThemeDetector();
 
     return (
@@ -45,7 +39,7 @@ export default function ResultCard({ result }: ResultCardProps) {
                         </div>
                         <div className="flex mb-2">
                             <div className="flex flex-row w-full sm:justify-start justify-center">
-                                <p className="text-xs mr-2">{countryName}</p>
+                                <p className="text-xs mr-2">{country}</p>
                                 <SVGIcon
                                     src={`https://hatscripts.github.io/circle-flags/flags/${country}.svg`}
                                     className="w-4 m-[1px]"

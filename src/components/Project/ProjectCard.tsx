@@ -1,5 +1,5 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { countryCodes, Project } from "../../types";
+import { Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,15 +25,6 @@ export default function ProjectCard({
         else if (user.user_type === UserTypeEnum.ADMIN)
             navigate("/CreateProject", { state: { userStatus: 3 } });
     };
-    function getCountryFullName(codes: string[]): string {
-        const countryNames = codes.map((code) => {
-            const normalizedCode = code.toLowerCase();
-            return countryCodes[normalizedCode] || "Country not found";
-        });
-        return countryNames.join(" ");
-    }
-    const countryCodesArray = project.languages.map((fds) => fds.language);
-    const countryName = getCountryFullName(countryCodesArray);
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();
     return (
@@ -51,23 +42,23 @@ export default function ProjectCard({
                             {project.title}
                             <div
                                 title={
-                                    project.activity_type.id === 1
+                                    project.activity_type?.id === 1
                                         ? "Project"
                                         : "Mobility"
                                 }
                                 className={`h-5 w-5 flex justify-center items-center rounded-full p-1 ml-2 text-xs font-medium ${
-                                    project.activity_type.id === 1
+                                    project.activity_type?.id === 1
                                         ? "bg-blue-50 text-blue-700"
                                         : "bg-yellow-50 text-yellow-700"
                                 }`}
                             >
-                                {project?.activity_type.id === 1 ? "P" : "M"}
+                                {project?.activity_type?.id === 1 ? "P" : "M"}
                             </div>
                         </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-col sm:flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
-                                {project?.languages.map((language, index) => (
+                                {project?.languages?.map((language, index) => (
                                     <div
                                         key={"Project SVGICon Language" + index}
                                         className={
@@ -75,22 +66,17 @@ export default function ProjectCard({
                                         }
                                     >
                                         <p className={"text-xs me-2"}>
-                                            {language.language
+                                            {language.language.language
                                                 .charAt(0)
                                                 .toUpperCase() +
-                                                language.language.slice(1)}
+                                                language.language.language.slice(
+                                                    1
+                                                )}
                                         </p>
-                                        {index % 2 === 0 ? (
-                                            <SVGIcon
-                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(0, 2)}.svg`}
-                                                className="w-4 m-[1px]"
-                                            />
-                                        ) : (
-                                            <SVGIcon
-                                                src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(index + 2, index + 4)}.svg`}
-                                                className="w-4 m-[1px]"
-                                            />
-                                        )}
+                                        <SVGIcon
+                                            src={`https://hatscripts.github.io/circle-flags/flags/${language.language.language_code}.svg`}
+                                            className="w-4 m-[1px]"
+                                        />
                                     </div>
                                 ))}
                             </div>
@@ -98,12 +84,13 @@ export default function ProjectCard({
                         <div className="flex">
                             <p className={"text-xs me-2"}>
                                 {
-                                    project?.partner_institutions[0]
-                                        ?.institution.country
+                                    project?.partner_institutions?.[0]
+                                        ?.institution?.countries[0]?.country
+                                        ?.country
                                 }
                             </p>
                             <SVGIcon
-                                src={`https://hatscripts.github.io/circle-flags/flags/${countryCodes[project?.partner_institutions[0]?.institution.country.toLowerCase()]}.svg`}
+                                src={`https://hatscripts.github.io/circle-flags/flags/${project?.partner_institutions?.[0]?.institution?.countries[0]?.country?.country_code}.svg`}
                                 className="w-4 m-[1px]"
                             />
                         </div>
@@ -112,19 +99,21 @@ export default function ProjectCard({
 
                 <div className="flex items-end w-full gap-4 flex-col mr-2">
                     <div className={"text-blue-500"}>
-                        {project.activity_status.name.replace("_", " ")}
+                        {project.activity_status?.name.replace("_", " ")}
                     </div>
 
-                    {project.activity_status.name !== "ON_HOLD" &&
+                    {project.activity_status?.name !== "ON_HOLD" &&
                     user.user_type === UserTypeEnum.STUDENT ? (
                         <button
                             onClick={handleOnClick}
-                            disabled={project.activity_status.name !== "ACTIVE"}
+                            disabled={
+                                project.activity_status?.name !== "ACTIVE"
+                            }
                             className="bg-blue-500 disabled:opacity-50 min-w-[95px] text-white text-sm px-4 py-2 rounded-full"
                         >
                             <span
                                 title={
-                                    project.activity_status.name !== "ACTIVE"
+                                    project.activity_status?.name !== "ACTIVE"
                                         ? "This project is not appliable"
                                         : `Apply for ${project.title}`
                                 }

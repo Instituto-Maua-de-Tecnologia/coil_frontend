@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { countryCodes, Project } from "../../types";
+import { Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import assignUserToActivities from "@integrations/activity/student/assign_user_to_activity";
 import { MoonLoader } from "react-spinners";
@@ -30,7 +30,9 @@ const Modal: React.FC<ModalProps> = ({
         setEnrolling(true);
         try {
             console.log(
-                await assignUserToActivities({ activity_id: project.id })
+                await assignUserToActivities({
+                    activity_id: project.id as string
+                })
             );
         } catch (error) {
             console.error("A inscrição não teve sucesso", error);
@@ -39,22 +41,6 @@ const Modal: React.FC<ModalProps> = ({
             onClose();
         }
     };
-    function getCountryFullName(codes: string[]): string {
-        const countryNames = codes.map((code) => {
-            const normalizedCode = code.toLowerCase();
-            return countryCodes[normalizedCode] || "Country not found";
-        });
-        return countryNames.join(" ");
-    }
-    const countryCodesArray = project.languages.map((fds) => fds.language);
-    function getCountryFullNameString(code: string): string {
-        const countryCode = code.toLowerCase();
-        return countryCodes[countryCode] || "Country not found";
-    }
-    const countryCode = getCountryFullNameString(
-        project.partner_institutions[0].institution.country
-    );
-    const countryName = getCountryFullName(countryCodesArray);
 
     return (
         <>
@@ -81,8 +67,10 @@ const Modal: React.FC<ModalProps> = ({
                                     <div className="avatar-wrapper text-center flex-col w-24">
                                         <img
                                             src={
-                                                project.partner_institutions[0]
-                                                    .institution.images[0].image
+                                                project
+                                                    .partner_institutions?.[0]
+                                                    ?.institution?.images[0]
+                                                    .image
                                             }
                                             alt="Avatar"
                                             className="avatar-img w-full rounded-full bg-white"
@@ -90,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({
                                         <h3
                                             className={"text-white font-medium"}
                                         >
-                                            {project.partner_institutions[0].institution.name.slice(
+                                            {project.partner_institutions?.[0]?.institution?.name.slice(
                                                 0,
                                                 project.partner_institutions[0].institution.name.indexOf(
                                                     " "
@@ -109,27 +97,16 @@ const Modal: React.FC<ModalProps> = ({
                                                     <p className="text-sm pe-2 text-white mr-2">
                                                         Languages
                                                     </p>
-                                                    {project.languages.map(
-                                                        (_, index) => (
-                                                            <React.Fragment
+                                                    {project.languages?.map(
+                                                        (language, index) => (
+                                                            <SVGIcon
                                                                 key={
                                                                     "languageModalIcon " +
                                                                     index
                                                                 }
-                                                            >
-                                                                {index % 2 ===
-                                                                0 ? (
-                                                                    <SVGIcon
-                                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(0, 2)}.svg`}
-                                                                        className="w-4 m-[1px]"
-                                                                    />
-                                                                ) : (
-                                                                    <SVGIcon
-                                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryName.slice(index + 2, index + 4)}.svg`}
-                                                                        className="w-4 m-[1px]"
-                                                                    />
-                                                                )}
-                                                            </React.Fragment>
+                                                                src={`https://hatscripts.github.io/circle-flags/flags/${language.language.language_code}.svg`}
+                                                                className="w-4 m-[1px]"
+                                                            />
                                                         )
                                                     )}
                                                 </div>
@@ -137,13 +114,15 @@ const Modal: React.FC<ModalProps> = ({
                                                     <p className="text-sm pe-2 text-white">
                                                         {
                                                             project
-                                                                .partner_institutions[0]
-                                                                .institution
+                                                                .partner_institutions?.[0]
+                                                                ?.institution
+                                                                ?.countries[0]
                                                                 .country
+                                                                ?.country
                                                         }
                                                     </p>
                                                     <SVGIcon
-                                                        src={`https://hatscripts.github.io/circle-flags/flags/${countryCode}.svg`}
+                                                        src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions?.[0]?.institution?.countries[0].country?.country}.svg`}
                                                         className="w-4 m-[1px]"
                                                     />
                                                 </div>
@@ -153,7 +132,7 @@ const Modal: React.FC<ModalProps> = ({
                                                 <p
                                                     className={`text-lg text-end font-bold text-blue-500`}
                                                 >
-                                                    {project.activity_status.name.replace(
+                                                    {project.activity_status?.name.replace(
                                                         "_",
                                                         " "
                                                     )}
@@ -162,7 +141,7 @@ const Modal: React.FC<ModalProps> = ({
                                                     Application start date:{" "}
                                                     <span>
                                                         {formatDate(
-                                                            project.start_date
+                                                            project.start_date as string
                                                         )}
                                                     </span>
                                                 </p>
@@ -170,7 +149,7 @@ const Modal: React.FC<ModalProps> = ({
                                                     Application end date:{" "}
                                                     <span>
                                                         {formatDate(
-                                                            project.end_date
+                                                            project.end_date as string
                                                         )}
                                                     </span>
                                                 </p>

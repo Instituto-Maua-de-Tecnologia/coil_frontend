@@ -115,7 +115,7 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
 
     return (
         <div
-            className={`w-full mt-4 md:mt-0 ml-0 md:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+            className={`w-full mt-4 lg:mt-0 ml-0 lg:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} disabled={!loaded} />

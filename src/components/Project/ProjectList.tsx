@@ -6,7 +6,6 @@ import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "@style/scrollbar.css";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
-import Add from "../GenericComponents/Add";
 import { Project } from "types";
 import { MoonLoader } from "react-spinners";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
@@ -56,11 +55,7 @@ type ProjectProps = {
     updated_at: string;
 };
 
-interface ProjectListProps {
-    isAdmin: boolean;
-}
-
-export default function ProjectList({ isAdmin }: ProjectListProps) {
+export default function ProjectList() {
     const [projects, setProjects] = useState<ProjectProps[]>([
         {
             activity_status: {
@@ -158,6 +153,7 @@ export default function ProjectList({ isAdmin }: ProjectListProps) {
     };
 
     const handleVerifyEnrollment = (id: string) => {
+        console.log(enrolledProjectsIds);
         return enrolledProjectsIds.includes(id);
     };
 
@@ -189,6 +185,7 @@ export default function ProjectList({ isAdmin }: ProjectListProps) {
         handleGets();
     }, []);
 
+    // const navigate = useNavigate();
     // useEffect(() => {
     //     if (enrolledProjectsIds.length > 0) {
     //         console.log(enrolledProjectsIds);
@@ -203,7 +200,7 @@ export default function ProjectList({ isAdmin }: ProjectListProps) {
             <div className="mb-4 flex">
                 <Search disabled={!loaded} onSearch={handleSearch} />
                 <div className="button-container flex absolute right-12">
-                    {isAdmin ? <Add url="/CreateProject" /> : null}
+                    {/* {isAdmin ? <Add url="/CreateProject" /> : null} */}
                     {/* {isFilter && <Filter />} */}
                 </div>
             </div>

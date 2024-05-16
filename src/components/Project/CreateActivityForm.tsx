@@ -52,7 +52,8 @@ interface ActivityFormProps {
 const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     const [courses, setCourses] = useState<CourseProps>([{ id: 0, name: "" }]);
     const [dates, setDates] = useState<Nullable<(Date | null)[]>>(null);
-    const [date, setDate] = useState<Nullable<Date>>(null);
+    const [startTime, setStartTime] = useState<Nullable<Date>>(null);
+    const [endTime, setEndTime] = useState<Nullable<Date>>(null);
     const [selectedCourses, setSelectedCourses] = useState<CourseProps>([
         { id: 0, name: "" }
     ]);
@@ -78,8 +79,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         type_activity: isProject ? 1 : 2
     });
     const projectNameRef = useRef<HTMLInputElement>(null);
-    const startDateRef = useRef<HTMLInputElement>(null);
-    const endDateRef = useRef<HTMLInputElement>(null);
     const projectDescriptionRef = useRef<HTMLTextAreaElement>(null);
 
     const navigate = useNavigate();
@@ -243,39 +242,42 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     }, []);
 
     async function handlePostActivity() {
-        const startDatePart = startDateRef.current?.value.split("/");
-        const endDatePart = endDateRef.current?.value.split("/");
-        let day;
-        let month;
-        let year;
-        if (startDatePart) {
-            day = parseInt(startDatePart[0], 10);
-            month = parseInt(startDatePart[1], 10) - 1;
-            year = parseInt(startDatePart[2], 10);
+        const day = dates?.map((fds) => fds?.getDate());
+        const month = dates?.map((fds) => fds?.getMonth());
+        const year = dates?.map((fds) => fds?.getFullYear());
+        const convertedStartTime = {
+            hours: startTime?.getHours(),
+            minutes: startTime?.getMinutes()
+        };
+        const convertedEndTime = {
+            hours: endTime?.getHours(),
+            minutes: endTime?.getMinutes()
+        };
+        let start_date = "";
+        let end_date = "";
+        if (year && month && day) {
+            start_date = new Date(
+                year[0] as number,
+                month[0] as number,
+                day[0] as number,
+                convertedStartTime.hours,
+                convertedStartTime.minutes
+            ).toISOString();
+            end_date = new Date(
+                year[1] as number,
+                month[1] as number,
+                day[1] as number,
+                convertedEndTime.hours,
+                convertedEndTime.minutes
+            ).toISOString();
         }
-        const start_date = new Date(
-            year as number,
-            month as number,
-            day as number
-        ).toISOString();
-        if (endDatePart) {
-            day = parseInt(endDatePart[0], 10);
-            month = parseInt(endDatePart[1], 10) - 1;
-            year = parseInt(endDatePart[2], 10);
-        }
-        const end_date = new Date(
-            year as number,
-            month as number,
-            day as number
-        ).toISOString();
-
-        const partner_institutions: string[] = institutions.map((institution) =>
-            institution.id.toString()
-        );
         const title = projectNameRef.current?.value || "";
         const description = projectDescriptionRef.current?.value || "";
         const courses = selectedCourses;
         const languages = selectedLanguages.map((fds) => fds);
+        const partner_institutions: string[] = institutions.map((institution) =>
+            institution.id.toString()
+        );
 
         const newFormData: ActivityFromData = {
             ...formData,
@@ -288,8 +290,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             criterias,
             languages
         };
-        console.log(newFormData);
-
         setFormData(newFormData);
         await createActivity({
             body: newFormData
@@ -300,7 +300,9 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                     localStorage.clear();
                     throw new Error("Usuário não Autorizado.");
                 } else if (error.status === 403)
-                    throw new Error("E-mail deve ser do domínio maua.br!");
+                    throw new Error(
+                        "Você não tem permissões para criar projeto!"
+                    );
                 else if (error.message === "MissingToken")
                     throw new Error(
                         "Erro ao localizar o token de acesso. Por favor, tente novamente."
@@ -334,8 +336,8 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             .then(async () => {
                 await delay(5000);
                 //TODO: navigate runs before toast be completed
-            })
-            .then(() => navigate("/Home")); // TODO: validação de campos vazios no if/else
+            });
+        //.then(() => navigate("/Home")); // TODO: validação de campos vazios no if/else
     }
 
     const courseOptions = courses.map((course) => ({
@@ -362,7 +364,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         setFormData({ ...formData, languages: languages });
         setSelectedlanguages(languages);
     };
-
     return (
         <>
             <ToasterContainer />
@@ -446,7 +447,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                             </div>
                         </div>
                         <div className="form-row-3-2 md:flex w-full">
-                            <div className="application-start-date flex flex-col mx-2 space-y-2 w-[60%]">
+                            <div className="application-start-date flex flex-col mx-2 space-y-2 w-[52%]">
                                 <label htmlFor="applicationStartDate">
                                     Aplication Start and End Date
                                 </label>
@@ -456,6 +457,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                     <Calendar
                                         className={"w-full "}
                                         value={dates}
+                                        dateFormat={"dd/mm/yy"}
                                         onChange={(e) => setDates(e.value)}
                                         selectionMode="range"
                                         readOnlyInput
@@ -474,16 +476,44 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                     />
                                 </div>
                             </div>
-                            <div className="application-end-date flex flex-col mx-2 space-y-2 w-[40%]">
+                            <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
                                 <label htmlFor="applicationEndDate">
-                                    Enrollment period
+                                    Start time period
                                 </label>
                                 <div
                                     className={`flex h-[52%] rounded-full justify-center w-full shadow-md px-4 ${isDarkTheme ? "text-white bg-[#223A4F]" : "text-black bg-[#F0F3FB]"}`}
                                 >
                                     <Calendar
-                                        value={date}
-                                        onChange={(e) => setDate(e.value)}
+                                        value={startTime}
+                                        onChange={(e) => setStartTime(e.value)}
+                                        showIcon
+                                        timeOnly
+                                        icon={() => (
+                                            <i className="pi mx-1 pi-clock" />
+                                        )}
+                                        inputStyle={{
+                                            backgroundColor: "transparent",
+                                            color: `${isDarkTheme ? "white" : "black"}`,
+                                            border: "none",
+                                            outline: "none",
+                                            padding: "0",
+                                            width: "100%",
+                                            height: "100%",
+                                            textAlign: "center"
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
+                                <label htmlFor="applicationEndDate">
+                                    End time period
+                                </label>
+                                <div
+                                    className={`flex h-[52%] rounded-full justify-center w-full shadow-md px-4 ${isDarkTheme ? "text-white bg-[#223A4F]" : "text-black bg-[#F0F3FB]"}`}
+                                >
+                                    <Calendar
+                                        value={endTime}
+                                        onChange={(e) => setEndTime(e.value)}
                                         showIcon
                                         timeOnly
                                         icon={() => (
@@ -561,7 +591,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                     <div className="button-row flex">
                         <div className="w-full"></div>
                         <button
-                            className="confirm w-[110px] text-white px-4 p-2 bg-red-600 me-5 rounded-3xl"
+                            className="confirm w-[110px] text-white px-4 p-2 bg-[#673366] me-5 rounded-3xl"
                             onClick={() =>
                                 navigate(isProject ? "/Projects" : "/Activity")
                             }

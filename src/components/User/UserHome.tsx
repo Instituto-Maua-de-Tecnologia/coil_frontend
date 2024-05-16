@@ -21,7 +21,7 @@ export default function userHome({ userHome }: UserHomeProps) {
     const isDarkTheme = useThemeDetector();
     return (
         <div
-            className={`flex 2xs:flex-col sm:flex-row wrap ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} ml-0 md:ml-4 rounded-3xl p-4 w-full md:h-25%`}
+            className={`flex 2xs:flex-col sm:flex-row wrap ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} ml-0 lg:ml-4 rounded-3xl p-4 w-full md:h-25%`}
         >
             <div className="self-center p-2 sm:w-1/6">
                 <img

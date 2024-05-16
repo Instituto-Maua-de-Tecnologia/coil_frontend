@@ -46,15 +46,6 @@ export default function ProjectCard({
             <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="w-full flex">
-                        <div className="sm:avatar-wrapper sm:flex flex-col sm:mr-4">
-                            <img
-                                src={
-                                    project.partner_institutions[0]?.institution
-                                        ?.images[0]?.image
-                                }
-                                alt="Avatar"
-                                className="avatar-img mx-auto w-16 rounded-full"
-                            />
                         </div>
                         <div className="flex flex-col">
                             <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold">
@@ -140,8 +131,6 @@ export default function ProjectCard({
                                 onClick={handleOnClick}
                                 disabled={
                                     project.activity_status.name !== "ACTIVE"
-                                        ? true
-                                        : false
                                 }
                                 className="bg-blue-500 disabled:opacity-50 min-w-[95px] text-white text-sm px-4 py-2 rounded-full"
                             >

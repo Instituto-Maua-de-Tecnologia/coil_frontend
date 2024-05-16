@@ -45,23 +45,17 @@ export default function Home() {
         <>
             <div className="max-h-screen flex flex-col">
                 <TitleHeader title={"Home"} />
-                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
+                <div className="flex-grow h-screen overflow-hidden mx-3 mb-3 flex flex-row">
                     <SideBar />
-                    <div className="custom-scrollbar overflow-y-hidden  max-h-screen flex-col w-full ">
+                    <div className="custom-scrollbar overflow-auto lg:overflow-hidden max-h-screen flex-col w-full ">
                         <div
                             className={`flex 2xs:flex-col sm:flex-row wrap rounded-3xl w-full md:h-25%`}
                         >
                             {user && <UserHome userHome={user.userHome} />}
                         </div>
-                        <div className="mt-4 md:flex h-full w-full md:h-3/4">
-                            <ProjectList
-                                isFilter={false}
-                                isAdmin={user_type === UserTypeEnum.ADMIN}
-                            />
-                            <ResultList
-                                results={ResultProps}
-                                isAdmin={user_type === UserTypeEnum.ADMIN}
-                            />
+                        <div className="mt-4 lg:flex h-full w-full md:h-3/4">
+                            <ProjectList />
+                            <EnrolledList type_activity={true} />
                         </div>
                     </div>
                 </div>

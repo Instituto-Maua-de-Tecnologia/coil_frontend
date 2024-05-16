@@ -185,11 +185,11 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
     const getStatusText = (status: number): string => {
         switch (status as ActivityStatusEnum) {
             case ActivityStatusEnum.TO_START:
-                return "TO START";
+                return "COMING SOON";
             case ActivityStatusEnum.ACTIVE:
-                return "ACTIVE";
+                return "APPLY NOW";
             case ActivityStatusEnum.ON_HOLD:
-                return "ON HOLD";
+                return "UNDER ANALYSIS";
             case ActivityStatusEnum.ENDED:
                 return "ENDED";
             case ActivityStatusEnum.CANCELED:

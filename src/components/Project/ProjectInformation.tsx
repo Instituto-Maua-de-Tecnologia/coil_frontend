@@ -7,8 +7,9 @@ import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
 import { ActivityStatusEnum } from "@enum/ActivityStatusEnum.ts";
 import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
+import { useNavigate } from "react-router-dom";
 
-type ProjectProps = {
+export type ProjectProps = {
     data: {
         id: string;
         title: string;
@@ -122,7 +123,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                     id: "",
                     institution: {
                         id: "",
-                        course: "",
+                        name: "",
                         description: "",
                         email: "",
                         countries: [
@@ -167,7 +168,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                     id: "",
                     user: {
                         id: "",
-                        course: "",
+                        name: "",
                         email: "",
                         user_type: 0,
                         created_at: "",
@@ -258,6 +259,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
         }
     };
     const statusText = getStatusText(project.data.status_activity);
+    const navigate = useNavigate();
 
     return (
         <div className="custom-scrollbar overflow-y-auto lg:overflow-y-visible flex-col w-full m-3 mb-0 mt-0 ">
@@ -324,6 +326,21 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                     {handleVerifyEnrollment(project.data.id)
                                         ? "Disenroll"
                                         : "Enroll"}
+                                </button>
+                            )}
+                            {JSON.parse(localStorage.getItem("user") as string)
+                                .user_type === UserTypeEnum.ADMIN && (
+                                <button
+                                    onClick={() =>
+                                        navigate("/EnrolledStundets", {
+                                            state: {
+                                                projectID: project.data.id
+                                            }
+                                        })
+                                    }
+                                    className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                >
+                                    Students Enrolled
                                 </button>
                             )}
                         </div>

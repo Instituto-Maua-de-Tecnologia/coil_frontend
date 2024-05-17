@@ -1,24 +1,26 @@
 import { useState } from "react";
 import ResultCard from "./ResultCard";
 import Search from "../GenericComponents/Search";
-import { Result } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "@style/scrollbar.css";
+import { ResultsProps } from "@screens/Results.tsx";
 
 interface ResultListProps {
-    results: Result[];
+    results: ResultsProps[];
 }
 export default function ResultList({ results }: ResultListProps) {
-    const [filteredResults, setFilteredResults] = useState<Result[]>(results);
+    const [filteredResults, setFilteredResults] =
+        useState<ResultsProps[]>(results);
 
     const handleSearch = (searchTerm: string) => {
         const filtered = results.filter(
             (result) =>
-                result.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                result.partnerName
-                    .toLowerCase()
+                result.title
+                    ?.toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                result.status.toLowerCase().includes(searchTerm.toLowerCase())
+                result.partner_institutions
+                    ?.map((fds) => fds.name.toLowerCase())
+                    .includes(searchTerm.toLowerCase())
         );
         setFilteredResults(filtered);
     };
@@ -31,7 +33,7 @@ export default function ResultList({ results }: ResultListProps) {
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} disabled={true} />
             </div>
-            {filteredResults.length > 0 ? (
+            {filteredResults?.length > 0 ? (
                 <div>
                     <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
                         {filteredResults.map((result) => (

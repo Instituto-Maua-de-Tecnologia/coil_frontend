@@ -1,24 +1,26 @@
 import { useState } from "react";
 import Search from "./GenericComponents/Search";
-import { Student } from "../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../style/scrollbar.css";
 import EnrolledStudentCard from "./EnrolledStudentCard";
+import { ProjectProps } from "@components/Project/ProjectInformation.tsx";
 
 interface EnrolledStudentProps {
-    students: Student[];
+    students: ProjectProps[];
 }
 export default function EnrolledStudentList({
     students
 }: EnrolledStudentProps) {
     const [filteredEnrolledStudents, setFilteredEnrolledStudents] =
-        useState<Student[]>(students);
+        useState<EnrolledStudentProps[]>();
 
     const handleSearch = (searchTerm: string) => {
         const filtered = students.filter((student) =>
-            student.name.toLowerCase().includes(searchTerm.toLowerCase())
+            student.data.applicants
+                .map((fds) => fds.user?.name.toLowerCase())
+                .includes(searchTerm.toLowerCase())
         );
-        setFilteredEnrolledStudents(filtered);
+        setFilteredEnrolledStudents(filtered as any);
     };
     const isDarkTheme = useThemeDetector();
 
@@ -29,7 +31,8 @@ export default function EnrolledStudentList({
             <div className="mb-4 flex">
                 <Search disabled={false} onSearch={handleSearch} />
             </div>
-            {filteredEnrolledStudents.length > 0 ? (
+            {filteredEnrolledStudents !== undefined &&
+            filteredEnrolledStudents.length > 0 ? (
                 <>
                     {/* <div className="table-header flex p-4 mb-2">
                         <h1 className="font-bold text-[#0F1820]">Name</h1>
@@ -39,7 +42,7 @@ export default function EnrolledStudentList({
                     </div> */}
                     <div>
                         <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                            {filteredEnrolledStudents.map((student) => (
+                            {filteredEnrolledStudents?.map((student) => (
                                 <EnrolledStudentCard
                                     enrolledStudent={student}
                                 />

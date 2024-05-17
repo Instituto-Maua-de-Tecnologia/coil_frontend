@@ -1,11 +1,3 @@
-export interface Student {
-    id: number;
-    ra: string;
-    name: string;
-    course: string;
-    approval: boolean;
-}
-
 export interface Project {
     id?: string;
     title?: string;
@@ -232,17 +224,6 @@ export interface Enrolled {
             updated_at?: string;
         }
     ];
-}
-
-export interface Result {
-    id: number;
-    avatarUrl: string;
-    title: string;
-    partnerName: string;
-    status: string;
-    languages: string[];
-    country: string;
-    approvation: string;
 }
 
 export interface Institution {

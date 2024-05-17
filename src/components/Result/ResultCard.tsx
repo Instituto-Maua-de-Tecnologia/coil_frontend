@@ -1,14 +1,15 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { Result } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
+import { ResultsProps } from "@screens/Results.tsx";
 
 interface ResultCardProps {
-    result: Result;
+    result: ResultsProps;
 }
 
 export default function ResultCard({ result }: ResultCardProps) {
-    const { avatarUrl, title, status, languages, country } = result;
+    const { title, applicants, partner_institutions } = result;
     const isDarkTheme = useThemeDetector();
+    const institution_image = partner_institutions?.map((fds) => fds.images[0]);
 
     return (
         <li
@@ -18,7 +19,7 @@ export default function ResultCard({ result }: ResultCardProps) {
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
                         <img
-                            src={avatarUrl}
+                            src={(institution_image as string[])[0]}
                             alt="Avatar"
                             className="avatar-img mx-auto w-16 rounded-full"
                         />
@@ -28,20 +29,27 @@ export default function ResultCard({ result }: ResultCardProps) {
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
-                                {languages.map((language, index) => (
-                                    <SVGIcon
-                                        key={"ResultCard SVGIcon " + index}
-                                        src={`https://hatscripts.github.io/circle-flags/flags/${language}.svg`}
-                                        className="w-4 m-[1px]"
-                                    />
-                                ))}
+                                {partner_institutions?.map(
+                                    (language, index) => (
+                                        <SVGIcon
+                                            key={"ResultCard SVGIcon " + index}
+                                            src={`https://hatscripts.github.io/circle-flags/flags/${language.countries[index].country.country_code}.svg`}
+                                            className="w-4 m-[1px]"
+                                        />
+                                    )
+                                )}
                             </div>
                         </div>
                         <div className="flex mb-2">
                             <div className="flex flex-row w-full sm:justify-start justify-center">
-                                <p className="text-xs mr-2">{country}</p>
+                                <p className="text-xs mr-2">
+                                    {
+                                        partner_institutions?.[0].countries[0]
+                                            .country.country
+                                    }
+                                </p>
                                 <SVGIcon
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${country}.svg`}
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${partner_institutions?.[0].countries[0].country.country_code}.svg`}
                                     className="w-4 m-[1px]"
                                 />
                             </div>
@@ -55,7 +63,7 @@ export default function ResultCard({ result }: ResultCardProps) {
                             {status}
                         </div>
                         <div className="border-2 border-blue-500 text-blue-500 text-sm px-4 py-2 rounded-full">
-                            {result.approvation}
+                            {applicants?.[0].status}
                         </div>
                     </div>
                 </div>

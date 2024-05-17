@@ -10,6 +10,7 @@ import Add from "../GenericComponents/Add";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
 import { MoonLoader } from "react-spinners";
+import NoElementsFound from "@components/GenericComponents/NoElementsFound";
 
 type MobilityProps = {
     id?: string;
@@ -277,44 +278,48 @@ export default function MobilityList({ isFilter, isAdmin }: MobilityListProps) {
                     {isFilter && <Filter />}
                 </div>
             </div>
-            {filteredMobilities.length > 0 ? (
-                <div>
-                    {loaded ? (
-                        <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                            {mobilities.map((mobility) => (
-                                <MobilityCard
-                                    key={"MobilityCardKey" + mobility.id}
-                                    mobility={mobility}
-                                    enrolled={handleVerifyEnrollment(
-                                        mobility.id as string
-                                    )}
-                                    onClick={handleModalOpen}
+            {mobilities.length > 0 ? (
+                filteredMobilities.length > 0 ? (
+                    <div>
+                        {loaded ? (
+                            <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
+                                {mobilities.map((mobility) => (
+                                    <MobilityCard
+                                        key={"MobilityCardKey" + mobility.id}
+                                        mobility={mobility}
+                                        enrolled={handleVerifyEnrollment(
+                                            mobility.id as string
+                                        )}
+                                        onClick={handleModalOpen}
+                                    />
+                                ))}
+                            </ul>
+                        ) : (
+                            <div className="flex justify-center items-center mt-[25vh]">
+                                <MoonLoader
+                                    color={`${isDarkTheme ? "#fff" : "#000"}`}
+                                    size={35}
                                 />
-                            ))}
-                        </ul>
-                    ) : (
-                        <div className="flex justify-center items-center mt-[25vh]">
-                            <MoonLoader
-                                color={`${isDarkTheme ? "#fff" : "#000"}`}
-                                size={35}
+                            </div>
+                        )}
+                        {selectedMobility ? (
+                            <Modal
+                                enrolled={enrolledMobilitiesIds.includes(
+                                    selectedMobility.id as string
+                                )}
+                                project={selectedMobility}
+                                isOpen={true}
+                                onClose={handleModalClose}
                             />
-                        </div>
-                    )}
-                    {selectedMobility ? (
-                        <Modal
-                            enrolled={enrolledMobilitiesIds.includes(
-                                selectedMobility.id as string
-                            )}
-                            project={selectedMobility}
-                            isOpen={true}
-                            onClose={handleModalClose}
-                        />
-                    ) : null}
-                </div>
+                        ) : null}
+                    </div>
+                ) : mobilities.length > 0 ? (
+                    <NoElementsFound message="No opportunities were found" />
+                ) : (
+                    <NoElementsFound message="No opportunities matched the criteria" />
+                )
             ) : (
-                <p className="mx-auto my-5 text-center text-2xl">
-                    No mobility matched the search criteria
-                </p>
+                <NoElementsFound message="No opportunities were found" />
             )}
         </div>
     );

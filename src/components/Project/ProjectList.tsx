@@ -9,6 +9,7 @@ import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import { Project } from "types";
 import { MoonLoader } from "react-spinners";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
+import NoElementsFound from "@components/GenericComponents/NoElementsFound";
 
 type ProjectProps = {
     id?: string;
@@ -284,44 +285,50 @@ export default function ProjectList() {
                     {/* {isFilter && <Filter />} */}
                 </div>
             </div>
-            {filteredProjects.length > 0 ? (
-                <div>
-                    {loaded ? (
-                        <ul className="w-full max-h-screen pe-5 custom-scrollbar overflow-y-auto">
-                            {projects.map((project) => (
-                                <ProjectCard
-                                    key={"ProjectCardKey " + project.id}
-                                    project={project}
-                                    enrolled={handleVerifyEnrollment(
-                                        project.id as string
-                                    )}
-                                    onClick={handleModalOpen}
+            {projects.length > 0 ? (
+                filteredProjects.length > 0 ? (
+                    <div>
+                        {loaded ? (
+                            <ul className="w-full max-h-screen pe-5 custom-scrollbar overflow-y-auto">
+                                {projects.map((project) => (
+                                    <ProjectCard
+                                        key={"ProjectCardKey " + project.id}
+                                        project={project}
+                                        enrolled={handleVerifyEnrollment(
+                                            project.id as string
+                                        )}
+                                        onClick={handleModalOpen}
+                                    />
+                                ))}
+                            </ul>
+                        ) : (
+                            <div className="flex justify-center items-center mt-auto">
+                                <MoonLoader
+                                    color={`${isDarkTheme ? "#fff" : "#000"}`}
+                                    size={35}
                                 />
-                            ))}
-                        </ul>
-                    ) : (
-                        <div className="flex justify-center items-center mt-[25vh]">
-                            <MoonLoader
-                                color={`${isDarkTheme ? "#fff" : "#000"}`}
-                                size={35}
+                            </div>
+                        )}
+                        {selectedProject ? (
+                            <Modal
+                                project={selectedProject}
+                                enrolled={enrolledProjectsIds.includes(
+                                    selectedProject.id as string
+                                )}
+                                isOpen={true}
+                                onClose={handleModalClose}
                             />
-                        </div>
-                    )}
-                    {selectedProject ? (
-                        <Modal
-                            project={selectedProject}
-                            enrolled={enrolledProjectsIds.includes(
-                                selectedProject.id as string
-                            )}
-                            isOpen={true}
-                            onClose={handleModalClose}
-                        />
-                    ) : null}
-                </div>
+                        ) : null}
+                    </div>
+                ) : projects.length > 0 ? (
+                    <NoElementsFound message="No projects were found" />
+                ) : (
+                    <p className="mx-auto my-5 text-center text-2xl">
+                        <NoElementsFound message="No projects matched the search criteria" />
+                    </p>
+                )
             ) : (
-                <p className="mx-auto my-5 text-center text-2xl">
-                    No project matched the search criteria
-                </p>
+                <NoElementsFound message="No projects were found" />
             )}
         </div>
     );

@@ -4,6 +4,7 @@ import Search from "../GenericComponents/Search";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "@style/scrollbar.css";
 import { ResultsProps } from "@screens/Results.tsx";
+import NoElementsFound from "@components/GenericComponents/NoElementsFound";
 
 interface ResultListProps {
     results: ResultsProps[];
@@ -42,9 +43,7 @@ export default function ResultList({ results }: ResultListProps) {
                     </ul>
                 </div>
             ) : (
-                <p className="mx-auto my-5 text-center text-2xl">
-                    No result matched the search criteria
-                </p>
+                <NoElementsFound message="No projects were found" />
             )}
         </div>
     );

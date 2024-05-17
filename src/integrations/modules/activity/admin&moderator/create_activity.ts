@@ -6,7 +6,7 @@ interface CreateActivityProps {
         description: string;
         start_date: string;
         end_date: string;
-        languages: string[];
+        languages: number[];
         partner_institutions: string[];
         courses: number[];
         criterias: [

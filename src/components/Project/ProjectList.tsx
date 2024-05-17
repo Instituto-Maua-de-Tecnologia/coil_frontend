@@ -10,6 +10,7 @@ import { Project } from "types";
 import { MoonLoader } from "react-spinners";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
 import NoElementsFound from "@components/GenericComponents/NoElementsFound";
+// import { UserTypeEnum } from "@enum/UserTypeEnum";
 
 type ProjectProps = {
     id?: string;
@@ -187,6 +188,10 @@ export default function ProjectList() {
         []
     );
     const [loaded, setLoaded] = useState<boolean>(false);
+
+    // const user_type = JSON.parse(
+    //     localStorage.getItem("user") as string
+    // ).user_type;
 
     const handleGetAllProjects = async () => {
         try {

@@ -37,7 +37,7 @@ export default function Mobilities() {
                     />
                     <SideBar />
                     <MobilityList
-                        isFilter
+                        // isFilter
                         isAdmin={user_type === UserTypeEnum.ADMIN}
                     />
                 </div>

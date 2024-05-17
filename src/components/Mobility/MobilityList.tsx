@@ -142,7 +142,7 @@ export default function MobilityList({ isAdmin }: MobilityListProps) {
                     institution_id: "",
                     institution: {
                         id: "",
-                        course: "",
+                        name: "",
                         description: "",
                         email: "",
                         social_medias: [
@@ -153,7 +153,7 @@ export default function MobilityList({ isAdmin }: MobilityListProps) {
                                 link: "",
                                 media: {
                                     id: 0,
-                                    course: ""
+                                    name: ""
                                 }
                             }
                         ],
@@ -179,11 +179,11 @@ export default function MobilityList({ isAdmin }: MobilityListProps) {
             ],
             activity_status: {
                 id: 0,
-                course: ""
+                name: ""
             },
             activity_type: {
                 id: 0,
-                course: ""
+                name: ""
             }
         }
     ]);

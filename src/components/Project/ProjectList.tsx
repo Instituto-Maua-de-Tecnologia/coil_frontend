@@ -138,7 +138,7 @@ export default function ProjectList() {
                     institution_id: "",
                     institution: {
                         id: "",
-                        course: "",
+                        name: "",
                         description: "",
                         email: "",
                         social_medias: [
@@ -149,7 +149,7 @@ export default function ProjectList() {
                                 link: "",
                                 media: {
                                     id: 0,
-                                    course: ""
+                                    name: ""
                                 }
                             }
                         ],
@@ -175,11 +175,11 @@ export default function ProjectList() {
             ],
             activity_status: {
                 id: 0,
-                course: ""
+                name: ""
             },
             activity_type: {
                 id: 0,
-                course: ""
+                name: ""
             }
         }
     ]);
@@ -288,7 +288,7 @@ export default function ProjectList() {
                 filteredProjects.length > 0 ? (
                     <div>
                         {loaded ? (
-                            <ul className="w-full max-h-screen pe-5 custom-scrollbar overflow-y-auto">
+                            <ul className="w-full max-h-screen pe-5 pb-48 custom-scrollbar overflow-y-auto">
                                 {projects.map((project) => (
                                     <ProjectCard
                                         key={"ProjectCardKey " + project.id}

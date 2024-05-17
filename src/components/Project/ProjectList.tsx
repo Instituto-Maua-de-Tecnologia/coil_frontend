@@ -234,7 +234,6 @@ export default function ProjectList() {
     };
 
     const handleVerifyEnrollment = (id: string) => {
-        console.log(enrolledProjectsIds);
         return enrolledProjectsIds.includes(id);
     };
 

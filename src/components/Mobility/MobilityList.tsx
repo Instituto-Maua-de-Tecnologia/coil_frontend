@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MobilityCard from "./MobilityCard";
 import Search from "../GenericComponents/Search";
-import Filter from "@components/GenericComponents/Filter";
+// import Filter from "@components/GenericComponents/Filter";
 import { Mobility } from "../../types";
 import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
@@ -97,10 +97,10 @@ type MobilityProps = {
     };
 };
 interface MobilityListProps {
-    isFilter: boolean;
+    // isFilter: boolean;
     isAdmin: boolean;
 }
-export default function MobilityList({ isFilter, isAdmin }: MobilityListProps) {
+export default function MobilityList({ isAdmin }: MobilityListProps) {
     const [mobilities, setMobilities] = useState<MobilityProps[]>([
         {
             id: "",
@@ -275,7 +275,7 @@ export default function MobilityList({ isFilter, isAdmin }: MobilityListProps) {
                 <Search onSearch={handleSearch} disabled={false} />
                 <div className="button-container flex absolute right-12">
                     {isAdmin ? <Add url="/CreateMobility" /> : null}
-                    {isFilter && <Filter />}
+                    {/* {isFilter && <Filter />} */}
                 </div>
             </div>
             {mobilities.length > 0 ? (

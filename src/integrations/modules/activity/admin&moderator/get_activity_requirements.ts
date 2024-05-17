@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 
-interface GetActivityRequirements {
+interface GetActivityRequirementsResponse {
     message: string;
     data: {
         courses: [
@@ -31,7 +31,7 @@ interface GetActivityRequirements {
     };
 }
 
-export default async function getActivity() {
+export default async function getActivityRequirements() {
     const token = localStorage.getItem("token");
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
@@ -43,13 +43,13 @@ export default async function getActivity() {
                 }
             })
             .then((response) => {
-                const responseData: GetActivityRequirements =
-                    response.data as GetActivityRequirements;
+                const responseData: GetActivityRequirementsResponse =
+                    response.data as GetActivityRequirementsResponse;
                 resolve(responseData);
             })
             .catch((error: AxiosError) => {
-                const convertedError: AxiosError<GetActivityRequirements> =
-                    error as AxiosError<GetActivityRequirements>;
+                const convertedError: AxiosError<GetActivityRequirementsResponse> =
+                    error as AxiosError<GetActivityRequirementsResponse>;
                 const errorResponse = convertedError.response;
                 if (errorResponse) {
                     reject({

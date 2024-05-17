@@ -11,7 +11,7 @@ import ToasterContainer from "@components/GenericComponents/ToasterContainer.tsx
 import { Calendar } from "primereact/calendar";
 import { Nullable } from "primereact/ts-helpers";
 import "primeicons/primeicons.css";
-import getInstitutionsRequirements from "@integrations/institution/admin&moderator/get_institutions_requirements.ts";
+import getActivityRequirements from "@integrations/activity/admin&moderator/get_activity_requirements.ts";
 
 type InstitutionProps = [
     {
@@ -23,10 +23,8 @@ type InstitutionProps = [
 
 export type CourseProps = [
     {
-        courses: {
-            id: number;
-            course: string;
-        };
+        id: number;
+        course: string;
     }
 ];
 
@@ -59,13 +57,13 @@ interface ActivityFormProps {
 
 const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     const [courses, setCourses] = useState<CourseProps>([
-        { courses: { id: 0, course: "" } }
+        { id: 0, course: "" }
     ]);
     const [dates, setDates] = useState<Nullable<(Date | null)[]>>(null);
     const [startTime, setStartTime] = useState<Nullable<Date>>(null);
     const [endTime, setEndTime] = useState<Nullable<Date>>(null);
     const [selectedCourses, setSelectedCourses] = useState<CourseProps>([
-        { courses: { id: 0, course: "" } }
+        { id: 0, course: "" }
     ]);
     const [institutions, setInstitutions] = useState<InstitutionProps>([
         { id: 0, name: "", logo: "" }
@@ -240,7 +238,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                 (await getAllInstitutions()) as InstitutionProps;
             setInstitutions(institutionValues);
             const courseValues =
-                (await getInstitutionsRequirements()) as CourseProps;
+                (await getActivityRequirements()) as CourseProps;
             console.log(courseValues);
             setCourses(courseValues);
         } catch (error) {
@@ -286,7 +284,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         let criterias = "";
         const title = projectNameRef.current?.value || "";
         const description = projectDescriptionRef.current?.value || "";
-        const courses = selectedCourses.map((fds) => fds.courses.id);
+        const courses = selectedCourses.map((fds) => fds.id);
         const languages = selectedLanguages.map((fds) => fds);
         criteria.map((fds) => (criterias = fds));
         const partner_institutions: string[] = institutions.map((institution) =>
@@ -360,8 +358,8 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     }
 
     const courseOptions = courses.map((course) => ({
-        value: course.courses.id,
-        label: course.courses.course
+        value: course.id,
+        label: course.course
     }));
 
     const institutionsOptions = institutions.map((institution) => ({
@@ -434,10 +432,10 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                     )
                                 }}
                                 value={selectedCourses.map((course) => {
-                                    if (course.courses.course !== "")
+                                    if (course.course !== "")
                                         return {
-                                            value: course.courses.id,
-                                            label: course.courses.course
+                                            value: course.id,
+                                            label: course.course
                                         };
                                 })}
                                 onChange={handleSelectCourse}

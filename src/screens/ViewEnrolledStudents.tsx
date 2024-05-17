@@ -1,9 +1,12 @@
 import EnrolledStudentsList from "@components/EnrolledStudentsList";
 import SideBar from "@components/GenericComponents/SideBar";
 import TitleHeader from "@components/GenericComponents/TitleHeader";
-import { StudentListProps } from "@constants/StudentListProperties";
+import { useLocation } from "react-router-dom";
 
 export default function ViewEnrolledStudents() {
+    const location = useLocation();
+    const project = location.state?.projectID;
+
     return (
         <>
             <div className="max-h-screen flex flex-col">
@@ -12,7 +15,7 @@ export default function ViewEnrolledStudents() {
                 />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
-                    <EnrolledStudentsList students={StudentListProps} />
+                    <EnrolledStudentsList students={project} />
                 </div>
             </div>
         </>

@@ -241,6 +241,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             setInstitutions(institutionValues);
             const courseValues =
                 (await getInstitutionsRequirements()) as CourseProps;
+            console.log(courseValues);
             setCourses(courseValues);
         } catch (error) {
             console.error("Erro ao obter cursos:", error);

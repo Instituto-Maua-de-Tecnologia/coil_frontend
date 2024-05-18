@@ -12,6 +12,7 @@ import { Calendar } from "primereact/calendar";
 import { Nullable } from "primereact/ts-helpers";
 import "primeicons/primeicons.css";
 import getActivityRequirements from "@integrations/activity/admin&moderator/get_activity_requirements.ts";
+import Select, { SelectOption } from "@components/GenericComponents/Select";
 
 type InstitutionProps = [
     {
@@ -20,12 +21,12 @@ type InstitutionProps = [
     }
 ];
 
-export type CourseProps = [
-    {
-        id: number;
-        course: string;
-    }
-];
+export type CourseListProps = [CourseProps];
+
+export type CourseProps = {
+    id: number;
+    course: string;
+};
 
 export type LangListProps = [LangProps];
 
@@ -98,9 +99,14 @@ interface ActivityFormProps {
 }
 
 const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
-    const [courses, setCourses] = useState<CourseProps>([
+    const [courses, setCourses] = useState<CourseListProps>([
         { id: 0, course: "" }
     ]);
+    const courseOptions: SelectOption[] = courses.map((course) => ({
+        label: course.course,
+        value: course.id
+    }));
+    const [selectedCourses, setSelectedCourses] = useState<SelectOption[]>([]);
     const [dates, setDates] = useState<Nullable<(Date | null)[]>>(null);
     const [startTime, setStartTime] = useState<Nullable<Date>>(null);
     const [endTime, setEndTime] = useState<Nullable<Date>>(null);
@@ -113,6 +119,13 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     const [languages, setLanguages] = useState<LangListProps>([
         { id: 0, language: "" }
     ]);
+    const languageOptions: SelectOption[] = languages.map((language) => ({
+        label: language.language,
+        value: language.id
+    }));
+    const [selectedLanguages, setSelectedLanguages] = useState<SelectOption[]>(
+        []
+    );
     // function mapLang(lang: LangProps): LangOptionProps {
     //     const { id, language } = lang;
     //     const langOption: LangOptionProps = {
@@ -459,7 +472,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                             <label htmlFor="languages">Languages</label>
                             {/* <Select
                                 isMulti
-                                options={selectableLanguages}
+                                options={languageOptions}
                                 menuPosition="fixed"
                                 components={{
                                     IndicatorSeparator: () => null,
@@ -470,7 +483,13 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 onChange={handleSelectLanguages}
                                 styles={multiStyle}
                             /> */}
-                            <select style={inputStyle}>
+                            <Select
+                                multiple
+                                options={languageOptions}
+                                value={selectedLanguages}
+                                onChange={(o) => setSelectedLanguages(o)}
+                            />
+                            {/* <select style={inputStyle}>
                                 {languages.map((language, index) => {
                                     return (
                                         <option key={index} value={language.id}>
@@ -478,7 +497,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                         </option>
                                     );
                                 })}
-                            </select>
+                            </select> */}
                         </div>
                         <div className="courseMultiSelect flex flex-col w-full mx-2 space-y-2">
                             <label htmlFor="selectableCourses">
@@ -506,15 +525,12 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 onChange={handleSelectCourse}
                                 options={courseOptions}
                             /> */}
-                            <select style={inputStyle}>
-                                {courses.map((course, index) => {
-                                    return (
-                                        <option key={index} value={course.id}>
-                                            {course.course}
-                                        </option>
-                                    );
-                                })}
-                            </select>
+                            <Select
+                                multiple
+                                options={courseOptions}
+                                value={selectedCourses}
+                                onChange={(o) => setSelectedCourses(o)}
+                            />
                         </div>
                     </div>
                     <div className="form-row-3 md:flex min-w-[320px]">

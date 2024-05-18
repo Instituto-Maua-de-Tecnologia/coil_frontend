@@ -84,7 +84,9 @@ const ProjectList: React.FC<ProjectListProps> = ({
     };
 
     useEffect(() => {
-        handleGetEnrolledProjects();
+        if (!isAdmin) {
+            handleGetEnrolledProjects();
+        }
     }, []);
 
     const handleVerifyEnrollment = (id: string) => {

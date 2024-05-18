@@ -28,8 +28,11 @@ export interface Project {
     id: string;
     languages: [
         {
+            id: number;
             language: string;
-        }
+            language_code: string;
+        },
+        language_id: number
     ];
     partner_institutions: [
         {

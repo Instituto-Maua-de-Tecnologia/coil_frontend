@@ -6,55 +6,62 @@ import UserHome, { UserHomeProps } from "@components/User/UserHome";
 import { useState, useEffect } from "react";
 
 export default function Home() {
-    const [user, setUser] = useState<UserHomeProps>({
-        userHome: {
-            id: "",
-            name: "",
-            email: "",
-            user_type: 0,
-            // course: "",
-            // semester_course: 0,
-            created_at: "",
-            updated_at: ""
-        }
-    });
+    const [user, setUser] = useState<UserHomeProps | null>(null);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        const userTemp = localStorage.getItem("user") as string;
+        const userTemp = localStorage.getItem("user");
         if (userTemp) {
+            const parsedUser = JSON.parse(userTemp);
             setUser({
                 userHome: {
-                    id: JSON.parse(userTemp).id,
-                    name: JSON.parse(userTemp).name,
-                    email: JSON.parse(userTemp).email,
-                    user_type: JSON.parse(userTemp).user_type,
-                    // course: JSON.parse(userTemp).course,
-                    // semester_course: JSON.parse(userTemp).semester_course,
-                    created_at: JSON.parse(userTemp).created_at,
-                    updated_at: JSON.parse(userTemp).updated_at
+                    id: parsedUser.id,
+                    name: parsedUser.name,
+                    email: parsedUser.email,
+                    user_type: parsedUser.user_type,
+                    created_at: parsedUser.created_at,
+                    updated_at: parsedUser.updated_at
                 }
             });
         }
-    }, [localStorage.getItem("user")]);
+        setLoading(false);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <p>Loading...</p>
+            </div>
+        );
+    }
+
+    if (!user) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <p>No user data available.</p>
+            </div>
+        );
+    }
 
     return (
-        <>
-            <div className="max-h-screen flex flex-col">
-                <TitleHeader title={"Home"} />
-                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
-                    <SideBar />
-                    <div className="custom-scrollbar overflow-y-hidden  max-h-screen flex-col w-full ">
-                        <div
-                            className={`flex 2xs:flex-col sm:flex-row wrap rounded-3xl w-full md:h-25%`}
-                        >
-                            {user && <UserHome userHome={user.userHome} />}
-                        </div>
-                        <div className="mt-4 md:flex h-full w-full md:h-3/4">
-                            <ProjectList isAdmin={false} />
+        <div className="max-h-screen flex flex-col">
+            <TitleHeader title={"Home"} />
+            <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
+                <SideBar />
+                <div className="custom-scrollbar overflow-y-hidden max-h-screen flex-col w-full">
+                    <div
+                        className={`flex 2xs:flex-col sm:flex-row wrap rounded-3xl w-full md:h-25%`}
+                    >
+                        <UserHome userHome={user.userHome} />
+                    </div>
+                    <div className="mt-4 md:flex h-full w-full md:h-3/4">
+                        <ProjectList isAdmin={user.userHome.user_type === 3} />
+                        {user.userHome.user_type === 1 && (
                             <EnrolledList type_activity={true} />
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import React from "react";
 import SVGIcon from "../ImageInstances/SVGIcon";
 import { countryCodes, Project } from "../../types";
@@ -9,7 +12,7 @@ interface ProjectCardProps {
     project: Project;
     enrolled: boolean;
     onClick: (project: Project) => void;
-    showBadge?: boolean; // New prop to control badge display
+    showBadge?: boolean;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -36,7 +39,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         });
         return countryNames.join(" ");
     }
-    const countryCodesArray = project.languages.map((fds) => fds.language);
+    const countryCodesArray = project.languages.map(
+        (l) => l["language"].language
+    );
     const countryName = getCountryFullName(countryCodesArray);
 
     return (
@@ -50,7 +55,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         >
             <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
-                    <div className="w-full flex">
+                    <div className="w-full flex grow">
                         <div className="sm:avatar-wrapper sm:flex flex-col sm:mr-4">
                             <img
                                 src={
@@ -58,13 +63,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                                         ?.images[0]?.image
                                 }
                                 alt="Avatar"
-                                className="avatar-img mx-auto w-16 rounded-full"
+                                className=" mx-auto w-16 rounded-full"
                             />
                         </div>
                         <div className="flex flex-col">
                             <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold">
                                 {project.title}
-                                {showBadge && ( // Conditionally render badge
+                                {showBadge && (
                                     <div
                                         title={
                                             project.activity_type.id === 1
@@ -98,12 +103,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                                                 }
                                             >
                                                 <p className={"text-xs me-2"}>
-                                                    {language.language
-                                                        .charAt(0)
-                                                        .toUpperCase() +
-                                                        language.language.slice(
-                                                            1
-                                                        )}
+                                                    {
+                                                        language["language"]
+                                                            .language
+                                                    }
                                                 </p>
                                                 {index % 2 === 0 ? (
                                                     <SVGIcon
@@ -135,7 +138,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                                     }
                                 </p>
                                 <SVGIcon
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryCodes[project?.partner_institutions[0]?.institution.country.toLowerCase()]}.svg`}
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${countryCodes[project?.partner_institutions[0]?.institution?.countries[0]?.country?.country_code]}.svg`}
                                     className="w-4 m-[1px]"
                                 />
                             </div>

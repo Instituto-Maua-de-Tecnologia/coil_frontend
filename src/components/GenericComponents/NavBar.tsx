@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
 import authUser from "@integrations/user/authentification/auth_user.ts";
 import getUser from "@integrations/user/authentification/get_user.ts";
@@ -16,34 +15,6 @@ const Navbar = () => {
             setTimeout(resolve, ms);
         });
     }
-
-    useEffect(() => {
-        let token = localStorage.getItem("token");
-        if (token) {
-            toast
-                .promise(
-                    getUser({ token: token })
-                        .then((user: any) => {
-                            return user;
-                        })
-                        .catch((error) => {
-                            if (error.status === 401) {
-                                localStorage.clear();
-                                throw new Error("Usuário não Autorizado.");
-                            }
-                        }),
-                    {
-                        loading: "Realizando Login...",
-                        success: <b>Usuário logado com sucesso</b>,
-                        error: (error) => error.message
-                    }
-                )
-                .then(async () => {
-                    await delay(1500);
-                    handleNavigate();
-                });
-        }
-    }, [localStorage.getItem("token")]);
 
     async function handleLogin() {
         let response = await instance.loginPopup({

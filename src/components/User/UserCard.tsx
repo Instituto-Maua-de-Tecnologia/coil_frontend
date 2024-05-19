@@ -2,9 +2,8 @@ import account_circle from "@assets/icons/account_circle.png";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 //import updateUser from "@integrations/user/authentification/update_user";
 //import React, { useEffect, useState } from "react";
-//import { CourseProps } from "@screens/SignUp";
-//import getAllCourses from "@integrations/course/get_all_courses";
 import ToasterContainer from "@components/GenericComponents/ToasterContainer.tsx";
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 //import toast from "react-hot-toast";
 
 export type UserCardProps = {
@@ -19,9 +18,8 @@ export type UserCardProps = {
 };
 
 export default function UserCard({ userCard }: UserCardProps) {
-    const { name, email } = userCard;
+    const { name, email, user_type } = userCard;
     const isDarkTheme = useThemeDetector();
-
     return (
         <>
             <ToasterContainer />
@@ -36,8 +34,15 @@ export default function UserCard({ userCard }: UserCardProps) {
                             />
                         </div>
                         <div className="flex-col w-full h-full items-center mt-10 ">
+                            <h1 className={"text-center text-[32px]"}>
+                                {UserTypeEnum.STUDENT ===
+                                (user_type as UserTypeEnum)
+                                    ? "Student"
+                                    : "Admin"}{" "}
+                                User
+                            </h1>
                             <p
-                                className={`${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 mb-5`}
+                                className={`${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl mt- p-4 mb-5`}
                             >
                                 {name}
                             </p>

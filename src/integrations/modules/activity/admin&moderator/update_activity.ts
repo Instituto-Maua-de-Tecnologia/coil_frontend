@@ -29,7 +29,7 @@ interface CreateActivityResponse {
     message: string;
 }
 
-export default async function createActivity(props: UpdateActivityProps) {
+export default async function updateActivity(props: UpdateActivityProps) {
     const token = localStorage.getItem("token");
     console.log(JSON.stringify(props.body));
     return new Promise((resolve, reject) => {

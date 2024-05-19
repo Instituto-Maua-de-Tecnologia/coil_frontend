@@ -10,8 +10,8 @@ interface CreateActivityProps {
         partner_institutions: string[];
         courses: number[];
         criterias: {
-            id: string | undefined;
-            criteria: string;
+            id?: number;
+            criteria?: string;
         }[];
         type_activity: number;
     };

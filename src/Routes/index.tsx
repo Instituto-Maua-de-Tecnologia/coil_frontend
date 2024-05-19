@@ -40,6 +40,16 @@ export default function AppRoutes() {
         }
     }, []);
 
+    async function handleUser() {
+        const token = localStorage.getItem("token") as string;
+        const user = await getUser({ token: token });
+        localStorage.setItem("user", JSON.stringify(user));
+    }
+
+    useEffect(() => {
+        handleUser();
+    }, [localStorage.getItem("token")]);
+
     return (
         <BrowserRouter>
             <Routes>
@@ -53,30 +63,9 @@ export default function AppRoutes() {
                 />
                 <Route path={"/Projects"} element={<Projects />} />
                 <Route path={"/ProjectInfo"} element={<ProjectInfo />} />
-                <Route
-                    path={"/CreateProject"}
-                    element={
-                        <CreateActivity
-                            activity_type={ActivityTypeEnum.PROJECT}
-                        />
-                    }
-                />
-                <Route
-                    path={"/CreateProject"}
-                    element={
-                        <CreateActivity
-                            activity_type={ActivityTypeEnum.ACADEMIC_MOBILITY}
-                        />
-                    }
-                />
-                <Route
-                    path={"/CreateMobility"}
-                    element={
-                        <CreateActivity
-                            activity_type={ActivityTypeEnum.ACADEMIC_MOBILITY}
-                        />
-                    }
-                />
+                <Route path={"/CreateProject"} element={<CreateActivity />} />
+                <Route path={"/CreateProject"} element={<CreateActivity />} />
+                <Route path={"/CreateMobility"} element={<CreateActivity />} />
                 <Route path={"/Mobilities"} element={<Mobilities />} />
                 <Route
                     path={"/Enrolled"}

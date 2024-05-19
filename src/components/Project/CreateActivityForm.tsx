@@ -16,7 +16,7 @@ import Select, { SelectOption } from "@components/GenericComponents/Select";
 
 type InstitutionProps = [
     {
-        id: number;
+        id: string;
         name: string;
     }
 ];
@@ -44,7 +44,7 @@ export type LangOptionProps = {
 
 export type CriteriaProps = [
     {
-        id: number;
+        id: string;
         criteria: string;
     }
 ];
@@ -58,7 +58,7 @@ export type RequirementProps = {
     ];
     criterias: [
         {
-            id: number;
+            id: string;
             criteria: string;
         }
     ];
@@ -85,12 +85,10 @@ interface ActivityFromData {
     languages: number[];
     partner_institutions: string[];
     courses: number[];
-    criterias: [
-        {
-            id?: number;
-            criteria: string;
-        }
-    ];
+    criterias: {
+        id: string | undefined;
+        criteria: string;
+    }[];
     type_activity: number;
 }
 
@@ -114,8 +112,17 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     //     { id: 0, course: "" }
     // ]);
     const [institutions, setInstitutions] = useState<InstitutionProps>([
-        { id: 0, name: "" }
+        { id: "", name: "" }
     ]); //TODO: verificar se a lógica está certa ou se ele está puxando todas as instituições, ele tem que puxar só as instituições selecionadas pelo usuário
+    const institutionOptions: SelectOption[] = institutions.map(
+        (institution) => ({
+            label: institution.name,
+            value: institution.id
+        })
+    );
+    const [selectedInstitutions, setSelectedInstitutions] = useState<
+        SelectOption[]
+    >([]);
     const [languages, setLanguages] = useState<LangListProps>([
         { id: 0, language: "" }
     ]);
@@ -124,6 +131,16 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         value: language.id
     }));
     const [selectedLanguages, setSelectedLanguages] = useState<SelectOption[]>(
+        []
+    );
+    const [criterias, setCriterias] = useState<CriteriaProps>([
+        { id: "", criteria: "" }
+    ]);
+    const criteriasOptions: SelectOption[] = criterias.map((criteria) => ({
+        label: criteria.criteria,
+        value: criteria.id
+    }));
+    const [selectedCriterias, setSelectedCriterias] = useState<SelectOption[]>(
         []
     );
     // function mapLang(lang: LangProps): LangOptionProps {
@@ -145,12 +162,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         languages: [],
         partner_institutions: [""],
         courses: [],
-        criterias: [
-            {
-                id: null,
-                criteria: null
-            }
-        ],
+        criterias: [{ id: undefined, criteria: "" }],
         type_activity: isProject ? 1 : 2
     });
     const projectNameRef = useRef<HTMLInputElement>(null);
@@ -158,139 +170,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
 
     const navigate = useNavigate();
     const isDarkTheme = useThemeDetector();
-
-    const inputStyle = {
-        backgroundColor: isDarkTheme ? "#223A4F" : "#F0F3FB",
-        placeholderColor: isDarkTheme ? "#0F1820" : "CBD0DD",
-        border: "none",
-        borderRadius: "30px",
-        padding: "9px 12px",
-        outline: "none"
-    };
-
-    const textAreaStyle = {
-        backgroundColor: isDarkTheme ? "#223A4F" : "#F0F3FB",
-        border: "none",
-        borderRadius: "18px",
-        padding: "8px 12px",
-        outline: "none"
-    };
-
-    // const multiStyle: StylesConfig = {
-    //     control: (provided) => ({
-    //         ...provided,
-    //         backgroundColor: isDarkTheme ? "#223A4F" : "#F0F3FB",
-    //         border: "none",
-    //         boxShadow: "none",
-    //         borderRadius: "30px"
-    //     }),
-    //     menu: () => ({
-    //         backgroundColor: isDarkTheme ? "#223A4F" : "#F0F3FB",
-    //         padding: "8px",
-    //         borderRadius: "30px",
-    //         boxShadow: "0 0 2px #1D232C50"
-    //     }),
-    //     option: (provided, state) => ({
-    //         ...provided,
-    //         margin: "0 0 8px 0",
-    //         width: "80%",
-    //         color: "#FFFFFF",
-    //         borderRadius: "30px",
-    //         backgroundColor: state.isFocused ? "#673366" : "#512650",
-    //         whiteSpace: "nowrap",
-    //         cursor: "pointer",
-    //         overflow: "hidden",
-    //         textOverflow: "ellipsis"
-    //     }),
-    //     multiValue: (provided) => ({
-    //         ...provided,
-    //         color: "#FFFFFF",
-    //         padding: "1px 4px",
-    //         borderRadius: "30px",
-    //         backgroundColor: "#673366",
-    //         maxWidth: "240px",
-    //         fontSize: "20px",
-    //         whiteSpace: "nowrap",
-    //         overflow: "hidden",
-    //         textOverflow: "ellipsis"
-    //     }),
-    //     multiValueLabel: (provided) => ({
-    //         ...provided,
-    //         color: "#FFFFFF"
-    //     }),
-    //     multiValueRemove: (provided) => ({
-    //         ...provided,
-    //         color: "#FFFFFF",
-    //         ":hover": {
-    //             backgroundColor: "transparent"
-    //         }
-    //     }),
-    //     dropdownIndicator: (provided) => ({
-    //         ...provided,
-    //         color: isDarkTheme ? "#FFFFFF" : "#1D232C"
-    //     }),
-    //     placeholder: (provided) => ({
-    //         ...provided,
-    //         color: isDarkTheme ? "#CBD0DD" : "#0F1820"
-    //     })
-    // };
-
-    // const singleStyle: StylesConfig = {
-    //     control: (provided) => ({
-    //         ...provided,
-    //         backgroundColor: isDarkTheme ? "#223A4F" : "#F0F3FB",
-    //         border: "none",
-    //         boxShadow: "none",
-    //         borderRadius: "30px"
-    //     }),
-    //     menu: () => ({
-    //         backgroundColor: isDarkTheme ? "#223A4F" : "#F0F3FB",
-    //         padding: "8px",
-    //         borderRadius: "30px",
-    //         boxShadow: "0 0 2px #1D232C50"
-    //     }),
-    //     option: (provided, state) => ({
-    //         ...provided,
-    //         margin: "0px 0px 8px 0px",
-    //         width: "100%",
-    //         color: isDarkTheme ? "#FFFFFF" : "#1D232C",
-    //         whiteSpace: "nowrap",
-    //         overflow: "hidden",
-    //         borderRadius: "30px",
-    //         textOverflow: "ellipsis",
-    //         cursor: "pointer",
-    //         background: state.isFocused
-    //             ? "rgba(112,155,210,0.49)"
-    //             : "transparent"
-    //     }),
-    //     singleValue: (provided) => ({
-    //         ...provided,
-    //         color: isDarkTheme ? "#FFFFFF" : "#1D232C",
-    //         width: "100%",
-    //         background: "transparent",
-    //         padding: "4px 12px",
-    //         borderRadius: "30px"
-    //     }),
-    //     dropdownIndicator: (provided) => ({
-    //         ...provided,
-    //         fill: "#FFFFFF"
-    //     }),
-    //     placeholder: (provided) => ({
-    //         ...provided,
-    //         color: isDarkTheme ? "#CBD0DD" : "#0F1820"
-    //     })
-    // };
-
-    // const handleAddCriteria = () => {
-    //     console.log(criterias);
-    //     setCriterias([...criterias]);
-    // };
-
-    // const handleRemoveCriteria = (index: number) => {
-    //     const newCriterias = [...criterias];
-    //     newCriterias.splice(index, 1);
-    //     // setCriterias(newCriterias);
-    // };
 
     async function delay(ms: number) {
         return new Promise((resolve) => {
@@ -308,6 +187,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             console.log(requirements);
             setCourses(requirements.courses);
             setLanguages(requirements.languages);
+            setCriterias(requirements.criterias);
             // setCriterias(requirements.criterias);
         } catch (error) {
             console.error("Erro ao obter cursos:", error);
@@ -352,9 +232,12 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         }
         const title = projectNameRef.current?.value || "";
         const description = projectDescriptionRef.current?.value || "";
-        // const courses = selectedCourses.map((fds) => fds.id);
-        // const languages = selectedLanguages.map((lang) => lang.id);
-        // const selectedCriteria = criterias.map((criteria) => ( ));
+        const courses = selectedCourses.map((fds) => Number(fds.value));
+        const languages = selectedLanguages.map((lang) => Number(lang.value));
+        const criterias = selectedCriterias.map((criteria) => ({
+            id: undefined,
+            criteria: criteria.label
+        }));
         const partner_institutions: string[] = institutions.map((institution) =>
             institution.id.toString()
         );
@@ -367,12 +250,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             description,
             partner_institutions,
             courses,
-            criterias: [
-                {
-                    id,
-                    criteria
-                }
-            ],
+            criterias,
             languages
         };
 
@@ -450,6 +328,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     //     setFormData({ ...formData, languages: languages });
     //     // setSelectedLanguages(languages);
     // };
+
     return (
         <>
             <ToasterContainer />
@@ -461,70 +340,25 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                         <label htmlFor="projectName">Project Name</label>
                         <input
                             ref={projectNameRef}
-                            className={`placeholder:text-[${inputStyle["placeholderColor"]}]`}
+                            className={`${isDarkTheme ? "placeholder:text-[#0F1820] bg-[#223A4F]" : "placeholder:text-[#CBD0DD] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6`}
                             type="text"
                             placeholder="Type the name..."
-                            style={inputStyle}
                         />
                     </div>
                     <div className="form-row-2 md:flex min-w-[320px]">
                         <div className="langMultiSelect flex flex-col mx-2 w-full space-y-2">
                             <label htmlFor="languages">Languages</label>
-                            {/* <Select
-                                isMulti
-                                options={languageOptions}
-                                menuPosition="fixed"
-                                components={{
-                                    IndicatorSeparator: () => null,
-                                    DropdownIndicator: () => (
-                                        <DropdownIndicator />
-                                    )
-                                }}
-                                onChange={handleSelectLanguages}
-                                styles={multiStyle}
-                            /> */}
                             <Select
                                 multiple
                                 options={languageOptions}
                                 value={selectedLanguages}
                                 onChange={(o) => setSelectedLanguages(o)}
                             />
-                            {/* <select style={inputStyle}>
-                                {languages.map((language, index) => {
-                                    return (
-                                        <option key={index} value={language.id}>
-                                            {language.language}
-                                        </option>
-                                    );
-                                })}
-                            </select> */}
                         </div>
                         <div className="courseMultiSelect flex flex-col w-full mx-2 space-y-2">
                             <label htmlFor="selectableCourses">
                                 Selectable Courses
                             </label>
-                            {/* <Select
-                                isMulti
-                                menuPosition="fixed"
-                                isClearable={true}
-                                isSearchable={true}
-                                styles={multiStyle}
-                                components={{
-                                    IndicatorSeparator: () => null,
-                                    DropdownIndicator: () => (
-                                        <DropdownIndicator />
-                                    )
-                                }}
-                                value={selectedCourses.map((course) => {
-                                    if (course.course !== "")
-                                        return {
-                                            value: course.id,
-                                            label: course.course
-                                        };
-                                })}
-                                onChange={handleSelectCourse}
-                                options={courseOptions}
-                            /> */}
                             <Select
                                 multiple
                                 options={courseOptions}
@@ -539,36 +373,18 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 <label htmlFor="partnerInstitution">
                                     Partner Institution
                                 </label>
-                                {/* <Select
-                                    className={"placeholder:text-white"}
-                                    options={institutionsOptions}
-                                    menuPosition="fixed"
-                                    components={{
-                                        IndicatorSeparator: () => null,
-                                        DropdownIndicator: () => (
-                                            <DropdownIndicator />
-                                        )
-                                    }}
-                                    styles={singleStyle}
-                                /> */}
-                                <select style={inputStyle}>
-                                    {institutions.map((institution, index) => {
-                                        return (
-                                            <option
-                                                key={index}
-                                                value={institution.id}
-                                            >
-                                                {institution.name}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
+                                <Select
+                                    multiple
+                                    options={institutionOptions}
+                                    value={selectedInstitutions}
+                                    onChange={(o) => setSelectedInstitutions(o)}
+                                />
                             </div>
                         </div>
                         <div className="form-row-3-2 md:flex w-full">
                             <div className="application-start-date flex flex-col mx-2 space-y-2 w-[52%]">
                                 <label htmlFor="applicationStartDate">
-                                    Aplication Start and End Date
+                                    Application Period
                                 </label>
                                 <Calendar
                                     className={"w-full "}
@@ -593,7 +409,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                             </div>
                             <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
                                 <label htmlFor="applicationEndDate">
-                                    Start time period
+                                    Start Time
                                 </label>
                                 <Calendar
                                     value={startTime}
@@ -617,7 +433,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                             </div>
                             <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
                                 <label htmlFor="applicationEndDate">
-                                    End time period
+                                    End Time
                                 </label>
                                 <Calendar
                                     value={endTime}
@@ -648,51 +464,21 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                             </label>
                             <textarea
                                 ref={projectDescriptionRef}
-                                className={`mt-2 placeholder:text-[${inputStyle["placeholderColor"]}]`}
+                                className={`${isDarkTheme ? "placeholder:text-[#0F1820] bg-[#223A4F]" : "placeholder:text-[#CBD0DD] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6 py-3 resize-none`}
                                 placeholder="Type the description..."
                                 rows={18}
-                                style={textAreaStyle}
                             />
                         </div>
                         <div className="project-criteria mx-2 space-y-2 w-full">
                             <label htmlFor="projectCriteria">
                                 Project Criteria
                             </label>
-                            {/* <ul className="overflow-auto w-max-[460px]">
-                                {criterias.map((c, index) => (
-                                    <li
-                                        key={index}
-                                        value={c.id}
-                                        onChange={(event: any) => {
-                                            const updatedCriterias = [
-                                                ...criterias
-                                            ];
-                                            updatedCriterias[index] =
-                                                event.target.value;
-                                            setCriterias(updatedCriterias);
-                                        }}
-                                        className={`${c} criteria-item flex items-center mt-1 mb-3`}
-                                    >
-                                        <TrashButton
-                                            onRemoveCriteria={() => {
-                                                handleRemoveCriteria(index);
-                                            }}
-                                        />
-                                        <input
-                                            className={`w-full placeholder:text-[${inputStyle["placeholderColor"]}]`}
-                                            type="text"
-                                            placeholder="Type your criteria..."
-                                            style={inputStyle}
-                                        />
-                                    </li>
-                                ))}
-                                <button
-                                    onClick={handleAddCriteria}
-                                    className="add-criteria text-[#2684FF] text-semibold"
-                                >
-                                    + Add Criteria
-                                </button>
-                            </ul> */}
+                            <Select
+                                multiple
+                                options={criteriasOptions}
+                                value={selectedCriterias}
+                                onChange={(o) => setSelectedCriterias(o)}
+                            />
                         </div>
                     </div>
                     <div className="button-row flex">

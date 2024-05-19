@@ -195,6 +195,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
             const projectValue = (await getActivity({
                 activity_id: id
             })) as ProjectProps;
+            console.log(projectValue);
             setProject(projectValue);
         } catch (error) {
             console.error("Erro ao obter projeto:", error);
@@ -361,7 +362,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                         >
                             <div className="p-3 font-extrabold">
                                 <h1>Criteria: </h1>
-                                {project.data.criterias[0].criteria.criteria}
+                                {/* {project.data.criterias[0].criteria.criteria} */}
                             </div>
                         </div>
                     </div>

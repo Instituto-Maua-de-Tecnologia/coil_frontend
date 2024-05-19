@@ -9,12 +9,10 @@ interface CreateActivityProps {
         languages: number[];
         partner_institutions: string[];
         courses: number[];
-        criterias: [
-            {
-                id?: string | null;
-                criteria: string | null;
-            }
-        ];
+        criterias: {
+            id: string | undefined;
+            criteria: string;
+        }[];
         type_activity: number;
     };
 }

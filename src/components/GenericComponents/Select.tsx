@@ -66,64 +66,102 @@ export default function Select({
             onBlur={() => setShowingOptions(false)}
             onClick={() => setShowingOptions(!showingOptions)}
             tabIndex={0}
-            className={`relative w-full min-h-[1.5em] flex items-center gap-[.5em] p-[.5em] rounded-3xl ${isDarkTheme ? "bg-[#223A4F]" : "bg-[#CBD0DD]"}`}
+            className={`relative w-full min-h-[1.5em] flex items-center focus:outline focus:outline-2 focus:outline-[#2684FF] gap-[.5em] p-[.5em] rounded-3xl ${isDarkTheme ? "bg-[#223A4F]" : "bg-[#CBD0DD]"}`}
         >
-            <span className="flex-grow flex gap-[.5em] flex-wrap px-4">
-                {multiple
-                    ? value.map((v) => (
-                          <button
-                              className="flex items-center bg-[#673366] rounded-3xl py-[.25em] px-4 gap-[.5em] z-[100] hover:bg-[#532352]"
-                              key={v.value}
-                              onClick={(e) => {
-                                  e.stopPropagation();
-                                  selectOption(v);
-                              }}
-                          >
-                              {v.label}
-                              <span>&times;</span>
-                          </button>
-                      ))
-                    : value?.label}
-            </span>
-            <button
-                onClick={(e) => {
-                    e.stopPropagation();
-                    clearOptions();
-                    setShowingOptions(false);
-                }}
-                className="text-[#FFFFFF] hover:text-[#2684FF] focus:text-[#2684FF] text-xl"
+            <span
+                className={`flex-grow flex gap-[.5em] flex-wrap px-4 ${multiple ? "font-bold" : "font-normal text-[#0F1820]"}`}
             >
-                &times;
-            </button>
-            <div className="bg-[#14222E] self-stretch w-[.05em]"></div>
-            <div
-                className="border-transparent border-t-[#FFFFFF] border-[.25em] border-solid"
-                style={{}}
-            ></div>
+                {multiple ? (
+                    value.length > 0 ? (
+                        value.map((v) => (
+                            <button
+                                className="flex items-center bg-[#673366] rounded-3xl py-[.25em] px-4 gap-[.5em] hover:bg-[#DC143C]"
+                                key={v.value}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    selectOption(v);
+                                }}
+                            >
+                                {v.label}
+                                <span>&times;</span>
+                            </button>
+                        ))
+                    ) : (
+                        <span className="font-normal text-[#0F1820]">
+                            Select...
+                        </span>
+                    )
+                ) : value != undefined ? (
+                    value?.label
+                ) : (
+                    "Type..."
+                )}
+            </span>
+            <div className="flex gap-2">
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        clearOptions();
+                        setShowingOptions(false);
+                    }}
+                    className="text-[#FFFFFF] hover:text-[#2684FF] focus:text-[#2684FF] text-xl"
+                >
+                    &times;
+                </button>
+                <div className="bg-[#14222E] self-stretch w-[.05em]"></div>
+                <div
+                    className="border-transparent border-t-[#FFFFFF] border-[.25em] border-solid translate-y-3"
+                    style={{}}
+                ></div>
+            </div>
+
             <div
                 className={
                     (showingOptions
-                        ? "block focus:border-2 focus:border-[#2684FF]"
+                        ? "block border-2 border-[#2684FF]"
                         : "hidden") +
                     (isDarkTheme ? " absolute bg-[#223A4F]" : " bg-[#CBD0DD]") +
-                    " rounded-3xl w-full left-0 top-[100%] z-[99] p-4"
+                    " rounded-3xl w-full left-0 top-[115%] z-[99] p-4"
                 }
             >
-                <ul className="overflow-y-auto max-h-[15em]">
-                    {options.map((option, index) => (
-                        <li
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                selectOption(option);
-                                setShowingOptions(false);
-                            }}
-                            onMouseEnter={() => setHighlightedIndex(index)}
-                            className={`px-[.25em] pl-4 py-[.5em] cursor-pointer rounded-l-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
-                            key={index}
-                        >
-                            {option.label}
-                        </li>
-                    ))}
+                <ul
+                    className={`overflow-y-auto ${multiple ? "flex flex-wrap font-bold" : "font-normal"} max-h-[15em]`}
+                >
+                    {multiple
+                        ? options.map((option, index) => (
+                              <li
+                                  onClick={(e) => {
+                                      e.stopPropagation();
+                                      selectOption(option);
+                                      multiple
+                                          ? null
+                                          : setShowingOptions(false);
+                                  }}
+                                  onMouseEnter={() =>
+                                      setHighlightedIndex(index)
+                                  }
+                                  className={`${value.some((o) => o.label == option.label) ? "hidden" : "block"} bg-[#673366] hover:bg-[#532352] py-[.25em] px-4 m-1 cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
+                                  key={option.value}
+                              >
+                                  {option.label}
+                              </li>
+                          ))
+                        : options.map((option, index) => (
+                              <li
+                                  onClick={(e) => {
+                                      e.stopPropagation();
+                                      selectOption(option);
+                                      setShowingOptions(false);
+                                  }}
+                                  onMouseEnter={() =>
+                                      setHighlightedIndex(index)
+                                  }
+                                  className={`${value === option ? "hidden" : "block"} px-[.25em] pl-4 py-[.5em] cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
+                                  key={option.value}
+                              >
+                                  {option.label}
+                              </li>
+                          ))}
                 </ul>
             </div>
         </div>

@@ -12,7 +12,9 @@ interface UpdateUserStatusResponse {
     data: object;
 }
 
-export default async function updateActivity(props: UpdateUserStatusProps) {
+export default async function updateUserStatusInActivity(
+    props: UpdateUserStatusProps
+) {
     const token = localStorage.getItem("token");
     console.log(JSON.stringify(props.body));
     return new Promise((resolve, reject) => {

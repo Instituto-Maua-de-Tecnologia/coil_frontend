@@ -1,20 +1,52 @@
 import { useState } from "react";
-import { Student } from "../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
+import React from "react";
+import updateUserStatusInActivity from "@integrations/activity/admin&moderator/update_user_status_in_activity.ts";
+import getActivity from "@integrations/activity/get_activity.ts";
 
-interface EnrolledStudentCardProps {
-    enrolledStudent: Student;
+interface User {
+    id: string;
+    name: string;
+    email: string;
+    user_type: number;
+    created_at: string;
+    updated_at: string;
+}
+
+interface Applicant {
+    id?: string;
+    user?: User;
+    status?: boolean;
+}
+
+interface Applicants {
+    users_applicants: Applicant[];
+    projectID: string;
 }
 
 export default function EnrolledStudentCard({
-    enrolledStudent
-}: EnrolledStudentCardProps) {
+    users_applicants,
+    projectID
+}: Applicants) {
     const isDarkTheme = useThemeDetector();
-    const [isApproved, setIsApproved] = useState(enrolledStudent.approval);
+    const [applicants, setApplicants] = useState<Applicant[]>(users_applicants);
 
-    const handleToggleApprovation = () => {
-        enrolledStudent.approval = !enrolledStudent.approval;
-        setIsApproved(enrolledStudent.approval);
+    const handleToggleApprovation = async (index: number) => {
+        try {
+            await updateUserStatusInActivity({
+                body: {
+                    activity_id: projectID,
+                    applicant_id: users_applicants[index].id as string
+                }
+            });
+            const getResultsAgain = await getActivity({
+                activity_id: projectID
+            });
+            console.log(getResultsAgain?.data.applicants);
+            setApplicants(getResultsAgain?.data.applicants);
+        } catch (e: any) {
+            throw new Error(e);
+        }
     };
 
     return (
@@ -23,26 +55,39 @@ export default function EnrolledStudentCard({
         >
             <div className="flex sm:relative sm:justify-between w-full">
                 <div className="sm:flex w-full sm:items-center">
-                    <div className="font-bold w-full">
-                        {enrolledStudent.name}
-                    </div>
-                    <div className="font-bold w-full">{enrolledStudent.ra}</div>
-                    <div className="font-bold w-full">
-                        {enrolledStudent.course}
-                    </div>
-                    <div className="mr-2">
-                        <button onClick={handleToggleApprovation}>
-                            {isApproved ? (
-                                <div className="text-blue-500 bg-[#223A4F] text-sm px-4 py-2 my-2 rounded-full">
-                                    Unapproved
-                                </div>
-                            ) : (
-                                <div className="text-white min-w-[112px] bg-[#2684FF] text-sm px-4 py-2 my-2 rounded-full">
-                                    Approved
-                                </div>
-                            )}
-                        </button>
-                    </div>
+                    {applicants.map((user_applicant, index) => (
+                        <React.Fragment key={"ResultsCard" + index}>
+                            <div className="font-bold w-full">
+                                {user_applicant.user?.name}
+                            </div>
+                            <div className="font-bold w-full">
+                                {user_applicant.user?.email.substring(
+                                    0,
+                                    user_applicant.user?.email.indexOf("@")
+                                )}
+                            </div>
+                            <div className="font-bold w-full">
+                                {user_applicant.user?.email}
+                            </div>
+                            <div className="mr-2">
+                                <button
+                                    onClick={() =>
+                                        handleToggleApprovation(index)
+                                    }
+                                >
+                                    {(applicants[index].status as boolean) ? (
+                                        <div className="text-blue-500 bg-[#223A4F] text-sm px-4 py-2 my-2 rounded-full">
+                                            Unapproved
+                                        </div>
+                                    ) : (
+                                        <div className="text-white min-w-[112px] bg-[#2684FF] text-sm px-4 py-2 my-2 rounded-full">
+                                            Approved
+                                        </div>
+                                    )}
+                                </button>
+                            </div>
+                        </React.Fragment>
+                    ))}
                 </div>
             </div>
         </li>

@@ -13,7 +13,7 @@ import { Nullable } from "primereact/ts-helpers";
 import "primeicons/primeicons.css";
 import getActivityRequirements from "@integrations/activity/admin&moderator/get_activity_requirements.ts";
 import Select, { SelectOption } from "@components/GenericComponents/Select";
-import { Project } from "types";
+import { Project } from "../../types.ts";
 
 type InstitutionProps = [
     {
@@ -244,7 +244,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             }));
             return filteredCriterias;
         }
-
         const title = projectNameRef.current?.value || "";
         const description = projectDescriptionRef.current?.value || "";
         const courses = selectedCourses.map((fds) => Number(fds.value));

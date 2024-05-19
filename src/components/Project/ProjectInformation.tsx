@@ -9,7 +9,7 @@ import { ActivityStatusEnum } from "@enum/ActivityStatusEnum.ts";
 import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
 import { useNavigate } from "react-router-dom";
 
-export type ProjectProps = {
+export interface ProjectProps {
     data: {
         id: string;
         title: string;
@@ -93,7 +93,7 @@ export type ProjectProps = {
             }
         ];
     };
-};
+}
 
 interface ProjectInfoProps {
     id: string;
@@ -333,7 +333,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                 .user_type === UserTypeEnum.ADMIN && (
                                 <button
                                     onClick={() =>
-                                        navigate("/EnrolledStundets", {
+                                        navigate("/EnrolledStudents", {
                                             state: {
                                                 projectID: project.data.id
                                             }

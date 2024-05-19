@@ -23,7 +23,14 @@ export default function ProjectCard({
         e.stopPropagation();
         if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
         else if (user.user_type === UserTypeEnum.ADMIN)
-            navigate("/CreateProject", { state: { userStatus: 3 } });
+            navigate("/CreateProject", {
+                state: {
+                    userStatus: 3,
+                    type_activity: 1,
+                    edit: true,
+                    project: project
+                }
+            });
     };
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();

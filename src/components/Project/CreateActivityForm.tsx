@@ -13,6 +13,7 @@ import { Nullable } from "primereact/ts-helpers";
 import "primeicons/primeicons.css";
 import getActivityRequirements from "@integrations/activity/admin&moderator/get_activity_requirements.ts";
 import Select, { SelectOption } from "@components/GenericComponents/Select";
+import { Project } from "types";
 
 type InstitutionProps = [
     {
@@ -86,13 +87,17 @@ interface ActivityFromData {
     partner_institutions: string[];
     courses: number[];
     criterias: {
-        id: string | undefined;
-        criteria: string;
+        id?: number;
+        criteria?: string;
     }[];
     type_activity: number;
 }
 
 interface ActivityFormProps {
+    isEdit: {
+        edit: true;
+        projectToEdit: Project;
+    };
     isProject: boolean;
 }
 
@@ -230,14 +235,21 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                 convertedEndTime.minutes
             ).toISOString();
         }
+
+        function handleCriteriaFilter() {
+            const filteredCriterias = selectedCriterias.map((criteria) => ({
+                id: criteria.value !== undefined ? criteria.value : undefined,
+                criteria:
+                    criteria.value !== undefined ? undefined : criteria.label
+            }));
+            return filteredCriterias;
+        }
+
         const title = projectNameRef.current?.value || "";
         const description = projectDescriptionRef.current?.value || "";
         const courses = selectedCourses.map((fds) => Number(fds.value));
         const languages = selectedLanguages.map((lang) => Number(lang.value));
-        const criterias = selectedCriterias.map((criteria) => ({
-            id: undefined,
-            criteria: criteria.label
-        }));
+        const criterias = handleCriteriaFilter();
         const partner_institutions: string[] = institutions.map((institution) =>
             institution.id.toString()
         );

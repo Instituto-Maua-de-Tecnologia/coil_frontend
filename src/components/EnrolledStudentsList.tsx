@@ -1,60 +1,32 @@
-import { useState } from "react";
-import Search from "./GenericComponents/Search";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../style/scrollbar.css";
 import EnrolledStudentCard from "./EnrolledStudentCard";
 import { ProjectProps } from "@components/Project/ProjectInformation.tsx";
 
 interface EnrolledStudentProps {
-    students: ProjectProps[];
+    students: ProjectProps;
 }
+
 export default function EnrolledStudentList({
     students
 }: EnrolledStudentProps) {
-    const [filteredEnrolledStudents, setFilteredEnrolledStudents] =
-        useState<EnrolledStudentProps[]>();
-
-    const handleSearch = (searchTerm: string) => {
-        const filtered = students.filter((student) =>
-            student.data.applicants
-                .map((fds) => fds.user?.name.toLowerCase())
-                .includes(searchTerm.toLowerCase())
-        );
-        setFilteredEnrolledStudents(filtered as any);
-    };
     const isDarkTheme = useThemeDetector();
 
     return (
         <div
             className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
-            <div className="mb-4 flex">
-                <Search disabled={false} onSearch={handleSearch} />
+            <div>
+                <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
+                    {students.data.applicants.map((_: any, index: number) => (
+                        <EnrolledStudentCard
+                            key={index}
+                            projectID={students.data.id}
+                            users_applicants={students.data.applicants}
+                        />
+                    ))}
+                </ul>
             </div>
-            {filteredEnrolledStudents !== undefined &&
-            filteredEnrolledStudents.length > 0 ? (
-                <>
-                    {/* <div className="table-header flex p-4 mb-2">
-                        <h1 className="font-bold text-[#0F1820]">Name</h1>
-                        <h1 className="font-bold text-[#0F1820]">R.A.</h1>
-                        <h1 className="font-bold text-[#0F1820]">Course</h1>
-                        <h1 className="font-bold text-[#0F1820]">Approval</h1>
-                    </div> */}
-                    <div>
-                        <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                            {filteredEnrolledStudents?.map((student) => (
-                                <EnrolledStudentCard
-                                    enrolledStudent={student}
-                                />
-                            ))}
-                        </ul>
-                    </div>
-                </>
-            ) : (
-                <p className="mx-auto my-5 text-center text-2xl">
-                    No student matched the search criteria
-                </p>
-            )}
         </div>
     );
 }

@@ -28,7 +28,7 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
                 {
                     course_id: 0,
                     course: {
-                        course: ""
+                        name: ""
                     }
                 }
             ],
@@ -54,11 +54,11 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
             // ],
             activity_status: {
                 id: 0,
-                course: ""
+                name: ""
             },
             activity_type: {
                 id: 0,
-                course: ""
+                name: ""
             },
             applications: [
                 {
@@ -94,7 +94,7 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
     };
 
     async function getEnrolledData() {
-        const activity = type_activity ? "1" : "2";
+        const activity = type_activity ? 1 : 2;
         try {
             const allActivitiesEnrolledData = await getAllActivitiesEnrolled({
                 type_activity: activity

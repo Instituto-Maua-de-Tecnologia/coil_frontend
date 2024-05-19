@@ -1,5 +1,6 @@
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import account_circle from "@assets/icons/account_circle.png";
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 // import { useEffect, useState } from "react";
 
 export type UserHomeProps = {
@@ -16,7 +17,7 @@ export type UserHomeProps = {
 };
 
 export default function userHome({ userHome }: UserHomeProps) {
-    const { name, email } = userHome;
+    const { name, email, user_type } = userHome;
     /* eslint-disable */
     const isDarkTheme = useThemeDetector();
     return (
@@ -35,10 +36,14 @@ export default function userHome({ userHome }: UserHomeProps) {
                 <div className="mr-2 text-[16px]">
                     {email.substring(0, email.indexOf("@"))}
                 </div>
+
                 <div className="font-semibold text-[16px]">
                     Institute Maua Of Technology
                 </div>
                 <p className={"text-[16px]"}>{email} </p>
+                <p className={"text-[16px] text-end"}>
+                    {UserTypeEnum.STUDENT === user_type ? "Student" : "Admin"}
+                </p>
             </div>
         </div>
         /* eslint-enable */

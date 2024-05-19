@@ -43,7 +43,7 @@ export default function ResultList({ results }: ResultListProps) {
                     </ul>
                 </div>
             ) : (
-                <NoElementsFound message="No projects were found" />
+                <NoElementsFound message="No results were found" />
             )}
         </div>
     );

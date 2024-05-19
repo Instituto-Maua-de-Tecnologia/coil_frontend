@@ -4,10 +4,6 @@ import CreateActivityForm from "@components/Project/CreateActivityForm.tsx";
 import { ActivityTypeEnum } from "@enum/ActivityTypeEnum.ts";
 import { useLocation } from "react-router-dom";
 
-// interface ActivityProps {
-//     activity_type: ActivityTypeEnum;
-// }
-
 export default function CreateActivity() {
     const location = useLocation();
     const activity_type = location.state.type_activity;

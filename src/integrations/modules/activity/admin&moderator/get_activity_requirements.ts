@@ -45,7 +45,7 @@ export default async function getActivityRequirements() {
             .then((response) => {
                 const responseData: GetActivityRequirementsResponse =
                     response.data as GetActivityRequirementsResponse;
-                resolve(responseData);
+                resolve(responseData.data);
             })
             .catch((error: AxiosError) => {
                 const convertedError: AxiosError<GetActivityRequirementsResponse> =

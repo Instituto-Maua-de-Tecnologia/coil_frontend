@@ -39,11 +39,11 @@ export default function EnrolledStudentCard({
                     applicant_id: users_applicants[index].id as string
                 }
             });
-            const getResultsAgain = await getActivity({
+            await getActivity({
                 activity_id: projectID
+            }).then((response: any) => {
+                setApplicants(response?.data.applicants);
             });
-            console.log(getResultsAgain?.data.applicants);
-            setApplicants(getResultsAgain?.data.applicants);
         } catch (e: any) {
             throw new Error(e);
         }

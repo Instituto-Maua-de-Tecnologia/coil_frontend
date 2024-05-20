@@ -36,5 +36,5 @@ export const sections: FooterSection[] = [
 ];
 
 export const items: FooterItem[] = [
-    { course: "Github", icon: FaGithub, link: "https://github.com/" }
+    { name: "Github", icon: FaGithub, link: "https://github.com/" }
 ];

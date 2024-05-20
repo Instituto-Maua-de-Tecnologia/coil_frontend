@@ -36,16 +36,9 @@ export type LangProps = {
     language: string;
 };
 
-export type LangOptionListProps = [LangOptionProps];
-
-export type LangOptionProps = {
-    value: number;
-    label: string;
-};
-
 export type CriteriaProps = [
     {
-        id: string;
+        id: any;
         criteria: string;
     }
 ];
@@ -87,7 +80,7 @@ interface ActivityFromData {
     partner_institutions: string[];
     courses: number[];
     criterias: {
-        id?: number;
+        id?: any;
         criteria?: string;
     }[];
     type_activity: number;
@@ -237,12 +230,11 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         }
 
         function handleCriteriaFilter() {
-            const filteredCriterias = selectedCriterias.map((criteria) => ({
+            return selectedCriterias.map((criteria) => ({
                 id: criteria.value !== undefined ? criteria.value : undefined,
                 criteria:
                     criteria.value !== undefined ? undefined : criteria.label
             }));
-            return filteredCriterias;
         }
         const title = projectNameRef.current?.value || "";
         const description = projectDescriptionRef.current?.value || "";

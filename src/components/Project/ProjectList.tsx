@@ -7,9 +7,9 @@ import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "@style/scrollbar.css";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import { Project } from "types";
-import { MoonLoader } from "react-spinners";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
 import NoElementsFound from "@components/GenericComponents/NoElementsFound";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner";
 // import { UserTypeEnum } from "@enum/UserTypeEnum";
 
 type ProjectProps = {
@@ -306,11 +306,8 @@ export default function ProjectList() {
                                 ))}
                             </ul>
                         ) : (
-                            <div className="flex justify-center items-center mt-auto">
-                                <MoonLoader
-                                    color={`${isDarkTheme ? "#fff" : "#000"}`}
-                                    size={35}
-                                />
+                            <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
+                                <LoadSpinner />
                             </div>
                         )}
                         {selectedProject ? (

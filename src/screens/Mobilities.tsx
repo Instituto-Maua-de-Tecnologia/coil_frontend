@@ -16,30 +16,32 @@ export default function Mobilities() {
             <div className="max-h-screen flex flex-col">
                 <TitleHeader title={"Academic International Mobility"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
-                    <Tooltip
-                        target=".speeddial-bottom-right .p-speeddial-action"
-                        position="left"
-                    />
-                    <SpeedDial
-                        model={[
-                            {
-                                label: "Criar Mobilidade Acadêmia",
-                                icon: "pi pi-pencil",
-                                command: () => {
-                                    navigate("/CreateProject", {
-                                        state: { type_activity: 2 }
-                                    });
-                                }
-                            }
-                        ]}
-                        direction="up"
-                        className="speeddial-bottom-right right-0 bottom-0 m-6"
-                    />
+                    {user_type === UserTypeEnum.ADMIN ? (
+                        <>
+                            <Tooltip
+                                target=".speeddial-bottom-right .p-speeddial-action"
+                                position="left"
+                            />
+                            <SpeedDial
+                                model={[
+                                    {
+                                        label: "Criar Mobilidade Acadêmica",
+                                        icon: "pi pi-pencil",
+                                        command: () => {
+                                            navigate("/CreateProject", {
+                                                state: { type_activity: 2 }
+                                            });
+                                        }
+                                    }
+                                ]}
+                                direction="up"
+                                className="speeddial-bottom-right right-0 bottom-0 m-6"
+                            />
+                        </>
+                    ) : null}
+
                     <SideBar />
-                    <MobilityList
-                        // isFilter
-                        isAdmin={user_type === UserTypeEnum.ADMIN}
-                    />
+                    <MobilityList />
                 </div>
             </div>
         </>

@@ -14,6 +14,7 @@ import "primeicons/primeicons.css";
 import getActivityRequirements from "@integrations/activity/admin&moderator/get_activity_requirements.ts";
 import Select, { SelectOption } from "@components/GenericComponents/Select";
 import { Project } from "../../types.ts";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
 
 type InstitutionProps = [
     {
@@ -113,9 +114,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     const [dates, setDates] = useState<Nullable<(Date | null)[]>>(null);
     const [startTime, setStartTime] = useState<Nullable<Date>>(null);
     const [endTime, setEndTime] = useState<Nullable<Date>>(null);
-    // const [selectedCourses, setSelectedCourses] = useState<CourseProps>([
-    //     { id: 0, course: "" }
-    // ]);
     const [institutions, setInstitutions] = useState<InstitutionProps>([
         { id: "", name: "" }
     ]); //TODO: verificar se a lógica está certa ou se ele está puxando todas as instituições, ele tem que puxar só as instituições selecionadas pelo usuário
@@ -148,17 +146,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     const [selectedCriterias, setSelectedCriterias] = useState<SelectOption[]>(
         []
     );
-    // function mapLang(lang: LangProps): LangOptionProps {
-    //     const { id, language } = lang;
-    //     const langOption: LangOptionProps = {
-    //         value: id,
-    //         label: language
-    //     };
-    //     return langOption;
-    // }
-    // const [criterias, setCriterias] = useState<CriteriaProps>([
-    //     { id: 0, criteria: ""}
-    // ])
     const [formData, setFormData] = useState<ActivityFromData>({
         title: "",
         description: "",
@@ -172,6 +159,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     });
     const projectNameRef = useRef<HTMLInputElement>(null);
     const projectDescriptionRef = useRef<HTMLTextAreaElement>(null);
+    const [loaded, setLoaded] = useState<boolean>(false);
 
     const navigate = useNavigate();
     const isDarkTheme = useThemeDetector();
@@ -193,7 +181,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             setCourses(requirements.courses);
             setLanguages(requirements.languages);
             setCriterias(requirements.criterias);
-            // setCriterias(requirements.criterias);
+            setLoaded(true);
         } catch (error) {
             console.error("Erro ao obter cursos:", error);
         }
@@ -271,6 +259,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         })
             .then()
             .catch((error) => {
+                setLoaded(true);
                 if (error.status === 401) {
                     localStorage.clear();
                     throw new Error("Usuário não Autorizado.");
@@ -295,6 +284,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     }
 
     async function handlePost() {
+        setLoaded(false);
         await toast
             .promise(handlePostActivity(), {
                 loading: `Criando ${isProject ? "Projeto" : "Mobilidade Acadêmica"}...`,
@@ -310,35 +300,11 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             })
             .then(async () => {
                 await delay(5000);
+                navigate(isProject ? "/Projects" : "/Mobilities");
                 //TODO: navigate runs before toast be completed
             });
         //.then(() => navigate("/Home")); // TODO: validação de campos vazios no if/else
     }
-
-    // const courseOptions = courses.map((course) => ({
-    //     value: course.id,
-    //     label: course.course
-    // }));
-
-    // const institutionsOptions = institutions.map((institution) => ({
-    //     value: institution.id,
-    //     label: institution.name
-    // }));
-
-    // const handleSelectCourse = (selectedOptions: any) => {
-    //     const courses = selectedOptions.map((option: any) => ({
-    //         id: option.value,
-    //         name: option.label
-    //     }));
-    //     setFormData({ ...formData, courses: courses });
-    //     setSelectedCourses(courses);
-    // };
-
-    // const handleSelectLanguages = (selectedOptions: any) => {
-    //     const languages = selectedOptions.map((option: any) => option.value);
-    //     setFormData({ ...formData, languages: languages });
-    //     // setSelectedLanguages(languages);
-    // };
 
     return (
         <>
@@ -346,170 +312,180 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             <div
                 className={`w-full md:ml-4 px-4 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl overflow-auto`}
             >
-                <div className="form [font-family:'Inter',Helvetica] font-semibold space-y-2">
-                    <div className="form-row-1 flex flex-col mx-2 max-w-[49%] min-w-[420px] space-y-2">
-                        <label htmlFor="projectName">Project Name</label>
-                        <input
-                            ref={projectNameRef}
-                            className={`${isDarkTheme ? "placeholder:text-[#0F1820] bg-[#223A4F]" : "placeholder:text-[#CBD0DD] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6`}
-                            type="text"
-                            placeholder="Type the name..."
-                        />
-                    </div>
-                    <div className="form-row-2 md:flex min-w-[320px]">
-                        <div className="langMultiSelect flex flex-col mx-2 w-full space-y-2">
-                            <label htmlFor="languages">Languages</label>
-                            <Select
-                                multiple
-                                options={languageOptions}
-                                value={selectedLanguages}
-                                onChange={(o) => setSelectedLanguages(o)}
+                {loaded ? (
+                    <div className="form [font-family:'Inter',Helvetica] font-semibold space-y-2">
+                        <div className="form-row-1 flex flex-col mx-2 max-w-[49%] min-w-[420px] space-y-2">
+                            <label htmlFor="projectName">Project Name</label>
+                            <input
+                                ref={projectNameRef}
+                                className={`${isDarkTheme ? "placeholder:text-[#0F1820] bg-[#223A4F]" : "placeholder:text-[#CBD0DD] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6`}
+                                type="text"
+                                placeholder="Type the name..."
                             />
                         </div>
-                        <div className="courseMultiSelect flex flex-col w-full mx-2 space-y-2">
-                            <label htmlFor="selectableCourses">
-                                Selectable Courses
-                            </label>
-                            <Select
-                                multiple
-                                options={courseOptions}
-                                value={selectedCourses}
-                                onChange={(o) => setSelectedCourses(o)}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-row-3 md:flex min-w-[320px]">
-                        <div className="form-row-3-1 flex w-full min-w-[50%]">
-                            <div className="partner-institution-select flex flex-col w-full mx-2 space-y-2">
-                                <label htmlFor="partnerInstitution">
-                                    Partner Institution
+                        <div className="form-row-2 md:flex min-w-[320px]">
+                            <div className="langMultiSelect flex flex-col mx-2 w-full space-y-2">
+                                <label htmlFor="languages">Languages</label>
+                                <Select
+                                    multiple
+                                    options={languageOptions}
+                                    value={selectedLanguages}
+                                    onChange={(o) => setSelectedLanguages(o)}
+                                />
+                            </div>
+                            <div className="courseMultiSelect flex flex-col w-full mx-2 space-y-2">
+                                <label htmlFor="selectableCourses">
+                                    Selectable Courses
                                 </label>
                                 <Select
                                     multiple
-                                    options={institutionOptions}
-                                    value={selectedInstitutions}
-                                    onChange={(o) => setSelectedInstitutions(o)}
+                                    options={courseOptions}
+                                    value={selectedCourses}
+                                    onChange={(o) => setSelectedCourses(o)}
                                 />
                             </div>
                         </div>
-                        <div className="form-row-3-2 md:flex w-full">
-                            <div className="application-start-date flex flex-col mx-2 space-y-2 w-[52%]">
-                                <label htmlFor="applicationStartDate">
-                                    Application Period
+                        <div className="form-row-3 md:flex min-w-[320px]">
+                            <div className="form-row-3-1 flex w-full min-w-[50%]">
+                                <div className="partner-institution-select flex flex-col w-full mx-2 space-y-2">
+                                    <label htmlFor="partnerInstitution">
+                                        Partner Institution
+                                    </label>
+                                    <Select
+                                        multiple
+                                        options={institutionOptions}
+                                        value={selectedInstitutions}
+                                        onChange={(o) =>
+                                            setSelectedInstitutions(o)
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-row-3-2 md:flex w-full">
+                                <div className="application-start-date flex flex-col mx-2 space-y-2 w-[52%]">
+                                    <label htmlFor="applicationStartDate">
+                                        Application Period
+                                    </label>
+                                    <Calendar
+                                        className={"w-full "}
+                                        value={dates}
+                                        dateFormat={"dd/mm/yy"}
+                                        onChange={(e) => setDates(e.value)}
+                                        selectionMode="range"
+                                        readOnlyInput
+                                        showIcon
+                                        inputStyle={{
+                                            backgroundColor: "transparent",
+                                            color: `${isDarkTheme ? "white" : "black"}`,
+                                            border: "none",
+                                            outline: "none",
+                                            padding: "0",
+                                            width: "100%",
+                                            height: "100%",
+                                            textAlign: "center"
+                                        }}
+                                        hideOnRangeSelection
+                                    />
+                                </div>
+                                <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
+                                    <label htmlFor="applicationEndDate">
+                                        Start Time
+                                    </label>
+                                    <Calendar
+                                        value={startTime}
+                                        onChange={(e) => setStartTime(e.value)}
+                                        showIcon
+                                        timeOnly
+                                        icon={() => (
+                                            <i className="pi mx-1 pi-clock" />
+                                        )}
+                                        inputStyle={{
+                                            backgroundColor: "transparent",
+                                            color: `${isDarkTheme ? "white" : "black"}`,
+                                            border: "none",
+                                            outline: "none",
+                                            padding: "0",
+                                            width: "100%",
+                                            height: "100%",
+                                            textAlign: "center"
+                                        }}
+                                    />
+                                </div>
+                                <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
+                                    <label htmlFor="applicationEndDate">
+                                        End Time
+                                    </label>
+                                    <Calendar
+                                        value={endTime}
+                                        onChange={(e) => setEndTime(e.value)}
+                                        showIcon
+                                        timeOnly
+                                        icon={() => (
+                                            <i className="pi mx-1 pi-clock" />
+                                        )}
+                                        inputStyle={{
+                                            backgroundColor: "transparent",
+                                            color: `${isDarkTheme ? "white" : "black"}`,
+                                            border: "none",
+                                            outline: "none",
+                                            padding: "0",
+                                            width: "100%",
+                                            height: "100%",
+                                            textAlign: "center"
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-row-4 md:flex">
+                            <div className="project-description flex flex-col w-full mx-2 space-y-2">
+                                <label htmlFor="projectDescription">
+                                    Project Description
                                 </label>
-                                <Calendar
-                                    className={"w-full "}
-                                    value={dates}
-                                    dateFormat={"dd/mm/yy"}
-                                    onChange={(e) => setDates(e.value)}
-                                    selectionMode="range"
-                                    readOnlyInput
-                                    showIcon
-                                    inputStyle={{
-                                        backgroundColor: "transparent",
-                                        color: `${isDarkTheme ? "white" : "black"}`,
-                                        border: "none",
-                                        outline: "none",
-                                        padding: "0",
-                                        width: "100%",
-                                        height: "100%",
-                                        textAlign: "center"
-                                    }}
-                                    hideOnRangeSelection
+                                <textarea
+                                    ref={projectDescriptionRef}
+                                    className={`${isDarkTheme ? "placeholder:text-[#0F1820] bg-[#223A4F]" : "placeholder:text-[#CBD0DD] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6 py-3 resize-none`}
+                                    placeholder="Type the description..."
+                                    rows={18}
                                 />
                             </div>
-                            <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
-                                <label htmlFor="applicationEndDate">
-                                    Start Time
+                            <div className="project-criteria mx-2 space-y-2 w-full">
+                                <label htmlFor="projectCriteria">
+                                    Project Criteria
                                 </label>
-                                <Calendar
-                                    value={startTime}
-                                    onChange={(e) => setStartTime(e.value)}
-                                    showIcon
-                                    timeOnly
-                                    icon={() => (
-                                        <i className="pi mx-1 pi-clock" />
-                                    )}
-                                    inputStyle={{
-                                        backgroundColor: "transparent",
-                                        color: `${isDarkTheme ? "white" : "black"}`,
-                                        border: "none",
-                                        outline: "none",
-                                        padding: "0",
-                                        width: "100%",
-                                        height: "100%",
-                                        textAlign: "center"
-                                    }}
+                                <Select
+                                    multiple
+                                    options={criteriasOptions}
+                                    value={selectedCriterias}
+                                    onChange={(o) => setSelectedCriterias(o)}
                                 />
                             </div>
-                            <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
-                                <label htmlFor="applicationEndDate">
-                                    End Time
-                                </label>
-                                <Calendar
-                                    value={endTime}
-                                    onChange={(e) => setEndTime(e.value)}
-                                    showIcon
-                                    timeOnly
-                                    icon={() => (
-                                        <i className="pi mx-1 pi-clock" />
-                                    )}
-                                    inputStyle={{
-                                        backgroundColor: "transparent",
-                                        color: `${isDarkTheme ? "white" : "black"}`,
-                                        border: "none",
-                                        outline: "none",
-                                        padding: "0",
-                                        width: "100%",
-                                        height: "100%",
-                                        textAlign: "center"
-                                    }}
-                                />
-                            </div>
+                        </div>
+                        <div className="button-row flex">
+                            <div className="w-full"></div>
+                            <button
+                                className="confirm w-[110px] text-white px-4 p-2 bg-[#673366] me-5 rounded-3xl"
+                                onClick={() =>
+                                    navigate(
+                                        isProject ? "/Projects" : "/Mobilities"
+                                    )
+                                }
+                            >
+                                Voltar
+                            </button>
+                            <button
+                                className="confirm text-white px-4 p-2 bg-[#2684ff] rounded-3xl"
+                                onClick={handlePost}
+                            >
+                                Confirmar
+                            </button>
                         </div>
                     </div>
-                    <div className="form-row-4 md:flex">
-                        <div className="project-description flex flex-col w-full mx-2 space-y-2">
-                            <label htmlFor="projectDescription">
-                                Project Description
-                            </label>
-                            <textarea
-                                ref={projectDescriptionRef}
-                                className={`${isDarkTheme ? "placeholder:text-[#0F1820] bg-[#223A4F]" : "placeholder:text-[#CBD0DD] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6 py-3 resize-none`}
-                                placeholder="Type the description..."
-                                rows={18}
-                            />
-                        </div>
-                        <div className="project-criteria mx-2 space-y-2 w-full">
-                            <label htmlFor="projectCriteria">
-                                Project Criteria
-                            </label>
-                            <Select
-                                multiple
-                                options={criteriasOptions}
-                                value={selectedCriterias}
-                                onChange={(o) => setSelectedCriterias(o)}
-                            />
-                        </div>
+                ) : (
+                    <div className="flex mt-[19%] fill-slate-500 justify-center items-center">
+                        <LoadSpinner />
                     </div>
-                    <div className="button-row flex">
-                        <div className="w-full"></div>
-                        <button
-                            className="confirm w-[110px] text-white px-4 p-2 bg-[#673366] me-5 rounded-3xl"
-                            onClick={() =>
-                                navigate(isProject ? "/Projects" : "/Activity")
-                            }
-                        >
-                            Voltar
-                        </button>
-                        <button
-                            className="confirm text-white px-4 p-2 bg-[#2684ff] rounded-3xl"
-                            onClick={handlePost}
-                        >
-                            Confirmar
-                        </button>
-                    </div>
-                </div>
+                )}
             </div>
         </>
     );

@@ -6,11 +6,10 @@ import { Mobility } from "../../types";
 import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "@style/scrollbar.css";
-import Add from "../GenericComponents/Add";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
-import { MoonLoader } from "react-spinners";
 import NoElementsFound from "@components/GenericComponents/NoElementsFound";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner";
 
 type MobilityProps = {
     id?: string;
@@ -96,11 +95,8 @@ type MobilityProps = {
         name: string;
     };
 };
-interface MobilityListProps {
-    // isFilter: boolean;
-    isAdmin: boolean;
-}
-export default function MobilityList({ isAdmin }: MobilityListProps) {
+
+export default function MobilityList() {
     const [mobilities, setMobilities] = useState<MobilityProps[]>([
         {
             id: "",
@@ -274,7 +270,7 @@ export default function MobilityList({ isAdmin }: MobilityListProps) {
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} disabled={false} />
                 <div className="button-container flex absolute right-12">
-                    {isAdmin ? <Add url="/CreateMobility" /> : null}
+                    {/* {isAdmin ? <Add url="/CreateMobility" /> : null} */}
                     {/* {isFilter && <Filter />} */}
                 </div>
             </div>
@@ -295,11 +291,8 @@ export default function MobilityList({ isAdmin }: MobilityListProps) {
                                 ))}
                             </ul>
                         ) : (
-                            <div className="flex justify-center items-center mt-[25vh]">
-                                <MoonLoader
-                                    color={`${isDarkTheme ? "#fff" : "#000"}`}
-                                    size={35}
-                                />
+                            <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
+                                <LoadSpinner />
                             </div>
                         )}
                         {selectedMobility ? (

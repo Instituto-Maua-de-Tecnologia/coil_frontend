@@ -1,4 +1,4 @@
-import EnrolledStudentsList from "@components/EnrolledStudentsList";
+import EnrolledStudentsList from "@components/Enrolled/EnrolledStudentsList.tsx";
 import SideBar from "@components/GenericComponents/SideBar";
 import TitleHeader from "@components/GenericComponents/TitleHeader";
 import { useLocation } from "react-router-dom";

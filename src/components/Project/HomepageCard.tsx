@@ -11,7 +11,7 @@ interface ProjectCardProps {
     onClick: (project: Project) => void;
 }
 
-export default function ProjectCard({
+export default function HomepageCard({
     project,
     enrolled,
     onClick
@@ -59,6 +59,22 @@ export default function ProjectCard({
                     <div className="flex flex-col">
                         <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold">
                             {project.title}
+                            <div
+                                title={
+                                    project.activity_type?.id === 1
+                                        ? "COIL"
+                                        : "Mobility"
+                                }
+                                className={`w-auto flex justify-center items-center rounded-full p-1 px-2 ml-2 text-xs font-medium ${
+                                    project.activity_type?.id === 1
+                                        ? "bg-blue-50 text-blue-700"
+                                        : "bg-yellow-50 text-yellow-700"
+                                }`}
+                            >
+                                {project?.activity_type?.id === 1
+                                    ? "COIL"
+                                    : "Mobility"}
+                            </div>
                         </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-col sm:flex-row items-center">

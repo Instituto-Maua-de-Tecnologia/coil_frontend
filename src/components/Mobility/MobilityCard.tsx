@@ -43,12 +43,12 @@ export default function MobilityCard({
                             />
                         </div>
                     )}
-                    <div className="flex flex-col">
+                    <div className="flex flex-col grow">
                         <div className="mb-2 text-center sm:text-start font-bold">
                             {mobility.title}
                         </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
-                            <div className="flex flex-col sm:flex-row items-center flex-wrap w-full">
+                            <div className="flex flex-row items-center justify-between sm:justify-normal flex-wrap w-full mx-5 sm:mx-0">
                                 <p className="text-xs mr-2">Languages:</p>
                                 {mobility.languages?.map((mobility, index) => (
                                     <div
@@ -85,7 +85,7 @@ export default function MobilityCard({
                         </div>
                     </div>
 
-                    <div className="sm:flex items-center w-full lg:w-48  gap-4 flex-col sm:justify-center mr-2">
+                    <div className="sm:flex items-center w-auto  gap-4 flex-col sm:justify-end mr-2">
                         <div className={`text-blue-500`}>
                             {mobility.activity_status?.name.replace("_", " ")}
                         </div>

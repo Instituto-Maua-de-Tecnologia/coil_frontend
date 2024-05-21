@@ -1,11 +1,11 @@
 import TitleHeader from "@components/GenericComponents/TitleHeader";
 import SideBar from "@components/GenericComponents/SideBar";
-import ProjectList from "@components/Project/ProjectList";
 import UserHome, { UserHomeProps } from "@components/User/UserHome";
 import { useState, useEffect } from "react";
 import { SpeedDial } from "primereact/speeddial";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "primereact/tooltip";
+import HomepageList from "@components/Project/HomepageList";
 
 export default function Home() {
     const [user, setUser] = useState<UserHomeProps>({
@@ -78,7 +78,7 @@ export default function Home() {
                             {user && <UserHome userHome={user.userHome} />}
                         </div>
                         <div className="mt-4 lg:flex h-full w-full md:h-3/4">
-                            <ProjectList />
+                            <HomepageList />
                         </div>
                     </div>
                 </div>

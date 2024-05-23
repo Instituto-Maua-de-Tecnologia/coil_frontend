@@ -23,6 +23,36 @@ export default function ViewEnrolledStudents() {
         }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    function handleExportApprovedStudents() {
+        const applicants = project.data.applicants;
+        if (!applicants) {
+            throw new Error("No applicants found");
+        }
+        const approvedStudents = project.data.applicants.filter(
+            (student: any) => student.status === true
+        );
+        const data = approvedStudents.map((student: any) => ({
+            name: student.name,
+            email: student.email,
+            RA: student.email.split("@")[0]
+        }));
+
+        const headers = "Nome,RA,E-mail";
+        const csvRows = data.map(
+            (student: any) => `${student.name},${student.RA},${student.email}`
+        );
+        const csvContent = [headers, ...csvRows].join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "approved_students.csv";
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
     useEffect(() => {
         getProjectName();
     }, []);

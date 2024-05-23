@@ -285,7 +285,7 @@ export default function ProjectList() {
             <div className="mb-4 flex">
                 <Search disabled={!loaded} onSearch={handleSearch} />
                 <div className="button-container flex absolute right-12">
-                    {/* {isAdmin ? <Add url="/CreateProject" /> : null} */}
+                    {/* {isAdmin ? <Add url="/CreateCOIL" /> : null} */}
                     {/* {isFilter && <Filter />} */}
                 </div>
             </div>
@@ -296,7 +296,7 @@ export default function ProjectList() {
                             <ul className="w-full max-h-screen pe-5 pb-48 custom-scrollbar overflow-y-auto">
                                 {projects.map((project) => (
                                     <ProjectCard
-                                        key={"ProjectCardKey " + project.id}
+                                        key={"COILCardKey " + project.id}
                                         project={project}
                                         enrolled={handleVerifyEnrollment(
                                             project.id as string

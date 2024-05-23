@@ -27,8 +27,6 @@ export default function Home() {
                     name: JSON.parse(userTemp).name,
                     email: JSON.parse(userTemp).email,
                     user_type: JSON.parse(userTemp).user_type,
-                    // course: JSON.parse(userTemp).course,
-                    // semester_course: JSON.parse(userTemp).semester_course,
                     created_at: JSON.parse(userTemp).created_at,
                     updated_at: JSON.parse(userTemp).updated_at
                 }
@@ -54,7 +52,7 @@ export default function Home() {
                                     label: "Criar Projeto",
                                     icon: "pi pi-pencil",
                                     command: () => {
-                                        navigate("/CreateProject", {
+                                        navigate("/CreateCOIL", {
                                             state: { type_activity: 1 }
                                         });
                                     }
@@ -63,7 +61,7 @@ export default function Home() {
                                     label: "Criar Mobilidade Acadêmia",
                                     icon: "pi pi-pencil",
                                     command: () => {
-                                        navigate("/CreateProject", {
+                                        navigate("/CreateMobility", {
                                             state: { type_activity: 2 }
                                         });
                                     }

@@ -309,8 +309,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                     (language, index) => (
                                         <React.Fragment
                                             key={
-                                                "Project SVGICon Language" +
-                                                index
+                                                "COIL SVGICon Language" + index
                                             }
                                         >
                                             <p className={"text-xs"}>
@@ -388,7 +387,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                             className={` justify rounded-3xl p-4 md:pb-20 pb-0 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:w-2/3 md:mr-2`}
                         >
                             <div className="p-3 font-extrabold ">
-                                Project description
+                                COIL description
                             </div>
                             <div className="custom-scrollbar overflow-y-auto  h-full p-3">
                                 {project.data.description}

@@ -22,7 +22,8 @@ export default function ViewEnrolledStudents() {
             setLoaded(true);
         }
     }
-
+  
+    // @ts-expect-error FIXME: Needs to implement this function after task "disable and enable" button is done
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function handleExportApprovedStudents() {
         const applicants = project.data.applicants;

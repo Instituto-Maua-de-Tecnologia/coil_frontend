@@ -58,9 +58,9 @@ export const navigation: NavigationItem[] = [
     // },
     {
         id: "2",
-        title: "Projects",
+        title: "COIL",
         icon: projectIcon,
-        url: "/Projects"
+        url: "/COIL"
     },
     {
         id: "3",

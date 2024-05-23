@@ -28,7 +28,7 @@ export default function Mobilities() {
                                         label: "Criar Mobilidade Acadêmica",
                                         icon: "pi pi-pencil",
                                         command: () => {
-                                            navigate("/CreateProject", {
+                                            navigate("/CreateMobility", {
                                                 state: { type_activity: 2 }
                                             });
                                         }

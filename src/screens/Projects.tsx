@@ -15,7 +15,7 @@ export default function Projects() {
     return (
         <>
             <div className="max-h-screen flex flex-col">
-                <TitleHeader title={"Projects"} />
+                <TitleHeader title={"COIL"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     {user_type === UserTypeEnum.ADMIN ? (
                         <>
@@ -26,7 +26,7 @@ export default function Projects() {
                             <SpeedDial
                                 model={[
                                     {
-                                        label: "Criar Projeto",
+                                        label: "Criar COIL",
                                         icon: "pi pi-pencil",
                                         command: () => {
                                             navigate("/CreateProject", {

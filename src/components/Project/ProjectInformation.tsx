@@ -275,6 +275,8 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
     const statusText = getStatusText(project.data.status_activity);
     const navigate = useNavigate();
 
+    console.log(project.data.criterias);
+
     return (
         <div className="custom-scrollbar overflow-y-auto lg:overflow-y-visible flex-col w-full m-3 mb-0 mt-0 ">
             {loaded ? (
@@ -282,21 +284,22 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                     <div
                         className={`flex 2xs:flex-col sm:flex-row wrap ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl p-4 w-full md:h-25%`}
                     >
-                        {/*<div className="2xs:text-center place-items-center p-2 sm:w-1/6">*/}
-                        {/*    <img*/}
-                        {/*        src={*/}
-                        {/*            project?.data.partner_institutions[0]*/}
-                        {/*                ?.institution?.images[0]*/}
-                        {/*        }*/}
-                        {/*        alt="institution-img"*/}
-                        {/*    ></img>*/}
-                        {/*    <div className="">*/}
-                        {/*        {*/}
-                        {/*            project?.data.partner_institutions[0]*/}
-                        {/*                ?.institution?.id*/}
-                        {/*        }*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
+                        <div className="2xs:text-center place-items-center p-2 sm:w-1/6">
+                            <img
+                                className={"rounded-full"}
+                                src={
+                                    project?.data.partner_institutions[0]
+                                        ?.institution?.images[0]
+                                }
+                                alt="institution-img"
+                            ></img>
+                            <div className="">
+                                {
+                                    project?.data.partner_institutions[0]
+                                        ?.institution?.name
+                                }
+                            </div>
+                        </div>
                         <div className="2xs:text-center sm:text-left p-2 sm:w-4/6">
                             <div className="font-extrabold">
                                 {project.data.title}
@@ -306,8 +309,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                     (language, index) => (
                                         <React.Fragment
                                             key={
-                                                "Project SVGICon Language" +
-                                                index
+                                                "COIL SVGICon Language" + index
                                             }
                                         >
                                             <p className={"text-xs"}>
@@ -385,10 +387,10 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                             className={` justify rounded-3xl p-4 md:pb-20 pb-0 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:w-2/3 md:mr-2`}
                         >
                             <div className="p-3 font-extrabold ">
-                                Project description
+                                COIL description
                             </div>
                             <div className="custom-scrollbar overflow-y-auto  h-full p-3">
-                                {project.data.title}
+                                {project.data.description}
                             </div>
                         </div>
                         <div
@@ -396,18 +398,23 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                         >
                             <div className="p-3">
                                 <h1 className={"font-extrabold"}>Criteria: </h1>
-                                <ol
-                                    className={"ps-6"}
-                                    style={{ listStyleType: "decimal" }}
-                                >
-                                    {project.data.criterias.map(
-                                        (fds, index) => (
-                                            <li key={"criteriaKey" + index}>
-                                                {fds.criteria.criteria}
-                                            </li>
-                                        )
-                                    )}
-                                </ol>
+                                {project.data.criterias[0]?.criteria
+                                    ?.criteria !== undefined ? (
+                                    <ol
+                                        className={"ps-6"}
+                                        style={{ listStyleType: "decimal" }}
+                                    >
+                                        {project.data.criterias.map(
+                                            (fds, index) => (
+                                                <li key={"criteriaKey" + index}>
+                                                    {fds.criteria.criteria}
+                                                </li>
+                                            )
+                                        )}
+                                    </ol>
+                                ) : (
+                                    <p>No Criterias found</p>
+                                )}
                             </div>
                         </div>
                     </div>

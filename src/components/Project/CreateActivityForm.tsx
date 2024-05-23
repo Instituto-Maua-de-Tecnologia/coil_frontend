@@ -191,7 +191,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
 
     const currentDate: Date = new Date();
     //ancora
-    const isValid = (): Promise<boolean> => {
+    const isValid = (): boolean => {
         const errors: string[] = [];
         if (!projectNameRef.current?.value.trim()) {
             errors.push("O nome do projeto é obrigatório.");
@@ -361,7 +361,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     }
 
     async function handlePost() {
-        if (!(await isValid())) {
+        if (!isValid()) {
             setLoaded(true); // Ensure the loaded state is set to true if validation fails
             return;
         }

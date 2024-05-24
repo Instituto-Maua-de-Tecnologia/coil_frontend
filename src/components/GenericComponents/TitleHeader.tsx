@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
     devider,
-    enrolledIcon,
     activityIcon,
     homeIcon,
-    institutionIcon,
+    //institutionIcon,
     projectIcon,
     resultsIcon,
     signOutIcon,
@@ -24,15 +23,14 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const isDarkTheme = useThemeDetector();
     const links = [
         { to: "/Home", label: "Home", icon: homeIcon },
-        {
-            to: "/Institution",
-            label: "Institution",
-            icon: institutionIcon,
-            devider: devider
-        },
-        { to: "/Projects", label: "Projects", icon: projectIcon },
-        { to: "/Activity", label: "Activity", icon: activityIcon },
-        { to: "/Enrolled", label: "Enrolled", icon: enrolledIcon },
+        // {
+        //     to: "/Institution",
+        //     label: "Institution",
+        //     icon: institutionIcon,
+        //     devider: devider
+        // },
+        { to: "/COIL", label: "COIL", icon: projectIcon, devider: devider },
+        { to: "/Mobilities", label: "Mobility", icon: activityIcon },
         { to: "/Results", label: "Results", icon: resultsIcon },
         { to: "/User", label: navigation[5].title, icon: userIcon },
         { to: "/Signout", label: "Sign Out", icon: signOutIcon }

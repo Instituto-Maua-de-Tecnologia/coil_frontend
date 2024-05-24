@@ -20,7 +20,7 @@ interface Applicant {
 }
 
 interface Applicants {
-    users_applicants: Applicant[];
+    users_applicants: any;
     projectID: string;
 }
 
@@ -31,12 +31,12 @@ export default function EnrolledStudentCard({
     const isDarkTheme = useThemeDetector();
     const [applicants, setApplicants] = useState<Applicant[]>(users_applicants);
 
-    const handleToggleApprovation = async (index: number) => {
+    const handleToggleApprovation = async () => {
         try {
             await updateUserStatusInActivity({
                 body: {
                     activity_id: projectID,
-                    applicant_id: users_applicants[index].id as string
+                    applicants: users_applicants
                 }
             });
             await getActivity({
@@ -71,9 +71,7 @@ export default function EnrolledStudentCard({
                             </div>
                             <div className="mr-2">
                                 <button
-                                    onClick={() =>
-                                        handleToggleApprovation(index)
-                                    }
+                                    onClick={() => handleToggleApprovation()}
                                 >
                                     {(applicants[index].status as boolean) ? (
                                         <div className="text-blue-500 bg-[#223A4F] text-sm px-4 py-2 my-2 rounded-full">

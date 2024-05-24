@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 interface UpdateUserStatusProps {
     body: {
         activity_id: string;
-        applicant_id: string;
+        applicants: string[];
     };
 }
 
@@ -21,7 +21,7 @@ export default async function updateUserStatusInActivity(
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
             .post(
-                `${endpoint}/update-user-activity`,
+                `${endpoint}/update-users-activity`,
                 JSON.stringify(props.body),
                 {
                     headers: {

@@ -1,44 +1,54 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
-import { Mobility } from "../../types";
+import { Project } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
-interface MobilityCardProps {
-    mobility: Mobility;
+interface ProjectCardProps {
+    project: Project;
     enrolled: boolean;
-    onClick: (mobility: Mobility) => void;
+    onClick: (project: Project) => void;
 }
 
-export default function MobilityCard({
-    mobility,
-    onClick,
-    enrolled
-}: MobilityCardProps) {
+export default function HomepageCard({
+    project,
+    enrolled,
+    onClick
+}: ProjectCardProps) {
     const user = JSON.parse(localStorage.getItem("user") as string);
-    const navigate = useNavigate();
-
-    const handleOnClick = () => {
-        if (user.user_type === UserTypeEnum.STUDENT) onClick(mobility);
+    const handleOnClick = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        e.stopPropagation();
+        if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
         else if (user.user_type === UserTypeEnum.ADMIN)
-            navigate("/CreateProject", { state: { userStatus: 3 } });
+            navigate("/CreateProject", {
+                state: {
+                    userStatus: 3,
+                    type_activity: 1,
+                    edit: true,
+                    project: project
+                }
+            });
     };
     const isDarkTheme = useThemeDetector();
+    const navigate = useNavigate();
     return (
         <li
             onClick={() =>
-                navigate("/ProjectInfo", { state: { projectID: mobility.id } })
+                navigate("/ProjectInfo", { state: { projectID: project.id } })
             }
-            className={`sm:flex items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
-                    {mobility.partner_institutions?.[0]?.institution?.images[0]
+                    {project.partner_institutions?.[0]?.institution?.images[0]
                         .image !== undefined && (
                         <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
                             <img
                                 src={
-                                    mobility.partner_institutions?.[0]
+                                    project.partner_institutions?.[0]
                                         ?.institution?.images[0].image
                                 }
                                 alt="Avatar"
@@ -47,17 +57,33 @@ export default function MobilityCard({
                         </div>
                     )}
                     <div className="flex flex-col grow">
-                        <div className="mb-2 text-center sm:text-start font-bold">
-                            {mobility.title}
+                        <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold w-full justify-center sm:justify-normal">
+                            {project.title}
+                            <div
+                                title={
+                                    project.activity_type?.id === 1
+                                        ? "COIL"
+                                        : "Mobility"
+                                }
+                                className={`w-auto flex justify-center items-center rounded-full p-1 px-2 ml-2 text-xs font-medium ${
+                                    project.activity_type?.id === 1
+                                        ? "bg-blue-50 text-blue-700"
+                                        : "bg-yellow-50 text-yellow-700"
+                                }`}
+                            >
+                                {project?.activity_type?.id === 1
+                                    ? "COIL"
+                                    : "Mobility"}
+                            </div>
                         </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-normal w-full">
                                 <p className="text-xs mr-2">Languages:</p>
                                 <div
-                                    className={`grid ${mobility.languages?.length === 1 ? "grid-cols-1  justify-items-center" : "grid-cols-2"} sm:flex sm:flex-wrap gap-2 w-full`}
+                                    className={`grid ${project.languages?.length === 1 ? "grid-cols-1  justify-items-center" : "grid-cols-2"} sm:flex sm:flex-wrap gap-2 w-full`}
                                 >
-                                    {mobility.languages?.map(
-                                        (mobility, index) => (
+                                    {project.languages?.map(
+                                        (project, index) => (
                                             <div
                                                 key={
                                                     "Project SVGICon Language" +
@@ -66,10 +92,10 @@ export default function MobilityCard({
                                                 className="border-[#673366] mt-1 sm:mt-0 flex flex-row border-[1px]  pe-1 ps-2 py-1 items-center justify-between rounded-full text-[#673366]"
                                             >
                                                 <p className="text-xs me-2">
-                                                    {mobility.language.language}
+                                                    {project.language.language}
                                                 </p>
                                                 <SVGIcon
-                                                    src={`https://hatscripts.github.io/circle-flags/flags/${mobility.language.language_code}.svg`}
+                                                    src={`https://hatscripts.github.io/circle-flags/flags/${project.language.language_code}.svg`}
                                                     className="w-4 m-[1px]"
                                                 />
                                             </div>
@@ -82,13 +108,13 @@ export default function MobilityCard({
                             <div className="flex flex-row w-full sm:justify-start justify-center">
                                 <p className="text-xs mr-2">
                                     {
-                                        mobility.partner_institutions?.[0]
+                                        project.partner_institutions?.[0]
                                             ?.institution?.countries[0].country
                                             ?.country
                                     }
                                 </p>
                                 <SVGIcon
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${mobility.partner_institutions?.[0]?.institution?.countries[0].country?.country_code}.svg`}
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions?.[0]?.institution?.countries[0].country?.country_code}.svg`}
                                     className="w-4 m-[1px]"
                                 />
                             </div>
@@ -97,7 +123,7 @@ export default function MobilityCard({
 
                     <div className="sm:flex items-center w-auto sm:min-w-24  gap-4 flex-col sm:justify-end mr-2">
                         <div className={`text-blue-500`}>
-                            {mobility.activity_status?.name.replace("_", " ")}
+                            {project.activity_status?.name.replace("_", " ")}
                         </div>
                         {user.user_type === UserTypeEnum.STUDENT ? (
                             <button

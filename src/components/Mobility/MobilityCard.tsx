@@ -39,7 +39,7 @@ export default function MobilityCard({
                                         ?.institution?.images[0].image
                                 }
                                 alt="Avatar"
-                                className="avatar-img mx-auto w-16 rounded-full"
+                                className="avatar-img mx-auto min-w-16 max-w-16 rounded-full"
                             />
                         </div>
                     )}
@@ -92,7 +92,7 @@ export default function MobilityCard({
                         </div>
                     </div>
 
-                    <div className="sm:flex items-center w-auto  gap-4 flex-col sm:justify-end mr-2">
+                    <div className="sm:flex items-center w-auto sm:min-w-24  gap-4 flex-col sm:justify-end mr-2">
                         <div className={`text-blue-500`}>
                             {mobility.activity_status?.name.replace("_", " ")}
                         </div>

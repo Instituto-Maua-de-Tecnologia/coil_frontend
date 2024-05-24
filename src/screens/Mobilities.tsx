@@ -39,7 +39,6 @@ export default function Mobilities() {
                             />
                         </>
                     ) : null}
-
                     <SideBar />
                     <MobilityList />
                 </div>

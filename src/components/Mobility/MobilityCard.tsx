@@ -48,24 +48,31 @@ export default function MobilityCard({
                             {mobility.title}
                         </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
-                            <div className="flex flex-row items-center justify-between sm:justify-normal flex-wrap w-full mx-5 sm:mx-0">
+                            <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-normal w-full">
                                 <p className="text-xs mr-2">Languages:</p>
-                                {mobility.languages?.map((mobility, index) => (
-                                    <div
-                                        key={"Project SVGICon Language" + index}
-                                        className={
-                                            "border-[#673366] mt-2 sm:mt-0 flex-row border-[1px] ms-2 pe-1 ps-2 py-1 items-center flex rounded-full text-[#673366]"
-                                        }
-                                    >
-                                        <p className={"text-xs me-2"}>
-                                            {mobility.language.language}
-                                        </p>
-                                        <SVGIcon
-                                            src={`https://hatscripts.github.io/circle-flags/flags/${mobility.language.language_code}.svg`}
-                                            className="w-4 m-[1px]"
-                                        />
-                                    </div>
-                                ))}
+                                <div
+                                    className={`grid ${mobility.languages?.length === 1 ? "grid-cols-1  justify-items-center" : "grid-cols-2"} sm:flex sm:flex-wrap gap-2 w-full`}
+                                >
+                                    {mobility.languages?.map(
+                                        (mobility, index) => (
+                                            <div
+                                                key={
+                                                    "Project SVGICon Language" +
+                                                    index
+                                                }
+                                                className="border-[#673366] mt-1 sm:mt-0 flex flex-row border-[1px]  pe-1 ps-2 py-1 items-center justify-between rounded-full text-[#673366]"
+                                            >
+                                                <p className="xs:text-xs text-[.5rem] me-2">
+                                                    {mobility.language.language}
+                                                </p>
+                                                <SVGIcon
+                                                    src={`https://hatscripts.github.io/circle-flags/flags/${mobility.language.language_code}.svg`}
+                                                    className="w-4 m-[1px]"
+                                                />
+                                            </div>
+                                        )
+                                    )}
+                                </div>
                             </div>
                         </div>
                         <div className="flex mb-2">

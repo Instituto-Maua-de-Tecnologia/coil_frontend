@@ -121,6 +121,7 @@ export default function AppRoutes() {
                 />
                 <Route path={"/COIL"} element={<Projects />} />
                 <Route path={"/COILInfo"} element={<ProjectInfo />} />
+                <Route path={"/MobilityInfo"} element={<ProjectInfo />} />
                 <Route path={"/CreateCOIL"} element={<CreateActivity />} />
                 <Route path={"/CreateMobility"} element={<CreateActivity />} />
                 <Route path={"/Mobilities"} element={<Mobilities />} />

@@ -107,14 +107,28 @@ export default function ProjectCard({
 
                     <div className="sm:flex items-center w-auto sm:min-w-24  gap-4 flex-col sm:justify-end mr-2">
                         <div className={`text-blue-500`}>
-                            {project.activity_status?.name.replace("_", " ")}
+                            {project.activity_status?.name}
                         </div>
-                        {user.user_type === UserTypeEnum.STUDENT ? (
+                        {project.activity_status?.name !== "UNDER_ANALYSIS" &&
+                        user.user_type === UserTypeEnum.STUDENT ? (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    project.activity_status?.name !==
+                                    "Apply Now"
+                                }
+                                className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full"
                             >
-                                {enrolled ? "Withdraw" : "Apply"}
+                                <span
+                                    title={
+                                        project.activity_status?.name !==
+                                        "Apply Now"
+                                            ? "This project is not appliable"
+                                            : `Apply for ${project.title}`
+                                    }
+                                >
+                                    {enrolled ? "Withdraw" : "Apply"}
+                                </span>
                             </button>
                         ) : (
                             <button

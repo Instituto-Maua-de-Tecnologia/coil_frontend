@@ -27,9 +27,9 @@ export default function MobilityCard({
     return (
         <li
             onClick={() =>
-                navigate("/ProjectInfo", { state: { projectID: mobility.id } })
+                navigate("/MobilityInfo", { state: { projectID: mobility.id } })
             }
-            className={`sm:flex items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex cursor-pointer items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
@@ -99,12 +99,26 @@ export default function MobilityCard({
                         <div className={`text-blue-500`}>
                             {mobility.activity_status?.name.replace("_", " ")}
                         </div>
-                        {user.user_type === UserTypeEnum.STUDENT ? (
+                        {mobility.activity_status?.name !== "UNDER_ANALYSIS" &&
+                        user.user_type === UserTypeEnum.STUDENT ? (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    mobility.activity_status?.name !==
+                                    "Apply Now"
+                                }
+                                className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full"
                             >
-                                {enrolled ? "Disenroll" : "Enroll"}
+                                <span
+                                    title={
+                                        mobility.activity_status?.name !==
+                                        "Apply Now"
+                                            ? "This project is not appliable"
+                                            : `Apply for ${mobility.title}`
+                                    }
+                                >
+                                    {enrolled ? "Withdraw" : "Apply"}
+                                </span>
                             </button>
                         ) : (
                             <button

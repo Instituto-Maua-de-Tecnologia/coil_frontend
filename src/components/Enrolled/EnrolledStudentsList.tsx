@@ -1,6 +1,6 @@
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import "../style/scrollbar.css";
-import EnrolledStudentCard from "./EnrolledStudentCard";
+import "../../style/scrollbar.css";
+import EnrolledStudentCard from "./EnrolledStudentCard.tsx";
 import { ProjectProps } from "@components/Project/ProjectInformation.tsx";
 
 interface EnrolledStudentProps {

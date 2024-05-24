@@ -15,8 +15,8 @@ export default function CreateActivity() {
                 title={
                     activity_type === ActivityTypeEnum.PROJECT
                         ? isEdit
-                            ? "Edit Project"
-                            : "Create Project"
+                            ? "Edit COIL"
+                            : "Create COIL"
                         : isEdit
                           ? "Edit Academic Mobility"
                           : "Create Academic Mobility"

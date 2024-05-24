@@ -23,7 +23,7 @@ export default function ProjectCard({
         e.stopPropagation();
         if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
         else if (user.user_type === UserTypeEnum.ADMIN)
-            navigate("/CreateProject", {
+            navigate("/EnrolledStudents", {
                 state: {
                     userStatus: 3,
                     type_activity: 1,
@@ -37,7 +37,7 @@ export default function ProjectCard({
     return (
         <li
             onClick={() =>
-                navigate("/ProjectInfo", { state: { projectID: project.id } })
+                navigate("/COILInfo", { state: { projectID: project.id } })
             }
             className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
@@ -114,17 +114,17 @@ export default function ProjectCard({
                                 onClick={handleOnClick}
                                 className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
                             >
-                                {enrolled ? "Disenroll" : "Enroll"}
-                            </button>
-                        ) : (
-                            <button
-                                onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
-                            >
-                                Edit
-                            </button>
-                        )}
-                    </div>
+                                {enrolled ? "Withdraw" : "Apply"}
+                            </span>
+                        </button>
+                    ) : (
+                        <button
+                            onClick={handleOnClick}
+                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                        >
+                            View Enrolled Students
+                        </button>
+                    )}
                 </div>
             </div>
         </li>

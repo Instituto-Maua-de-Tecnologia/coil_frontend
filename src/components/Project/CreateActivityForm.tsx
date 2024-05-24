@@ -179,12 +179,94 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             console.error("Erro ao obter cursos:", error);
         }
     };
-    //TODO: fazer verificação do: titulo(não pode ser repetido(dar um get para saber quais titulos estão em uso), não pode ser maior que 255 e menor que 3 caracteres), descrição(pode ir até ), imagens(base64), data(só pode ter número, data de ínicio tem que ser menor que a de fim, mandar informações usando dateTime() formato dd/mm/yy)
+    //TODO:
+    //fazer verificação do: titulo(não pode ser repetido(dar um get para saber quais titulos estão em uso),
+    //imagens(base64),
+    //mandar informações usando dateTime() formato dd/mm/yy)
 
     useEffect(() => {
         handleGetAllCoursesAndInstitutions();
         // setSelectableLanguages(languages.forEach(mapLang));
     }, []);
+
+    const currentDate: Date = new Date();
+    //ancora
+    const isValid = (): boolean => {
+        const errors: string[] = [];
+        if (!projectNameRef.current?.value.trim()) {
+            errors.push("O nome do projeto é obrigatório.");
+        } else if (
+            projectNameRef.current?.value.length >= 50 ||
+            projectNameRef.current?.value.length < 5
+        ) {
+            errors.push("O nome do projeto deve ter entre 5 e 50 caracteres.");
+        }
+
+        if (!projectDescriptionRef.current?.value.trim()) {
+            errors.push("A descrição do projeto é obrigatória.");
+        } else if (
+            projectDescriptionRef.current?.value.length > 1200 ||
+            projectDescriptionRef.current?.value.length < 20
+        ) {
+            errors.push(
+                "O nome do projeto deve ter entre 20  e 1200 caracteres."
+            );
+        }
+
+        if (!dates || dates.length !== 2 || !dates[0] || !dates[1]) {
+            errors.push(
+                "As datas de início e término das inscrições são obrigatórias."
+            );
+        } else if (!startTime || !endTime) {
+            errors.push(
+                "Os horários de início e término das inscrições são obrigatórios."
+            );
+        } else if (
+            dates[0].getTime() === dates[1].getTime() &&
+            endTime < startTime
+        ) {
+            errors.push(
+                "O horário de início das inscrições não pode ser após o horário de término."
+            );
+        } else if (dates[1] < currentDate) {
+            if (dates[1] < currentDate && endTime < currentDate) {
+                errors.push(
+                    "Não é possível criar um projeto com inscrições que terminem antes do momento atual."
+                );
+            } else {
+                errors.push(
+                    "Não é possível criar um projeto com inscrições que terminem antes do momento atual."
+                );
+            }
+        }
+
+        if (!selectedInstitutions[0]) {
+            errors.push(
+                "Selecione ao menos uma instituição parceira para o projeto."
+            );
+        }
+
+        if (!selectedLanguages[0]) {
+            errors.push("Selecione ao menos um idioma para o projeto.");
+        }
+
+        if (!selectedCourses[0]) {
+            errors.push("Selecione ao menos um curso indicado para o projeto.");
+        }
+
+        if (!selectedCriterias[0]) {
+            errors.push(
+                "Determine um critério de seleção para os participantes."
+            );
+        }
+
+        if (errors.length > 0) {
+            errors.forEach((error) => toast.error(error));
+            return false;
+        }
+
+        return true;
+    };
 
     async function handlePostActivity() {
         const day = dates?.map((fds) => fds?.getDate());
@@ -254,10 +336,12 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                 setLoaded(true);
                 if (error.status === 401) {
                     localStorage.clear();
-                    throw new Error("Usuário não Autorizado.");
+                    throw new Error(
+                        "Token inválido, por favor reinicie a página e tente fazer login novamente."
+                    );
                 } else if (error.status === 403)
                     throw new Error(
-                        "Você não tem permissões para criar projeto!"
+                        "Você não tem permissões para criar projeto."
                     );
                 else if (error.message === "MissingToken")
                     throw new Error(
@@ -265,7 +349,8 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                     );
                 else if (
                     error.status === 422 &&
-                    error.message === "Activity with this title already exists"
+                    error.message ===
+                        "Já existe uma atividade com esse nome.\nActivity with this title already exists"
                 ) {
                     throw new Error("Título já em uso");
                 } else
@@ -276,6 +361,11 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     }
 
     async function handlePost() {
+        if (!isValid()) {
+            setLoaded(true); // Ensure the loaded state is set to true if validation fails
+            return;
+        }
+
         setLoaded(false);
         await toast
             .promise(handlePostActivity(), {
@@ -295,7 +385,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                 navigate(isProject ? "/Projects" : "/Mobilities");
                 //TODO: navigate runs before toast be completed
             });
-        //.then(() => navigate("/Home")); // TODO: validação de campos vazios no if/else
     }
 
     return (

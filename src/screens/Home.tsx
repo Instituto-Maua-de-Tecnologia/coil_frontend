@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { SpeedDial } from "primereact/speeddial";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "primereact/tooltip";
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
 export default function Home() {
     const [user, setUser] = useState<UserHomeProps>({
@@ -42,34 +43,41 @@ export default function Home() {
                 <div className="flex-grow h-screen overflow-hidden mx-3 mb-3 flex flex-row">
                     <SideBar />
                     <div className="custom-scrollbar overflow-auto lg:overflow-hidden max-h-screen flex-col w-full ">
-                        <Tooltip
-                            target=".speeddial-bottom-right .p-speeddial-action"
-                            position="left"
-                        />
-                        <SpeedDial
-                            model={[
-                                {
-                                    label: "Criar Projeto",
-                                    icon: "pi pi-pencil",
-                                    command: () => {
-                                        navigate("/CreateCOIL", {
-                                            state: { type_activity: 1 }
-                                        });
-                                    }
-                                },
-                                {
-                                    label: "Criar Mobilidade Acadêmia",
-                                    icon: "pi pi-pencil",
-                                    command: () => {
-                                        navigate("/CreateMobility", {
-                                            state: { type_activity: 2 }
-                                        });
-                                    }
-                                }
-                            ]}
-                            direction="up"
-                            className="speeddial-bottom-right right-0 bottom-0 m-6"
-                        />
+                        {JSON.parse(localStorage.getItem("user") as string)
+                            .user_type === UserTypeEnum.STUDENT ? (
+                            <></>
+                        ) : (
+                            <>
+                                <Tooltip
+                                    target=".speeddial-bottom-right .p-speeddial-action"
+                                    position="left"
+                                />
+                                <SpeedDial
+                                    model={[
+                                        {
+                                            label: "Criar Projeto",
+                                            icon: "pi pi-pencil",
+                                            command: () => {
+                                                navigate("/CreateCOIL", {
+                                                    state: { type_activity: 1 }
+                                                });
+                                            }
+                                        },
+                                        {
+                                            label: "Criar Mobilidade Acadêmia",
+                                            icon: "pi pi-pencil",
+                                            command: () => {
+                                                navigate("/CreateMobility", {
+                                                    state: { type_activity: 2 }
+                                                });
+                                            }
+                                        }
+                                    ]}
+                                    direction="up"
+                                    className="speeddial-bottom-right right-0 bottom-0 m-6"
+                                />
+                            </>
+                        )}
                         <div
                             className={`flex 2xs:flex-col sm:flex-row wrap rounded-3xl w-full md:h-25%`}
                         >

@@ -91,7 +91,7 @@ export default function HomepageCard({
                                                 }
                                                 className="border-[#673366] mt-1 sm:mt-0 flex flex-row border-[1px]  pe-1 ps-2 py-1 items-center justify-between rounded-full text-[#673366]"
                                             >
-                                                <p className="xs:text-xs text-[.5rem] me-2">
+                                                <p className="text-xs me-2">
                                                     {project.language.language}
                                                 </p>
                                                 <SVGIcon

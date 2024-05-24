@@ -26,6 +26,9 @@ export default function MobilityCard({
     const isDarkTheme = useThemeDetector();
     return (
         <li
+            onClick={() =>
+                navigate("/ProjectInfo", { state: { projectID: mobility.id } })
+            }
             className={`sm:flex items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
@@ -62,7 +65,7 @@ export default function MobilityCard({
                                                 }
                                                 className="border-[#673366] mt-1 sm:mt-0 flex flex-row border-[1px]  pe-1 ps-2 py-1 items-center justify-between rounded-full text-[#673366]"
                                             >
-                                                <p className="xs:text-xs text-[.5rem] me-2">
+                                                <p className="text-xs me-2">
                                                     {mobility.language.language}
                                                 </p>
                                                 <SVGIcon

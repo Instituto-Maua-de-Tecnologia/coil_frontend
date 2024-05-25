@@ -37,7 +37,12 @@ export default function HomepageCard({
     return (
         <li
             onClick={() =>
-                navigate("/ProjectInfo", { state: { projectID: project.id } })
+                navigate(
+                    (project?.activity_type?.id as number) === 1
+                        ? "/COILInfo"
+                        : "/MobilityInfo",
+                    { state: { projectID: project.id } }
+                )
             }
             className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
@@ -125,19 +130,33 @@ export default function HomepageCard({
                         <div className={`text-blue-500`}>
                             {project.activity_status?.name.replace("_", " ")}
                         </div>
-                        {user.user_type === UserTypeEnum.STUDENT ? (
+                        {project.activity_status?.name !== "UNDER_ANALYSIS" &&
+                        user.user_type === UserTypeEnum.STUDENT ? (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    project.activity_status?.name !==
+                                    "Apply Now"
+                                }
+                                className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full"
                             >
-                                {enrolled ? "Disenroll" : "Enroll"}
+                                <span
+                                    title={
+                                        project.activity_status?.name !==
+                                        "Apply Now"
+                                            ? "This project is not appliable"
+                                            : `Apply for ${project.title}`
+                                    }
+                                >
+                                    {enrolled ? "Withdraw" : "Apply"}
+                                </span>
                             </button>
                         ) : (
                             <button
                                 onClick={handleOnClick}
                                 className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
                             >
-                                Edit
+                                View Enrolled Students
                             </button>
                         )}
                     </div>

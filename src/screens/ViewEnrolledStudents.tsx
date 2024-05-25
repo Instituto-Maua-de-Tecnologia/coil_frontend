@@ -6,11 +6,13 @@ import getActivity from "@integrations/activity/get_activity.ts";
 import { useEffect, useState } from "react";
 import { MoonLoader } from "react-spinners";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
+import NoElementsFound from "@components/GenericComponents/NoElementsFound.tsx";
 
 export default function ViewEnrolledStudents() {
     const location = useLocation();
     const [project, setProject] = useState(location.state?.projectID);
     const [loaded, setLoaded] = useState(false);
+    console.log(project);
 
     async function getProjectName() {
         try {
@@ -59,26 +61,33 @@ export default function ViewEnrolledStudents() {
     }, []);
     const isDarkTheme = useThemeDetector();
 
+    // FIXME: Show the students enrolled, some projects of COIL/mobility are undefiened
+
     return (
         <>
             <div className="max-h-screen flex flex-col">
                 <TitleHeader
-                    title={`Enrolled Students in ${project.data?.title}`}
+                    title={`Enrolled Students in ${project?.data?.title}`}
                 />
-
-                {loaded ? (
-                    <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
-                        <SideBar />
-                        <EnrolledStudentsList students={project} />
-                    </div>
-                ) : (
-                    <div className="flex justify-center items-center mt-auto">
-                        <MoonLoader
-                            color={`${isDarkTheme ? "#f9f9f9" : "#090909"}`}
-                            size={35}
-                        />
-                    </div>
-                )}
+                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
+                    <SideBar />
+                    {loaded ? (
+                        project?.data?.applicants > 0 ? (
+                            <EnrolledStudentsList students={project} />
+                        ) : (
+                            <div className={"w-full text-center"}>
+                                <NoElementsFound message="No students were found" />
+                            </div>
+                        )
+                    ) : (
+                        <div className="flex justify-center items-center mt-auto">
+                            <MoonLoader
+                                color={`${isDarkTheme ? "#f9f9f9" : "#090909"}`}
+                                size={35}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
         </>
     );

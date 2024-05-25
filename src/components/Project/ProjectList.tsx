@@ -194,10 +194,9 @@ export default function ProjectList() {
             <div className="mb-4 flex justify-between">
                 <Search onSearch={handleSearch} disabled={false} />
                 <Paginator
-                    className="h-14 mr-[26px]"
+                    className={`h-14 mr-[26px] ${isDarkTheme ? "bg-[#14222E] text-white" : "bg-[#FFFFFF]"}`}
                     first={first}
                     rows={rows}
-                    rowsPerPageOptions={[3, 5, 10]}
                     totalRecords={filteredProjects.length}
                     onPageChange={onPageChange}
                 />
@@ -206,10 +205,10 @@ export default function ProjectList() {
                     {/* {isFilter && <Filter />} */}
                 </div>
             </div>
-            {projects.length > 0 ? (
-                filteredProjects.length > 0 ? (
-                    <div>
-                        {loaded ? (
+            {loaded ? (
+                projects.length > 0 ? (
+                    filteredProjects.length > 0 ? (
+                        <div>
                             <ul className="w-full max-h-screen pe-5 pb-48 custom-scrollbar overflow-y-auto">
                                 {currentItems.map((project) => (
                                     <ProjectCard
@@ -222,27 +221,27 @@ export default function ProjectList() {
                                     />
                                 ))}
                             </ul>
-                        ) : (
-                            <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
-                                <LoadSpinner />
-                            </div>
-                        )}
-                        {selectedProject ? (
-                            <Modal
-                                enrolled={enrolledProjectsIds.includes(
-                                    selectedProject.id as string
-                                )}
-                                project={selectedProject}
-                                isOpen={true}
-                                onClose={handleModalClose}
-                            />
-                        ) : null}
-                    </div>
+                            {selectedProject ? (
+                                <Modal
+                                    enrolled={enrolledProjectsIds.includes(
+                                        selectedProject.id as string
+                                    )}
+                                    project={selectedProject}
+                                    isOpen={true}
+                                    onClose={handleModalClose}
+                                />
+                            ) : null}
+                        </div>
+                    ) : (
+                        <NoElementsFound message="No opportunities were found" />
+                    )
                 ) : (
                     <NoElementsFound message="No opportunities were found" />
                 )
             ) : (
-                <NoElementsFound message="No opportunities were found" />
+                <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
+                    <LoadSpinner />
+                </div>
             )}
         </div>
     );

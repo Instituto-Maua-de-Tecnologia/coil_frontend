@@ -329,11 +329,11 @@ export default function HomepageList() {
                     <NoElementsFound message="No projects were found" />
                 ) : (
                     <p className="mx-auto my-5 text-center text-2xl">
-                        <NoElementsFound message="No projects matched the search criteria" />
+                        <NoElementsFound message="No opportunities matched the search criteria" />
                     </p>
                 )
             ) : (
-                <NoElementsFound message="No projects were found" />
+                <NoElementsFound message="No opportunities were found" />
             )}
         </div>
     );

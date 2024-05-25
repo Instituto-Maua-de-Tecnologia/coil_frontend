@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function Mobilities() {
     const user_type = JSON.parse(
         localStorage.getItem("user") as string
-    ).user_type;
+    )?.user_type;
     const navigate = useNavigate();
     return (
         <>

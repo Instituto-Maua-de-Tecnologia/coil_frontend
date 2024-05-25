@@ -9,7 +9,7 @@ import { UserTypeEnum } from "@enum/UserTypeEnum";
 export default function Projects() {
     const user_type = JSON.parse(
         localStorage.getItem("user") as string
-    ).user_type;
+    )?.user_type;
 
     const navigate = useNavigate();
     return (

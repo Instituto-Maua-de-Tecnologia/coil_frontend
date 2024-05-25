@@ -170,7 +170,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             setInstitutions(institutionValues);
             const requirements =
                 (await getActivityRequirements()) as RequirementProps;
-            console.log(requirements);
             setCourses(requirements.courses);
             setLanguages(requirements.languages);
             setCriterias(requirements.criterias);
@@ -548,7 +547,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 className="confirm w-[110px] text-white px-4 p-2 bg-[#673366] me-5 rounded-3xl"
                                 onClick={() =>
                                     navigate(
-                                        isProject ? "/Projects" : "/Mobilities"
+                                        isProject ? "/COIL" : "/Mobilities"
                                     )
                                 }
                             >

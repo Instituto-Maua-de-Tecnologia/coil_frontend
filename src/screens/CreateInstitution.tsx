@@ -10,7 +10,7 @@ interface ActivityProps {
 
 export default function CreateInstitution({ activity_type }: ActivityProps) {
     const location = useLocation();
-    const isEdit = location.state.edit;
+    const isEdit = location.state?.edit;
     return (
         <div className="max-h-screen flex flex-col">
             <TitleHeader title={"Criar Instituição"} />

@@ -3,6 +3,7 @@ import { Mobility } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 interface MobilityCardProps {
     mobility: Mobility;
@@ -18,10 +19,20 @@ export default function MobilityCard({
     const user = JSON.parse(localStorage.getItem("user") as string);
     const navigate = useNavigate();
 
-    const handleOnClick = () => {
+    const handleOnClick = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        e.stopPropagation();
         if (user.user_type === UserTypeEnum.STUDENT) onClick(mobility);
         else if (user.user_type === UserTypeEnum.ADMIN)
-            navigate("/CreateProject", { state: { userStatus: 3 } });
+            navigate("/EnrolledStudents", {
+                state: {
+                    userStatus: 3,
+                    type_activity: 1,
+                    edit: true,
+                    project: mobility
+                }
+            });
     };
     const isDarkTheme = useThemeDetector();
     return (
@@ -125,7 +136,7 @@ export default function MobilityCard({
                                 onClick={handleOnClick}
                                 className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
                             >
-                                Edit
+                                View Enrolled Students
                             </button>
                         )}
                     </div>

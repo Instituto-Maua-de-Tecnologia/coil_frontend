@@ -12,6 +12,7 @@ import {
 } from "@assets/icons";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import { navigation } from "@constants/SideBarProperties.ts";
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
 interface TitleHeaderProps {
     title: string;
@@ -21,20 +22,46 @@ interface TitleHeaderProps {
 export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const isDarkTheme = useThemeDetector();
-    const links = [
-        { to: "/Home", label: "Home", icon: homeIcon },
-        // {
-        //     to: "/Institution",
-        //     label: "Institution",
-        //     icon: institutionIcon,
-        //     devider: devider
-        // },
-        { to: "/COIL", label: "COIL", icon: projectIcon, devider: devider },
-        { to: "/Mobilities", label: "Mobility", icon: activityIcon },
-        { to: "/Results", label: "Results", icon: resultsIcon },
-        { to: "/User", label: navigation[5].title, icon: userIcon },
-        { to: "/Signout", label: "Sign Out", icon: signOutIcon }
-    ];
+    const links =
+        JSON.parse(localStorage.getItem("user") as string).user_type ===
+        UserTypeEnum.STUDENT
+            ? [
+                  { to: "/Home", label: "Home", icon: homeIcon },
+                  // {
+                  //     to: "/Institution",
+                  //     label: "Institution",
+                  //     icon: institutionIcon,
+                  //     devider: devider
+                  // },
+                  {
+                      to: "/COIL",
+                      label: "COIL",
+                      icon: projectIcon,
+                      devider: devider
+                  },
+                  { to: "/Mobilities", label: "Mobility", icon: activityIcon },
+                  { to: "/Results", label: "Results", icon: resultsIcon },
+                  { to: "/User", label: navigation[5].title, icon: userIcon },
+                  { to: "/Signout", label: "Sign Out", icon: signOutIcon }
+              ]
+            : [
+                  { to: "/Home", label: "Home", icon: homeIcon },
+                  // {
+                  //     to: "/Institution",
+                  //     label: "Institution",
+                  //     icon: institutionIcon,
+                  //     devider: devider
+                  // },
+                  {
+                      to: "/COIL",
+                      label: "COIL",
+                      icon: projectIcon,
+                      devider: devider
+                  },
+                  { to: "/Mobilities", label: "Mobility", icon: activityIcon },
+                  { to: "/User", label: navigation[5].title, icon: userIcon },
+                  { to: "/Signout", label: "Sign Out", icon: signOutIcon }
+              ];
 
     function handleNavOpen() {
         setIsNavOpen(!isNavOpen);

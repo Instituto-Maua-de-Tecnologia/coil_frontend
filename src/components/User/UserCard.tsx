@@ -35,10 +35,13 @@ export default function UserCard({ userCard }: UserCardProps) {
                         </div>
                         <div className="flex-col w-full h-full items-center mt-10 ">
                             <h1 className={"text-center text-[32px]"}>
-                                {UserTypeEnum.STUDENT ===
-                                (user_type as UserTypeEnum)
+                                {UserTypeEnum.STUDENT === user_type
                                     ? "Student"
-                                    : "Admin"}{" "}
+                                    : UserTypeEnum.MODERATOR === user_type
+                                      ? "Moderator"
+                                      : UserTypeEnum.ADMIN === user_type
+                                        ? "Admin"
+                                        : "Undefined User Type"}{" "}
                                 User
                             </h1>
                             <p

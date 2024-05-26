@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
 import darkMauaLogo from "@assets/maua-fontys-dark.svg";
-import lightMauaLogo from "@assets/maua-fontys-light.svg";
-import { useThemeDetector } from "@util/ThemeDetector.ts";
 
 export default function Error404() {
-    const isDarkTheme = useThemeDetector();
     return (
         <div className={"relative w-full h-screen overflow-hidden"}>
             <img
-                src={isDarkTheme ? lightMauaLogo : darkMauaLogo}
+                src={darkMauaLogo}
                 className={
                     "absolute object-cover -bottom-[8vh] right-0 sm:-right-44 md:-right-72 lg:-right-96 lg:-top-96  -rotate-[30deg] -z-10"
                 }

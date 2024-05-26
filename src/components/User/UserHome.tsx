@@ -9,8 +9,6 @@ export type UserHomeProps = {
         name: string;
         email: string;
         user_type: number;
-        // course: string;
-        // semester_course: number;
         created_at: string;
         updated_at: string;
     };
@@ -42,7 +40,13 @@ export default function userHome({ userHome }: UserHomeProps) {
                 </div>
                 <p className={"text-[16px]"}>{email} </p>
                 <p className={"text-[16px] text-end"}>
-                    {UserTypeEnum.STUDENT === user_type ? "Student" : "Admin"}
+                    {UserTypeEnum.STUDENT === user_type
+                        ? "Student"
+                        : UserTypeEnum.MODERATOR === user_type
+                          ? "Moderator"
+                          : UserTypeEnum.ADMIN === user_type
+                            ? "Admin"
+                            : "Undefined User Type"}
                 </p>
             </div>
         </div>

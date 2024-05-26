@@ -9,7 +9,7 @@ import { UserTypeEnum } from "@enum/UserTypeEnum";
 export default function Projects() {
     const user_type = JSON.parse(
         localStorage.getItem("user") as string
-    ).user_type;
+    )?.user_type;
 
     const navigate = useNavigate();
     return (
@@ -17,7 +17,8 @@ export default function Projects() {
             <div className="max-h-screen flex flex-col">
                 <TitleHeader title={"COIL"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
-                    {user_type === UserTypeEnum.ADMIN ? (
+                    {user_type === UserTypeEnum.ADMIN ||
+                    user_type === UserTypeEnum.MODERATOR ? (
                         <>
                             <Tooltip
                                 target=".speeddial-bottom-right .p-speeddial-action"
@@ -27,11 +28,25 @@ export default function Projects() {
                                 model={[
                                     {
                                         label: "Criar COIL",
-                                        icon: "pi pi-pencil",
+                                        icon: "pi pi-file-plus",
                                         command: () => {
                                             navigate("/CreateProject", {
                                                 state: { type_activity: 1 }
                                             });
+                                        }
+                                    },
+                                    {
+                                        label:
+                                            JSON.parse(
+                                                localStorage.getItem(
+                                                    "user"
+                                                ) as string
+                                            ).user_type === 3
+                                                ? "Criar Moderador"
+                                                : "Ver Moderadores",
+                                        icon: "pi pi-user-plus",
+                                        command: () => {
+                                            navigate("/CreateModerator");
                                         }
                                     }
                                 ]}

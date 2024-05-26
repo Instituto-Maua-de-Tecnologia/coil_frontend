@@ -18,6 +18,7 @@ import getUser from "@integrations/user/authentification/get_user.ts";
 import InstitutionInfo from "@screens/InstitutionInfo";
 import toast from "react-hot-toast";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
+import CreateModerator from "@screens/CreateModerator.tsx";
 
 export default function AppRoutes() {
     const possibleRoutes = [
@@ -31,19 +32,32 @@ export default function AppRoutes() {
         "/Mobilities",
         "/Enrolled",
         "/Results",
+        "/CreateModerator",
         "/User",
         "/Signout",
         "/EnrolledStudents"
     ];
-    const adminPages = ["/CreateCOIL", "/CreateMobility", "/EnrolledStudents"];
+    const adminPages = [
+        "/CreateCOIL",
+        "/CreateMobility",
+        "/EnrolledStudents",
+        "/CreateModerator"
+    ];
     const [location, setLocation] = useState(window.location.pathname);
 
     /* eslint-disable */
     const checkAndNavigateBack = () => {
         if (
-            adminPages.includes(window.location.pathname) &&
-            JSON.parse(localStorage.getItem("user") as string).user_type ===
-                UserTypeEnum.STUDENT
+            JSON.parse(localStorage.getItem("user") as string)?.user_type ===
+            null
+        )
+            window.history.back();
+        if (
+            JSON.parse(localStorage.getItem("user") as string)?.user_type !==
+                UserTypeEnum.ADMIN &&
+            JSON.parse(localStorage.getItem("user") as string)?.user_type !==
+                UserTypeEnum.MODERATOR &&
+            adminPages.includes(window.location.pathname)
         ) {
             window.history.back();
         }
@@ -121,8 +135,14 @@ export default function AppRoutes() {
                 />
                 <Route path={"/COIL"} element={<Projects />} />
                 <Route path={"/COILInfo"} element={<ProjectInfo />} />
+                <Route path={"/MobilityInfo"} element={<ProjectInfo />} />
+                <Route path={"/MobilityInfo"} element={<ProjectInfo />} />
                 <Route path={"/CreateCOIL"} element={<CreateActivity />} />
                 <Route path={"/CreateMobility"} element={<CreateActivity />} />
+                <Route
+                    path={"/CreateModerator"}
+                    element={<CreateModerator />}
+                />
                 <Route path={"/Mobilities"} element={<Mobilities />} />
                 <Route
                     path={"/Enrolled"}

@@ -22,22 +22,33 @@ export default function HomepageCard({
     ) => {
         e.stopPropagation();
         if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
-        else if (user.user_type === UserTypeEnum.ADMIN)
-            navigate("/CreateProject", {
-                state: {
-                    userStatus: 3,
-                    type_activity: 1,
-                    edit: true,
-                    project: project
+        else if (
+            user.user_type === UserTypeEnum.ADMIN ||
+            user.user_type === UserTypeEnum.MODERATOR
+        )
+            navigate(
+                `${project.activity_type?.id === 1 ? "/CreateCOIL" : "/CreateMobility"}`,
+                {
+                    state: {
+                        userStatus: user.user_type,
+                        type_activity: project.activity_type?.id,
+                        edit: true,
+                        project: project
+                    }
                 }
-            });
+            );
     };
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();
     return (
         <li
             onClick={() =>
-                navigate("/ProjectInfo", { state: { projectID: project.id } })
+                navigate(
+                    (project?.activity_type?.id as number) === 1
+                        ? "/COILInfo"
+                        : "/MobilityInfo",
+                    { state: { projectID: project.id } }
+                )
             }
             className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
@@ -125,19 +136,37 @@ export default function HomepageCard({
                         <div className={`text-blue-500`}>
                             {project.activity_status?.name.replace("_", " ")}
                         </div>
-                        {user.user_type === UserTypeEnum.STUDENT ? (
+                        {project.activity_status?.name !== "UNDER_ANALYSIS" &&
+                        user.user_type === UserTypeEnum.STUDENT ? (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    project.activity_status?.name !==
+                                    "Apply Now"
+                                }
+                                className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full"
                             >
-                                {enrolled ? "Disenroll" : "Enroll"}
+                                <span
+                                    title={
+                                        project.activity_status?.name !==
+                                        "Apply Now"
+                                            ? "This project is not appliable"
+                                            : `Apply for ${project.title}`
+                                    }
+                                >
+                                    {enrolled ? "Withdraw" : "Apply"}
+                                </span>
                             </button>
                         ) : (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    project.activity_status?.name ===
+                                    "Coming Soon"
+                                }
+                                className={`bg-blue-500 text-white ${project.activity_status?.name === "APPLY_NOW" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-sm px-4 py-2 rounded-full`}
                             >
-                                Edit
+                                View Enrolled Students
                             </button>
                         )}
                     </div>

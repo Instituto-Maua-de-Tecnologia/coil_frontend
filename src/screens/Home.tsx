@@ -43,10 +43,10 @@ export default function Home() {
                 <div className="flex-grow h-screen overflow-hidden mx-3 mb-3 flex flex-row">
                     <SideBar />
                     <div className="custom-scrollbar overflow-auto lg:overflow-hidden max-h-screen flex-col w-full ">
-                        {JSON.parse(localStorage.getItem("user") as string)
-                            .user_type === UserTypeEnum.STUDENT ? (
-                            <></>
-                        ) : (
+                        {(JSON.parse(localStorage.getItem("user") as string)
+                            ?.user_type === UserTypeEnum.MODERATOR ||
+                            JSON.parse(localStorage.getItem("user") as string)
+                                ?.user_type === UserTypeEnum.ADMIN) && (
                             <>
                                 <Tooltip
                                     target=".speeddial-bottom-right .p-speeddial-action"
@@ -56,7 +56,7 @@ export default function Home() {
                                     model={[
                                         {
                                             label: "Criar Projeto",
-                                            icon: "pi pi-pencil",
+                                            icon: "pi pi-file-plus",
                                             command: () => {
                                                 navigate("/CreateCOIL", {
                                                     state: { type_activity: 1 }
@@ -70,6 +70,20 @@ export default function Home() {
                                                 navigate("/CreateMobility", {
                                                     state: { type_activity: 2 }
                                                 });
+                                            }
+                                        },
+                                        {
+                                            label:
+                                                JSON.parse(
+                                                    localStorage.getItem(
+                                                        "user"
+                                                    ) as string
+                                                ).user_type === 3
+                                                    ? "Criar Moderador"
+                                                    : "Ver Moderadores",
+                                            icon: "pi pi-user-plus",
+                                            command: () => {
+                                                navigate("/CreateModerator");
                                             }
                                         }
                                     ]}

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function Mobilities() {
     const user_type = JSON.parse(
         localStorage.getItem("user") as string
-    ).user_type;
+    )?.user_type;
     const navigate = useNavigate();
     return (
         <>
@@ -32,6 +32,13 @@ export default function Mobilities() {
                                                 state: { type_activity: 2 }
                                             });
                                         }
+                                    },
+                                    {
+                                        label: "Criar Moderador",
+                                        icon: "pi pi-user-plus",
+                                        command: () => {
+                                            navigate("/CreateModerator");
+                                        }
                                     }
                                 ]}
                                 direction="up"
@@ -39,7 +46,6 @@ export default function Mobilities() {
                             />
                         </>
                     ) : null}
-
                     <SideBar />
                     <MobilityList />
                 </div>

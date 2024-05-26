@@ -14,7 +14,7 @@ export default function EnrolledStudentList({
 
     return (
         <div
-            className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+            className={`w-full ml-4 px-7 py-4 relative ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div>
                 <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">

@@ -1,39 +1,36 @@
 import axios, { AxiosError } from "axios";
 
-interface UpdateUserStatusProps {
-    body: {
-        activity_id: string;
-        applicants: string[];
+interface GetAllModeratorsResponse {
+    message: string;
+    data: {
+        id?: string;
+        name?: string;
+        email?: string;
+        user_type?: number;
+        created_at?: string;
+        updated_at?: string;
     };
 }
 
-interface UpdateUserStatusResponse {
-    message: string;
-    data: object;
-}
-
-export default async function updateUserStatusInActivity(
-    props: UpdateUserStatusProps
-) {
+export default async function getAllModerators() {
     const token = localStorage.getItem("token");
-    console.log(props.body);
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
-            .post(`${endpoint}/update-users-activity`, props.body, {
+            .get(`${endpoint}/get-all-moderators/`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: token
+                    Authorization: token as string
                 }
             })
             .then((response) => {
-                const responseData: UpdateUserStatusResponse =
-                    response.data as UpdateUserStatusResponse;
-                resolve(responseData);
+                const responseData: GetAllModeratorsResponse =
+                    response.data as GetAllModeratorsResponse;
+                resolve(responseData.data);
             })
             .catch((error: AxiosError) => {
-                const convertedError: AxiosError<UpdateUserStatusResponse> =
-                    error as AxiosError<UpdateUserStatusResponse>;
+                const convertedError: AxiosError<GetAllModeratorsResponse> =
+                    error as AxiosError<GetAllModeratorsResponse>;
                 const errorResponse = convertedError.response;
                 if (errorResponse) {
                     reject({

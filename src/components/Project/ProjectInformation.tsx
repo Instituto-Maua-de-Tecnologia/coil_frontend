@@ -219,7 +219,9 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
         []
     );
     const handleGetEnrolledProjects = async () => {
-        await getAllActivitiesEnrolled({ type_activity: 1 })
+        await getAllActivitiesEnrolled({
+            type_activity: project.data.type_activity
+        })
             .then((response) => {
                 setEnrolledProjectsIds(
                     enrolledIdsToArray(response as ProjectProps[])
@@ -247,15 +249,15 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
     const getStatusText = (status: number): string => {
         switch (status as ActivityStatusEnum) {
             case ActivityStatusEnum.TO_START:
-                return "COMING SOON";
+                return "Coming Soon";
             case ActivityStatusEnum.ACTIVE:
-                return "APPLY NOW";
+                return "Apply Now";
             case ActivityStatusEnum.ON_HOLD:
-                return "UNDER ANALYSIS";
+                return "Under Analysis";
             case ActivityStatusEnum.ENDED:
-                return "ENDED";
+                return "Ended";
             case ActivityStatusEnum.CANCELED:
-                return "CANCELED";
+                return "Canceled";
             default:
                 return "Unknown status";
         }
@@ -274,8 +276,6 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
 
     const statusText = getStatusText(project.data.status_activity);
     const navigate = useNavigate();
-
-    console.log(project.data.criterias);
 
     return (
         <div className="custom-scrollbar overflow-y-auto lg:overflow-y-visible flex-col w-full m-3 mb-0 mt-0 ">
@@ -304,7 +304,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                             <div className="font-extrabold">
                                 {project.data.title}
                             </div>
-                            <div className="flex">
+                            <div className="flex flex-wrap">
                                 {project.data.languages.map(
                                     (language, index) => (
                                         <React.Fragment
@@ -350,7 +350,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                                 project.data.id
                                             )
                                                 ? "Withdraw"
-                                                : "Enroll"}
+                                                : "Apply"}
                                         </button>
                                     )}
                                 </>
@@ -389,7 +389,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                             <div className="p-3 font-extrabold ">
                                 COIL description
                             </div>
-                            <div className="custom-scrollbar overflow-y-auto  h-full p-3">
+                            <div className="custom-scrollbar flex-wrap break-words text-wrap overflow-y-auto  h-full p-3">
                                 {project.data.description}
                             </div>
                         </div>

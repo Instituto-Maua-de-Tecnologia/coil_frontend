@@ -44,7 +44,7 @@ export default function Home() {
                     <SideBar />
                     <div className="custom-scrollbar overflow-auto lg:overflow-hidden max-h-screen flex-col w-full ">
                         {JSON.parse(localStorage.getItem("user") as string)
-                            .user_type === UserTypeEnum.STUDENT ? (
+                            ?.user_type === UserTypeEnum.STUDENT ? (
                             <></>
                         ) : (
                             <>
@@ -56,7 +56,7 @@ export default function Home() {
                                     model={[
                                         {
                                             label: "Criar Projeto",
-                                            icon: "pi pi-pencil",
+                                            icon: "pi pi-file-plus",
                                             command: () => {
                                                 navigate("/CreateCOIL", {
                                                     state: { type_activity: 1 }
@@ -70,6 +70,13 @@ export default function Home() {
                                                 navigate("/CreateMobility", {
                                                     state: { type_activity: 2 }
                                                 });
+                                            }
+                                        },
+                                        {
+                                            label: "Criar Moderador",
+                                            icon: "pi pi-user-plus",
+                                            command: () => {
+                                                navigate("/CreateModerator");
                                             }
                                         }
                                     ]}

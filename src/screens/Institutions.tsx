@@ -6,7 +6,7 @@ import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 export default function Institutions() {
     const user_type = JSON.parse(
         localStorage.getItem("user") as string
-    ).user_type;
+    )?.user_type;
     return (
         <>
             <div className="max-h-screen flex flex-col">

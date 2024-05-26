@@ -34,10 +34,10 @@ export default function ResultList({ results }: ResultListProps) {
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} disabled={true} />
             </div>
-            {filteredResults?.length > 0 ? (
+            {filteredResults?.length !== undefined ? (
                 <div>
                     <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                        {filteredResults.map((result) => (
+                        {results?.map((result) => (
                             <ResultCard key={result.id} result={result} />
                         ))}
                     </ul>

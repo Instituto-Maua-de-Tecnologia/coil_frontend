@@ -9,7 +9,7 @@ import { UserTypeEnum } from "@enum/UserTypeEnum";
 export default function Projects() {
     const user_type = JSON.parse(
         localStorage.getItem("user") as string
-    ).user_type;
+    )?.user_type;
 
     const navigate = useNavigate();
     return (
@@ -27,11 +27,18 @@ export default function Projects() {
                                 model={[
                                     {
                                         label: "Criar COIL",
-                                        icon: "pi pi-pencil",
+                                        icon: "pi pi-file-plus",
                                         command: () => {
                                             navigate("/CreateProject", {
                                                 state: { type_activity: 1 }
                                             });
+                                        }
+                                    },
+                                    {
+                                        label: "Criar Moderador",
+                                        icon: "pi pi-user-plus",
+                                        command: () => {
+                                            navigate("/CreateModerator");
                                         }
                                     }
                                 ]}

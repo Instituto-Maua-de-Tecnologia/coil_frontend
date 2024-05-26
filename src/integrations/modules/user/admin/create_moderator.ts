@@ -4,6 +4,7 @@ import getUser from "@integrations/user/authentification/get_user.ts";
 interface CreateModeratorProps {
     body: {
         email: string;
+        name: string;
     };
 }
 

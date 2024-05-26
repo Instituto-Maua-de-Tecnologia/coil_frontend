@@ -8,17 +8,17 @@ import {
 
 const Footer: React.FC = () => {
     return (
-        <div className="w-full bg-slate-900 text-gray-300 py-y px-2">
-            <div className="p-2">
+        <div className="w-full  bg-slate-900 text-gray-300 py-y px-2">
+            <div className="p-2 flex justify-center">
                 <img
                     className="h-12 w-12"
                     src={"/maua-fontys-light.svg"}
                     alt="Maua Logo"
                 />
             </div>
-            <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-6 gap-12 border-b-2 p-2 border-gray-600 py-8">
+            <div className="flex flex-col max-w-[1240px] mx-auto grid-cols-2 md:grid-cols-6 gap-12 border-b-2 p-2 border-gray-600 py-8">
                 {sections.map((section: FooterSection, index: number) => (
-                    <div key={index}>
+                    <div className="justify-between" key={index}>
                         <h6 className="font-bold uppercase pt-2">
                             {section.title}
                         </h6>

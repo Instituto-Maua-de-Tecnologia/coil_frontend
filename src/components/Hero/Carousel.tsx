@@ -39,7 +39,7 @@ export default function CarouselComponent() {
     };
 
     return (
-        <div className={"flex items-center justify-center flex-col h-screen"}>
+        <div className={"flex items-center justify-center flex-col h-screen "}>
             <Swiper
                 loop={true}
                 autoplay={{

@@ -4,7 +4,7 @@ import { HeroCardData } from "@constants/HeroCardProperties";
 
 const HeroCard = () => {
     return (
-        <div className="md:pb-60 2xs:pb-10">
+        <div className="mt-7 md:pb-60 2xs:pb-10">
             <div className="lg:hidden flex flex-col items-center justify-center w-full">
                 <div className="text-white pt-5 w-[80%]">
                     <TextCard

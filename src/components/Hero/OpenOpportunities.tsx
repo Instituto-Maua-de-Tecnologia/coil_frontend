@@ -1,4 +1,4 @@
-import ProjectListHero from "@components/Project/ProjectList";
+import HeroProjectList from "./HeroProjectList";
 
 export default function OpenOpportunities() {
     return (
@@ -16,8 +16,8 @@ export default function OpenOpportunities() {
                     <h1 className="text-center mt-5 text-4xl font font-semibold">
                         International Projects
                     </h1>
-                    <div className="p-5 pt-2">
-                        <ProjectListHero />
+                    <div className="p-5 ">
+                        <HeroProjectList isProject />
                     </div>
                 </div>
                 <div
@@ -26,8 +26,8 @@ export default function OpenOpportunities() {
                     <h1 className="text-center mt-5 text-4xl font font-semibold">
                         Academic Mobility
                     </h1>
-                    <div className="p-5 pt-2">
-                        <ProjectListHero />
+                    <div className="p-5">
+                        <HeroProjectList isProject={false} />
                     </div>
                 </div>
             </div>

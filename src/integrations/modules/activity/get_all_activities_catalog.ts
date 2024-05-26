@@ -2,7 +2,15 @@ import axios, { AxiosError } from "axios";
 
 interface GetAllActivityCatalogResponse {
     message: string;
-    data: any;
+    data: {
+        projects: [
+            {
+                title: string;
+                logo: string;
+                type_activity: number;
+            }
+        ];
+    };
 }
 
 export default async function getAllActivitiesCatalog() {

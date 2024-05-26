@@ -2,8 +2,7 @@
     margin-bottom: 200px;
 }
 
-
-#white-scrolllbar::-webkit-scrollbar-track{
+#white-scrolllbar::-webkit-scrollbar-track {
     background: #f0f3fb !important;
 }
 

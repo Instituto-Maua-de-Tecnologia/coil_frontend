@@ -79,9 +79,9 @@ const Hero: React.FC = () => {
                 </div>
                 <div className="absolute mr-5 bottom-12 left-3/4">
                     <h1 className="lg:text-xl md:text-lg 2xs:hidden md:block font-medium bg-gradient-to-r from-[#673366] from-[21%] via-[#0C5AA4] via-[47%] to-[#1782E8] to-[100%] text-transparent bg-clip-text">
-                        Through the COIL initiative, students have the
-                        opportunity to engage with diverse cultures and enhance
-                        their skills online.
+                        Embark on a journey of global learning. From academic
+                        travels to international projects, enrich your knowledge
+                        and embrace cultural exchange.
                     </h1>
                 </div>
             </div>

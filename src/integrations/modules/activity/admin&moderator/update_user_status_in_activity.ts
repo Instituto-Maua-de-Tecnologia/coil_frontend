@@ -16,20 +16,16 @@ export default async function updateUserStatusInActivity(
     props: UpdateUserStatusProps
 ) {
     const token = localStorage.getItem("token");
-    console.log(JSON.stringify(props.body));
+    console.log(props.body);
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
-            .post(
-                `${endpoint}/update-users-activity`,
-                JSON.stringify(props.body),
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: token
-                    }
+            .post(`${endpoint}/update-users-activity`, props.body, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token
                 }
-            )
+            })
             .then((response) => {
                 const responseData: UpdateUserStatusResponse =
                     response.data as UpdateUserStatusResponse;

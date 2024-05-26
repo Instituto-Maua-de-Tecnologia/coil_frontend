@@ -24,13 +24,16 @@ export default function MobilityCard({
     ) => {
         e.stopPropagation();
         if (user.user_type === UserTypeEnum.STUDENT) onClick(mobility);
-        else if (user.user_type === UserTypeEnum.ADMIN)
+        else if (
+            user.user_type === UserTypeEnum.ADMIN ||
+            user.user_type === UserTypeEnum.MODERATOR
+        )
             navigate("/EnrolledStudents", {
                 state: {
-                    userStatus: 3,
-                    type_activity: 1,
+                    userStatus: user.user_type,
+                    type_activity: 2,
                     edit: true,
-                    project: mobility
+                    projectID: mobility.id
                 }
             });
     };

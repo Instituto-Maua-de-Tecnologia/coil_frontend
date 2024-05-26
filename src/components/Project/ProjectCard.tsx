@@ -22,13 +22,16 @@ export default function ProjectCard({
     ) => {
         e.stopPropagation();
         if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
-        else if (user.user_type === UserTypeEnum.ADMIN)
+        else if (
+            user.user_type === UserTypeEnum.ADMIN ||
+            user.user_type === UserTypeEnum.MODERATOR
+        )
             navigate("/EnrolledStudents", {
                 state: {
-                    userStatus: 3,
+                    userStatus: user.user_type,
                     type_activity: 1,
                     edit: true,
-                    project: project
+                    projectID: project.id
                 }
             });
     };

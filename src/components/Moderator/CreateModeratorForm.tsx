@@ -12,6 +12,7 @@ export default function CreateModeratorForm() {
     const isDarkTheme = useThemeDetector();
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const [email, setEmail] = useState<string>("");
+    const [name, setName] = useState<string>("");
     const [error, setError] = useState<string>("");
 
     const validateEmail = (value: string) => {
@@ -31,10 +32,14 @@ export default function CreateModeratorForm() {
         validateEmail(value);
     };
 
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setName(value);
+    };
+
     const handleModeratorPost = async () => {
-        const user = JSON.parse(localStorage.getItem("user") as string);
         await toast.promise(
-            createModerator({ body: { name: user.name, email: user.email } }),
+            createModerator({ body: { name: name, email: email } }),
             {
                 loading: `Cadastrando novo moderador...`,
                 success: <b>Moderador criado com sucesso</b>,
@@ -83,6 +88,16 @@ export default function CreateModeratorForm() {
                         <div className="flex flex-col items-center">
                             <FloatLabel>
                                 <InputText
+                                    id="name"
+                                    value={name}
+                                    onChange={handleNameChange}
+                                    className={`w-96`}
+                                />
+                                <label htmlFor="name">Name</label>
+                            </FloatLabel>
+                            <div className={"my-3"}></div>
+                            <FloatLabel>
+                                <InputText
                                     id="email"
                                     value={email}
                                     onChange={handleEmailChange}
@@ -102,7 +117,7 @@ export default function CreateModeratorForm() {
                 </TabPanel>
 
                 <TabPanel disabled unstyled>
-                    <ViewModerators></ViewModerators>
+                    <ViewModerators />
                 </TabPanel>
             </TabView>
         </div>

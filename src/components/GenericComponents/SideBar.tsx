@@ -5,8 +5,6 @@ import darkMauaLogo from "@assets/maua-fontys-dark.svg";
 import lightMauaLogo from "@assets/maua-fontys-light.svg";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 
-// TROCAR ESSE VALOR PELO TIPO DE USUARIO DO USUARIO E AJUSTAR O OPERADOR TERNARIO QUE GERA OS BOTÕES VERIFICANDO SE O USUÁRIO É ESTUDANTE
-
 export default function SideBar() {
     const access = JSON.parse(
         localStorage.getItem("user") as string
@@ -34,8 +32,7 @@ export default function SideBar() {
     }, []);
 
     const shouldRemovePaddingAndMargin = screenHeight <= 700;
-    console.log("useLocation: " + pathname.pathname);
-    console.log(navigation.map((fds) => fds.url));
+
     return (
         <div className={`flex`}>
             <div
@@ -64,7 +61,7 @@ export default function SideBar() {
                                     ${item.blue && `${isDarkTheme ? "!bg-[#223A4F] !text-black" : "!bg-sb-t !text-white"} ${screenHeight >= 700 ? "absolute bottom-14" : ""} hover:opacity-80 w-[75%]`}
                                     ${item.smgap ? `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[2.75vh]"}` : `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[1vh]"}`}
                                     ${item.br ? "-mt-[0.4rem]" : `flex items-center justify-left rounded-3xl p-[1vh] mx-[1.5rem] cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-sb-tb"} text-sb-t text-md font-medium hover:opacity-80`}
-                                    ${item.url === pathname.pathname && !item.purple ? `!fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
+                                    ${item.url?.replace(/\//g, "") === pathname.pathname.replace(/\//g, "") && !item.purple ? `!fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
                                     ${item.id === "7" ? "!bg-[#2684FF] !text-wrap !break-words" /*dark Mode Config*/ : "" /*light Mode Config*/}
                                     `}
                                     >

@@ -14,7 +14,10 @@ export default function Institutions() {
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
                     <InstitutionList
-                        isAdmin={user_type === UserTypeEnum.ADMIN}
+                        isAdmin={
+                            user_type === UserTypeEnum.ADMIN ||
+                            user_type === UserTypeEnum.MODERATOR
+                        }
                     />
                 </div>
             </div>

@@ -35,10 +35,6 @@ const Navbar = () => {
     }
 
     function handleNavigate() {
-        // if (user.user_type === UserTypeEnum.STUDENT) {
-        //     if (user.course === null || user.semester_course === null)
-        //         navigate("/Signup");
-        // } else navigate("/Home"); adicionar parâmetro na função user: any
         navigate("/Home");
     }
 

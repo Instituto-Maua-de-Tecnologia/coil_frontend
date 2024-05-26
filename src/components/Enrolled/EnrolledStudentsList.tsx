@@ -2,6 +2,7 @@ import { useThemeDetector } from "@util/ThemeDetector.ts";
 import "../../style/scrollbar.css";
 import EnrolledStudentCard from "./EnrolledStudentCard.tsx";
 import { ProjectProps } from "@components/Project/ProjectInformation.tsx";
+import NoElementsFound from "@components/GenericComponents/NoElementsFound.tsx";
 
 interface EnrolledStudentProps {
     students: ProjectProps;
@@ -18,13 +19,21 @@ export default function EnrolledStudentList({
         >
             <div>
                 <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                    {students.data.applicants.map((_: any, index: number) => (
-                        <EnrolledStudentCard
-                            key={index}
-                            projectID={students.data.id}
-                            users_applicants={students.data.applicants}
-                        />
-                    ))}
+                    {students.data.applicants[0] !== undefined ? (
+                        students.data.applicants.map(
+                            (_: any, index: number) => (
+                                <EnrolledStudentCard
+                                    key={index}
+                                    projectID={students.data.id}
+                                    users_applicants={students.data.applicants}
+                                />
+                            )
+                        )
+                    ) : (
+                        <div className={"w-full text-center"}>
+                            <NoElementsFound message="No students were found" />
+                        </div>
+                    )}
                 </ul>
             </div>
         </div>

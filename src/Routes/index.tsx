@@ -53,9 +53,11 @@ export default function AppRoutes() {
         )
             window.history.back();
         if (
-            adminPages.includes(window.location.pathname) &&
-            JSON.parse(localStorage.getItem("user") as string)?.user_type ===
-                UserTypeEnum.STUDENT
+            JSON.parse(localStorage.getItem("user") as string)?.user_type !==
+                UserTypeEnum.ADMIN &&
+            JSON.parse(localStorage.getItem("user") as string)?.user_type !==
+                UserTypeEnum.MODERATOR &&
+            adminPages.includes(window.location.pathname)
         ) {
             window.history.back();
         }

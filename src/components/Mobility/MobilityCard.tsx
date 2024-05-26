@@ -137,7 +137,11 @@ export default function MobilityCard({
                         ) : (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    mobility.activity_status?.name ===
+                                    "Coming Soon"
+                                }
+                                className={`bg-blue-500 ${mobility.activity_status?.name === "APPLY_NOW" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-white text-sm px-4 py-2 rounded-full`}
                             >
                                 View Enrolled Students
                             </button>

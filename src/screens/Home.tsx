@@ -43,10 +43,10 @@ export default function Home() {
                 <div className="flex-grow h-screen overflow-hidden mx-3 mb-3 flex flex-row">
                     <SideBar />
                     <div className="custom-scrollbar overflow-auto lg:overflow-hidden max-h-screen flex-col w-full ">
-                        {JSON.parse(localStorage.getItem("user") as string)
-                            ?.user_type === UserTypeEnum.STUDENT ? (
-                            <></>
-                        ) : (
+                        {(JSON.parse(localStorage.getItem("user") as string)
+                            ?.user_type === UserTypeEnum.MODERATOR ||
+                            JSON.parse(localStorage.getItem("user") as string)
+                                ?.user_type === UserTypeEnum.ADMIN) && (
                             <>
                                 <Tooltip
                                     target=".speeddial-bottom-right .p-speeddial-action"
@@ -73,7 +73,14 @@ export default function Home() {
                                             }
                                         },
                                         {
-                                            label: "Criar Moderador",
+                                            label:
+                                                JSON.parse(
+                                                    localStorage.getItem(
+                                                        "user"
+                                                    ) as string
+                                                ).user_type === 3
+                                                    ? "Criar Moderador"
+                                                    : "Ver Moderadores",
                                             icon: "pi pi-user-plus",
                                             command: () => {
                                                 navigate("/CreateModerator");

@@ -355,21 +355,25 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                     )}
                                 </>
                             )}
-                            {JSON.parse(localStorage.getItem("user") as string)
-                                .user_type === UserTypeEnum.ADMIN && (
-                                <button
-                                    onClick={() =>
-                                        navigate("/EnrolledStudents", {
-                                            state: {
-                                                projectID: project.data.id
-                                            }
-                                        })
-                                    }
-                                    className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
-                                >
-                                    Students Enrolled
-                                </button>
-                            )}
+                            {(JSON.parse(localStorage.getItem("user") as string)
+                                .user_type === UserTypeEnum.ADMIN ||
+                                JSON.parse(
+                                    localStorage.getItem("user") as string
+                                ).user_type === UserTypeEnum.MODERATOR) &&
+                                project.data.status_activity !== 1 && (
+                                    <button
+                                        onClick={() =>
+                                            navigate("/EnrolledStudents", {
+                                                state: {
+                                                    projectID: project.data.id
+                                                }
+                                            })
+                                        }
+                                        className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                    >
+                                        View Enrolled Students
+                                    </button>
+                                )}
                             {selectedProject ? (
                                 <Modal
                                     project={selectedProject}

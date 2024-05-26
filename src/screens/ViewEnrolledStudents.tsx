@@ -42,7 +42,7 @@ export default function ViewEnrolledStudents() {
                             </div>
                         )
                     ) : (
-                        <div className="flex justify-center items-center mt-auto">
+                        <div className="flex justify-center w-full h-screen items-center mt-auto">
                             <MoonLoader
                                 color={`${isDarkTheme ? "#f9f9f9" : "#090909"}`}
                                 size={35}

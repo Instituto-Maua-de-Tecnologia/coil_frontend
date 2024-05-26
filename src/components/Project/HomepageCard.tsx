@@ -22,15 +22,21 @@ export default function HomepageCard({
     ) => {
         e.stopPropagation();
         if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
-        else if (user.user_type === UserTypeEnum.ADMIN)
-            navigate("/CreateProject", {
-                state: {
-                    userStatus: 3,
-                    type_activity: 1,
-                    edit: true,
-                    project: project
+        else if (
+            user.user_type === UserTypeEnum.ADMIN ||
+            user.user_type === UserTypeEnum.MODERATOR
+        )
+            navigate(
+                `${project.activity_type?.id === 1 ? "/CreateCOIL" : "/CreateMobility"}`,
+                {
+                    state: {
+                        userStatus: user.user_type,
+                        type_activity: project.activity_type?.id,
+                        edit: true,
+                        project: project
+                    }
                 }
-            });
+            );
     };
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();
@@ -154,7 +160,11 @@ export default function HomepageCard({
                         ) : (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    project.activity_status?.name ===
+                                    "Coming Soon"
+                                }
+                                className={`bg-blue-500 text-white ${project.activity_status?.name === "APPLY_NOW" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-sm px-4 py-2 rounded-full`}
                             >
                                 View Enrolled Students
                             </button>

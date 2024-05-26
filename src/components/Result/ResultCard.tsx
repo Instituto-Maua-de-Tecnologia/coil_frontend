@@ -55,7 +55,9 @@ export default function ResultCard({ result }: ResultCardProps) {
                     </div>
 
                     <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
-                        <div className="border-2 border-blue-500 text-blue-500 text-sm px-4 py-2 rounded-full">
+                        <div
+                            className={`${applicants?.[0].status === true ? "text-blue-500 border-blue-500" : "text-red-500 border-red-800"} border-2 text-sm px-4 py-2 rounded-full`}
+                        >
                             {applicants?.[0].status === true
                                 ? "Approved"
                                 : "Unapproved"}

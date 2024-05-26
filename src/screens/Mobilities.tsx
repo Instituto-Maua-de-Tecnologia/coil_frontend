@@ -32,6 +32,13 @@ export default function Mobilities() {
                                                 state: { type_activity: 2 }
                                             });
                                         }
+                                    },
+                                    {
+                                        label: "Criar Moderador",
+                                        icon: "pi pi-user-plus",
+                                        command: () => {
+                                            navigate("/CreateModerator");
+                                        }
                                     }
                                 ]}
                                 direction="up"

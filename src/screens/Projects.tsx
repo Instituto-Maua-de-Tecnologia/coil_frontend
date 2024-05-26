@@ -27,11 +27,18 @@ export default function Projects() {
                                 model={[
                                     {
                                         label: "Criar COIL",
-                                        icon: "pi pi-pencil",
+                                        icon: "pi pi-file-plus",
                                         command: () => {
                                             navigate("/CreateProject", {
                                                 state: { type_activity: 1 }
                                             });
+                                        }
+                                    },
+                                    {
+                                        label: "Criar Moderador",
+                                        icon: "pi pi-user-plus",
+                                        command: () => {
+                                            navigate("/CreateModerator");
                                         }
                                     }
                                 ]}

@@ -1,30 +1,17 @@
-// src/App.tsx
-import React, { useState } from "react";
-import CreateModeratorModal from "./CreateModeratorModal";
+import TitleHeader from "@components/GenericComponents/TitleHeader.tsx";
+import SideBar from "@components/GenericComponents/SideBar.tsx";
+import CreateModeratorForm from "@components/Moderator/CreateModeratorForm.tsx";
 
-const CreateModerator: React.FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleCreateModerator = (email: string) => {
-        console.log(`Creating moderator with email: ${email}`);
-        // Aqui você pode adicionar a lógica para criar o moderador, como uma chamada à API
-    };
-
+export default function CreateModerator() {
     return (
-        <div className="App">
-            <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-                Novo Moderador
-            </button>
-            <CreateModeratorModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onCreateModerator={handleCreateModerator}
-            />
-        </div>
+        <>
+            <div className="max-h-screen flex flex-col">
+                <TitleHeader title={"Create Moderator"} />
+                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row ">
+                    <SideBar />
+                    <CreateModeratorForm />
+                </div>
+            </div>
+        </>
     );
-};
-
-export default CreateModerator;
+}

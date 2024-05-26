@@ -56,7 +56,7 @@ export default function Home() {
                                     model={[
                                         {
                                             label: "Criar Projeto",
-                                            icon: "pi pi-pencil",
+                                            icon: "pi pi-file-plus",
                                             command: () => {
                                                 navigate("/CreateCOIL", {
                                                     state: { type_activity: 1 }
@@ -74,11 +74,9 @@ export default function Home() {
                                         },
                                         {
                                             label: "Criar Moderador",
-                                            icon: "pi pi-pencil",
+                                            icon: "pi pi-user-plus",
                                             command: () => {
-                                                navigate("/CreateModerator", {
-                                                    state: { type_activity: 2 }
-                                                });
+                                                navigate("/CreateModerator");
                                             }
                                         }
                                     ]}

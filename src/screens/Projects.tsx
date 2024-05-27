@@ -30,7 +30,7 @@ export default function Projects() {
                                         label: "Criar COIL",
                                         icon: "pi pi-file-plus",
                                         command: () => {
-                                            navigate("/CreateProject", {
+                                            navigate("/CreateCOIL", {
                                                 state: { type_activity: 1 }
                                             });
                                         }

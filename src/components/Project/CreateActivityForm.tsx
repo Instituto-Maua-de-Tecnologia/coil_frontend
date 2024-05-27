@@ -398,7 +398,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                             <label htmlFor="projectName">Project Name</label>
                             <input
                                 ref={projectNameRef}
-                                className={`${isDarkTheme ? "placeholder:text-[#0F1820] bg-[#223A4F]" : "placeholder:text-[#CBD0DD] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6`}
+                                className={`${isDarkTheme ? "placeholder:text-[#CBD0DD] bg-[#223A4F]" : "placeholder:text-[#0F1820] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6`}
                                 type="text"
                                 placeholder="Type the name..."
                             />
@@ -455,7 +455,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                         readOnlyInput
                                         showIcon
                                         inputStyle={{
-                                            backgroundColor: "transparent",
+                                            backgroundColor: `${!isDarkTheme ? "#F0F3FB" : "#223A4F"}`,
                                             color: `${isDarkTheme ? "white" : "black"}`,
                                             border: "none",
                                             outline: "none",
@@ -480,7 +480,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                             <i className="pi mx-1 pi-clock" />
                                         )}
                                         inputStyle={{
-                                            backgroundColor: "transparent",
+                                            backgroundColor: `${!isDarkTheme ? "#F0F3FB" : "#223A4F"}`,
                                             color: `${isDarkTheme ? "white" : "black"}`,
                                             border: "none",
                                             outline: "none",
@@ -504,7 +504,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                             <i className="pi mx-1 pi-clock" />
                                         )}
                                         inputStyle={{
-                                            backgroundColor: "transparent",
+                                            backgroundColor: `${!isDarkTheme ? "#F0F3FB" : "#223A4F"}`,
                                             color: `${isDarkTheme ? "white" : "black"}`,
                                             border: "none",
                                             outline: "none",
@@ -524,7 +524,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 </label>
                                 <textarea
                                     ref={projectDescriptionRef}
-                                    className={`${isDarkTheme ? "placeholder:text-[#0F1820] bg-[#223A4F]" : "placeholder:text-[#CBD0DD] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6 py-3 resize-none`}
+                                    className={`${isDarkTheme ? "placeholder:text-[#CBD0DD] bg-[#223A4F]" : "placeholder:text-[#0F1820] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6 py-3 resize-none`}
                                     placeholder="Type the description..."
                                     rows={18}
                                 />

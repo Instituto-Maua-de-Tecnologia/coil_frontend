@@ -191,7 +191,7 @@ export default function MobilityList() {
 
     return (
         <div
-            className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+            className={`w-full lg:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex justify-between">
                 <Search onSearch={handleSearch} disabled={false} />

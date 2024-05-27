@@ -16,16 +16,16 @@ export default function ProjectCardHero({ project }: ProjectCardProps) {
         >
             <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
-                    <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
+                    <div className="sm:avatar-wrapper justify-center sm:flex flex-col mr-4">
                         <img
                             src={project.logo}
                             alt="Avatar"
-                            className="avatar-img mx-auto w-16 rounded-full"
+                            className="avatar-img justify-center mx-auto w-16 rounded-full"
                         />
                     </div>
 
                     <div className="flex flex-col">
-                        <div className="inline-flex flex-row mb-2 text-center text-black sm:text-start font-bold">
+                        <div className="inline-flex justify-center flex-row mb-2 text-center text-black sm:text-start font-bold">
                             {project.title}
                         </div>
                     </div>

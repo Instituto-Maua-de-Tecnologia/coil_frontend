@@ -34,7 +34,11 @@ export const sections: FooterSection[] = [
 ];
 
 export const items: FooterItem[] = [
-    { name: "Github", icon: FaGithub, link: "https://github.com/" },
+    {
+        name: "Github",
+        icon: FaGithub,
+        link: "https://github.com/Instituto-Maua-de-Tecnologia/"
+    },
     {
         name: "Youtube",
         icon: FaYoutube,
@@ -43,6 +47,6 @@ export const items: FooterItem[] = [
     {
         name: "Instagram",
         icon: FaInstagram,
-        link: "https://www.youtube.com/infomaua"
+        link: "https://www.instagram.com/infomaua/"
     }
 ];

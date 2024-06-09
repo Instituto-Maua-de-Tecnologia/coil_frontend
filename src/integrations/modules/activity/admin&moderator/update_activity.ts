@@ -31,7 +31,6 @@ interface CreateActivityResponse {
 
 export default async function updateActivity(props: UpdateActivityProps) {
     const token = localStorage.getItem("token");
-    console.log(JSON.stringify(props.body));
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
@@ -55,7 +54,6 @@ export default async function updateActivity(props: UpdateActivityProps) {
                         status: errorResponse.status,
                         message: errorResponse.data.message
                     });
-                    console.log(errorResponse.data.message);
                 }
             });
     });

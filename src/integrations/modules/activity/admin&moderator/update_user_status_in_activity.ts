@@ -16,7 +16,6 @@ export default async function updateUserStatusInActivity(
     props: UpdateUserStatusProps
 ) {
     const token = localStorage.getItem("token");
-    console.log(props.body);
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios

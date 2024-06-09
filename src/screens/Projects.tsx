@@ -56,6 +56,7 @@ export default function Projects() {
                         </>
                     ) : null}
                     <SideBar />
+                    <div className={"ms-4"}></div>
                     <ProjectList />
                 </div>
             </div>

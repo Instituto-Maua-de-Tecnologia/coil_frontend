@@ -29,11 +29,9 @@ const Modal: React.FC<ModalProps> = ({
     const handleEnrollment = async () => {
         setEnrolling(true);
         try {
-            console.log(
-                await assignUserToActivities({
-                    activity_id: project.id as string
-                })
-            );
+            await assignUserToActivities({
+                activity_id: project.id as string
+            });
         } catch (error) {
             console.error("A inscrição não teve sucesso", error);
         } finally {

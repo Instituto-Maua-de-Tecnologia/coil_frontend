@@ -70,7 +70,6 @@ export default function Results() {
         })
             .catch((e) => console.error(e.message))
             .finally(() => setLoaded(true))) as ResultsProps;
-        console.log(resultsValues);
         setResults(resultsValues);
     };
 

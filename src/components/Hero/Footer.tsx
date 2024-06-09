@@ -3,14 +3,14 @@ import { items, FooterItem } from "@constants/FooterItems";
 
 const Footer: React.FC = () => {
     return (
-        <div className="w-full  bg-slate-900 text-gray-300 py-y px-2">
-            <div className=" max-w-[1240px] mx-auto grid-cols-2 md:grid-cols-6 gap-12 border-b-2 p-2 border-gray-600 py-8">
+        <div className="w-full  bg-slate-900 text-gray-300 py-y px-2 z-0">
+            <div className=" max-w-[1240px] mx-auto grid-cols-2 md:grid-cols-6 gap-12 border-b-2 p-2 border-gray-600 py-8 z-0">
                 <div className="justify-between">
-                    <h6 className="font-bold uppercase pt-2 ">
+                    <h6 className="font-bold uppercase pt-2">
                         Mais sobre a Mauá
                     </h6>
                     <ul>
-                        <li className="py-1 text-gray-500 hover:text-white">
+                        <li className="py-1 text-gray-500 hover:text-white z-20">
                             <a href="http://maua.br/" target="blank">
                                 Insituto mauá de Tecnologia
                             </a>
@@ -57,21 +57,27 @@ const Footer: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col max-w-[1240px] px-10 py-4 mx-auto justify-between sm:flex-row text-center text-gray-500">
-                <div className="p-2 flex justify-center">
+            <div className="flex flex-col max-w-[1240px] px-10 py-4 mx-auto justify-between sm:flex-row text-center text-gray-500 z-0">
+                <div className="p-2 flex justify-center z-0">
                     <img
                         className="h-12 w-12"
                         src={"/maua-fontys-light.svg"}
                         alt="Maua Logo"
                     />
-                    <p className="ml-5 py-4">2024 | COIL Project</p>
+                    <p className="ml-5 py-4 z-0">2024 | COIL Project</p>
                 </div>
 
-                <div className="flex justify-between sm:w-[300px] pt-4 text-2xl">
+                <div className="flex justify-between sm:w-[300px] pt-4 text-2xl ">
                     {items.map((x: FooterItem, index: number) => {
                         const Icon = x.icon;
+                        const Link = x.link;
                         return (
-                            <Icon key={index} className="hover:text-white" />
+                            <a href={Link} target="blank">
+                                <Icon
+                                    key={index}
+                                    className="hover:text-white z-10"
+                                />
+                            </a>
                         );
                     })}
                 </div>

@@ -52,7 +52,6 @@ export default function ProjectListHero({ isProject }: HeroProjectListProps) {
             const projectValues =
                 (await getAllActivitiesCatalog()) as ProjectCatalog;
             setProjects(projectValues);
-            console.log(projectValues);
         } catch (error) {
             console.error("Erro ao obter projetos:", error);
         } finally {

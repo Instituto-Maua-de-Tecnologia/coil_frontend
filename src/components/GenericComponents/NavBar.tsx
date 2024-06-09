@@ -39,7 +39,6 @@ const Navbar = () => {
     }
 
     async function handleGetUser(accessToken: string) {
-        console.log(accessToken);
         await authUser({
             token: accessToken
         })

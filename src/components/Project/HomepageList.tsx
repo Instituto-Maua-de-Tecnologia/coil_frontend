@@ -274,13 +274,6 @@ export default function HomepageList() {
         fetchData();
     }, []);
 
-    // const navigate = useNavigate();
-    // useEffect(() => {
-    //     if (enrolledProjectsIds.length > 0) {
-    //         console.log(enrolledProjectsIds);
-    //     }
-    // }, [enrolledProjectsIds])
-
     /* eslint-enable */
     return (
         <div
@@ -288,10 +281,6 @@ export default function HomepageList() {
         >
             <div className="mb-4 flex">
                 <Search disabled={!loaded} onSearch={handleSearch} />
-                <div className="button-container flex absolute right-12">
-                    {/* {isAdmin ? <Add url="/CreateProject" /> : null} */}
-                    {/* {isFilter && <Filter />} */}
-                </div>
             </div>
             {projects.length > 0 ? (
                 filteredProjects.length > 0 ? (

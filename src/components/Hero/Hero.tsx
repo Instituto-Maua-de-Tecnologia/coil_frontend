@@ -55,13 +55,13 @@ const Hero: React.FC = () => {
                         label="Open opportunities          "
                         onClick={() => scrollToSection("open-opportunities")}
                     />
-                    <Button
+                    {/* <Button
                         className="z-20 m-5 mt-0 xs:mt-0 sm:mt-5 2xs:top-[420px] xs:top-[200px] sm:top-[500px] md:top-[10px] 2xs:left-0 lg:w-[50%] 2xs:w-[90%] xs:w-[40%] md:w-auto 2xs:h-[5%] xs:h-[2.5%] md:text-[11px] lg:text-[16px] xlg:text-[20px]"
                         label="International relations department"
                         onClick={() =>
                             scrollToSection("international-department")
                         }
-                    />
+                    /> */}
                 </div>
                 <div className="relative">
                     <Navbar />

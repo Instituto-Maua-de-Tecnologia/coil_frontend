@@ -40,7 +40,7 @@ export default function Mobilities() {
                                                 localStorage.getItem(
                                                     "user"
                                                 ) as string
-                                            ).user_type === 3
+                                            )?.user_type === 3
                                                 ? "Criar Moderador"
                                                 : "Ver Moderadores",
                                         icon: "pi pi-user-plus",

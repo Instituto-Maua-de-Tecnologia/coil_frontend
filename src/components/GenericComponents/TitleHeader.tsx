@@ -23,7 +23,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const isDarkTheme = useThemeDetector();
     const links =
-        JSON.parse(localStorage.getItem("user") as string).user_type ===
+        JSON.parse(localStorage.getItem("user") as string)?.user_type ===
         UserTypeEnum.STUDENT
             ? [
                   { to: "/Home", label: "Home", icon: homeIcon },

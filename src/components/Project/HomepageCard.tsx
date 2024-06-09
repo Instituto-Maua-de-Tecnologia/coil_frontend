@@ -21,22 +21,18 @@ export default function HomepageCard({
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         e.stopPropagation();
-        if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
-        else if (
-            user.user_type === UserTypeEnum.ADMIN ||
-            user.user_type === UserTypeEnum.MODERATOR
-        )
-            navigate(
-                `${project.activity_type?.id === 1 ? "/CreateCOIL" : "/CreateMobility"}`,
-                {
+        if (user !== undefined) {
+            if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
+            else if (
+                user.user_type === UserTypeEnum.ADMIN ||
+                user.user_type === UserTypeEnum.MODERATOR
+            )
+                navigate("/EnrolledStudents", {
                     state: {
-                        userStatus: user.user_type,
-                        type_activity: project.activity_type?.id,
-                        edit: true,
-                        project: project
+                        projectID: project.id
                     }
-                }
-            );
+                });
+        }
     };
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();

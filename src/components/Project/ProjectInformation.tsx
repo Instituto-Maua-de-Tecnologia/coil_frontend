@@ -162,7 +162,10 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                 }
             ],
             status_activity: 0,
-            type_activity: 0,
+            type_activity:
+                window.location.pathname.replace("/", "") === "COILInfo"
+                    ? 1
+                    : 2,
             created_at: "",
             updated_at: "",
             applicants: [
@@ -339,7 +342,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                 <>
                                     {JSON.parse(
                                         localStorage.getItem("user") as string
-                                    ).user_type === UserTypeEnum.STUDENT && (
+                                    )?.user_type === UserTypeEnum.STUDENT && (
                                         <button
                                             onClick={() =>
                                                 handleModalOpen(project.data)
@@ -356,10 +359,10 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                 </>
                             )}
                             {(JSON.parse(localStorage.getItem("user") as string)
-                                .user_type === UserTypeEnum.ADMIN ||
+                                ?.user_type === UserTypeEnum.ADMIN ||
                                 JSON.parse(
                                     localStorage.getItem("user") as string
-                                ).user_type === UserTypeEnum.MODERATOR) &&
+                                )?.user_type === UserTypeEnum.MODERATOR) &&
                                 project.data.status_activity !== 1 && (
                                     <button
                                         onClick={() =>

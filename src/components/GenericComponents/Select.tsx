@@ -87,7 +87,9 @@ export default function Select({
                             </button>
                         ))
                     ) : (
-                        <span className="font-normal text-[#0F1820]">
+                        <span
+                            className={`font-normal ${isDarkTheme ? "text-[#CBD0DD]" : "text-[#0F1820]"}`}
+                        >
                             Select...
                         </span>
                     )

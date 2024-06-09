@@ -29,15 +29,13 @@ export default function ResultCard({ result }: ResultCardProps) {
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-row items-center">
                                 <p className="text-xs mr-2">Languages:</p>
-                                {partner_institutions?.map(
-                                    (language, index) => (
-                                        <SVGIcon
-                                            key={"ResultCard SVGIcon " + index}
-                                            src={`https://hatscripts.github.io/circle-flags/flags/${language.countries[index].country.country_code}.svg`}
-                                            className="w-4 m-[1px]"
-                                        />
-                                    )
-                                )}
+                                {result.languages?.map((language, index) => (
+                                    <SVGIcon
+                                        key={"ResultCard SVGIcon " + index}
+                                        src={`https://hatscripts.github.io/circle-flags/flags/${language.language_code}.svg`}
+                                        className="w-4 m-[1px]"
+                                    />
+                                ))}
                             </div>
                         </div>
                         <div className="flex mb-2">
@@ -58,12 +56,11 @@ export default function ResultCard({ result }: ResultCardProps) {
 
                     <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
                         <div
-                            className={` ${status === "Open" ? "text-green-500" : "text-red-500"}`}
+                            className={`${applicants?.[0].status === true ? "text-blue-500 border-blue-500" : "text-red-500 border-red-800"} border-2 text-sm px-4 py-2 rounded-full`}
                         >
-                            {status}
-                        </div>
-                        <div className="border-2 border-blue-500 text-blue-500 text-sm px-4 py-2 rounded-full">
-                            {applicants?.[0].status}
+                            {applicants?.[0].status === true
+                                ? "Approved"
+                                : "Unapproved"}
                         </div>
                     </div>
                 </div>

@@ -13,30 +13,102 @@ import Mobilities from "@screens/Mobilities.tsx";
 import ViewEnrolledStudents from "@screens/ViewEnrolledStudents";
 import { ActivityTypeEnum } from "@enum/ActivityTypeEnum.ts";
 import ProjectInfo from "@screens/ProjectInfo";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import getUser from "@integrations/user/authentification/get_user.ts";
 import InstitutionInfo from "@screens/InstitutionInfo";
 import toast from "react-hot-toast";
+import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
+import CreateModerator from "@screens/CreateModerator.tsx";
 
 export default function AppRoutes() {
+    const possibleRoutes = [
+        "/Home",
+        "/Institution",
+        "/InstitutionInfo",
+        "/COIL",
+        "/COILInfo",
+        "/CreateCOIL",
+        "/CreateMobility",
+        "/Mobilities",
+        "/Enrolled",
+        "/Results",
+        "/CreateModerator",
+        "/User",
+        "/Signout",
+        "/EnrolledStudents"
+    ];
+    const adminPages = [
+        "/CreateCOIL",
+        "/CreateMobility",
+        "/EnrolledStudents",
+        "/CreateModerator"
+    ];
+    const [location, setLocation] = useState(window.location.pathname);
+
+    /* eslint-disable */
+    const checkAndNavigateBack = () => {
+        if (
+            JSON.parse(localStorage.getItem("user") as string)?.user_type ===
+            null
+        )
+            window.history.back();
+        if (
+            JSON.parse(localStorage.getItem("user") as string)?.user_type !==
+                UserTypeEnum.ADMIN &&
+            JSON.parse(localStorage.getItem("user") as string)?.user_type !==
+                UserTypeEnum.MODERATOR &&
+            adminPages.includes(window.location.pathname)
+        ) {
+            window.history.back();
+        }
+    };
+
     useEffect(() => {
-        if (!(window.location.pathname === "/")) {
+        const handleLocationChange = () => {
+            setLocation(window.location.pathname);
+        };
+        const pushState = window.history.pushState;
+        const replaceState = window.history.replaceState;
+
+        window.history.pushState = function (...args) {
+            pushState.apply(window.history, args);
+            handleLocationChange();
+        };
+
+        window.history.replaceState = function (...args) {
+            replaceState.apply(window.history, args);
+            handleLocationChange();
+        };
+
+        window.addEventListener("popstate", handleLocationChange);
+
+        checkAndNavigateBack();
+
+        return () => {
+            window.removeEventListener("popstate", handleLocationChange);
+            window.history.pushState = pushState;
+            window.history.replaceState = replaceState;
+        };
+    }, [location]);
+
+    useEffect(() => {
+        if (possibleRoutes.includes(window.location.pathname)) {
             if (
                 !localStorage.getItem("user") ||
                 !localStorage.getItem("token")
             ) {
                 window.location.href = "/";
                 localStorage.clear();
-                toast.error("deu ruim irmao");
-            } else
+            } else {
                 getUser({
                     token: localStorage.getItem("token") as string
                 }).catch((error) => {
                     window.location.href = "/";
                     localStorage.clear();
-                    toast.error("deu ruim irmao");
+                    toast.error("Acesso expirado, faça o Login novamente");
                     throw new Error(error);
                 });
+            }
         }
     }, []);
 
@@ -49,7 +121,7 @@ export default function AppRoutes() {
     useEffect(() => {
         handleUser();
     }, [localStorage.getItem("token")]);
-
+    /* eslint-enable */
     return (
         <BrowserRouter>
             <Routes>
@@ -61,11 +133,16 @@ export default function AppRoutes() {
                     path={"/InstitutionInfo"}
                     element={<InstitutionInfo />}
                 />
-                <Route path={"/Projects"} element={<Projects />} />
-                <Route path={"/ProjectInfo"} element={<ProjectInfo />} />
-                <Route path={"/CreateProject"} element={<CreateActivity />} />
-                <Route path={"/CreateProject"} element={<CreateActivity />} />
+                <Route path={"/COIL"} element={<Projects />} />
+                <Route path={"/COILInfo"} element={<ProjectInfo />} />
+                <Route path={"/MobilityInfo"} element={<ProjectInfo />} />
+                <Route path={"/MobilityInfo"} element={<ProjectInfo />} />
+                <Route path={"/CreateCOIL"} element={<CreateActivity />} />
                 <Route path={"/CreateMobility"} element={<CreateActivity />} />
+                <Route
+                    path={"/CreateModerator"}
+                    element={<CreateModerator />}
+                />
                 <Route path={"/Mobilities"} element={<Mobilities />} />
                 <Route
                     path={"/Enrolled"}

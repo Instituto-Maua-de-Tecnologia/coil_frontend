@@ -4,21 +4,21 @@ import infoImg3 from "@assets/hero/heroCard/Info 3 Image.png";
 
 export const HeroCardData = [
     {
-        title: "New Experiences",
+        title: "Expand horizons",
         content:
-            "COIL stands for Collaborative Online International Learning, for Mauá`s students looking forward to having international experiences at the comfort of their home, COIL is the program for you!",
+            "Participating in international projects broadens your perspective by exposing you to diverse cultures and global issues. Enhance your adaptability and critical thinking, prepare to thrive in a globalized world.",
         infoImage: infoImg1
     },
     {
-        title: "Professor support",
+        title: "Cultural Exchange",
         content:
-            "In a COIL project, there is always a professor watching over and helping whenever possible.",
+            "Engaging in projects with peers from diverse backgrounds cultivates innovative thinking and enriches your understanding of various subjects. This exchange of perspectives fosters deeper cultural understanding.",
         infoImage: infoImg3
     },
     {
-        title: "Similar Knowledge",
+        title: "Professional Growth",
         content:
-            "The main goal of the initiative is to make students learn together, while letting them share their cultures. COIL ensures the formation of groups comprising students with comparable levels of knowledge.",
+            "Acquire invaluable professional experience. You'll build a global network, gain insights into international markets, and improve your problem-solving abilities, making you an asset to any organization.",
         infoImage: infoImg2
     }
 ];

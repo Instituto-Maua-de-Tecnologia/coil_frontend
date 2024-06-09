@@ -11,7 +11,7 @@ interface ProjectCardProps {
     onClick: (project: Project) => void;
 }
 
-export default function ProjectCard({
+export default function HomepageCard({
     project,
     enrolled,
     onClick
@@ -26,21 +26,29 @@ export default function ProjectCard({
             user.user_type === UserTypeEnum.ADMIN ||
             user.user_type === UserTypeEnum.MODERATOR
         )
-            navigate("/EnrolledStudents", {
-                state: {
-                    userStatus: user.user_type,
-                    type_activity: 1,
-                    edit: true,
-                    projectID: project.id
+            navigate(
+                `${project.activity_type?.id === 1 ? "/CreateCOIL" : "/CreateMobility"}`,
+                {
+                    state: {
+                        userStatus: user.user_type,
+                        type_activity: project.activity_type?.id,
+                        edit: true,
+                        project: project
+                    }
                 }
-            });
+            );
     };
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();
     return (
         <li
             onClick={() =>
-                navigate("/COILInfo", { state: { projectID: project.id } })
+                navigate(
+                    (project?.activity_type?.id as number) === 1
+                        ? "/COILInfo"
+                        : "/MobilityInfo",
+                    { state: { projectID: project.id } }
+                )
             }
             className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
@@ -60,8 +68,24 @@ export default function ProjectCard({
                         </div>
                     )}
                     <div className="flex flex-col grow">
-                        <div className="mb-2 text-center sm:text-start font-bold">
+                        <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold w-full justify-center sm:justify-normal">
                             {project.title}
+                            <div
+                                title={
+                                    project.activity_type?.id === 1
+                                        ? "COIL"
+                                        : "Mobility"
+                                }
+                                className={`w-auto flex justify-center items-center rounded-full p-1 px-2 ml-2 text-xs font-medium ${
+                                    project.activity_type?.id === 1
+                                        ? "bg-blue-50 text-blue-700"
+                                        : "bg-yellow-50 text-yellow-700"
+                                }`}
+                            >
+                                {project?.activity_type?.id === 1
+                                    ? "COIL"
+                                    : "Mobility"}
+                            </div>
                         </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-normal w-full">
@@ -110,7 +134,7 @@ export default function ProjectCard({
 
                     <div className="sm:flex items-center w-auto sm:min-w-24  gap-4 flex-col sm:justify-end mr-2">
                         <div className={`text-blue-500`}>
-                            {project.activity_status?.name}
+                            {project.activity_status?.name.replace("_", " ")}
                         </div>
                         {project.activity_status?.name !== "UNDER_ANALYSIS" &&
                         user.user_type === UserTypeEnum.STUDENT ? (
@@ -140,7 +164,7 @@ export default function ProjectCard({
                                     project.activity_status?.name ===
                                     "Coming Soon"
                                 }
-                                className={`bg-blue-500 ${project.activity_status?.name === "APPLY_NOW" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-white text-sm px-4 py-2 rounded-full`}
+                                className={`bg-blue-500 text-white ${project.activity_status?.name === "APPLY_NOW" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-sm px-4 py-2 rounded-full`}
                             >
                                 View Enrolled Students
                             </button>

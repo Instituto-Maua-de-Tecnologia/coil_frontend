@@ -3,6 +3,7 @@ import { Mobility } from "../../types";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 interface MobilityCardProps {
     mobility: Mobility;
@@ -18,15 +19,31 @@ export default function MobilityCard({
     const user = JSON.parse(localStorage.getItem("user") as string);
     const navigate = useNavigate();
 
-    const handleOnClick = () => {
+    const handleOnClick = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        e.stopPropagation();
         if (user.user_type === UserTypeEnum.STUDENT) onClick(mobility);
-        else if (user.user_type === UserTypeEnum.ADMIN)
-            navigate("/CreateProject", { state: { userStatus: 3 } });
+        else if (
+            user.user_type === UserTypeEnum.ADMIN ||
+            user.user_type === UserTypeEnum.MODERATOR
+        )
+            navigate("/EnrolledStudents", {
+                state: {
+                    userStatus: user.user_type,
+                    type_activity: 2,
+                    edit: true,
+                    projectID: mobility.id
+                }
+            });
     };
     const isDarkTheme = useThemeDetector();
     return (
         <li
-            className={`sm:flex items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            onClick={() =>
+                navigate("/MobilityInfo", { state: { projectID: mobility.id } })
+            }
+            className={`sm:flex cursor-pointer items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
@@ -39,33 +56,40 @@ export default function MobilityCard({
                                         ?.institution?.images[0].image
                                 }
                                 alt="Avatar"
-                                className="avatar-img mx-auto w-16 rounded-full"
+                                className="avatar-img mx-auto min-w-16 max-w-16 rounded-full"
                             />
                         </div>
                     )}
-                    <div className="flex flex-col">
+                    <div className="flex flex-col grow">
                         <div className="mb-2 text-center sm:text-start font-bold">
                             {mobility.title}
                         </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
-                            <div className="flex flex-col sm:flex-row items-center">
+                            <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-normal w-full">
                                 <p className="text-xs mr-2">Languages:</p>
-                                {mobility.languages?.map((mobility, index) => (
-                                    <div
-                                        key={"Project SVGICon Language" + index}
-                                        className={
-                                            "border-[#673366] mt-2 sm:mt-0 flex-row border-[1px] ms-2 pe-1 ps-2 py-1 items-center flex rounded-full text-[#673366]"
-                                        }
-                                    >
-                                        <p className={"text-xs me-2"}>
-                                            {mobility.language.language}
-                                        </p>
-                                        <SVGIcon
-                                            src={`https://hatscripts.github.io/circle-flags/flags/${mobility.language.language_code}.svg`}
-                                            className="w-4 m-[1px]"
-                                        />
-                                    </div>
-                                ))}
+                                <div
+                                    className={`grid ${mobility.languages?.length === 1 ? "grid-cols-1  justify-items-center" : "grid-cols-2"} sm:flex sm:flex-wrap gap-2 w-full`}
+                                >
+                                    {mobility.languages?.map(
+                                        (mobility, index) => (
+                                            <div
+                                                key={
+                                                    "Project SVGICon Language" +
+                                                    index
+                                                }
+                                                className="border-[#673366] mt-1 sm:mt-0 flex flex-row border-[1px]  pe-1 ps-2 py-1 items-center justify-between rounded-full text-[#673366]"
+                                            >
+                                                <p className="text-xs me-2">
+                                                    {mobility.language.language}
+                                                </p>
+                                                <SVGIcon
+                                                    src={`https://hatscripts.github.io/circle-flags/flags/${mobility.language.language_code}.svg`}
+                                                    className="w-4 m-[1px]"
+                                                />
+                                            </div>
+                                        )
+                                    )}
+                                </div>
                             </div>
                         </div>
                         <div className="flex mb-2">
@@ -85,23 +109,41 @@ export default function MobilityCard({
                         </div>
                     </div>
 
-                    <div className="sm:flex sm:absolute sm:right-0 items-center gap-4 flex-col sm:justify-end mr-2">
+                    <div className="sm:flex items-center w-auto sm:min-w-24  gap-4 flex-col sm:justify-end mr-2">
                         <div className={`text-blue-500`}>
                             {mobility.activity_status?.name.replace("_", " ")}
                         </div>
-                        {user.user_type === UserTypeEnum.STUDENT ? (
+                        {mobility.activity_status?.name !== "UNDER_ANALYSIS" &&
+                        user.user_type === UserTypeEnum.STUDENT ? (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    mobility.activity_status?.name !==
+                                    "Apply Now"
+                                }
+                                className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full"
                             >
-                                {enrolled ? "Disenroll" : "Enroll"}
+                                <span
+                                    title={
+                                        mobility.activity_status?.name !==
+                                        "Apply Now"
+                                            ? "This project is not appliable"
+                                            : `Apply for ${mobility.title}`
+                                    }
+                                >
+                                    {enrolled ? "Withdraw" : "Apply"}
+                                </span>
                             </button>
                         ) : (
                             <button
                                 onClick={handleOnClick}
-                                className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                disabled={
+                                    mobility.activity_status?.name ===
+                                    "Coming Soon"
+                                }
+                                className={`bg-blue-500 ${mobility.activity_status?.name === "APPLY_NOW" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-white text-sm px-4 py-2 rounded-full`}
                             >
-                                Edit
+                                View Enrolled Students
                             </button>
                         )}
                     </div>

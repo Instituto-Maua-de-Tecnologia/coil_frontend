@@ -10,6 +10,7 @@ import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
 import NoElementsFound from "@components/GenericComponents/NoElementsFound";
 import { LoadSpinner } from "@components/GenericComponents/LoadSpinner";
+import { Paginator } from "primereact/paginator";
 
 type MobilityProps = {
     id?: string;
@@ -97,92 +98,7 @@ type MobilityProps = {
 };
 
 export default function MobilityList() {
-    const [mobilities, setMobilities] = useState<MobilityProps[]>([
-        {
-            id: "",
-            title: "",
-            start_date: "",
-            end_date: "",
-            created_at: "",
-            updated_at: "",
-            courses: [
-                {
-                    course_id: 0,
-                    course: {
-                        id: 0,
-                        course: ""
-                    }
-                }
-            ],
-            languages: [
-                {
-                    language_id: 0,
-                    language: {
-                        id: 0,
-                        language: "",
-                        language_code: ""
-                    }
-                }
-            ],
-            criterias: {
-                criteria_id: 0,
-                criteria: [
-                    {
-                        id: 0,
-                        criteria: ""
-                    }
-                ]
-            },
-            partner_institutions: [
-                {
-                    institution_id: "",
-                    institution: {
-                        id: "",
-                        name: "",
-                        description: "",
-                        email: "",
-                        social_medias: [
-                            {
-                                id: 0,
-                                institution_id: "",
-                                social_media_id: 0,
-                                link: "",
-                                media: {
-                                    id: 0,
-                                    name: ""
-                                }
-                            }
-                        ],
-                        countries: [
-                            {
-                                id: 0,
-                                institution_id: "",
-                                country_id: 0,
-                                country: {
-                                    id: 0,
-                                    country: "",
-                                    country_code: ""
-                                }
-                            }
-                        ],
-                        images: [
-                            {
-                                image: ""
-                            }
-                        ]
-                    }
-                }
-            ],
-            activity_status: {
-                id: 0,
-                name: ""
-            },
-            activity_type: {
-                id: 0,
-                name: ""
-            }
-        }
-    ]);
+    const [mobilities, setMobilities] = useState<MobilityProps[]>([]);
     const [enrolledMobilitiesIds, setEnrolledMobilitiesIds] = useState<
         string[]
     >([]);
@@ -190,12 +106,19 @@ export default function MobilityList() {
         null
     );
     const [loaded, setLoaded] = useState<boolean>(false);
+    const [filteredMobilities, setFilteredMobilities] = useState<
+        MobilityProps[]
+    >([]);
+    const [first, setFirst] = useState(0);
+    const [rows, setRows] = useState(4);
+
     const handleGetAllMobilities = async () => {
         try {
             const mobilityValues = (await getAllActivities({
                 type_activity: "2"
             })) as MobilityProps[];
             setMobilities(mobilityValues);
+            setFilteredMobilities(mobilityValues); // Initialize filteredMobilities
         } catch (error) {
             console.error("Erro ao obter mobilidades acadêmicas:", error);
         } finally {
@@ -204,9 +127,7 @@ export default function MobilityList() {
     };
 
     const enrolledIdsToArray = (enrolledProjects: MobilityProps[]) => {
-        return enrolledProjects.map((project) => {
-            return `${project.id}`;
-        });
+        return enrolledProjects.map((project) => `${project.id}`);
     };
 
     const handleGetEnrolledMobilities = async () => {
@@ -220,8 +141,6 @@ export default function MobilityList() {
                 console.error("Erro ao obter projetos:", error);
             });
     };
-    const [filteredMobilities, setFilteredMobilities] =
-        useState<MobilityProps[]>(mobilities);
 
     const handleModalOpen = (mobility: Mobility) => {
         setSelectedMobility(mobility);
@@ -249,11 +168,10 @@ export default function MobilityList() {
                     .includes(searchTerm.toLowerCase())
         );
         setFilteredMobilities(filtered);
+        setFirst(0); // Reset to first page on search
     };
 
     const isDarkTheme = useThemeDetector();
-
-    /* eslint-disable */
 
     useEffect(() => {
         const handleGets = async () => {
@@ -263,23 +181,39 @@ export default function MobilityList() {
         handleGets();
     }, []);
 
+    const onPageChange = (event: any) => {
+        setFirst(event.first);
+        setRows(event.rows);
+    };
+
+    // Calculate the current items to display
+    const currentItems = filteredMobilities.slice(first, first + rows);
+
     return (
         <div
-            className={`w-full ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+            className={`w-full lg:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
-            <div className="mb-4 flex">
+            <div className="mb-4 flex justify-between">
                 <Search onSearch={handleSearch} disabled={false} />
+                <Paginator
+                    className={`h-14 mr-[26px] ${isDarkTheme ? "bg-[#14222E] text-white" : "bg-[#FFFFFF]"}`}
+                    first={first}
+                    rows={rows}
+                    totalRecords={filteredMobilities.length}
+                    onPageChange={onPageChange}
+                />
+
                 <div className="button-container flex absolute right-12">
                     {/* {isAdmin ? <Add url="/CreateMobility" /> : null} */}
                     {/* {isFilter && <Filter />} */}
                 </div>
             </div>
-            {mobilities.length > 0 ? (
-                filteredMobilities.length > 0 ? (
-                    <div>
-                        {loaded ? (
+            {loaded ? (
+                mobilities.length > 0 ? (
+                    filteredMobilities.length > 0 ? (
+                        <div>
                             <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                                {mobilities.map((mobility) => (
+                                {currentItems.map((mobility) => (
                                     <MobilityCard
                                         key={"MobilityCardKey" + mobility.id}
                                         mobility={mobility}
@@ -290,29 +224,29 @@ export default function MobilityList() {
                                     />
                                 ))}
                             </ul>
-                        ) : (
-                            <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
-                                <LoadSpinner />
-                            </div>
-                        )}
-                        {selectedMobility ? (
-                            <Modal
-                                enrolled={enrolledMobilitiesIds.includes(
-                                    selectedMobility.id as string
-                                )}
-                                project={selectedMobility}
-                                isOpen={true}
-                                onClose={handleModalClose}
-                            />
-                        ) : null}
-                    </div>
-                ) : mobilities.length > 0 ? (
-                    <NoElementsFound message="No opportunities were found" />
+                            {selectedMobility ? (
+                                <Modal
+                                    enrolled={enrolledMobilitiesIds.includes(
+                                        selectedMobility.id as string
+                                    )}
+                                    project={selectedMobility}
+                                    isOpen={true}
+                                    onClose={handleModalClose}
+                                />
+                            ) : null}
+                        </div>
+                    ) : mobilities.length > 0 ? (
+                        <NoElementsFound message="No opportunities were found" />
+                    ) : (
+                        <NoElementsFound message="No opportunities matched the criteria" />
+                    )
                 ) : (
-                    <NoElementsFound message="No opportunities matched the criteria" />
+                    <NoElementsFound message="No opportunities were found" />
                 )
             ) : (
-                <NoElementsFound message="No opportunities were found" />
+                <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
+                    <LoadSpinner />
+                </div>
             )}
         </div>
     );

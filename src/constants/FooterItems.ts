@@ -1,4 +1,4 @@
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaYoutube } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 
 export interface FooterSection {
@@ -14,27 +14,35 @@ export interface FooterItem {
 
 export const sections: FooterSection[] = [
     {
-        title: "Section name",
+        title: "Mais sobre a Mauá",
         items: [
-            "Section Item",
-            "Section Item",
-            "Section Item",
-            "Section Item",
-            "Section Item"
+            "http://maua.br/",
+            "https://maua.br/a-maua/assessoria-de-relacoes-internacionais"
         ]
     },
     {
-        title: "Section name",
+        title: "Contato",
+        items: ["0800 019 31 00", "(11) 4239-3000"]
+    },
+    {
+        title: "Endereço",
         items: [
-            "Section Item",
-            "Section Item",
-            "Section Item",
-            "Section Item",
-            "Section Item"
+            "Praça Mauá 1 - São Caetano do Sul - SP - CEP: 09580 900",
+            "Rua Pedro de Toledo, 1071 - Vila Mariana - SP - CEP: 04039033"
         ]
     }
 ];
 
 export const items: FooterItem[] = [
-    { course: "Github", icon: FaGithub, link: "https://github.com/" }
+    { name: "Github", icon: FaGithub, link: "https://github.com/" },
+    {
+        name: "Youtube",
+        icon: FaYoutube,
+        link: "https://www.youtube.com/infomaua"
+    },
+    {
+        name: "Instagram",
+        icon: FaInstagram,
+        link: "https://www.youtube.com/infomaua"
+    }
 ];

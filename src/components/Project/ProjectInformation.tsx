@@ -8,6 +8,8 @@ import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_act
 import { ActivityStatusEnum } from "@enum/ActivityStatusEnum.ts";
 import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
 import { useNavigate } from "react-router-dom";
+import Modal from "@components/Modal/Modal.tsx";
+import { Project } from "../../types.ts";
 
 export interface ProjectProps {
     data: {
@@ -195,7 +197,6 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
             const projectValue = (await getActivity({
                 activity_id: id
             })) as ProjectProps;
-            console.log(projectValue);
             setProject(projectValue);
         } catch (error) {
             console.error("Erro ao obter projeto:", error);
@@ -218,7 +219,9 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
         []
     );
     const handleGetEnrolledProjects = async () => {
-        await getAllActivitiesEnrolled({ type_activity: 1 })
+        await getAllActivitiesEnrolled({
+            type_activity: project.data.type_activity
+        })
             .then((response) => {
                 setEnrolledProjectsIds(
                     enrolledIdsToArray(response as ProjectProps[])
@@ -236,7 +239,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
     }, []);
     const enrolledIdsToArray = (enrolledProjects: ProjectProps[]) => {
         return enrolledProjects.map((project) => {
-            return `${project.data.id}`;
+            return `${project?.data?.id}`;
         });
     };
     const handleVerifyEnrollment = (id: string) => {
@@ -246,19 +249,31 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
     const getStatusText = (status: number): string => {
         switch (status as ActivityStatusEnum) {
             case ActivityStatusEnum.TO_START:
-                return "COMING SOON";
+                return "Coming Soon";
             case ActivityStatusEnum.ACTIVE:
-                return "APPLY NOW";
+                return "Apply Now";
             case ActivityStatusEnum.ON_HOLD:
-                return "UNDER ANALYSIS";
+                return "Under Analysis";
             case ActivityStatusEnum.ENDED:
-                return "ENDED";
+                return "Ended";
             case ActivityStatusEnum.CANCELED:
-                return "CANCELED";
+                return "Canceled";
             default:
                 return "Unknown status";
         }
     };
+    const [selectedProject, setSelectedProject] = useState<Project | null>(
+        null
+    );
+
+    const handleModalOpen = (project: any) => {
+        setSelectedProject(project);
+    };
+
+    const handleModalClose = () => {
+        setSelectedProject(null);
+    };
+
     const statusText = getStatusText(project.data.status_activity);
     const navigate = useNavigate();
 
@@ -269,32 +284,32 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                     <div
                         className={`flex 2xs:flex-col sm:flex-row wrap ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl p-4 w-full md:h-25%`}
                     >
-                        {/*<div className="2xs:text-center place-items-center p-2 sm:w-1/6">*/}
-                        {/*    <img*/}
-                        {/*        src={*/}
-                        {/*            project?.data.partner_institutions[0]*/}
-                        {/*                ?.institution?.images[0]*/}
-                        {/*        }*/}
-                        {/*        alt="institution-img"*/}
-                        {/*    ></img>*/}
-                        {/*    <div className="">*/}
-                        {/*        {*/}
-                        {/*            project?.data.partner_institutions[0]*/}
-                        {/*                ?.institution?.id*/}
-                        {/*        }*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
+                        <div className="2xs:text-center place-items-center p-2 sm:w-1/6">
+                            <img
+                                className={"rounded-full"}
+                                src={
+                                    project?.data.partner_institutions[0]
+                                        ?.institution?.images[0]
+                                }
+                                alt="institution-img"
+                            ></img>
+                            <div className="">
+                                {
+                                    project?.data.partner_institutions[0]
+                                        ?.institution?.name
+                                }
+                            </div>
+                        </div>
                         <div className="2xs:text-center sm:text-left p-2 sm:w-4/6">
                             <div className="font-extrabold">
                                 {project.data.title}
                             </div>
-                            <div className="flex">
+                            <div className="flex flex-wrap">
                                 {project.data.languages.map(
                                     (language, index) => (
                                         <React.Fragment
                                             key={
-                                                "Project SVGICon Language" +
-                                                index
+                                                "COIL SVGICon Language" + index
                                             }
                                         >
                                             <p className={"text-xs"}>
@@ -314,36 +329,61 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                             <div className={`text-blue-500`}>{statusText}</div>
 
                             <div className="">
-                                {/*TODO: AINDA TEM Q ARRUMAR A FORMATAÇÃO DA DATA  */}
                                 Start Date:{" "}
                                 {formatDate(project.data.start_date)}
                             </div>
                             <div className="mb-2">
                                 End Date: {formatDate(project.data.end_date)}
                             </div>
-                            {JSON.parse(localStorage.getItem("user") as string)
-                                .user_type === UserTypeEnum.STUDENT && (
-                                <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full">
-                                    {handleVerifyEnrollment(project.data.id)
-                                        ? "Disenroll"
-                                        : "Enroll"}
-                                </button>
-                            )}
-                            {JSON.parse(localStorage.getItem("user") as string)
-                                .user_type === UserTypeEnum.ADMIN && (
-                                <button
-                                    onClick={() =>
-                                        navigate("/EnrolledStudents", {
-                                            state: {
-                                                projectID: project.data.id
+                            {project.data.status_activity === 2 && (
+                                <>
+                                    {JSON.parse(
+                                        localStorage.getItem("user") as string
+                                    ).user_type === UserTypeEnum.STUDENT && (
+                                        <button
+                                            onClick={() =>
+                                                handleModalOpen(project.data)
                                             }
-                                        })
-                                    }
-                                    className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
-                                >
-                                    Students Enrolled
-                                </button>
+                                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                        >
+                                            {handleVerifyEnrollment(
+                                                project.data.id
+                                            )
+                                                ? "Withdraw"
+                                                : "Apply"}
+                                        </button>
+                                    )}
+                                </>
                             )}
+                            {(JSON.parse(localStorage.getItem("user") as string)
+                                .user_type === UserTypeEnum.ADMIN ||
+                                JSON.parse(
+                                    localStorage.getItem("user") as string
+                                ).user_type === UserTypeEnum.MODERATOR) &&
+                                project.data.status_activity !== 1 && (
+                                    <button
+                                        onClick={() =>
+                                            navigate("/EnrolledStudents", {
+                                                state: {
+                                                    projectID: project.data.id
+                                                }
+                                            })
+                                        }
+                                        className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                    >
+                                        View Enrolled Students
+                                    </button>
+                                )}
+                            {selectedProject ? (
+                                <Modal
+                                    project={selectedProject}
+                                    enrolled={enrolledProjectsIds.includes(
+                                        selectedProject.id as string
+                                    )}
+                                    isOpen={true}
+                                    onClose={handleModalClose}
+                                />
+                            ) : null}
                         </div>
                     </div>
                     <div className="mt-4 md:flex w-full md:h-3/4">
@@ -351,18 +391,34 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                             className={` justify rounded-3xl p-4 md:pb-20 pb-0 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:w-2/3 md:mr-2`}
                         >
                             <div className="p-3 font-extrabold ">
-                                Project description
+                                COIL description
                             </div>
-                            <div className="custom-scrollbar overflow-y-auto  h-full p-3">
-                                {project.data.title}
+                            <div className="custom-scrollbar flex-wrap break-words text-wrap overflow-y-auto  h-full p-3">
+                                {project.data.description}
                             </div>
                         </div>
                         <div
                             className={` justify rounded-3xl p-4 pb-0 md:pb-20 mt-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:mt-0 md:w-1/3 md:ml-2`}
                         >
-                            <div className="p-3 font-extrabold">
-                                <h1>Criteria: </h1>
-                                {/* {project.data.criterias[0].criteria.criteria} */}
+                            <div className="p-3">
+                                <h1 className={"font-extrabold"}>Criteria: </h1>
+                                {project.data.criterias[0]?.criteria
+                                    ?.criteria !== undefined ? (
+                                    <ol
+                                        className={"ps-6"}
+                                        style={{ listStyleType: "decimal" }}
+                                    >
+                                        {project.data.criterias.map(
+                                            (fds, index) => (
+                                                <li key={"criteriaKey" + index}>
+                                                    {fds.criteria.criteria}
+                                                </li>
+                                            )
+                                        )}
+                                    </ol>
+                                ) : (
+                                    <p>No Criterias found</p>
+                                )}
                             </div>
                         </div>
                     </div>

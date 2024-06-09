@@ -6,8 +6,8 @@ import { useLocation } from "react-router-dom";
 
 export default function CreateActivity() {
     const location = useLocation();
-    const activity_type = location.state.type_activity;
-    const isEdit = location.state.edit;
+    const activity_type = location.state?.type_activity;
+    const isEdit = location.state?.edit;
     // const project = location.state.project;
     return (
         <div className="max-h-screen flex flex-col">
@@ -15,8 +15,8 @@ export default function CreateActivity() {
                 title={
                     activity_type === ActivityTypeEnum.PROJECT
                         ? isEdit
-                            ? "Edit Project"
-                            : "Create Project"
+                            ? "Edit COIL"
+                            : "Create COIL"
                         : isEdit
                           ? "Edit Academic Mobility"
                           : "Create Academic Mobility"

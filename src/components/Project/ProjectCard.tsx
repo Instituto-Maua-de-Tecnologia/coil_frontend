@@ -21,19 +21,21 @@ export default function ProjectCard({
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         e.stopPropagation();
-        if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
-        else if (
-            user.user_type === UserTypeEnum.ADMIN ||
-            user.user_type === UserTypeEnum.MODERATOR
-        )
-            navigate("/EnrolledStudents", {
-                state: {
-                    userStatus: user.user_type,
-                    type_activity: 1,
-                    edit: true,
-                    projectID: project.id
-                }
-            });
+        if (user !== undefined) {
+            if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
+            else if (
+                user.user_type === UserTypeEnum.ADMIN ||
+                user.user_type === UserTypeEnum.MODERATOR
+            )
+                navigate("/EnrolledStudents", {
+                    state: {
+                        userStatus: user.user_type,
+                        type_activity: 1,
+                        edit: true,
+                        projectID: project.id
+                    }
+                });
+        }
     };
     const isDarkTheme = useThemeDetector();
     const navigate = useNavigate();

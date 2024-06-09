@@ -35,8 +35,6 @@ export default function EnrolledStudentCard({
         const updatedApplicants = applicants.map((applicant, i) =>
             i === index ? { ...applicant, status } : applicant
         );
-        console.log(updatedApplicants);
-
         setApplicants(updatedApplicants);
     };
 

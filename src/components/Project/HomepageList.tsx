@@ -189,10 +189,6 @@ export default function HomepageList() {
     );
     const [loaded, setLoaded] = useState<boolean>(false);
 
-    // const user_type = JSON.parse(
-    //     localStorage.getItem("user") as string
-    // ).user_type;
-
     const handleGetAllProjects = async (type: string): Promise<Project[]> => {
         const projectValues = await getAllActivities({ type_activity: type });
         return projectValues as Project[];
@@ -286,7 +282,7 @@ export default function HomepageList() {
                 filteredProjects.length > 0 ? (
                     <div>
                         {loaded ? (
-                            <ul className="w-full max-h-screen pe-5 pb-48 custom-scrollbar overflow-y-auto">
+                            <ul className="w-full max-h-screen pe-5 pb-10 lg:!pb-[400px] custom-scrollbar overflow-y-auto">
                                 {projects.map((project) => (
                                     <HomepageCard
                                         key={"ProjectCardKey " + project.id}

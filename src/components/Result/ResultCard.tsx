@@ -60,7 +60,9 @@ export default function ResultCard({ result }: ResultCardProps) {
                         >
                             {applicants?.[0].status === true
                                 ? "Approved"
-                                : "Unapproved"}
+                                : applicants?.[0].status === false
+                                  ? "Unapproved"
+                                  : "Pending"}
                         </div>
                     </div>
                 </div>

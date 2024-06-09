@@ -72,11 +72,12 @@ const Footer: React.FC = () => {
                         const Icon = x.icon;
                         const Link = x.link;
                         return (
-                            <a href={Link} target="blank">
-                                <Icon
-                                    key={index}
-                                    className="hover:text-white z-10"
-                                />
+                            <a
+                                key={"Footer: " + index}
+                                href={Link}
+                                target="blank"
+                            >
+                                <Icon className="hover:text-white z-10" />
                             </a>
                         );
                     })}

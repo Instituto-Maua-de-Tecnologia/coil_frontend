@@ -41,7 +41,7 @@ export default function Projects() {
                                                 localStorage.getItem(
                                                     "user"
                                                 ) as string
-                                            ).user_type === 3
+                                            )?.user_type === 3
                                                 ? "Criar Moderador"
                                                 : "Ver Moderadores",
                                         icon: "pi pi-user-plus",
@@ -56,6 +56,7 @@ export default function Projects() {
                         </>
                     ) : null}
                     <SideBar />
+                    <div className={"ms-4"}></div>
                     <ProjectList />
                 </div>
             </div>

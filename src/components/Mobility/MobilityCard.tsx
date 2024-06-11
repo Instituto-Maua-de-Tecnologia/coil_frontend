@@ -23,19 +23,21 @@ export default function MobilityCard({
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         e.stopPropagation();
-        if (user.user_type === UserTypeEnum.STUDENT) onClick(mobility);
-        else if (
-            user.user_type === UserTypeEnum.ADMIN ||
-            user.user_type === UserTypeEnum.MODERATOR
-        )
-            navigate("/EnrolledStudents", {
-                state: {
-                    userStatus: user.user_type,
-                    type_activity: 2,
-                    edit: true,
-                    projectID: mobility.id
-                }
-            });
+        if (user !== undefined) {
+            if (user.user_type === UserTypeEnum.STUDENT) onClick(mobility);
+            else if (
+                user.user_type === UserTypeEnum.ADMIN ||
+                user.user_type === UserTypeEnum.MODERATOR
+            )
+                navigate("/EnrolledStudents", {
+                    state: {
+                        userStatus: user.user_type,
+                        type_activity: 2,
+                        edit: true,
+                        projectID: mobility.id
+                    }
+                });
+        }
     };
     const isDarkTheme = useThemeDetector();
     return (

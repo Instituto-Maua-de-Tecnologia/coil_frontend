@@ -189,10 +189,6 @@ export default function HomepageList() {
     );
     const [loaded, setLoaded] = useState<boolean>(false);
 
-    // const user_type = JSON.parse(
-    //     localStorage.getItem("user") as string
-    // ).user_type;
-
     const handleGetAllProjects = async (type: string): Promise<Project[]> => {
         const projectValues = await getAllActivities({ type_activity: type });
         return projectValues as Project[];
@@ -274,13 +270,6 @@ export default function HomepageList() {
         fetchData();
     }, []);
 
-    // const navigate = useNavigate();
-    // useEffect(() => {
-    //     if (enrolledProjectsIds.length > 0) {
-    //         console.log(enrolledProjectsIds);
-    //     }
-    // }, [enrolledProjectsIds])
-
     /* eslint-enable */
     return (
         <div
@@ -288,16 +277,12 @@ export default function HomepageList() {
         >
             <div className="mb-4 flex">
                 <Search disabled={!loaded} onSearch={handleSearch} />
-                <div className="button-container flex absolute right-12">
-                    {/* {isAdmin ? <Add url="/CreateProject" /> : null} */}
-                    {/* {isFilter && <Filter />} */}
-                </div>
             </div>
             {projects.length > 0 ? (
                 filteredProjects.length > 0 ? (
                     <div>
                         {loaded ? (
-                            <ul className="w-full max-h-screen pe-5 pb-48 custom-scrollbar overflow-y-auto">
+                            <ul className="w-full max-h-screen pe-5 pb-10 lg:!pb-[400px] custom-scrollbar overflow-y-auto">
                                 {projects.map((project) => (
                                     <HomepageCard
                                         key={"ProjectCardKey " + project.id}

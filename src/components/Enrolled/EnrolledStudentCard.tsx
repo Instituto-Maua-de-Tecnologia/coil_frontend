@@ -35,7 +35,6 @@ export default function EnrolledStudentCard({
         const updatedApplicants = applicants.map((applicant, i) =>
             i === index ? { ...applicant, status } : applicant
         );
-
         setApplicants(updatedApplicants);
     };
 
@@ -163,7 +162,10 @@ export default function EnrolledStudentCard({
                         "text-center absolute bottom-10 right-0.5 left-0.5"
                     }
                 >
-                    <Button className={"text-center"} onClick={sendData}>
+                    <Button
+                        className={"text-center"}
+                        onClick={() => sendData()}
+                    >
                         Enviar dados
                     </Button>
                 </div>

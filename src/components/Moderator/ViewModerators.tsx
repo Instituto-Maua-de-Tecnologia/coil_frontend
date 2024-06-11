@@ -20,7 +20,6 @@ export default function ViewModerators() {
         const response = (await getAllModerators().finally(() =>
             setLoaded(true)
         )) as User[];
-        console.log(response);
         setModerators(response);
     };
 

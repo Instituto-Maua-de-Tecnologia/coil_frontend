@@ -22,7 +22,6 @@ interface UpdateInstitutionResponse {
 
 export default async function updateInstitution(props: UpdateInstitutionProps) {
     const token = localStorage.getItem("token");
-    console.log(JSON.stringify(props.body));
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios

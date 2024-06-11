@@ -29,11 +29,9 @@ const Modal: React.FC<ModalProps> = ({
     const handleEnrollment = async () => {
         setEnrolling(true);
         try {
-            console.log(
-                await assignUserToActivities({
-                    activity_id: project.id as string
-                })
-            );
+            await assignUserToActivities({
+                activity_id: project.id as string
+            });
         } catch (error) {
             console.error("A inscrição não teve sucesso", error);
         } finally {
@@ -70,7 +68,15 @@ const Modal: React.FC<ModalProps> = ({
                                                 project
                                                     .partner_institutions?.[0]
                                                     ?.institution?.images[0]
-                                                    .image
+                                                    .image === undefined
+                                                    ? (project
+                                                          .partner_institutions?.[0]
+                                                          ?.institution
+                                                          ?.images[0] as string)
+                                                    : project
+                                                          .partner_institutions?.[0]
+                                                          ?.institution
+                                                          ?.images[0].image
                                             }
                                             alt="Avatar"
                                             className="avatar-img w-full rounded-full bg-white"
@@ -118,11 +124,11 @@ const Modal: React.FC<ModalProps> = ({
                                                                 ?.institution
                                                                 ?.countries[0]
                                                                 .country
-                                                                ?.country
+                                                                ?.country as string
                                                         }
                                                     </p>
                                                     <SVGIcon
-                                                        src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions?.[0]?.institution?.countries[0].country?.country}.svg`}
+                                                        src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions?.[0]?.institution?.countries[0].country?.country_code}.svg`}
                                                         className="w-4 m-[1px]"
                                                     />
                                                 </div>

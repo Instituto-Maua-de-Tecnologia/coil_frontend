@@ -55,7 +55,7 @@ export default function Home() {
                                 <SpeedDial
                                     model={[
                                         {
-                                            label: "Criar Projeto",
+                                            label: "Criar COIL",
                                             icon: "pi pi-file-plus",
                                             command: () => {
                                                 navigate("/CreateCOIL", {
@@ -64,7 +64,7 @@ export default function Home() {
                                             }
                                         },
                                         {
-                                            label: "Criar Mobilidade Acadêmia",
+                                            label: "Criar Mobilidade Acadêmica",
                                             icon: "pi pi-pencil",
                                             command: () => {
                                                 navigate("/CreateMobility", {

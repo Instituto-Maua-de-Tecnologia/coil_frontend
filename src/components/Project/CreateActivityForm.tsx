@@ -208,7 +208,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             projectDescriptionRef.current?.value.length < 20
         ) {
             errors.push(
-                "O nome do projeto deve ter entre 20  e 1200 caracteres."
+                "A descrição do projeto deve ter entre 20 e 1200 caracteres."
             );
         }
 
@@ -381,7 +381,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             })
             .then(async () => {
                 await delay(5000);
-                navigate(isProject ? "/Projects" : "/Mobilities");
+                navigate(isProject ? "/COIL" : "/Mobilities");
                 //TODO: navigate runs before toast be completed
             });
     }

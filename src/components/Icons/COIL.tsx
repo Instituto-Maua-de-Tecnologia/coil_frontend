@@ -1,0 +1,41 @@
+import React from "react";
+
+const COIL = () => {
+    return (
+        <svg
+            width="30"
+            height="30"
+            viewBox="0 0 200 200"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <mask id="path-1-inside-1_2_2" fill="white">
+                <rect
+                    x="48"
+                    y="122"
+                    width="71"
+                    height="103"
+                    rx="11"
+                    transform="rotate(-90 48 122)"
+                />
+            </mask>
+            <rect
+                x="48"
+                y="122"
+                width="71"
+                height="103"
+                rx="11"
+                transform="rotate(-90 48 122)"
+                stroke="white"
+                stroke-width="26"
+                mask="url(#path-1-inside-1_2_2)"
+            />
+            <path
+                d="M89.8947 122H105.737L119 149H77L89.8947 122Z"
+                fill="white"
+            />
+        </svg>
+    );
+};
+
+export default COIL;

@@ -2,8 +2,7 @@ import TitleHeader from "@components/GenericComponents/TitleHeader";
 import SideBar from "@components/GenericComponents/SideBar";
 import UserHome, { UserHomeProps } from "@components/User/UserHome";
 import { useState, useEffect } from "react";
-import { SpeedDial } from "primereact/speeddial";
-import { useNavigate } from "react-router-dom";
+import SpeedDial from "@components/GenericComponents/SpeedDial";
 import { Tooltip } from "primereact/tooltip";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 import HomepageList from "@components/Project/HomepageList";
@@ -34,7 +33,6 @@ export default function Home() {
             });
         }
     }, [localStorage.getItem("user")]);
-    const navigate = useNavigate();
 
     return (
         <>
@@ -52,7 +50,8 @@ export default function Home() {
                                     target=".speeddial-bottom-right .p-speeddial-action"
                                     position="left"
                                 />
-                                <SpeedDial
+                                <SpeedDial />
+                                {/* <SpeedDial
                                     model={[
                                         {
                                             label: "Criar COIL",
@@ -89,7 +88,7 @@ export default function Home() {
                                     ]}
                                     direction="up"
                                     className="speeddial-bottom-right right-0 bottom-0 m-6"
-                                />
+                                /> */}
                             </>
                         )}
                         <div

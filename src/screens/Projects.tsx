@@ -1,9 +1,8 @@
 import TitleHeader from "@components/GenericComponents/TitleHeader";
 import SideBar from "@components/GenericComponents/SideBar";
 import ProjectList from "@components/Project/ProjectList";
-import { useNavigate } from "react-router-dom";
 import { Tooltip } from "primereact/tooltip";
-import { SpeedDial } from "primereact/speeddial";
+import SpeedDial from "@components/GenericComponents/SpeedDial";
 import { UserTypeEnum } from "@enum/UserTypeEnum";
 
 export default function Projects() {
@@ -11,7 +10,6 @@ export default function Projects() {
         localStorage.getItem("user") as string
     )?.user_type;
 
-    const navigate = useNavigate();
     return (
         <>
             <div className="max-h-screen flex flex-col">
@@ -24,7 +22,8 @@ export default function Projects() {
                                 target=".speeddial-bottom-right .p-speeddial-action"
                                 position="left"
                             />
-                            <SpeedDial
+                            <SpeedDial />
+                            {/* <SpeedDial
                                 model={[
                                     {
                                         label: "Criar COIL",
@@ -52,7 +51,7 @@ export default function Projects() {
                                 ]}
                                 direction="up"
                                 className="speeddial-bottom-right right-0 bottom-0 m-6"
-                            />
+                            /> */}
                         </>
                     ) : null}
                     <SideBar />

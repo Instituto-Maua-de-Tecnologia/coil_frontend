@@ -1,8 +1,8 @@
 import { ReactNode, useState } from "react";
-import Add from "@components/Icons/Add";
-import AddCOIL from "@components/Icons/AddCOIL";
-import AddMobility from "@components/Icons/AddMobility";
-import AddModerator from "@components/Icons/AddModerator";
+import Add from "@components/Icons/AddIcon";
+import AddCOIL from "@components/Icons/AddCOILIcon";
+import AddMobility from "@components/Icons/AddMobilityIcon";
+import AddModerator from "@components/Icons/AddModeratorIcon";
 import { useNavigate } from "react-router-dom";
 
 const SpeedDial = () => {
@@ -33,21 +33,33 @@ const SpeedDial = () => {
             <div
                 className={`flex flex-col items-center ${isOpen ? "block" : "hidden"}`}
             >
-                {renderButton(<AddModerator />, "Criar Moderador", () =>
-                    navigate("/CreateModerator")
+                {renderButton(
+                    <AddModerator fill="white" size={30} />,
+                    "Criar Moderador",
+                    () => navigate("/CreateModerator")
                 )}
-                {renderButton(<AddMobility />, "Criar Mobilidade", () =>
-                    navigate("/CreateMobility", { state: { type_activity: 1 } })
+                {renderButton(
+                    <AddMobility fill="white" size={30} />,
+                    "Criar Mobilidade",
+                    () =>
+                        navigate("/CreateMobility", {
+                            state: { type_activity: 1 }
+                        })
                 )}
-                {renderButton(<AddCOIL />, "Criar COIL", () =>
-                    navigate("/CreateMobility", { state: { type_activity: 0 } })
+                {renderButton(
+                    <AddCOIL fill="white" size={30} />,
+                    "Criar COIL",
+                    () =>
+                        navigate("/CreateMobility", {
+                            state: { type_activity: 0 }
+                        })
                 )}
             </div>
             <button
-                className={`text-white drop-shadow bg-[#2684ff] hover:bg-[#216FD6] p-5 rounded-full  ${isOpen ? "outline-none ring-4 ring-blue-300" : ""} transition-transform ${isOpen ? "rotate-45" : ""}`}
+                className={`text-white drop-shadow bg-[#2684ff] hover:bg-[#216FD6] p-5 rounded-full  ${isOpen ? "outline-none ring-4 ring-blue-300" : ""} transition-transform ${isOpen ? "rotate-[45deg]" : ""}`}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <Add />
+                <Add fill="white" size={30} />
             </button>
         </div>
     );

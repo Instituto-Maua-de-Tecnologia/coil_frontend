@@ -1,15 +1,10 @@
-import { ReactElement } from "react";
-import {
-    devider,
-    //enrolledIcon,
-    activityIcon,
-    homeIcon,
-    //institutionIcon,
-    projectIcon,
-    resultsIcon,
-    signOutIcon,
-    userIcon
-} from "@assets/icons";
+import { ReactNode } from "react";
+import HomeIcon from "@components/Icons/HomeIcon";
+import COILIcon from "@components/Icons/COILIcon";
+import MobilityIcon from "@components/Icons/MobilityIcon";
+import UserIcon from "@components/Icons/UserIcon";
+import ModeratorIcon from "@components/Icons/ModeratorIcon";
+import ResultsIcon from "@components/Icons/ResultsIcon";
 
 interface NavigationItem {
     id: string;
@@ -21,14 +16,7 @@ interface NavigationItem {
     purple?: boolean;
     blue?: boolean;
     access?: number;
-
-    icon: ({
-        className,
-        fill
-    }: {
-        className?: string;
-        fill?: string;
-    }) => ReactElement;
+    icon: ReactNode;
 }
 
 /* eslint-disable */
@@ -40,14 +28,14 @@ const user = () => {
     }
 };
 
-const { name } = user();
+const { name, user_type } = user();
 /* eslint-enable */
 
 export const navigation: NavigationItem[] = [
     {
         id: "0",
         title: "Home",
-        icon: homeIcon,
+        icon: <HomeIcon fill="white" size={20} />,
         url: "/Home"
     },
     // {
@@ -59,20 +47,20 @@ export const navigation: NavigationItem[] = [
     {
         id: "2",
         title: "COIL",
-        icon: projectIcon,
+        icon: <COILIcon fill="white" size={20} />,
         url: "/COIL"
     },
     {
         id: "3",
         title: "Mobility",
         url: "/Mobilities",
-        icon: activityIcon
+        icon: <MobilityIcon fill="white" size={20} />
     },
-    {
-        id: "4",
-        br: true,
-        icon: devider
-    },
+    // {
+    //     id: "4",
+    //     br: true,
+    //     icon: <HomeIcon fill="white" size={20}/>
+    // },
     // {
     //     id: "5",
     //     title: "Enrolled",
@@ -84,7 +72,7 @@ export const navigation: NavigationItem[] = [
     {
         id: "6",
         title: "Results",
-        icon: resultsIcon,
+        icon: <ResultsIcon fill="white" size={20} />,
         url: "/Results",
         access: 1,
         smgap: true
@@ -92,14 +80,19 @@ export const navigation: NavigationItem[] = [
     {
         id: "7",
         title: `${name?.substring(1, name.indexOf(" ")) ? name.substring(0, name.indexOf(" ")) || name : ""}`,
-        icon: userIcon,
+        icon:
+            user_type < 2 ? (
+                <UserIcon fill="white" size={20} />
+            ) : (
+                <ModeratorIcon fill="white" size={20} />
+            ),
         url: "/User",
         blue: true
     },
     {
         id: "8",
         title: "Sign Out",
-        icon: signOutIcon,
+        icon: <HomeIcon fill="white" size={20} />,
         url: "/Signout",
         purple: true
     }

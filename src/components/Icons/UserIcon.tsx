@@ -1,0 +1,26 @@
+import IconInterface from "./IconInterface";
+
+const MobilityIcon = (props: IconInterface) => {
+    return (
+        <svg
+            width={props.size}
+            height={props.size}
+            viewBox="0 0 200 200"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M136.6 72.1C136.6 92.5898 119.99 109.2 99.5 109.2C79.0102 109.2 62.4 92.5898 62.4 72.1C62.4 51.6102 79.0102 35 99.5 35C119.99 35 136.6 51.6102 136.6 72.1Z"
+                fill={props.fill}
+            />
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M40 158.9C40 136.594 52.2748 117.154 70.4383 106.968C78.3206 113.518 88.4503 117.457 99.5 117.457C110.55 117.457 120.679 113.518 128.562 106.968C146.725 117.154 159 136.594 159 158.9C159 161.028 158.888 163.13 158.67 165.2H40.3296C40.1117 163.13 40 161.028 40 158.9Z"
+                fill={props.fill}
+            />
+        </svg>
+    );
+};
+
+export default MobilityIcon;

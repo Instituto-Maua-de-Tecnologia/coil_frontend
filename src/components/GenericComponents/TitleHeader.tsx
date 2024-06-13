@@ -11,7 +11,7 @@ import {
     userIcon
 } from "@assets/icons";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
-import { navigation } from "@constants/SideBarProperties.ts";
+import { navigation } from "@constants/SideBarProperties.tsx";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 
 interface TitleHeaderProps {

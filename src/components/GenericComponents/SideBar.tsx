@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { navigation } from "@constants/SideBarProperties.ts";
+import { navigation } from "@constants/SideBarProperties.tsx";
 import darkMauaLogo from "@assets/maua-fontys-dark.svg";
 import lightMauaLogo from "@assets/maua-fontys-light.svg";
 import { useThemeDetector } from "@util/ThemeDetector.ts";
@@ -67,7 +67,8 @@ export default function SideBar() {
                                     >
                                         <div className="flex justifty-left items-center">
                                             <div className="mr-2 p-[0.25rem]">
-                                                {React.createElement(
+                                                {item.icon}
+                                                {/* {React.createElement(
                                                     item.icon,
                                                     {
                                                         className: `${
@@ -78,7 +79,7 @@ export default function SideBar() {
                                                         }`,
                                                         fill: ""
                                                     }
-                                                )}
+                                                )} */}
                                             </div>
                                             <span className="text-sm">
                                                 {item.title}
@@ -107,7 +108,8 @@ export default function SideBar() {
                                     >
                                         <div className="flex justifty-left items-center">
                                             <div className="mr-2 p-[0.25rem]">
-                                                {React.createElement(
+                                                {item.icon}
+                                                {/* {React.createElement(
                                                     item.icon,
                                                     {
                                                         className: `${
@@ -118,7 +120,7 @@ export default function SideBar() {
                                                         }`,
                                                         fill: ""
                                                     }
-                                                )}
+                                                )} */}
                                             </div>
                                             <span className="text-sm">
                                                 {item.title}

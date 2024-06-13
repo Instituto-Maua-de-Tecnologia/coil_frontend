@@ -3,14 +3,12 @@ import SideBar from "@components/GenericComponents/SideBar";
 import MobilityList from "@components/Mobility/MobilityList";
 import { UserTypeEnum } from "@enum/UserTypeEnum.ts";
 import { Tooltip } from "primereact/tooltip";
-import { SpeedDial } from "primereact/speeddial";
-import { useNavigate } from "react-router-dom";
+import SpeedDial from "@components/GenericComponents/SpeedDial";
 
 export default function Mobilities() {
     const user_type = JSON.parse(
         localStorage.getItem("user") as string
     )?.user_type;
-    const navigate = useNavigate();
     return (
         <>
             <div className="max-h-screen flex flex-col">
@@ -23,7 +21,8 @@ export default function Mobilities() {
                                 target=".speeddial-bottom-right .p-speeddial-action"
                                 position="left"
                             />
-                            <SpeedDial
+                            <SpeedDial />
+                            {/* <SpeedDial
                                 model={[
                                     {
                                         label: "Criar Mobilidade Acadêmica",
@@ -51,7 +50,7 @@ export default function Mobilities() {
                                 ]}
                                 direction="up"
                                 className="speeddial-bottom-right right-0 bottom-0 m-6"
-                            />
+                            /> */}
                         </>
                     ) : null}
                     <SideBar />

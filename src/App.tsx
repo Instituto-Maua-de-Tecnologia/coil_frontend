@@ -1,9 +1,9 @@
 import { createPortal } from "react-dom";
-import AppRoutes from "./Routes";
-import { useThemeDetector } from "./util/ThemeDetector";
+import AppRoutes from "@routes/index";
 import { MsalProvider } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
 import ToasterContainer from "@components/GenericComponents/ToasterContainer.tsx";
+import { useThemeDetector } from "@functions/ThemeDetector.ts";
 
 export default function App() {
     const msalInstance = new PublicClientApplication({

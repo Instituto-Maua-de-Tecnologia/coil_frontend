@@ -10,15 +10,17 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            "@components": "/src/components",
-            "@screens": "/src/screens",
-            "@routes": "/src/routes",
-            "@assets": "/src/assets",
-            "@style": "/src/style",
-            "@util": "/src/util",
-            "@constants": "/src/constants",
-            "@integrations": "/src/integrations/modules",
-            "@enum": "/src/enum"
+            "@components": "/src/app/web/components",
+            "@screens": "/src/app/web/screens",
+            "@routes": "/src/app/web/routes",
+            "@assets": "/src/app/assets",
+            "@styles": "/src/app/web/styles",
+            "@constants": "/src/app/utils/constants",
+            "@integrations": "/src/@clean/integrations/modules",
+            "@enums": "/src/@clean/shared/domain/enums",
+            "@interfaces": "/src/app/utils/@types/interfaces",
+            "@functions": "/src/app/utils/functions",
+            "@formatters": "/src/app/utils/formatters"
         }
     },
     optimizeDeps: {

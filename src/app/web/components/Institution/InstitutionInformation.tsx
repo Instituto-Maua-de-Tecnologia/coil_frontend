@@ -1,11 +1,9 @@
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
-import instagramLogo from "@assets/icons/instagram.png";
-import facebookLogo from "@assets/icons/facebook.png";
-import twitterLogo from "@assets/icons/twitter.png";
 import { useEffect, useState } from "react";
 import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
 import getInstitution from "@integrations/institution/get_institution.ts";
 import IInstitution from "@interfaces/institution/IInstitution.ts";
+import { socialMediaIcons } from "@constants/SocialMediaProperties.ts";
 
 interface InstitutionInfoProps {
     id: string;
@@ -29,6 +27,8 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
         handleGetInstitution();
     }, []);
 
+    console.log(institution);
+
     return (
         <div className="custom-scrollbar overflow-y-auto lg:overflow-y-visible flex-col w-full m-3 mb-0 mt-0 ">
             <div
@@ -43,6 +43,12 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                 </div>
                 <div className="2xs:text-center sm:text-left self-center p-2 sm:w-4/6">
                     <div className="font-extrabold">{institution?.name}</div>
+                    <a
+                        href={`mailto:${institution?.email}`}
+                        className="text-blue-500 underline font-semibold cursor-pointer"
+                    >
+                        {institution?.email}
+                    </a>
                     <div className="flex flex-row items-center">
                         <p className="text-xs mr-2">
                             {institution?.countries[0].country.country}
@@ -52,29 +58,45 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                             className="w-4 m-[1px]"
                         />
                     </div>
-                    <div className="font-semibold">
-                        "Brilliant minds meet here"
-                    </div>
-                    <p>Website: </p>
-                    <a
-                        href={institution?.social_medias[0].link}
-                        className="text-blue-500 underline"
-                    >
-                        {institution?.social_medias[0].media.social_media}
-                    </a>
                 </div>
-                <div className="2xs:text-center xs:text-right place-content-center xs:place-items-end pl-10 md:pl-0 pr-10 md:pr-1 flex">
-                    <div className="pt-1 pb-1 ">
-                        <img src={instagramLogo} alt="instagram link" />
+                <div className="text-left mt-16 place-content-center xs:place-items-end pl-10 md:pl-0 pr-10 md:pr-1">
+                    <p>social media:</p>
+                    <div className="flex flex-wrap sm:flex-row gap-3">
+                        {institution?.social_medias.map(
+                            (social_media, index) => (
+                                <a
+                                    key={
+                                        "Institution Social Media Key " + index
+                                    }
+                                    href={social_media.link}
+                                    className="text-blue-500 underline"
+                                >
+                                    <img
+                                        className="w-6 object-contain h-6"
+                                        src={
+                                            socialMediaIcons[
+                                                social_media.media.social_media.toLowerCase()
+                                            ]
+                                        }
+                                        alt={social_media.media.social_media}
+                                    />
+                                </a>
+                            )
+                        )}
                     </div>
-                    <div className="p-1">
-                        <img src={facebookLogo} alt="facebook link" />
-                    </div>
-                    <div className="pt-1 pb-1 ">
-                        <img src={twitterLogo} alt="twiter link" />
+                    <div className="flex justify-start mt-16">
+                        {JSON.parse(localStorage.getItem("user") as string)
+                            .user_type === 3 ? (
+                            <button className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full">
+                                Edit Institution
+                            </button>
+                        ) : (
+                            ""
+                        )}
                     </div>
                 </div>
             </div>
+
             <div className="mt-4 md:flex w-full md:h-3/4">
                 <div
                     className={` justify rounded-3xl p-4 md:pb-20 pb-0 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:w-1/3 md:mr-2`}
@@ -106,11 +128,14 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                     <div className="p-3 font-extrabold">
                         Institution pictures
                     </div>
-                    <div className="custom-scrollbar overflow-y-auto h-full p-3">
+                    <div className="custom-scrollbar flex flex-wrap gap-6 pb-32 overflow-auto h-full p-3">
                         {institution?.images.map((image, index) => (
                             <img
                                 key={"Institution image: " + index}
                                 src={image}
+                                className={
+                                    "!rounded-2xl object-contain w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-48"
+                                }
                                 alt={"image"}
                             />
                         ))}

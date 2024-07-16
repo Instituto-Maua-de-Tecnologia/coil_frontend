@@ -45,7 +45,7 @@ export default async function getInstitutionsRequirements() {
             .then((response) => {
                 const responseData: GetInstitutionsRequirementsResponse =
                     response.data as GetInstitutionsRequirementsResponse;
-                resolve(responseData);
+                resolve(responseData.data);
             })
             .catch((error: AxiosError) => {
                 const convertedError: AxiosError<GetInstitutionsRequirementsResponse> =

@@ -2,17 +2,12 @@ import { useEffect, useState } from "react";
 import Search from "@components/GenericComponents/Search.tsx";
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import "@styles/scrollbar.css";
-import Add from "@components/GenericComponents/Add.tsx";
 import getAllInstitutions from "@integrations/institution/get_all_institution.ts";
 import InstitutionCard from "@components/Institution/InstitutionCard.tsx";
 import { MoonLoader } from "react-spinners";
 import IAllInstitutions from "@interfaces/institution/IAllInstitutions.ts";
 
-interface InstitutionListProps {
-    isAdmin: boolean;
-}
-
-export default function InstitutionList({ isAdmin }: InstitutionListProps) {
+export default function InstitutionList() {
     const [institutions, setInstitutions] = useState<IAllInstitutions[]>([
         {
             id: "",
@@ -56,9 +51,6 @@ export default function InstitutionList({ isAdmin }: InstitutionListProps) {
         >
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} disabled={!loaded} />
-                <div className="button-container flex absolute right-12">
-                    {isAdmin ? <Add url="/CreateInstitution" /> : null}
-                </div>
             </div>
             {filteredInstitutions.length > 0 ? (
                 <div>

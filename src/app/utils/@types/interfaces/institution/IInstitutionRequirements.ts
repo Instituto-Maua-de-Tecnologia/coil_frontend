@@ -1,4 +1,4 @@
-export default interface IRequirementsProps {
+export default interface IInstitutionRequirements {
     courses: [
         {
             id: number;

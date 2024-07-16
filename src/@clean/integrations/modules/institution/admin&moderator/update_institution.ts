@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 
 interface UpdateInstitutionProps {
     body: {
+        institution_id: string;
         name?: string;
         description?: string;
         email?: string;
@@ -38,7 +39,7 @@ export default async function updateInstitution(props: UpdateInstitutionProps) {
             .then((response) => {
                 const responseData: UpdateInstitutionResponse =
                     response.data as UpdateInstitutionResponse;
-                resolve(responseData);
+                resolve(responseData.message);
             })
             .catch((error: AxiosError) => {
                 const convertedError: AxiosError<UpdateInstitutionResponse> =

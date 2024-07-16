@@ -46,12 +46,12 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
               ]
             : [
                   { to: "/Home", label: "Home", icon: homeIcon },
-                  // {
-                  //     to: "/Institution",
-                  //     label: "Institution",
-                  //     icon: institutionIcon,
-                  //     devider: devider
-                  // },
+                  {
+                      to: "/Institution",
+                      label: "Institution",
+                      icon: institutionIcon,
+                      devider: devider
+                  },
                   {
                       to: "/COIL",
                       label: "COIL",
@@ -69,9 +69,9 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
 
     return (
         <div className={`${className} max-h-[100vh]  m-3 mb-[1rem]`}>
-            <div className="h-[64px] top-0 left-0">
+            <div className="h-[88px] sm:h-[64px] top-0 left-0">
                 <div
-                    className={`relative mx-auto min-h-[64px] lg:rounded-[24px] bg-[#2684ff] ${isNavOpen ? "rounded-tr-3xl rounded-tl-3xl" : "rounded-[24px]"}`}
+                    className={`relative mx-auto min-h-[88px] sm:min-h-[64px] lg:rounded-[24px] bg-[#2684ff] ${isNavOpen ? "rounded-tr-3xl rounded-tl-3xl" : "rounded-[24px]"}`}
                 >
                     <div
                         className={`absolute flex flex-row ${isDarkTheme ? "text-[#223A4F]" : "text-[#f9fafc]"} items-center top-[16px] left-[20px] [font-family:'Montserrat-SemiBold',Helvetica] font-semibold 2xs:text-[28px] lg:text-[30px] tracking-[-1.08px] leading-[normal] ml-[1rem]`}

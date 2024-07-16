@@ -32,6 +32,7 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": "warn",
         "@typescript-eslint/no-unsafe-argument": "warn",
         "@typescript-eslint/no-unsafe-enum-comparison": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
         "react-refresh/only-export-components": [
             "warn",
             { allowConstantExport: true }

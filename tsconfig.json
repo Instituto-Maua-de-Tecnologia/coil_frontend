@@ -22,15 +22,17 @@
         "noFallthroughCasesInSwitch": true,
         "baseUrl": "./src",
         "paths": {
-            "@components/*": ["components/*"],
-            "@screens/*": ["screens/*"],
-            "@routes/*": ["routes/*"],
-            "@assets/*": ["assets/*"],
-            "@style/*": ["styles/*"],
-            "@util/*": ["util/*"],
-            "@constants/*": ["constants/*"],
-            "@integrations/*": ["integrations/modules/*"],
-            "@enum/*": ["enum/*"]
+            "@components/*": ["app/web/components/*"],
+            "@screens/*": ["app/web/screens/*"],
+            "@routes/*": ["app/web/routes/*"],
+            "@assets/*": ["app/assets/*"],
+            "@styles/*": ["app/web/styles/*"],
+            "@constants/*": ["app/utils/constants/*"],
+            "@integrations/*": ["@clean/integrations/modules/*"],
+            "@enums/*": ["@clean/shared/domain/enums/*"],
+            "@interfaces/*": ["app/utils/@types/interfaces/*"],
+            "@functions/*": ["app/utils/functions/*"],
+            "@formatters/*": ["app/utils/formatters/*"]
         }
     },
     "include": ["src", "./config/jest/setupTests.cjs"],

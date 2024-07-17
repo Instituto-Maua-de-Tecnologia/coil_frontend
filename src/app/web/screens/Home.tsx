@@ -18,19 +18,23 @@ export default function Home() {
         created_at: "",
         updated_at: ""
     });
+    const token = localStorage.getItem("user");
+    const userToken = JSON.parse(
+        localStorage.getItem("user") as string
+    ) as IUser;
     useEffect(() => {
-        const userTemp = localStorage.getItem("user") as string;
+        const userTemp = userToken;
         if (userTemp) {
             setUser({
-                id: JSON.parse(userTemp).id,
-                name: JSON.parse(userTemp).name,
-                email: JSON.parse(userTemp).email,
-                user_type: JSON.parse(userTemp).user_type,
-                created_at: JSON.parse(userTemp).created_at,
-                updated_at: JSON.parse(userTemp).updated_at
+                id: userTemp.id,
+                name: userTemp.name,
+                email: userTemp.email,
+                user_type: userTemp.user_type,
+                created_at: userTemp.created_at,
+                updated_at: userTemp.updated_at
             });
         }
-    }, [localStorage.getItem("user")]);
+    }, [token]);
     const navigate = useNavigate();
 
     return (
@@ -40,55 +44,60 @@ export default function Home() {
                 <div className="flex-grow h-screen overflow-hidden mx-3 mb-3 flex flex-row">
                     <SideBar />
                     <div className="custom-scrollbar overflow-auto lg:overflow-hidden max-h-screen flex-col w-full ">
-                        {(JSON.parse(localStorage.getItem("user") as string)
-                            ?.user_type === UserTypeEnum.MODERATOR ||
-                            JSON.parse(localStorage.getItem("user") as string)
-                                ?.user_type === UserTypeEnum.ADMIN) && (
-                            <>
-                                <Tooltip
-                                    target=".speeddial-bottom-right .p-speeddial-action"
-                                    position="left"
-                                />
-                                <SpeedDial
-                                    model={[
-                                        {
-                                            label: "Criar COIL",
-                                            icon: "pi pi-file-plus",
-                                            command: () => {
-                                                navigate("/CreateCOIL", {
-                                                    state: { type_activity: 1 }
-                                                });
+                        {userToken?.user_type ===
+                            UserTypeEnum.MODERATOR.valueOf() ||
+                            (userToken?.user_type ===
+                                UserTypeEnum.ADMIN.valueOf() && (
+                                <>
+                                    <Tooltip
+                                        target=".speeddial-bottom-right .p-speeddial-action"
+                                        position="left"
+                                    />
+                                    <SpeedDial
+                                        model={[
+                                            {
+                                                label: "Criar COIL",
+                                                icon: "pi pi-file-plus",
+                                                command: () => {
+                                                    navigate("/CreateCOIL", {
+                                                        state: {
+                                                            type_activity: 1
+                                                        }
+                                                    });
+                                                }
+                                            },
+                                            {
+                                                label: "Criar Mobilidade Acadêmica",
+                                                icon: "pi pi-pencil",
+                                                command: () => {
+                                                    navigate(
+                                                        "/CreateMobility",
+                                                        {
+                                                            state: {
+                                                                type_activity: 2
+                                                            }
+                                                        }
+                                                    );
+                                                }
+                                            },
+                                            {
+                                                label:
+                                                    userToken.user_type === 3
+                                                        ? "Criar Moderador"
+                                                        : "Ver Moderadores",
+                                                icon: "pi pi-user-plus",
+                                                command: () => {
+                                                    navigate(
+                                                        "/CreateModerator"
+                                                    );
+                                                }
                                             }
-                                        },
-                                        {
-                                            label: "Criar Mobilidade Acadêmica",
-                                            icon: "pi pi-pencil",
-                                            command: () => {
-                                                navigate("/CreateMobility", {
-                                                    state: { type_activity: 2 }
-                                                });
-                                            }
-                                        },
-                                        {
-                                            label:
-                                                JSON.parse(
-                                                    localStorage.getItem(
-                                                        "user"
-                                                    ) as string
-                                                )?.user_type === 3
-                                                    ? "Criar Moderador"
-                                                    : "Ver Moderadores",
-                                            icon: "pi pi-user-plus",
-                                            command: () => {
-                                                navigate("/CreateModerator");
-                                            }
-                                        }
-                                    ]}
-                                    direction="up"
-                                    className="speeddial-bottom-right right-0 bottom-0 m-6"
-                                />
-                            </>
-                        )}
+                                        ]}
+                                        direction="up"
+                                        className="speeddial-bottom-right right-0 bottom-0 m-6"
+                                    />
+                                </>
+                            ))}
                         <div
                             className={`flex 2xs:flex-col sm:flex-row wrap rounded-3xl w-full md:h-25%`}
                         >

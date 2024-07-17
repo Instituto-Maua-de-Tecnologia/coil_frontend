@@ -4,6 +4,7 @@ import updateUserStatusInActivity from "@integrations/activity/admin&moderator/u
 import { Button } from "primereact/button";
 import toast from "react-hot-toast";
 import IUser from "@interfaces/user/IUser.ts";
+import IStudent from "@interfaces/user/IStudent.ts";
 
 interface Applicants {
     users_applicants: {
@@ -43,7 +44,7 @@ export default function EnrolledStudentCard({
             {
                 loading: `Mudando o status dos usuários...`,
                 success: <b>Status dos usuários alterados com sucesso</b>,
-                error: (error) => error.message
+                error: (error: Error) => error.message
             }
         );
     };
@@ -58,7 +59,7 @@ export default function EnrolledStudentCard({
                 email: "",
                 RA: ""
             }
-        ];
+        ] as IStudent[];
         applicants.map((applicant) => {
             if (applicant.status === true) {
                 data = [
@@ -73,7 +74,7 @@ export default function EnrolledStudentCard({
 
         const headers = "Nome,RA,E-mail";
         const csvRows = data.map(
-            (student: any) => `${student.name},${student.RA},${student.email}`
+            (student) => `${student.name},${student.RA},${student.email}`
         );
         const csvContent = [headers, ...csvRows].join("\n");
 

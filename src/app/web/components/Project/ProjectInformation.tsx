@@ -7,9 +7,10 @@ import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
 import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
 import { useNavigate } from "react-router-dom";
-import Modal from "@components/Modal/Modal.tsx";
 import IProject from "@interfaces/project/IProject";
 import IProjectWithData from "@interfaces/project/IProject.ts";
+import IUser from "@interfaces/user/IUser.ts";
+import ModalInformation from "@components/Modal/ModalInformation.tsx";
 
 interface ProjectInfoProps {
     id: string;
@@ -103,24 +104,28 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
             }
         ]
     });
+    const userToken = JSON.parse(
+        localStorage.getItem("user") as string
+    ) as IUser;
+
     const [loaded, setLoaded] = useState(false);
 
-    const handleGetProject = async () => {
-        try {
-            const projectValue = (await getActivity({
-                activity_id: id
-            })) as IProjectWithData;
-            setProject(projectValue);
-        } catch (error) {
-            console.error("Erro ao obter projeto:", error);
-        } finally {
-            setLoaded(true);
-        }
-    };
     const isDarkTheme = useThemeDetector();
 
     useEffect(() => {
-        handleGetProject();
+        const handleGetProject = async () => {
+            try {
+                const projectValue = (await getActivity({
+                    activity_id: id
+                })) as IProjectWithData;
+                setProject(projectValue);
+            } catch (error) {
+                console.error("Erro ao obter projeto:", error);
+            } finally {
+                setLoaded(true);
+            }
+        };
+        void handleGetProject();
     }, [id]);
 
     const formatDate = (dateString: string) => {
@@ -131,25 +136,26 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
     const [enrolledProjectsIds, setEnrolledProjectsIds] = useState<string[]>(
         []
     );
-    const handleGetEnrolledProjects = async () => {
-        await getAllActivitiesEnrolled({
-            type_activity: project.type_activity
-        })
-            .then((response) => {
-                setEnrolledProjectsIds(
-                    enrolledIdsToArray(response as IProject[])
-                );
-            })
-            .catch((error) => {
-                console.error("Erro ao obter projetos:", error);
-            });
-    };
+
     useEffect(() => {
+        const handleGetEnrolledProjects = async () => {
+            await getAllActivitiesEnrolled({
+                type_activity: project.type_activity
+            })
+                .then((response) => {
+                    setEnrolledProjectsIds(
+                        enrolledIdsToArray(response as IProject[])
+                    );
+                })
+                .catch((error) => {
+                    console.error("Erro ao obter projetos:", error);
+                });
+        };
         const handleGets = async () => {
             await handleGetEnrolledProjects();
         };
-        handleGets();
-    }, []);
+        void handleGets();
+    }, [project.type_activity]);
     const enrolledIdsToArray = (enrolledProjects: IProject[]) => {
         return enrolledProjects.map((project) => {
             return `${project?.id}`;
@@ -163,7 +169,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
         null
     );
 
-    const handleModalOpen = (project: any) => {
+    const handleModalOpen = (project: IProject) => {
         setSelectedProject(project);
     };
 
@@ -220,9 +226,8 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                             </div>
                             {project.status_activity === 2 && (
                                 <>
-                                    {JSON.parse(
-                                        localStorage.getItem("user") as string
-                                    )?.user_type === UserTypeEnum.STUDENT && (
+                                    {userToken?.user_type ===
+                                        UserTypeEnum.STUDENT.valueOf() && (
                                         <button
                                             onClick={() =>
                                                 handleModalOpen(project)
@@ -236,11 +241,10 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                     )}
                                 </>
                             )}
-                            {(JSON.parse(localStorage.getItem("user") as string)
-                                ?.user_type === UserTypeEnum.ADMIN ||
-                                JSON.parse(
-                                    localStorage.getItem("user") as string
-                                )?.user_type === UserTypeEnum.MODERATOR) &&
+                            {(userToken?.user_type ===
+                                UserTypeEnum.ADMIN.valueOf() ||
+                                userToken?.user_type ===
+                                    UserTypeEnum.MODERATOR.valueOf()) &&
                                 project.status_activity !== 1 && (
                                     <button
                                         onClick={() =>
@@ -256,7 +260,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                     </button>
                                 )}
                             {selectedProject ? (
-                                <Modal
+                                <ModalInformation
                                     project={selectedProject}
                                     enrolled={enrolledProjectsIds.includes(
                                         selectedProject.id

@@ -10,6 +10,7 @@ import {
     signOutIcon,
     userIcon
 } from "@assets/icons";
+import IUser from "@interfaces/user/IUser.ts";
 
 interface NavigationItem {
     id: string;
@@ -31,17 +32,22 @@ interface NavigationItem {
     }) => ReactElement;
 }
 
-/* eslint-disable */
 const user = () => {
     try {
-        return JSON.parse(localStorage.getItem("user") || "");
+        return JSON.parse(localStorage.getItem("user") || "") as IUser;
     } catch {
-        return "";
+        return {
+            id: "",
+            name: "",
+            email: "",
+            user_type: 0,
+            created_at: "",
+            updated_at: ""
+        } as IUser;
     }
 };
 
 const { name } = user();
-/* eslint-enable */
 
 export const navigation: NavigationItem[] = [
     {

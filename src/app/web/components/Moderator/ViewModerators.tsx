@@ -16,15 +16,15 @@ interface User {
 export default function ViewModerators() {
     const [moderators, setModerators] = useState<User[]>();
     const [loaded, setLoaded] = useState(false);
-    const handleGetAllModerators = async () => {
-        const response = (await getAllModerators().finally(() =>
-            setLoaded(true)
-        )) as User[];
-        setModerators(response);
-    };
 
     useEffect(() => {
-        handleGetAllModerators();
+        const handleGetAllModerators = async () => {
+            const response = (await getAllModerators().finally(() =>
+                setLoaded(true)
+            )) as User[];
+            setModerators(response);
+        };
+        void handleGetAllModerators();
     }, []);
 
     const isDarkTheme = useThemeDetector();

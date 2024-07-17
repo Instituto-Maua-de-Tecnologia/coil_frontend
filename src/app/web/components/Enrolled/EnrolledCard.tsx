@@ -7,26 +7,8 @@ interface EnrolledCardProps {
 }
 
 export default function EnrolledCard({ enrolled }: EnrolledCardProps) {
-    const { title, applications, languages } = enrolled; // partner_institutions
-    // function getCountryFullName(codes: string[]): string {
-    //     const countryNames = codes.map((code) => {
-    //         const normalizedCode = code.toLowerCase();
-    //         return countryCodes[normalizedCode] || "Country not found";
-    //     });
-    //     return countryNames.join(", ");
-    // }
-    // const country = partner_institutions?.map(
-    //     (fds) => fds.institution?.country
-    // );
-    // const countryName = getCountryFullName(
-    //     enrolled.partner_institutions?.map(
-    //         (fds) => fds.institution?.country
-    //     ) as string[]
-    // );
-    const status = applications?.map((fds) => fds.status);
-    // const avatarUrl = partner_institutions?.flatMap((fds) =>
-    //     fds.institution?.images.map((img) => img.image)
-    // )[0];
+    const { title, applications, languages } = enrolled;
+    const status = applications?.map((application) => application.status);
 
     const isDarkTheme = useThemeDetector();
 

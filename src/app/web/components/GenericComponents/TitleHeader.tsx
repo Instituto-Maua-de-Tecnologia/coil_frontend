@@ -13,6 +13,7 @@ import {
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import { navigation } from "@constants/SideBarProperties.ts";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
+import IUser from "@interfaces/user/IUser.ts";
 
 interface TitleHeaderProps {
     title: string;
@@ -23,8 +24,8 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const isDarkTheme = useThemeDetector();
     const links =
-        JSON.parse(localStorage.getItem("user") as string)?.user_type ===
-        UserTypeEnum.STUDENT
+        (JSON.parse(localStorage.getItem("user") as string) as IUser)
+            ?.user_type === UserTypeEnum.STUDENT
             ? [
                   { to: "/Home", label: "Home", icon: homeIcon },
                   {

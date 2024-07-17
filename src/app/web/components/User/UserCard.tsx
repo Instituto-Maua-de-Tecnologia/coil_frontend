@@ -26,11 +26,13 @@ export default function UserCard({ userCard }: IUserCardProps) {
                         </div>
                         <div className="flex-col w-full h-full items-center mt-10 ">
                             <h1 className={"text-center text-[32px]"}>
-                                {UserTypeEnum.STUDENT === user_type
+                                {UserTypeEnum.STUDENT.valueOf() === user_type
                                     ? "Student"
-                                    : UserTypeEnum.MODERATOR === user_type
+                                    : UserTypeEnum.MODERATOR.valueOf() ===
+                                        user_type
                                       ? "Moderator"
-                                      : UserTypeEnum.ADMIN === user_type
+                                      : UserTypeEnum.ADMIN.valueOf() ===
+                                          user_type
                                         ? "Admin"
                                         : "Undefined User Type"}{" "}
                                 User

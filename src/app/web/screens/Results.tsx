@@ -6,21 +6,22 @@ import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_act
 import { MoonLoader } from "react-spinners";
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import IResults from "@interfaces/results/IResults.ts";
+import { AxiosError } from "axios";
 
 export default function Results() {
     const [results, setResults] = useState<IResults>();
     const [loaded, setLoaded] = useState(false);
-    const handleResults = async () => {
-        const resultsValues = (await getAllActivitiesEnrolled({
-            type_activity: 2
-        })
-            .catch((e) => console.error(e.message))
-            .finally(() => setLoaded(true))) as IResults;
-        setResults(resultsValues);
-    };
 
     useEffect(() => {
-        handleResults();
+        const handleResults = async () => {
+            const resultsValues = (await getAllActivitiesEnrolled({
+                type_activity: 2
+            })
+                .catch((e: AxiosError) => console.error(e.message))
+                .finally(() => setLoaded(true))) as IResults;
+            setResults(resultsValues);
+        };
+        void handleResults();
     }, []);
 
     const isDarkTheme = useThemeDetector();

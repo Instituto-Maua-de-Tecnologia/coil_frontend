@@ -4,6 +4,7 @@ import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import IAllProjects from "@interfaces/project/IAllProjects.ts";
+import IUser from "@interfaces/user/IUser.ts";
 
 interface MobilityCardProps {
     mobility: IAllProjects;
@@ -16,22 +17,25 @@ export default function MobilityCard({
     onClick,
     enrolled
 }: MobilityCardProps) {
-    const user = JSON.parse(localStorage.getItem("user") as string);
+    const userToken = JSON.parse(
+        localStorage.getItem("user") as string
+    ) as IUser;
     const navigate = useNavigate();
 
     const handleOnClick = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         e.stopPropagation();
-        if (user !== undefined) {
-            if (user.user_type === UserTypeEnum.STUDENT) onClick(mobility);
+        if (userToken !== undefined) {
+            if (userToken.user_type === UserTypeEnum.STUDENT.valueOf())
+                onClick(mobility);
             else if (
-                user.user_type === UserTypeEnum.ADMIN ||
-                user.user_type === UserTypeEnum.MODERATOR
+                userToken.user_type === UserTypeEnum.ADMIN.valueOf() ||
+                userToken.user_type === UserTypeEnum.MODERATOR.valueOf()
             )
                 navigate("/EnrolledStudents", {
                     state: {
-                        userStatus: user.user_type,
+                        userStatus: userToken.user_type,
                         type_activity: 2,
                         edit: true,
                         projectID: mobility.id
@@ -116,7 +120,8 @@ export default function MobilityCard({
                             {mobility.activity_status.name}
                         </div>
                         {mobility.activity_status.name !== "Under Analysis" &&
-                        user.user_type === UserTypeEnum.STUDENT ? (
+                        userToken.user_type ===
+                            UserTypeEnum.STUDENT.valueOf() ? (
                             <button
                                 onClick={handleOnClick}
                                 disabled={

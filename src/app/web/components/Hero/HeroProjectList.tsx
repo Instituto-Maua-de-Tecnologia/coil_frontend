@@ -47,7 +47,7 @@ export default function ProjectListHero({ isProject }: HeroProjectListProps) {
         const handleGets = async () => {
             await handleGetAllProjectsCatalog();
         };
-        handleGets();
+        void handleGets();
     }, []);
 
     return (

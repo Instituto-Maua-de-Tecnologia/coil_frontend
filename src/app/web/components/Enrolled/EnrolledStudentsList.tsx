@@ -20,7 +20,7 @@ export default function EnrolledStudentList({
             <div>
                 <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
                     {students.applicants[0] !== undefined ? (
-                        students.applicants.map((_: any, index: number) => (
+                        students.applicants.map((_, index: number) => (
                             <EnrolledStudentCard
                                 key={index}
                                 projectID={students.id}

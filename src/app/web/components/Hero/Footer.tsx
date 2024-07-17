@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
                     </h6>
                     <ul>
                         <li className="py-1 text-gray-500 hover:text-white z-20">
-                            <a href="http://maua.br/" target="blank">
+                            <a href="https://maua.br/" target="blank">
                                 Insituto mauá de Tecnologia
                             </a>
                         </li>

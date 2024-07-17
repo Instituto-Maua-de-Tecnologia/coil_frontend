@@ -12,19 +12,24 @@ export default function UserInfo() {
         created_at: "",
         updated_at: ""
     });
+
+    const userToken = JSON.parse(
+        localStorage.getItem("user") as string
+    ) as IUser;
+
     useEffect(() => {
-        const userTemp = localStorage.getItem("user") as string;
+        const userTemp = userToken;
         if (userTemp) {
             setUser({
-                id: JSON.parse(userTemp).id,
-                name: JSON.parse(userTemp).name,
-                email: JSON.parse(userTemp).email,
-                user_type: JSON.parse(userTemp).user_type,
-                created_at: JSON.parse(userTemp).created_at,
-                updated_at: JSON.parse(userTemp).updated_at
+                id: userTemp.id,
+                name: userTemp.name,
+                email: userTemp.email,
+                user_type: userTemp.user_type,
+                created_at: userTemp.created_at,
+                updated_at: userTemp.updated_at
             });
         }
-    }, [localStorage.getItem("user")]);
+    }, []);
 
     const isDarkTheme = useThemeDetector();
     return (

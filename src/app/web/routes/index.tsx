@@ -13,58 +13,63 @@ import Mobilities from "@screens/Mobilities.tsx";
 import ViewEnrolledStudents from "@screens/ViewEnrolledStudents.tsx";
 import { ActivityTypeEnum } from "@enums/ActivityTypeEnum.ts";
 import ProjectInfo from "@screens/ProjectInfo.tsx";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import getUser from "@integrations/user/authentification/get_user.ts";
 import InstitutionInfo from "@screens/InstitutionInfo.tsx";
 import toast from "react-hot-toast";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import CreateModerator from "@screens/CreateModerator.tsx";
 import CreateInstitution from "@screens/CreateInstitution.tsx";
+import IUser from "@interfaces/user/IUser.ts";
 
 export default function AppRoutes() {
-    const possibleRoutes = [
-        "/Home",
-        "/Institution",
-        "/InstitutionInfo",
-        "/COIL",
-        "/COILInfo",
-        "/CreateCOIL",
-        "/CreateMobility",
-        "/Mobilities",
-        "/Enrolled",
-        "/Results",
-        "/CreateModerator",
-        "/User",
-        "/Signout",
-        "/EnrolledStudents"
-    ];
-    const adminPages = [
-        "/CreateCOIL",
-        "/CreateMobility",
-        "/EnrolledStudents",
-        "/CreateModerator",
-        "/CreateInstitution"
-    ];
+    const possibleRoutes = useMemo(
+        () => [
+            "/Home",
+            "/Institution",
+            "/InstitutionInfo",
+            "/COIL",
+            "/COILInfo",
+            "/CreateCOIL",
+            "/CreateMobility",
+            "/Mobilities",
+            "/Enrolled",
+            "/Results",
+            "/CreateModerator",
+            "/User",
+            "/Signout",
+            "/EnrolledStudents"
+        ],
+        []
+    );
+    const adminPages = useMemo(
+        () => [
+            "/CreateCOIL",
+            "/CreateMobility",
+            "/EnrolledStudents",
+            "/CreateModerator",
+            "/CreateInstitution"
+        ],
+        []
+    );
     const [location, setLocation] = useState(window.location.pathname);
-
-    const checkAndNavigateBack = () => {
-        if (
-            JSON.parse(localStorage.getItem("user") as string)?.user_type ===
-            null
-        )
-            window.history.back();
-        if (
-            JSON.parse(localStorage.getItem("user") as string)?.user_type !==
-                UserTypeEnum.ADMIN &&
-            JSON.parse(localStorage.getItem("user") as string)?.user_type !==
-                UserTypeEnum.MODERATOR &&
-            adminPages.includes(window.location.pathname)
-        ) {
-            window.history.back();
-        }
-    };
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
+        const checkAndNavigateBack = () => {
+            const userToken = JSON.parse(
+                localStorage.getItem("user") as string
+            ) as IUser;
+            if (userToken?.user_type === null) window.history.back();
+            if (
+                (userToken?.user_type as UserTypeEnum) !== UserTypeEnum.ADMIN &&
+                (userToken?.user_type as UserTypeEnum) !==
+                    UserTypeEnum.MODERATOR &&
+                adminPages.includes(window.location.pathname)
+            ) {
+                window.history.back();
+            }
+        };
         const handleLocationChange = () => {
             setLocation(window.location.pathname);
         };
@@ -94,7 +99,7 @@ export default function AppRoutes() {
             window.history.pushState = pushState;
             window.history.replaceState = replaceState;
         };
-    }, [location]);
+    }, [adminPages, location]);
 
     useEffect(() => {
         if (possibleRoutes.includes(window.location.pathname)) {
@@ -111,11 +116,11 @@ export default function AppRoutes() {
                     window.location.href = "/";
                     localStorage.clear();
                     toast.error("Acesso expirado, faça o Login novamente");
-                    throw new Error(error);
+                    throw new Error(error as string);
                 });
             }
         }
-    }, []);
+    }, [possibleRoutes]);
 
     async function handleUser() {
         const token = localStorage.getItem("token") as string;
@@ -124,8 +129,8 @@ export default function AppRoutes() {
     }
 
     useEffect(() => {
-        handleUser();
-    }, [localStorage.getItem("token")]);
+        void handleUser();
+    }, [token]);
 
     return (
         <BrowserRouter>
@@ -140,7 +145,6 @@ export default function AppRoutes() {
                 />
                 <Route path={"/COIL"} element={<Projects />} />
                 <Route path={"/COILInfo"} element={<ProjectInfo />} />
-                <Route path={"/MobilityInfo"} element={<ProjectInfo />} />
                 <Route path={"/MobilityInfo"} element={<ProjectInfo />} />
                 <Route path={"/CreateCOIL"} element={<CreateActivity />} />
                 <Route path={"/CreateMobility"} element={<CreateActivity />} />

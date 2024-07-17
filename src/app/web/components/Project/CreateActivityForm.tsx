@@ -12,6 +12,7 @@ import getActivityRequirements from "@integrations/activity/admin&moderator/get_
 import Select, { SelectOption } from "@components/GenericComponents/Select";
 import IProject from "@interfaces/project/IProject";
 import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
+import { AxiosError } from "axios";
 
 type InstitutionProps = [
     {
@@ -36,7 +37,7 @@ export type LangProps = {
 
 export type CriteriaProps = [
     {
-        id: any;
+        id: string;
         criteria: string;
     }
 ];
@@ -78,7 +79,7 @@ interface ActivityFromData {
     partner_institutions: string[];
     courses: number[];
     criterias: {
-        id?: any;
+        id?: number;
         criteria?: string;
     }[];
     type_activity: number;
@@ -144,7 +145,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         languages: [],
         partner_institutions: [""],
         courses: [],
-        criterias: [{ id: undefined, criteria: "" }],
+        criterias: [{ id: 0, criteria: "" }],
         type_activity: isProject ? 1 : 2
     });
     const projectNameRef = useRef<HTMLInputElement>(null);
@@ -154,34 +155,28 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     const navigate = useNavigate();
     const isDarkTheme = useThemeDetector();
 
-    async function delay(ms: number) {
-        return new Promise((resolve) => {
-            setTimeout(resolve, ms);
-        });
-    }
-
-    const handleGetAllCoursesAndInstitutions = async () => {
-        try {
-            const institutionValues =
-                (await getAllInstitutions()) as InstitutionProps;
-            setInstitutions(institutionValues);
-            const requirements =
-                (await getActivityRequirements()) as RequirementProps;
-            setCourses(requirements.courses);
-            setLanguages(requirements.languages);
-            setCriterias(requirements.criterias);
-            setLoaded(true);
-        } catch (error) {
-            console.error("Erro ao obter cursos:", error);
-        }
-    };
     //TODO:
     //fazer verificação do: titulo(não pode ser repetido(dar um get para saber quais titulos estão em uso),
     //imagens(base64),
     //mandar informações usando dateTime() formato dd/mm/yy)
 
     useEffect(() => {
-        handleGetAllCoursesAndInstitutions();
+        const handleGetAllCoursesAndInstitutions = async () => {
+            try {
+                const institutionValues =
+                    (await getAllInstitutions()) as InstitutionProps;
+                setInstitutions(institutionValues);
+                const requirements =
+                    (await getActivityRequirements()) as RequirementProps;
+                setCourses(requirements.courses);
+                setLanguages(requirements.languages);
+                setCriterias(requirements.criterias);
+                setLoaded(true);
+            } catch (error) {
+                console.error("Erro ao obter cursos:", error);
+            }
+        };
+        void handleGetAllCoursesAndInstitutions();
         // setSelectableLanguages(languages.forEach(mapLang));
     }, []);
 
@@ -306,7 +301,10 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
         const description = projectDescriptionRef.current?.value || "";
         const courses = selectedCourses.map((fds) => Number(fds.value));
         const languages = selectedLanguages.map((lang) => Number(lang.value));
-        const criterias = handleCriteriaFilter();
+        const criterias = handleCriteriaFilter() as {
+            id?: number | undefined;
+            criteria?: string | undefined;
+        }[];
         const partner_institutions: string[] = institutions.map((institution) =>
             institution.id.toString()
         );
@@ -328,7 +326,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             body: newFormData
         })
             .then()
-            .catch((error) => {
+            .catch((error: AxiosError) => {
                 setLoaded(true);
                 if (error.status === 401) {
                     localStorage.clear();
@@ -361,26 +359,25 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
             setLoaded(true); // Ensure the loaded state is set to true if validation fails
             return;
         }
-
-        setLoaded(false);
-        await toast
-            .promise(handlePostActivity(), {
-                loading: `Criando ${isProject ? "Projeto" : "Mobilidade Acadêmica"}...`,
-                success: (
-                    <b>
-                        {isProject
-                            ? "Projeto criado "
-                            : "Mobilidade Acadêmica criada "}{" "}
-                        com sucesso
-                    </b>
-                ),
-                error: (error) => error.message
-            })
-            .then(async () => {
-                await delay(5000);
-                navigate(isProject ? "/COIL" : "/Mobilities");
-                //TODO: navigate runs before toast be completed
-            });
+        if (isValid()) {
+            setLoaded(false);
+            await toast
+                .promise(handlePostActivity(), {
+                    loading: `Criando ${isProject ? "Projeto" : "Mobilidade Acadêmica"}...`,
+                    success: (
+                        <b>
+                            {isProject
+                                ? "Projeto criado "
+                                : "Mobilidade Acadêmica criada "}{" "}
+                            com sucesso
+                        </b>
+                    ),
+                    error: (error: Error) => error.message
+                })
+                .finally(() => {
+                    navigate(isProject ? "/COIL" : "/Mobilities");
+                });
+        }
     }
 
     return (

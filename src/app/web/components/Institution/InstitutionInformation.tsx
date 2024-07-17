@@ -4,6 +4,7 @@ import SVGIcon from "@components/ImageInstances/SVGIcon.tsx";
 import getInstitution from "@integrations/institution/get_institution.ts";
 import IInstitution from "@interfaces/institution/IInstitution.ts";
 import { socialMediaIcons } from "@constants/SocialMediaProperties.ts";
+import IUser from "@interfaces/user/IUser.ts";
 
 interface InstitutionInfoProps {
     id: string;
@@ -11,21 +12,22 @@ interface InstitutionInfoProps {
 
 export default function InstitutionInformation({ id }: InstitutionInfoProps) {
     const [institution, setInstitution] = useState<IInstitution>();
-    const handleGetInstitution = async () => {
-        try {
-            const institutionValue = (await getInstitution({
-                institution_id: id
-            })) as IInstitution;
-            setInstitution(institutionValue);
-        } catch (error) {
-            console.error("Erro ao obter Instituição:", error);
-        }
-    };
+
     const isDarkTheme = useThemeDetector();
 
     useEffect(() => {
-        handleGetInstitution();
-    }, []);
+        const handleGetInstitution = async () => {
+            try {
+                const institutionValue = (await getInstitution({
+                    institution_id: id
+                })) as IInstitution;
+                setInstitution(institutionValue);
+            } catch (error) {
+                console.error("Erro ao obter Instituição:", error);
+            }
+        };
+        void handleGetInstitution();
+    }, [id]);
 
     console.log(institution);
 
@@ -85,8 +87,9 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                         )}
                     </div>
                     <div className="flex justify-start mt-16">
-                        {JSON.parse(localStorage.getItem("user") as string)
-                            .user_type === 3 ? (
+                        {(JSON.parse(
+                            localStorage.getItem("user") as string
+                        ) as IUser["user_type"]) === 3 ? (
                             <button className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full">
                                 Edit Institution
                             </button>

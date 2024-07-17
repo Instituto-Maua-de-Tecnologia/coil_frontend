@@ -8,6 +8,7 @@ import createModerator from "@integrations/user/admin/create_moderator.ts";
 import toast from "react-hot-toast";
 import ViewModerators from "@components/Moderator/ViewModerators.tsx";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
+import IUser from "@interfaces/user/IUser.ts";
 
 export default function CreateModeratorForm() {
     const isDarkTheme = useThemeDetector();
@@ -47,7 +48,7 @@ export default function CreateModeratorForm() {
             {
                 loading: `Cadastrando novo moderador...`,
                 success: <b>Moderador criado com sucesso</b>,
-                error: (error) => error.message
+                error: (error: Error) => error.message
             }
         );
     };
@@ -57,7 +58,7 @@ export default function CreateModeratorForm() {
             alert("Preencha os dados do formulário");
         }
         if (validateEmail(email)) {
-            handleModeratorPost();
+            void handleModeratorPost();
         }
     };
 
@@ -65,8 +66,8 @@ export default function CreateModeratorForm() {
         <div
             className={`w-full mt-4 lg:mt-0 ml-0 lg:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E] text-white" : "bg-[#FFFFFF] text-black"} rounded-3xl`}
         >
-            {JSON.parse(localStorage.getItem("user") as string)?.user_type ===
-            UserTypeEnum.ADMIN ? (
+            {(JSON.parse(localStorage.getItem("user") as string) as IUser)
+                ?.user_type === UserTypeEnum.ADMIN.valueOf() ? (
                 <>
                     <div className="flex mb-2 gap-2 justify-center">
                         <Button

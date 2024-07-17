@@ -16,7 +16,7 @@ export const sections: FooterSection[] = [
     {
         title: "Mais sobre a Mauá",
         items: [
-            "http://maua.br/",
+            "https://maua.br/",
             "https://maua.br/a-maua/assessoria-de-relacoes-internacionais"
         ]
     },

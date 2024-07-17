@@ -8,7 +8,7 @@ import getAllActivities from "@integrations/activity/get_all_activities.ts";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
 import NoElementsFound from "@components/GenericComponents/NoElementsFound";
 import { LoadSpinner } from "@components/GenericComponents/LoadSpinner";
-import { Paginator } from "primereact/paginator";
+import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
 import IAllProjects from "@interfaces/project/IAllProjects.ts";
 
 export default function ProjectList() {
@@ -44,19 +44,6 @@ export default function ProjectList() {
         return enrolledProjects.map((project) => `${project.id}`);
     };
 
-    const handleGetEnrolledProjects = async () => {
-        try {
-            const response = await getAllActivitiesEnrolled({
-                type_activity: 1
-            });
-            setEnrolledProjectsIds(
-                enrolledIdsToArray(response as IAllProjects[])
-            );
-        } catch (error) {
-            console.error("Erro ao obter projetos:", error);
-        }
-    };
-
     const handleModalOpen = (project: IAllProjects) => {
         setSelectedProject(project);
     };
@@ -89,14 +76,26 @@ export default function ProjectList() {
     const isDarkTheme = useThemeDetector();
 
     useEffect(() => {
+        const handleGetEnrolledProjects = async () => {
+            try {
+                const response = await getAllActivitiesEnrolled({
+                    type_activity: 1
+                });
+                setEnrolledProjectsIds(
+                    enrolledIdsToArray(response as IAllProjects[])
+                );
+            } catch (error) {
+                console.error("Erro ao obter projetos:", error);
+            }
+        };
         const handleGets = async () => {
             await handleGetEnrolledProjects();
             await handleGetAllProjects();
         };
-        handleGets();
+        void handleGets();
     }, []);
 
-    const onPageChange = (event: any) => {
+    const onPageChange = (event: PaginatorPageChangeEvent) => {
         setFirst(event.first);
         setRows(event.rows);
     };

@@ -4,49 +4,39 @@ import Modal from "../Modal/Modal";
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import "@styles/scrollbar.css";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
-import IProject from "@interfaces/project/IProject";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
 import NoElementsFound from "@components/GenericComponents/NoElementsFound";
 import { LoadSpinner } from "@components/GenericComponents/LoadSpinner";
 import HomepageCard from "./HomepageCard";
+import IAllProjects from "@interfaces/project/IAllProjects.ts";
 
 export default function HomepageList() {
-    const [projects, setProjects] = useState<IProject[]>([]);
+    const [projects, setProjects] = useState<IAllProjects[]>([]);
     const [enrolledProjectsIds, setEnrolledProjectsIds] = useState<string[]>(
         []
     );
     const [loaded, setLoaded] = useState<boolean>(false);
 
-    const handleGetAllProjects = async (type: string): Promise<IProject[]> => {
+    const handleGetAllProjects = async (
+        type: string
+    ): Promise<IAllProjects[]> => {
         const projectValues = await getAllActivities({ type_activity: type });
-        return projectValues as IProject[];
+        return projectValues as IAllProjects[];
     };
 
-    const enrolledIdsToArray = (enrolledProjects: IProject[]) => {
+    const enrolledIdsToArray = (enrolledProjects: IAllProjects[]) => {
         return enrolledProjects.map((project) => {
             return `${project.id}`;
         });
     };
 
-    const handleGetEnrolledProjects = async () => {
-        await getAllActivitiesEnrolled({ type_activity: 1 })
-            .then((response) => {
-                setEnrolledProjectsIds(
-                    enrolledIdsToArray(response as IProject[])
-                );
-            })
-            .catch((error) => {
-                console.error("Erro ao obter projetos:", error);
-            });
-    };
-
-    const [selectedProject, setSelectedProject] = useState<IProject | null>(
+    const [selectedProject, setSelectedProject] = useState<IAllProjects | null>(
         null
     );
     const [filteredProjects, setFilteredProjects] =
-        useState<IProject[]>(projects);
+        useState<IAllProjects[]>(projects);
 
-    const handleModalOpen = (project: IProject) => {
+    const handleModalOpen = (project: IAllProjects) => {
         setSelectedProject(project);
     };
 
@@ -78,6 +68,17 @@ export default function HomepageList() {
 
     useEffect(() => {
         const fetchData = async () => {
+            const handleGetEnrolledProjects = async () => {
+                await getAllActivitiesEnrolled({ type_activity: 1 })
+                    .then((response) => {
+                        setEnrolledProjectsIds(
+                            enrolledIdsToArray(response as IAllProjects[])
+                        );
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao obter projetos:", error);
+                    });
+            };
             try {
                 const mobilityProjects = await handleGetAllProjects("1");
                 const regularProjects = await handleGetAllProjects("2");
@@ -93,7 +94,7 @@ export default function HomepageList() {
             }
         };
 
-        fetchData();
+        void fetchData();
     }, []);
 
     return (
@@ -103,10 +104,10 @@ export default function HomepageList() {
             <div className="mb-4 flex">
                 <Search disabled={!loaded} onSearch={handleSearch} />
             </div>
-            {projects.length > 0 ? (
-                filteredProjects.length > 0 ? (
+            {loaded ? (
+                projects.length > 0 ? (
                     <div>
-                        {loaded ? (
+                        {filteredProjects.length > 0 ? (
                             <ul className="w-full max-h-screen pe-5 pb-10 lg:!pb-[400px] custom-scrollbar overflow-y-auto">
                                 {projects.map((project) => (
                                     <HomepageCard
@@ -120,9 +121,9 @@ export default function HomepageList() {
                                 ))}
                             </ul>
                         ) : (
-                            <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
-                                <LoadSpinner />
-                            </div>
+                            <p className="mx-auto my-5 text-center text-2xl">
+                                <NoElementsFound message="No opportunities matched the search criteria" />
+                            </p>
                         )}
                         {selectedProject ? (
                             <Modal
@@ -135,15 +136,13 @@ export default function HomepageList() {
                             />
                         ) : null}
                     </div>
-                ) : projects.length > 0 ? (
-                    <NoElementsFound message="No projects were found" />
                 ) : (
-                    <p className="mx-auto my-5 text-center text-2xl">
-                        <NoElementsFound message="No opportunities matched the search criteria" />
-                    </p>
+                    <NoElementsFound message="No opportunities were found" />
                 )
             ) : (
-                <NoElementsFound message="No opportunities were found" />
+                <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
+                    <LoadSpinner />
+                </div>
             )}
         </div>
     );

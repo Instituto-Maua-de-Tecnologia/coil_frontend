@@ -3,6 +3,7 @@ import authUser from "@integrations/user/authentification/auth_user.ts";
 import getUser from "@integrations/user/authentification/get_user.ts";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 
 const Navbar = () => {
     const { instance } = useMsal();
@@ -23,7 +24,7 @@ const Navbar = () => {
                 .promise(handleGetUser(response.accessToken), {
                     loading: "Realizando Login...",
                     success: <b>Usuário logado com sucesso</b>,
-                    error: (error) => error.message
+                    error: (error: Error) => error.message
                 })
                 .then(async () => {
                     await delay(1500);
@@ -49,7 +50,7 @@ const Navbar = () => {
                     throw new Error("MissingToken");
                 }
             })
-            .catch((error) => {
+            .catch((error: AxiosError) => {
                 if (error.status === 401) {
                     localStorage.clear();
                     throw new Error("Usuário não Autorizado.");

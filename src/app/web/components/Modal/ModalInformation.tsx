@@ -4,16 +4,17 @@ import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import assignUserToActivities from "@integrations/activity/student/assign_user_to_activity";
 import { MoonLoader } from "react-spinners";
 import { format } from "date-fns";
-import IAllProjects from "@interfaces/project/IAllProjects.ts";
+import IProject from "@interfaces/project/IProject.ts";
+import getActivityStatusText from "@formatters/getActivityStatusText.ts";
 
 interface ModalProps {
-    project: IAllProjects;
+    project: IProject;
     isOpen: boolean;
     enrolled: boolean;
     onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({
+const ModalInformation: React.FC<ModalProps> = ({
     project,
     isOpen,
     enrolled,
@@ -68,7 +69,6 @@ const Modal: React.FC<ModalProps> = ({
                                                 project
                                                     .partner_institutions?.[0]
                                                     ?.institution?.images[0]
-                                                    .image
                                             }
                                             alt="Avatar"
                                             className="avatar-img w-full rounded-full bg-white"
@@ -130,10 +130,9 @@ const Modal: React.FC<ModalProps> = ({
                                                 <p
                                                     className={`text-lg text-end font-bold text-blue-500`}
                                                 >
-                                                    {
-                                                        project.activity_status
-                                                            .name
-                                                    }
+                                                    {getActivityStatusText(
+                                                        project.status_activity
+                                                    )}
                                                 </p>
                                                 <p className="text-white text-sm text-end">
                                                     Application start date:{" "}
@@ -197,4 +196,4 @@ const Modal: React.FC<ModalProps> = ({
     );
 };
 
-export default Modal;
+export default ModalInformation;

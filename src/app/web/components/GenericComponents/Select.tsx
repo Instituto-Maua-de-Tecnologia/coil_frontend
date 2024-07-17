@@ -135,9 +135,9 @@ export default function Select({
                                   onClick={(e) => {
                                       e.stopPropagation();
                                       selectOption(option);
-                                      multiple
-                                          ? null
-                                          : setShowingOptions(false);
+                                      if (!multiple) {
+                                          setShowingOptions(false);
+                                      }
                                   }}
                                   onMouseEnter={() =>
                                       setHighlightedIndex(index)

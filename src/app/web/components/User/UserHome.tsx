@@ -32,11 +32,11 @@ export default function UserHome({ userHome }: IUserHomeProps) {
                 </div>
                 <p className={"text-[16px]"}>{email} </p>
                 <p className={"text-[16px] text-end"}>
-                    {UserTypeEnum.STUDENT === user_type
+                    {UserTypeEnum.STUDENT.valueOf() === user_type
                         ? "Student"
-                        : UserTypeEnum.MODERATOR === user_type
+                        : UserTypeEnum.MODERATOR.valueOf() === user_type
                           ? "Moderator"
-                          : UserTypeEnum.ADMIN === user_type
+                          : UserTypeEnum.ADMIN.valueOf() === user_type
                             ? "Admin"
                             : "Undefined User Type"}
                 </p>

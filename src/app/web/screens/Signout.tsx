@@ -8,20 +8,19 @@ export default function Signout() {
     const { instance } = useMsal();
     const navigate = useNavigate();
 
-    async function handleSignout() {
-        localStorage.clear();
-        await instance
-            .logout({
-                onRedirectNavigate: () => {
-                    return false;
-                }
-            })
-            .then(() => navigate("/"));
-    }
-
     useEffect(() => {
-        handleSignout();
-    }, [navigate, handleSignout]);
+        async function handleSignout() {
+            localStorage.clear();
+            await instance
+                .logout({
+                    onRedirectNavigate: () => {
+                        return false;
+                    }
+                })
+                .then(() => navigate("/"));
+        }
+        void handleSignout();
+    }, [navigate, instance]);
 
     return (
         <>

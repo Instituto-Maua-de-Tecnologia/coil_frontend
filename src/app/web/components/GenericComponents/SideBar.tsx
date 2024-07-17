@@ -4,11 +4,11 @@ import { navigation } from "@constants/SideBarProperties.ts";
 import darkMauaLogo from "@assets/maua-fontys-dark.svg";
 import lightMauaLogo from "@assets/maua-fontys-light.svg";
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
+import IUser from "@interfaces/user/IUser.ts";
 
 export default function SideBar() {
-    const access = JSON.parse(
-        localStorage.getItem("user") as string
-    )?.user_type;
+    const access = (JSON.parse(localStorage.getItem("user") as string) as IUser)
+        ?.user_type;
     const isDarkTheme = useThemeDetector();
     const pathname = useLocation();
 

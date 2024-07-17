@@ -4,6 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import IAllProjects from "@interfaces/project/IAllProjects.ts";
+import IUser from "@interfaces/user/IUser.ts";
 
 interface ProjectCardProps {
     project: IAllProjects;
@@ -16,20 +17,23 @@ export default function ProjectCard({
     enrolled,
     onClick
 }: ProjectCardProps) {
-    const user = JSON.parse(localStorage.getItem("user") as string);
+    const userToken = JSON.parse(
+        localStorage.getItem("user") as string
+    ) as IUser;
     const handleOnClick = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         e.stopPropagation();
-        if (user !== undefined) {
-            if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
+        if (userToken !== undefined) {
+            if (userToken.user_type === UserTypeEnum.STUDENT.valueOf())
+                onClick(project);
             else if (
-                user.user_type === UserTypeEnum.ADMIN ||
-                user.user_type === UserTypeEnum.MODERATOR
+                userToken.user_type === UserTypeEnum.ADMIN.valueOf() ||
+                userToken.user_type === UserTypeEnum.MODERATOR.valueOf()
             )
                 navigate("/EnrolledStudents", {
                     state: {
-                        userStatus: user.user_type,
+                        userStatus: userToken.user_type,
                         type_activity: 1,
                         edit: true,
                         projectID: project.id
@@ -115,7 +119,8 @@ export default function ProjectCard({
                             {project.activity_status.name}
                         </div>
                         {project.activity_status.name !== "Under Analysis" &&
-                        user.user_type === UserTypeEnum.STUDENT ? (
+                        userToken.user_type ===
+                            UserTypeEnum.STUDENT.valueOf() ? (
                             <button
                                 onClick={handleOnClick}
                                 disabled={

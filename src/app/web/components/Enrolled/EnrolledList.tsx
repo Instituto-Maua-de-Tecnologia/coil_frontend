@@ -93,23 +93,23 @@ export default function EnrolledList({ type_activity }: EnrolledListProps) {
         }
     };
 
-    async function getEnrolledData() {
-        const activity = type_activity ? 1 : 2;
-        try {
-            const allActivitiesEnrolledData = await getAllActivitiesEnrolled({
-                type_activity: activity
-            });
-            setFilteredEnrolleds(allActivitiesEnrolledData as IEnrolled[]);
-        } catch (error) {
-            console.error("Error fetching institutions:", error);
-        } finally {
-            setLoaded(true);
-        }
-    }
-
     useEffect(() => {
-        getEnrolledData();
-    }, []);
+        async function getEnrolledData() {
+            const activity = type_activity ? 1 : 2;
+            try {
+                const allActivitiesEnrolledData =
+                    await getAllActivitiesEnrolled({
+                        type_activity: activity
+                    });
+                setFilteredEnrolleds(allActivitiesEnrolledData as IEnrolled[]);
+            } catch (error) {
+                console.error("Error fetching institutions:", error);
+            } finally {
+                setLoaded(true);
+            }
+        }
+        void getEnrolledData();
+    }, [type_activity]);
 
     const isDarkTheme = useThemeDetector();
 

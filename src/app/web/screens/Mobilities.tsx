@@ -5,10 +5,11 @@ import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import { Tooltip } from "primereact/tooltip";
 import { SpeedDial } from "primereact/speeddial";
 import { useNavigate } from "react-router-dom";
+import IUser from "@interfaces/user/IUser.ts";
 
 export default function Mobilities() {
-    const user_type = JSON.parse(
-        localStorage.getItem("user") as string
+    const user_type = (
+        JSON.parse(localStorage.getItem("user") as string) as IUser
     )?.user_type;
     const navigate = useNavigate();
     return (
@@ -16,8 +17,8 @@ export default function Mobilities() {
             <div className="max-h-screen flex flex-col">
                 <TitleHeader title={"Academic International Mobility"} />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
-                    {user_type === UserTypeEnum.ADMIN ||
-                    user_type === UserTypeEnum.MODERATOR ? (
+                    {user_type === UserTypeEnum.ADMIN.valueOf() ||
+                    user_type === UserTypeEnum.MODERATOR.valueOf() ? (
                         <>
                             <Tooltip
                                 target=".speeddial-bottom-right .p-speeddial-action"
@@ -36,11 +37,7 @@ export default function Mobilities() {
                                     },
                                     {
                                         label:
-                                            JSON.parse(
-                                                localStorage.getItem(
-                                                    "user"
-                                                ) as string
-                                            )?.user_type === 3
+                                            user_type === 3
                                                 ? "Criar Moderador"
                                                 : "Ver Moderadores",
                                         icon: "pi pi-user-plus",

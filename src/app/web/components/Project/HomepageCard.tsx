@@ -1,14 +1,15 @@
 import SVGIcon from "../ImageInstances/SVGIcon";
-import IProject from "@interfaces/project/IProject";
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
+import IUser from "@interfaces/user/IUser.ts";
+import IAllProjects from "@interfaces/project/IAllProjects.ts";
 
 interface ProjectCardProps {
-    project: IProject;
+    project: IAllProjects;
     enrolled: boolean;
-    onClick: (project: IProject) => void;
+    onClick: (project: IAllProjects) => void;
 }
 
 export default function HomepageCard({
@@ -16,16 +17,17 @@ export default function HomepageCard({
     enrolled,
     onClick
 }: ProjectCardProps) {
-    const user = JSON.parse(localStorage.getItem("user") as string);
+    const user = JSON.parse(localStorage.getItem("user") as string) as IUser;
     const handleOnClick = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         e.stopPropagation();
         if (user !== undefined) {
-            if (user.user_type === UserTypeEnum.STUDENT) onClick(project);
+            if (user.user_type === UserTypeEnum.STUDENT.valueOf())
+                onClick(project);
             else if (
-                user.user_type === UserTypeEnum.ADMIN ||
-                user.user_type === UserTypeEnum.MODERATOR
+                user.user_type === UserTypeEnum.ADMIN.valueOf() ||
+                user.user_type === UserTypeEnum.MODERATOR.valueOf()
             )
                 navigate("/EnrolledStudents", {
                     state: {
@@ -41,7 +43,7 @@ export default function HomepageCard({
         <li
             onClick={() =>
                 navigate(
-                    project?.type_activity === 1
+                    project?.activity_type.id === 1
                         ? "/COILInfo"
                         : "/MobilityInfo",
                     { state: { projectID: project.id } }
@@ -69,17 +71,17 @@ export default function HomepageCard({
                             {project.title}
                             <div
                                 title={
-                                    project.activity_status.id === 1
+                                    project.activity_type.id === 1
                                         ? "COIL"
                                         : "Mobility"
                                 }
                                 className={`w-auto flex justify-center items-center rounded-full p-1 px-2 ml-2 text-xs font-medium ${
-                                    project.activity_status.id === 1
+                                    project.activity_type.id === 1
                                         ? "bg-blue-50 text-blue-700"
                                         : "bg-yellow-50 text-yellow-700"
                                 }`}
                             >
-                                {project?.activity_status.id === 1
+                                {project?.activity_type.id === 1
                                     ? "COIL"
                                     : "Mobility"}
                             </div>
@@ -134,7 +136,7 @@ export default function HomepageCard({
                             {project.activity_status.name}
                         </div>
                         {project.activity_status.name !== "Under Analysis" &&
-                        user.user_type === UserTypeEnum.STUDENT ? (
+                        user.user_type === UserTypeEnum.STUDENT.valueOf() ? (
                             <button
                                 onClick={handleOnClick}
                                 disabled={

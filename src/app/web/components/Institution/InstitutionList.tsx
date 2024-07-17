@@ -32,7 +32,7 @@ export default function InstitutionList() {
             }
         }
 
-        fetchData();
+        void fetchData();
     }, []);
 
     const handleSearch = (searchTerm: string) => {

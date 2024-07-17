@@ -4,7 +4,7 @@ import InstitutionInformation from "@components/Institution/InstitutionInformati
 import { useLocation } from "react-router-dom";
 
 export default function InstitutionInfo() {
-    const location = useLocation();
+    const location = useLocation() as { state: { institution: string } };
     const institution = location?.state?.institution;
 
     return (

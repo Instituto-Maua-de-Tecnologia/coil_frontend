@@ -4,7 +4,7 @@ import ProjectInformation from "@components/Project/ProjectInformation.tsx";
 import { useLocation } from "react-router-dom";
 
 export default function ProjectInfo() {
-    const location = useLocation();
+    const location = useLocation() as { state: { projectID: string } };
     const project = location.state?.projectID;
     const isProject =
         window.location.pathname === "/COILInfo" ? "COIL" : "Mobility";

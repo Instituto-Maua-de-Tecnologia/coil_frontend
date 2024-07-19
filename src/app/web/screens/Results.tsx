@@ -18,6 +18,7 @@ export default function Results() {
             })
                 .catch((e: AxiosError) => console.error(e.message))
                 .finally(() => setLoaded(true))) as IResults;
+            console.log(resultsValues);
             setResults(resultsValues);
         };
         void handleResults();

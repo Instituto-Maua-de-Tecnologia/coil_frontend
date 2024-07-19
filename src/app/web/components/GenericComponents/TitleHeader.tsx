@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
     devider,
@@ -14,6 +14,7 @@ import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import { navigation } from "@constants/SideBarProperties.ts";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import IUser from "@interfaces/user/IUser.ts";
+import getUserName from "@functions/getUserName.ts";
 
 interface TitleHeaderProps {
     title: string;
@@ -25,6 +26,10 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const isDarkTheme = useThemeDetector();
     const isMobility =
         window.location.pathname.replace("/", "") === "Mobilities";
+
+    useEffect(() => {
+        getUserName();
+    }, []);
 
     const links =
         (JSON.parse(localStorage.getItem("user") as string) as IUser)
@@ -45,7 +50,17 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                   },
                   { to: "/Mobilities", label: "Mobility", icon: activityIcon },
                   { to: "/Results", label: "Results", icon: resultsIcon },
-                  { to: "/User", label: navigation[6].title, icon: userIcon },
+                  {
+                      to: "/User",
+                      label:
+                          navigation[6].title === "" && getUserName() !== null
+                              ? (getUserName() as string).substring(
+                                    0,
+                                    (getUserName() as string).indexOf(" ")
+                                )
+                              : navigation[6].title,
+                      icon: userIcon
+                  },
                   { to: "/Signout", label: "Sign Out", icon: signOutIcon }
               ]
             : [
@@ -87,7 +102,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                                 {isNavOpen ? (
                                     <>
                                         <svg
-                                            className="w-8 h-8"
+                                            className="w-8 h-8 drop-shadow-md"
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 24 24"
@@ -103,7 +118,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                                     </>
                                 ) : (
                                     <svg
-                                        className="w-[2rem]"
+                                        className="w-[2rem] drop-shadow-md"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"

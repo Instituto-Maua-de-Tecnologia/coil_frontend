@@ -19,7 +19,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
 
     return (
         <div
-            className={`flex ${isDarkTheme ? "bg-[#223A4F]" : "bg-[#F0F3FB]"} justify-center items-center rounded-full py-1 px-4 my-2 w-full md:w-1/2 h-10`}
+            className={`flex shadow-sm ${isDarkTheme ? "bg-[#223A4F]" : "bg-[#F0F3FB]"} justify-center items-center rounded-full py-1 px-4 my-2 w-full md:w-1/2 h-10`}
         >
             <IoIosSearch
                 className={`${isDarkTheme ? "fill-[#FFFFFF]" : "fill-[#CBD0DD]"}`}

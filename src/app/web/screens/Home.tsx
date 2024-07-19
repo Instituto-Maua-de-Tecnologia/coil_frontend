@@ -6,7 +6,7 @@ import { SpeedDial } from "primereact/speeddial";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "primereact/tooltip";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
-import HomepageList from "@components/Project/HomepageList.tsx";
+import HomepageList from "@components/Home/HomepageList.tsx";
 import IUser from "@interfaces/user/IUser.ts";
 
 export default function Home() {

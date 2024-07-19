@@ -3,66 +3,95 @@ import { useThemeDetector } from "@functions/ThemeDetector";
 import ToasterContainer from "@components/GenericComponents/ToasterContainer.tsx";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import IUser from "@interfaces/user/IUser.ts";
+import { useEffect, useState } from "react";
 
-interface IUserCardProps {
-    userCard: IUser;
-}
+export default function UserCard() {
+    const [user, setUser] = useState<IUser>({
+        id: "",
+        name: "",
+        email: "",
+        user_type: 0,
+        created_at: "",
+        updated_at: ""
+    });
 
-export default function UserCard({ userCard }: IUserCardProps) {
-    const { name, email, user_type } = userCard;
+    const userToken = JSON.parse(
+        localStorage.getItem("user") as string
+    ) as IUser;
+
+    useEffect(() => {
+        const userTemp = userToken;
+        if (userTemp) {
+            setUser({
+                id: userTemp.id,
+                name: userTemp.name,
+                email: userTemp.email,
+                user_type: userTemp.user_type,
+                created_at: userTemp.created_at,
+                updated_at: userTemp.updated_at
+            });
+        }
+    }, []);
+
+    const { name, email, user_type } = user;
     const isDarkTheme = useThemeDetector();
     return (
-        <>
-            <ToasterContainer />
-            <div className="flex rounded-3xl  mb-4 ">
-                <div className="flex wrap  items-center w-full min-h-20 ">
-                    <div className="sm:flex xsm:flex-wrap w-full max-h-full lg:mt-20">
-                        <div className="w-full">
-                            <img
-                                src={account_circle}
-                                alt="Avatar"
-                                className="avatar-img mx-auto sm:-mx-auto w-[23vw] rounded-full "
-                            />
-                        </div>
-                        <div className="flex-col w-full h-full items-center mt-10 ">
-                            <h1 className={"text-center text-[32px]"}>
-                                {UserTypeEnum.STUDENT.valueOf() === user_type
-                                    ? "Student"
-                                    : UserTypeEnum.MODERATOR.valueOf() ===
-                                        user_type
-                                      ? "Moderator"
-                                      : UserTypeEnum.ADMIN.valueOf() ===
-                                          user_type
-                                        ? "Admin"
-                                        : "Undefined User Type"}{" "}
-                                User
-                            </h1>
-                            <p
-                                className={`${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl mt- p-4 mb-5`}
-                            >
-                                {name}
-                            </p>
-                            <div className="flex items-center mb-5">
+        <div
+            className={`w-full lg:ml-4 px-7 py-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-sb-bg"} rounded-3xl`}
+        >
+            <div className="w-full h-full my-auto">
+                <ToasterContainer />
+                <div className="flex rounded-3xl mb-4 ">
+                    <div className="flex wrap  items-center w-full min-h-20 ">
+                        <div className="sm:flex flex-col md:flex-row w-full max-h-full lg:mt-20">
+                            <div className="w-full">
+                                <img
+                                    src={account_circle}
+                                    alt="Avatar"
+                                    className="object-contain mt-1 mb-4 sm:mt-0 sm:mb-0 drop-shadow-sm mx-auto max-w-32 sm:max-w-80 md:max-w-[100%] sm:px-10 rounded-full"
+                                />
+                            </div>
+                            <div className="flex-col w-full h-full items-center mt-10 ">
+                                <h1 className={"text-center text-[32px]"}>
+                                    {UserTypeEnum.STUDENT.valueOf() ===
+                                    user_type
+                                        ? "Student"
+                                        : UserTypeEnum.MODERATOR.valueOf() ===
+                                            user_type
+                                          ? "Moderator"
+                                          : UserTypeEnum.ADMIN.valueOf() ===
+                                              user_type
+                                            ? "Admin"
+                                            : "Undefined User Type"}{" "}
+                                    User
+                                </h1>
                                 <p
-                                    className={`w-1/2 ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 me-5`}
+                                    className={`${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} drop-shadow-sm rounded-3xl mt- p-4 mb-5`}
                                 >
-                                    {email.substring(0, email.indexOf("@"))}
+                                    {name}
                                 </p>
+                                <div className="flex items-center mb-5">
+                                    <p
+                                        className={`w-1/2 ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} drop-shadow-sm rounded-3xl p-4 me-5`}
+                                    >
+                                        {email.substring(0, email.indexOf("@"))}
+                                    </p>
+                                    <p
+                                        className={`w-1/2 ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} drop-shadow-sm rounded-3xl p-4`}
+                                    >
+                                        Institute Maua Of Technology
+                                    </p>
+                                </div>
                                 <p
-                                    className={`w-1/2 ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4`}
+                                    className={`w-full ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} drop-shadow-sm rounded-3xl p-4 mb-5`}
                                 >
-                                    Institute Maua Of Technology
+                                    {email}
                                 </p>
                             </div>
-                            <p
-                                className={`w-full ${isDarkTheme ? "bg-[#223A4F]" : "bg-slate-100"} rounded-3xl p-4 mb-5`}
-                            >
-                                {email}
-                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

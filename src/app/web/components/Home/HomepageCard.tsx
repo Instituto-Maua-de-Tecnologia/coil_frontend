@@ -1,4 +1,4 @@
-import SVGIcon from "../ImageInstances/SVGIcon";
+import SVGIcon from "../ImageInstances/SVGIcon.tsx";
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -49,7 +49,7 @@ export default function HomepageCard({
                     { state: { projectID: project.id } }
                 )
             }
-            className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex shadow-sm items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
@@ -62,7 +62,7 @@ export default function HomepageCard({
                                         ?.institution?.images[0].image
                                 }
                                 alt="Avatar"
-                                className="object-contain mx-auto max-w-32 sm:max-w-24 rounded-full"
+                                className="object-contain mt-1 mb-4 sm:mt-0 sm:mb-0 drop-shadow-sm mx-auto max-w-32 sm:max-w-24 rounded-full"
                             />
                         </div>
                     )}
@@ -75,7 +75,7 @@ export default function HomepageCard({
                                         ? "COIL"
                                         : "Mobility"
                                 }
-                                className={`w-auto flex min-h-10 max-h-10 sm:h-full justify-center items-center rounded-full p-1 px-2 ml-2 text-xs font-medium ${
+                                className={`w-auto flex min-h-10 max-h-10 shadow  sm:h-full justify-center items-center rounded-full p-1 px-2 ml-2 text-xs font-medium ${
                                     project.activity_type.id === 1
                                         ? `${isDarkTheme ? "bg-blue-50 text-blue-700" : "bg-blue-200 text-blue-700"}`
                                         : "bg-yellow-50 text-yellow-700"
@@ -106,7 +106,7 @@ export default function HomepageCard({
                                                 </p>
                                                 <SVGIcon
                                                     src={`https://hatscripts.github.io/circle-flags/flags/${project.language.language_code}.svg`}
-                                                    className="w-4 m-[1px]"
+                                                    className="w-4 drop-shadow m-[1px]"
                                                 />
                                             </div>
                                         )
@@ -125,14 +125,14 @@ export default function HomepageCard({
                                 </p>
                                 <SVGIcon
                                     src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions?.[0]?.institution?.countries[0].country?.country_code}.svg`}
-                                    className="w-4 m-[1px]"
+                                    className="w-4 drop-shadow m-[1px]"
                                 />
                             </div>
                         </div>
                     </div>
 
                     <div className="sm:flex items-center w-auto sm:min-w-24  gap-4 flex-col sm:justify-end mr-2">
-                        <div className={`text-blue-500`}>
+                        <div className={`text-blue-500 mb-3 font-medium`}>
                             {project.activity_status.name}
                         </div>
                         {project.activity_status.name !== "Under Analysis" &&
@@ -142,7 +142,7 @@ export default function HomepageCard({
                                 disabled={
                                     project.activity_status.name !== "Apply Now"
                                 }
-                                className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full"
+                                className="bg-blue-500 w-full py-3 my-2 shadow-lg hover:shadow-xl transition-shadow duration-300 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 sm:py-2 rounded-full"
                             >
                                 <span
                                     title={
@@ -162,7 +162,7 @@ export default function HomepageCard({
                                     project.activity_status.name ===
                                     "Coming Soon"
                                 }
-                                className={`bg-blue-500 text-white ${project.activity_status.name === "Apply Now" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-sm px-4 py-2 rounded-full`}
+                                className={`shadow-lg w-full hover:shadow-xl transition-shadow duration-300 bg-blue-500 text-white ${project.activity_status.name === "Apply Now" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-sm px-4 py-2 rounded-full`}
                             >
                                 View Enrolled Students
                             </button>

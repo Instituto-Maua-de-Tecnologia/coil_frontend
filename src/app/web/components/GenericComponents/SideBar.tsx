@@ -5,12 +5,17 @@ import darkMauaLogo from "@assets/maua-fontys-dark.svg";
 import lightMauaLogo from "@assets/maua-fontys-light.svg";
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import IUser from "@interfaces/user/IUser.ts";
+import getUserName from "@functions/getUserName.ts";
 
 export default function SideBar() {
     const access = (JSON.parse(localStorage.getItem("user") as string) as IUser)
         ?.user_type;
     const isDarkTheme = useThemeDetector();
     const pathname = useLocation();
+
+    useEffect(() => {
+        getUserName();
+    }, []);
 
     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
@@ -54,7 +59,7 @@ export default function SideBar() {
                                     ${item.blue && `${isDarkTheme ? "!bg-[#223A4F] !text-black" : "!bg-sb-t !text-white"} ${screenHeight >= 700 ? "absolute bottom-14" : ""} hover:opacity-80 w-[75%]`}
                                     ${item.smgap ? `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[2.75vh]"}` : `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[1vh]"}`}
                                     ${item.br ? "-mt-[0.4rem]" : `flex items-center justify-left rounded-3xl p-[1vh] mx-[1.5rem] cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-sb-tb"} text-sb-t text-md font-medium hover:opacity-80`}
-                                    ${item.url?.replace(/\//g, "") === pathname.pathname.replace(/\//g, "") && !item.purple ? `!fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
+                                    ${item.url?.replace(/\//g, "") === pathname.pathname.replace(/\//g, "") && !item.purple ? `shadow-md !fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
                                     ${item.id === "7" ? "!bg-[#2684FF] !text-wrap !break-words" /*dark Mode Config*/ : "" /*light Mode Config*/}
                                     `}
                                     >
@@ -74,7 +79,17 @@ export default function SideBar() {
                                                 )}
                                             </div>
                                             <span className="text-sm">
-                                                {item.title}
+                                                {item.title === "" &&
+                                                getUserName() !== null
+                                                    ? (
+                                                          getUserName() as string
+                                                      ).substring(
+                                                          0,
+                                                          (
+                                                              getUserName() as string
+                                                          ).indexOf(" ")
+                                                      )
+                                                    : item.title}
                                             </span>
                                         </div>
                                     </li>
@@ -87,7 +102,7 @@ export default function SideBar() {
                             ) : item.access == access ? (
                                 <a key={"SideBar " + index} href={item.url}>
                                     <li
-                                        className={`!truncate !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
+                                        className={`!truncate shadow-md !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
                                     ${shouldRemovePaddingAndMargin ? "mb-2" : "mb-[1.25vh]"}                              
                                     ${item.gap && `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[5vh]"}`} 
                                     ${item.purple && `!bg-sb-p ${screenHeight >= 700 ? "absolute bottom-0 w-12" : ""} ${shouldRemovePaddingAndMargin ? "mb-0" : "mb-[2vh]"} w-[75%] !text-white hover:opacity-80`}

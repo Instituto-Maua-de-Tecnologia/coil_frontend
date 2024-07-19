@@ -19,8 +19,8 @@ export default function ResultList({ results }: IResultsProps) {
                 result.title
                     ?.toLowerCase()
                     .includes(searchTerm.toLowerCase()) ||
-                result.partner_institutions
-                    ?.map((fds) => fds.name.toLowerCase())
+                result.partner_institutions?.[0]?.name
+                    .toLowerCase()
                     .includes(searchTerm.toLowerCase())
         );
         setFilteredResults(filtered);
@@ -34,7 +34,7 @@ export default function ResultList({ results }: IResultsProps) {
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} disabled={true} />
             </div>
-            {filteredResults?.length !== undefined ? (
+            {filteredResults?.length > 0 ? (
                 <div>
                     <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
                         {results?.map((result) => (

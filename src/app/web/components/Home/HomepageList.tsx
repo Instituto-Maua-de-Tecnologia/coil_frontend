@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import Search from "../GenericComponents/Search";
-import Modal from "../Modal/Modal";
+import Search from "../GenericComponents/Search.tsx";
+import Modal from "../Modal/Modal.tsx";
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import "@styles/scrollbar.css";
 import getAllActivities from "@integrations/activity/get_all_activities.ts";
-import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled";
-import NoElementsFound from "@components/GenericComponents/NoElementsFound";
-import { LoadSpinner } from "@components/GenericComponents/LoadSpinner";
-import HomepageCard from "./HomepageCard";
+import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
+import NoElementsFound from "@components/GenericComponents/NoElementsFound.tsx";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
+import HomepageCard from "./HomepageCard.tsx";
 import IAllProjects from "@interfaces/project/IAllProjects.ts";
 
 export default function HomepageList() {
@@ -109,7 +109,7 @@ export default function HomepageList() {
                     <div>
                         {filteredProjects.length > 0 ? (
                             <ul className="w-full max-h-screen pe-5 pb-[450px] custom-scrollbar overflow-y-auto">
-                                {projects.map((project) => (
+                                {filteredProjects.map((project) => (
                                     <HomepageCard
                                         key={"ProjectCardKey " + project.id}
                                         project={project}

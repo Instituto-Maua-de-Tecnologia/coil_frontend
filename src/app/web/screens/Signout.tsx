@@ -16,7 +16,8 @@ export default function Signout() {
                         .logout({
                             onRedirectNavigate: () => {
                                 return false;
-                            }
+                            },
+                            postLogoutRedirectUri: "/"
                         })
                         .then(() => {
                             navigate("/");

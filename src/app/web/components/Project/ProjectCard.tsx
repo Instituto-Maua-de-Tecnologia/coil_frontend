@@ -48,7 +48,7 @@ export default function ProjectCard({
             onClick={() =>
                 navigate("/COILInfo", { state: { projectID: project.id } })
             }
-            className={`sm:flex items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex shadow-sm items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
@@ -61,7 +61,7 @@ export default function ProjectCard({
                                         ?.institution?.images[0].image
                                 }
                                 alt="Avatar"
-                                className="object-contain mx-auto max-w-32 sm:max-w-24 rounded-full"
+                                className="object-contain shadow-lg mt-1 mb-4 sm:mt-0 sm:mb-0 mx-auto max-w-32 sm:max-w-24 rounded-full"
                             />
                         </div>
                     )}
@@ -89,7 +89,7 @@ export default function ProjectCard({
                                                 </p>
                                                 <SVGIcon
                                                     src={`https://hatscripts.github.io/circle-flags/flags/${project.language.language_code}.svg`}
-                                                    className="w-4 m-[1px]"
+                                                    className="w-4 drop-shadow m-[1px]"
                                                 />
                                             </div>
                                         )
@@ -108,14 +108,14 @@ export default function ProjectCard({
                                 </p>
                                 <SVGIcon
                                     src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions?.[0]?.institution?.countries[0].country?.country_code}.svg`}
-                                    className="w-4 m-[1px]"
+                                    className="w-4 drop-shadow m-[1px]"
                                 />
                             </div>
                         </div>
                     </div>
 
                     <div className="sm:flex items-center w-auto sm:min-w-24  gap-4 flex-col sm:justify-end mr-2">
-                        <div className={`text-blue-500`}>
+                        <div className={`text-blue-500 mb-3 font-medium`}>
                             {project.activity_status.name}
                         </div>
                         {project.activity_status.name !== "Under Analysis" &&
@@ -126,7 +126,7 @@ export default function ProjectCard({
                                 disabled={
                                     project.activity_status.name !== "Apply Now"
                                 }
-                                className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full"
+                                className="bg-blue-500 w-full disabled:cursor-not-allowed shadow-lg hover:shadow-xl transition-shadow duration-300 disabled:opacity-50 text-white text-sm px-4 py-2 rounded-full"
                             >
                                 <span
                                     title={
@@ -146,7 +146,7 @@ export default function ProjectCard({
                                     project.activity_status.name ===
                                     "Coming Soon"
                                 }
-                                className={`bg-blue-500 ${project.activity_status.name === "Apply Now" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-white text-sm px-4 py-2 rounded-full`}
+                                className={`shadow-lg w-full hover:shadow-xl transition-shadow duration-300 bg-blue-500 ${project.activity_status.name === "Apply Now" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-white text-sm px-4 py-2 rounded-full`}
                             >
                                 View Enrolled Students
                             </button>

@@ -1,6 +1,15 @@
 import HeroProjectList from "./HeroProjectList";
+import ICatalog from "@interfaces/catalog/ICatalog.ts";
 
-export default function OpenOpportunities() {
+interface OpenOpportunitiesProps {
+    loaded: boolean;
+    catalog: ICatalog;
+}
+
+export default function OpenOpportunities({
+    loaded,
+    catalog
+}: OpenOpportunitiesProps) {
     return (
         <>
             <h1
@@ -17,7 +26,11 @@ export default function OpenOpportunities() {
                         International Projects
                     </h1>
                     <div className="p-5 ">
-                        <HeroProjectList isProject />
+                        <HeroProjectList
+                            loaded={loaded}
+                            catalog={catalog}
+                            isProject
+                        />
                     </div>
                 </div>
                 <div
@@ -27,7 +40,11 @@ export default function OpenOpportunities() {
                         Academic Mobility
                     </h1>
                     <div className="p-5">
-                        <HeroProjectList isProject={false} />
+                        <HeroProjectList
+                            loaded={loaded}
+                            catalog={catalog}
+                            isProject={false}
+                        />
                     </div>
                 </div>
             </div>

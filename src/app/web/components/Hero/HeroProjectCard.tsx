@@ -12,7 +12,7 @@ interface ProjectCardProps {
 export default function ProjectCardHero({ project }: ProjectCardProps) {
     return (
         <li
-            className={`sm:flex items-center cursor-pointer bg-[#F0F3FB] rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex shadow-sm items-center bg-[#F0F3FB] rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
@@ -20,7 +20,7 @@ export default function ProjectCardHero({ project }: ProjectCardProps) {
                         <img
                             src={project.logo}
                             alt="Avatar"
-                            className="avatar-img justify-center mx-auto w-16 rounded-full"
+                            className="object-contain shadow-lg mt-1 mb-4 sm:mt-0 sm:mb-0 max-w-32 sm:max-w-24 mx-auto rounded-full"
                         />
                     </div>
 

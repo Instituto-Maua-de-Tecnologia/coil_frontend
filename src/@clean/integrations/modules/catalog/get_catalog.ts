@@ -1,35 +1,28 @@
 import axios, { AxiosError } from "axios";
+import ICatalog from "@interfaces/catalog/ICatalog.ts";
 
-interface GetAllActivityCatalogResponse {
+interface GetCatalogResponse {
     message: string;
-    data: {
-        projects: [
-            {
-                title: string;
-                logo: string;
-                type_activity: number;
-            }
-        ];
-    };
+    data: ICatalog;
 }
 
-export default async function getAllActivitiesCatalog() {
+export default async function getCatalog() {
     return new Promise((resolve, reject) => {
         const endpoint: string = import.meta.env.VITE_ENDPOINT_URL as string;
         axios
-            .get(`${endpoint}/get-all-activities-catalog`, {
+            .get(`${endpoint}/get-catalog`, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             })
             .then((response) => {
-                const responseData: GetAllActivityCatalogResponse =
-                    response.data as GetAllActivityCatalogResponse;
+                const responseData: GetCatalogResponse =
+                    response.data as GetCatalogResponse;
                 resolve(responseData.data);
             })
             .catch((error: AxiosError) => {
-                const convertedError: AxiosError<GetAllActivityCatalogResponse> =
-                    error as AxiosError<GetAllActivityCatalogResponse>;
+                const convertedError: AxiosError<GetCatalogResponse> =
+                    error as AxiosError<GetCatalogResponse>;
                 const errorResponse = convertedError.response;
                 if (errorResponse) {
                     reject({

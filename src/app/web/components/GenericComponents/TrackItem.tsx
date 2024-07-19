@@ -13,7 +13,7 @@ const TrackItem: React.FC<TrackItemProps> = ({ trackItem }) => {
             <img
                 src={imgUrl}
                 alt=""
-                className="w-full h-full object-cover rounded-full"
+                className="w-full h-full object-cover shadow-lg rounded-full"
             />
         </div>
     );

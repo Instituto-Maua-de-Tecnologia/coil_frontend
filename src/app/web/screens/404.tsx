@@ -32,7 +32,7 @@ export default function Error404() {
                 <Link to={"/"}>
                     <button
                         className={
-                            "rounded-3xl mt-12 text-center w-[90%] justify-self-center sm:w-[323px] text-white font-bold bg-gradient-to-r p-1 from-[#673366] via-[#0C5AA4] to-[#2684FF]"
+                            "rounded-3xl shadow-lg hover:opacity-80 transition-opacity duration-200 hover:shadow-xl mt-12 text-center w-[90%] justify-self-center sm:w-[323px] text-white font-bold bg-gradient-to-r p-1 from-[#673366] via-[#0C5AA4] to-[#2684FF]"
                         }
                         style={{ fontSize: "36px" }}
                     >

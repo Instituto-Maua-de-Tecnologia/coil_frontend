@@ -1,9 +1,18 @@
 import TrackItem from "@components/GenericComponents/TrackItem";
 import { ImageTrack } from "@components/ImageInstances/ImageTrack";
-import scrollTrackItems from "@constants/ScrollTrackItems";
 import HeroCard from "./HeroCard";
+import ICatalog from "@interfaces/catalog/ICatalog.ts";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
 
-export default function InstitutionCarousel() {
+interface InstitutionCarouselProps {
+    loaded: boolean;
+    catalog: ICatalog;
+}
+
+export default function InstitutionCarousel({
+    loaded,
+    catalog
+}: InstitutionCarouselProps) {
     return (
         <>
             <div
@@ -13,11 +22,23 @@ export default function InstitutionCarousel() {
                 <h1 className="text-center mt-5 pt-5 mb-5 text-2xl md:text-4xl lg:text-5xl font font-semibold hero-text my-2">
                     Our Partners
                 </h1>
-                <ImageTrack direction="right" speed={10} className="my-5">
-                    {scrollTrackItems.map((trackItem, index) => (
-                        <TrackItem key={index} trackItem={trackItem} />
-                    ))}
-                </ImageTrack>
+                {loaded ? (
+                    <ImageTrack direction="right" speed={10} className="my-5">
+                        {catalog.institutions.map((trackItem, index) => (
+                            <TrackItem
+                                key={"CatalogInstitution: " + index}
+                                trackItem={{
+                                    imgUrl: trackItem.images[index],
+                                    title: trackItem.name
+                                }}
+                            />
+                        ))}
+                    </ImageTrack>
+                ) : (
+                    <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
+                        <LoadSpinner />
+                    </div>
+                )}
                 <HeroCard />
             </div>
         </>

@@ -1,10 +1,12 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Curve from "@assets/hero/hero-curve.svg";
 import HeroImg from "@assets/hero/hero-img.png";
 import Navbar from "../GenericComponents/NavBar";
 import "@styles/hero.css";
 import OpenOpportunities from "./OpenOpportunities";
 import InstitutionCarousel from "./InstitutionCarousel";
+import getCatalog from "@integrations/catalog/get_catalog.ts";
+import ICatalog from "@interfaces/catalog/ICatalog.ts";
 
 const Hero: React.FC = () => {
     const outerContainerRef = useRef<HTMLDivElement>(null);
@@ -26,6 +28,27 @@ const Hero: React.FC = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
+    }, []);
+
+    const [loaded, setLoaded] = useState(false);
+    const [catalog, setCatalog] = useState<ICatalog>();
+
+    const handleGetAllProjectsCatalog = async () => {
+        try {
+            const catalogValues = (await getCatalog()) as ICatalog;
+            setCatalog(catalogValues);
+        } catch (error) {
+            console.error("Erro ao obter projetos:", error);
+        } finally {
+            setLoaded(true);
+        }
+    };
+
+    useEffect(() => {
+        const handleGets = async () => {
+            await handleGetAllProjectsCatalog();
+        };
+        void handleGets();
     }, []);
 
     return (
@@ -63,8 +86,11 @@ const Hero: React.FC = () => {
                     </h1>
                 </div>
             </div>
-            <OpenOpportunities />
-            <InstitutionCarousel />
+            <OpenOpportunities loaded={loaded} catalog={catalog as ICatalog} />
+            <InstitutionCarousel
+                loaded={loaded}
+                catalog={catalog as ICatalog}
+            />
         </>
     );
 };

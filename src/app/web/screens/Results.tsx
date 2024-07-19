@@ -3,10 +3,9 @@ import SideBar from "@components/GenericComponents/SideBar.tsx";
 import ResultList from "@components/Result/ResultList.tsx";
 import { useEffect, useState } from "react";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
-import { MoonLoader } from "react-spinners";
-import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import IResults from "@interfaces/results/IResults.ts";
 import { AxiosError } from "axios";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
 
 export default function Results() {
     const [results, setResults] = useState<IResults>();
@@ -24,8 +23,6 @@ export default function Results() {
         void handleResults();
     }, []);
 
-    const isDarkTheme = useThemeDetector();
-
     return (
         <>
             <div className="max-h-screen flex flex-col">
@@ -35,11 +32,8 @@ export default function Results() {
                     {loaded ? (
                         <ResultList results={results as IResults[]} />
                     ) : (
-                        <div className="flex justify-center items-center mt-auto">
-                            <MoonLoader
-                                color={`${isDarkTheme ? "#f9f9f9" : "#090909"}`}
-                                size={35}
-                            />
+                        <div className="flex mt-[15%] fill-slate-500 w-screen h-10 justify-center">
+                            <LoadSpinner />
                         </div>
                     )}
                 </div>

@@ -21,13 +21,13 @@ export default function ResultCard({ result }: ResultCardProps) {
                         <img
                             src={(institution_image as string[])[0]}
                             alt="Avatar"
-                            className="avatar-img mx-auto w-16 rounded-full"
+                            className="oject-contain mx-auto max-w-32 sm:max-w-24 rounded-full"
                         />
                     </div>
                     <div className="flex flex-col">
                         <div className="mb-2 font-bold">{title}</div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
-                            <div className="flex flex-row items-center">
+                            <div className="flex flex-wrap items-center">
                                 <p className="text-xs mr-2">Languages:</p>
                                 {result.languages?.map((language, index) => (
                                     <SVGIcon

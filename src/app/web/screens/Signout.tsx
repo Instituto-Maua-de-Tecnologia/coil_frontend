@@ -1,26 +1,37 @@
 import TitleHeader from "@components/GenericComponents/TitleHeader.tsx";
 import SideBar from "@components/GenericComponents/SideBar.tsx";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useMsal } from "@azure/msal-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Signout() {
-    const { instance } = useMsal();
+    const { instance, accounts, inProgress } = useMsal();
     const navigate = useNavigate();
 
     useEffect(() => {
         async function handleSignout() {
-            localStorage.clear();
-            await instance
-                .logout({
-                    onRedirectNavigate: () => {
-                        return false;
-                    }
-                })
-                .then(() => navigate("/"));
+            if (inProgress === "none" && accounts.length > 0) {
+                try {
+                    await instance
+                        .logout({
+                            onRedirectNavigate: () => {
+                                return false;
+                            }
+                        })
+                        .then(() => {
+                            navigate("/");
+                            localStorage.clear();
+                        });
+                } catch (error) {
+                    console.error("Logout error:", error);
+                }
+            } else {
+                console.warn("MSAL is not initialized or no accounts found.");
+            }
         }
+
         void handleSignout();
-    }, [navigate, instance]);
+    }, [instance, inProgress, accounts, navigate]);
 
     return (
         <>

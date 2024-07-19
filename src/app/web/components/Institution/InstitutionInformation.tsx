@@ -29,8 +29,6 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
         void handleGetInstitution();
     }, [id]);
 
-    console.log(institution);
-
     return (
         <div className="custom-scrollbar overflow-y-auto lg:overflow-y-visible flex-col w-full m-3 mb-0 mt-0 ">
             <div
@@ -40,10 +38,10 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                     <img
                         src={institution?.images[0]}
                         alt="institution-img"
-                        className="avatar-img mx-auto sm:-mx-auto w-[23vw] rounded-full "
+                        className="max-w-40 sm:max-w-36 mx-auto sm:-mx-auto object-contain rounded-full "
                     />
                 </div>
-                <div className="2xs:text-center sm:text-left self-center p-2 sm:w-4/6">
+                <div className="2xs:text-center sm:ms-14 md:ms-8 lg:ms-6 sm:text-left self-center p-2 sm:w-4/6">
                     <div className="font-extrabold">{institution?.name}</div>
                     <a
                         href={`mailto:${institution?.email}`}
@@ -51,7 +49,7 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                     >
                         {institution?.email}
                     </a>
-                    <div className="flex flex-row items-center">
+                    <div className="flex justify-center sm:justify-start flex-row items-center">
                         <p className="text-xs mr-2">
                             {institution?.countries[0].country.country}
                         </p>
@@ -61,7 +59,7 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                         />
                     </div>
                 </div>
-                <div className="text-left mt-16 place-content-center xs:place-items-end pl-10 md:pl-0 pr-10 md:pr-1">
+                <div className="sm:text-left mt-16 text-center place-content-center xs:place-items-end pl-10 md:pl-0 pr-10 md:pr-1">
                     <p>social media:</p>
                     <div className="flex flex-wrap sm:flex-row gap-3">
                         {institution?.social_medias.map(

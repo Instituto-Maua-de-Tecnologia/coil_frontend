@@ -23,9 +23,12 @@ interface TitleHeaderProps {
 export default function TitleHeader({ title, className }: TitleHeaderProps) {
     const [isNavOpen, setIsNavOpen] = useState(false);
     const isDarkTheme = useThemeDetector();
+    const isMobility =
+        window.location.pathname.replace("/", "") === "Mobilities";
+
     const links =
         (JSON.parse(localStorage.getItem("user") as string) as IUser)
-            ?.user_type === UserTypeEnum.STUDENT
+            ?.user_type === UserTypeEnum.STUDENT.valueOf()
             ? [
                   { to: "/Home", label: "Home", icon: homeIcon },
                   {
@@ -42,7 +45,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                   },
                   { to: "/Mobilities", label: "Mobility", icon: activityIcon },
                   { to: "/Results", label: "Results", icon: resultsIcon },
-                  { to: "/User", label: navigation[5].title, icon: userIcon },
+                  { to: "/User", label: navigation[6].title, icon: userIcon },
                   { to: "/Signout", label: "Sign Out", icon: signOutIcon }
               ]
             : [
@@ -60,7 +63,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                       devider: devider
                   },
                   { to: "/Mobilities", label: "Mobility", icon: activityIcon },
-                  { to: "/User", label: navigation[5].title, icon: userIcon },
+                  { to: "/User", label: navigation[6].title, icon: userIcon },
                   { to: "/Signout", label: "Sign Out", icon: signOutIcon }
               ];
 
@@ -69,10 +72,12 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
     }
 
     return (
-        <div className={`${className} max-h-[100vh]  m-3 mb-[1rem]`}>
-            <div className="h-[88px] sm:h-[64px] top-0 left-0">
+        <div className={`${className} max-h-[100vh] m-3 mb-[1rem]`}>
+            <div
+                className={`${isMobility ? "min-h-[120px]" : "min-h-[88px]"} sm:min-h-[64px] lg:h-[64px] top-0 left-0`}
+            >
                 <div
-                    className={`relative mx-auto min-h-[88px] sm:min-h-[64px] lg:rounded-[24px] bg-[#2684ff] ${isNavOpen ? "rounded-tr-3xl rounded-tl-3xl" : "rounded-[24px]"}`}
+                    className={`relative mx-auto ${isMobility ? "min-h-[120px]" : "min-h-[88px]"} sm:min-h-[64px] lg:rounded-[24px] bg-[#2684ff] ${isNavOpen ? "rounded-tr-3xl rounded-tl-3xl" : "rounded-[24px]"}`}
                 >
                     <div
                         className={`absolute flex flex-row ${isDarkTheme ? "text-[#223A4F]" : "text-[#f9fafc]"} items-center top-[16px] left-[20px] [font-family:'Montserrat-SemiBold',Helvetica] font-semibold 2xs:text-[28px] lg:text-[30px] tracking-[-1.08px] leading-[normal] ml-[1rem]`}
@@ -131,6 +136,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                                 >
                                     <Link
                                         to={link.to}
+                                        onClick={handleNavOpen}
                                         className={`text-white ps-5 bg-[#1B60BC] rounded-full flex items-center w-full`}
                                         type="button"
                                     >

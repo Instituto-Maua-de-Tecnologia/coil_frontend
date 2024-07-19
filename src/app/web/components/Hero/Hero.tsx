@@ -3,7 +3,6 @@ import Curve from "@assets/hero/hero-curve.svg";
 import HeroImg from "@assets/hero/hero-img.png";
 import Navbar from "../GenericComponents/NavBar";
 import "@styles/hero.css";
-import { Button } from "primereact/button";
 import OpenOpportunities from "./OpenOpportunities";
 import InstitutionCarousel from "./InstitutionCarousel";
 
@@ -29,13 +28,6 @@ const Hero: React.FC = () => {
         };
     }, []);
 
-    const scrollToSection = (sectionId: string) => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({ behavior: "smooth" });
-        }
-    };
-
     return (
         <>
             <div
@@ -43,26 +35,12 @@ const Hero: React.FC = () => {
                 className="relative w-full max-h-screen h-screen"
             >
                 <img
-                    className="absolute top-0 left-0 w-full 2xs:h-screen bg-cover"
+                    className="absolute object-cover top-0 left-0 w-full 2xs:h-screen bg-cover"
                     src={HeroImg}
                     alt=""
                 />
 
                 <div className="absolute bottom-0 left-0 h-2/5 w-full bg-gradient-to-b from-transparent to-white"></div>
-                <div className="z-10 absolute md:w-1/4 2xs:w-full md:top-[150px] 2xs:left-0 md:left-[75%]">
-                    <Button
-                        className="z-20 m-5 mb-2 xs:mb-2 sm:mb-5 2xs:top-[410px] xs:top-[200px] sm:top-[500px] md:top-[10px] 2xs:left-0 lg:w-[50%] 2xs:w-[90%] xs:w-[40%] md:w-[82%] 2xs:h-[5%] md:text-[11px] lg:text-[16px] xlg:text-[20px]"
-                        label="Open opportunities          "
-                        onClick={() => scrollToSection("open-opportunities")}
-                    />
-                    {/* <Button
-                        className="z-20 m-5 mt-0 xs:mt-0 sm:mt-5 2xs:top-[420px] xs:top-[200px] sm:top-[500px] md:top-[10px] 2xs:left-0 lg:w-[50%] 2xs:w-[90%] xs:w-[40%] md:w-auto 2xs:h-[5%] xs:h-[2.5%] md:text-[11px] lg:text-[16px] xlg:text-[20px]"
-                        label="International relations department"
-                        onClick={() =>
-                            scrollToSection("international-department")
-                        }
-                    /> */}
-                </div>
                 <div className="relative">
                     <Navbar />
                     <img

@@ -61,11 +61,11 @@ export default function ProjectCard({
                                         ?.institution?.images[0].image
                                 }
                                 alt="Avatar"
-                                className="avatar-img mx-auto min-w-16 max-w-16 rounded-full"
+                                className="object-contain mx-auto max-w-32 sm:max-w-24 rounded-full"
                             />
                         </div>
                     )}
-                    <div className="flex flex-col grow">
+                    <div className="flex flex-col flex-grow">
                         <div className="mb-2 text-center sm:text-start font-bold">
                             {project.title}
                         </div>
@@ -73,7 +73,7 @@ export default function ProjectCard({
                             <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-normal w-full">
                                 <p className="text-xs mr-2">Languages:</p>
                                 <div
-                                    className={`grid ${project.languages?.length === 1 ? "grid-cols-1  justify-items-center" : "grid-cols-2"} sm:flex sm:flex-wrap gap-2 w-full`}
+                                    className={`grid ${project.languages?.length === 1 ? "grid-cols-1  justify-items-center" : "grid-cols-2"} !flex flex-col sm:flex-row sm:flex-wrap gap-2 w-full`}
                                 >
                                     {project.languages?.map(
                                         (project, index) => (
@@ -82,7 +82,7 @@ export default function ProjectCard({
                                                     "Project SVGICon Language" +
                                                     index
                                                 }
-                                                className="border-[#673366] mt-1 sm:mt-0 flex flex-row border-[1px]  pe-1 ps-2 py-1 items-center justify-between rounded-full text-[#673366]"
+                                                className={`border-[#673366] mt-1 sm:mt-0 flex sm:flex-row border-[1px] pe-1 ps-2 py-1 items-center gap-2 justify-center sm:justify-between rounded-full ${isDarkTheme ? "text-[#8e468d]" : "text-[#673366]"}`}
                                             >
                                                 <p className="text-xs me-2">
                                                     {project.language.language}

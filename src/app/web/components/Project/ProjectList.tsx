@@ -18,6 +18,7 @@ export default function ProjectList() {
     const [enrolledProjectsIds, setEnrolledProjectsIds] = useState<string[]>(
         []
     );
+    const isCOIL = window.location.pathname.replace("/", "") === "COIL";
     const [loaded, setLoaded] = useState<boolean>(false);
     const [filteredProjects, setFilteredProjects] = useState<IAllProjects[]>(
         []
@@ -29,7 +30,7 @@ export default function ProjectList() {
     const handleGetAllProjects = async () => {
         try {
             const projectValues = (await getAllActivities({
-                type_activity: "1"
+                type_activity: isCOIL ? "1" : "2"
             })) as IAllProjects[];
             setProjects(projectValues);
             setFilteredProjects(projectValues); // Initialize filteredProjects
@@ -39,6 +40,12 @@ export default function ProjectList() {
             setLoaded(true);
         }
     };
+
+    useEffect(() => {
+        setProjects([]);
+        setLoaded(false);
+        void handleGetAllProjects();
+    }, [isCOIL]);
 
     const enrolledIdsToArray = (enrolledProjects: IAllProjects[]) => {
         return enrolledProjects.map((project) => `${project.id}`);
@@ -73,6 +80,20 @@ export default function ProjectList() {
         setFirst(0); // Reset to first page on search
     };
 
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+    const isSmallVersion = screenWidth <= 767;
+
     const isDarkTheme = useThemeDetector();
 
     useEffect(() => {
@@ -104,30 +125,40 @@ export default function ProjectList() {
 
     return (
         <div
-            className={`w-full  p-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+            className={`w-full p-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex justify-between">
                 <Search onSearch={handleSearch} disabled={false} />
+                {!isSmallVersion && (
+                    <Paginator
+                        className={`h-14 mr-[26px] ${isDarkTheme ? "bg-[#14222E] text-white" : "bg-[#FFFFFF]"}`}
+                        first={first}
+                        rows={rows}
+                        totalRecords={filteredProjects.length}
+                        onPageChange={onPageChange}
+                    />
+                )}
+            </div>
+            {isSmallVersion && (
                 <Paginator
-                    className={`h-14 mr-[26px] ${isDarkTheme ? "bg-[#14222E] text-white" : "bg-[#FFFFFF]"}`}
+                    className={`${isDarkTheme ? "bg-[#14222E] text-white" : "bg-[#FFFFFF]"}`}
                     first={first}
                     rows={rows}
                     totalRecords={filteredProjects.length}
                     onPageChange={onPageChange}
+                    template={{
+                        layout: "PrevPageLink CurrentPageReport NextPageLink"
+                    }}
                 />
-                <div className="button-container flex absolute right-12">
-                    {/* {isAdmin ? <Add url="/CreateCOIL" /> : null} */}
-                    {/* {isFilter && <Filter />} */}
-                </div>
-            </div>
+            )}
             {loaded ? (
                 projects.length > 0 ? (
                     filteredProjects.length > 0 ? (
                         <div>
-                            <ul className="w-full max-h-screen pe-5 pb-48 custom-scrollbar overflow-y-auto">
+                            <ul className="w-full max-h-screen pe-5 pb-96 custom-scrollbar overflow-y-auto">
                                 {currentItems.map((project) => (
                                     <ProjectCard
-                                        key={"COILCardKey " + project.id}
+                                        key={"ProjectCardKey " + project.id}
                                         project={project}
                                         enrolled={handleVerifyEnrollment(
                                             project.id

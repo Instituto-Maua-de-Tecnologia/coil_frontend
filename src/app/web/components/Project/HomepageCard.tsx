@@ -62,11 +62,11 @@ export default function HomepageCard({
                                         ?.institution?.images[0].image
                                 }
                                 alt="Avatar"
-                                className="avatar-img mx-auto min-w-16 max-w-16 rounded-full"
+                                className="object-contain mx-auto max-w-32 sm:max-w-24 rounded-full"
                             />
                         </div>
                     )}
-                    <div className="flex flex-col grow">
+                    <div className="flex flex-col flex-grow">
                         <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold w-full justify-center sm:justify-normal">
                             {project.title}
                             <div
@@ -75,9 +75,9 @@ export default function HomepageCard({
                                         ? "COIL"
                                         : "Mobility"
                                 }
-                                className={`w-auto flex justify-center items-center rounded-full p-1 px-2 ml-2 text-xs font-medium ${
+                                className={`w-auto flex min-h-10 max-h-10 sm:h-full justify-center items-center rounded-full p-1 px-2 ml-2 text-xs font-medium ${
                                     project.activity_type.id === 1
-                                        ? "bg-blue-50 text-blue-700"
+                                        ? `${isDarkTheme ? "bg-blue-50 text-blue-700" : "bg-blue-200 text-blue-700"}`
                                         : "bg-yellow-50 text-yellow-700"
                                 }`}
                             >
@@ -90,7 +90,7 @@ export default function HomepageCard({
                             <div className="flex flex-col sm:flex-row items-center justify-between sm:justify-normal w-full">
                                 <p className="text-xs mr-2">Languages:</p>
                                 <div
-                                    className={`grid ${project.languages?.length === 1 ? "grid-cols-1  justify-items-center" : "grid-cols-2"} sm:flex sm:flex-wrap gap-2 w-full`}
+                                    className={`grid ${project.languages?.length === 1 ? "grid-cols-1 justify-items-center" : "grid-cols-2"} !flex flex-col sm:flex-row sm:flex-wrap gap-2 w-full`}
                                 >
                                     {project.languages?.map(
                                         (project, index) => (
@@ -99,9 +99,9 @@ export default function HomepageCard({
                                                     "Project SVGICon Language" +
                                                     index
                                                 }
-                                                className="border-[#673366] mt-1 sm:mt-0 flex flex-row border-[1px]  pe-1 ps-2 py-1 items-center justify-between rounded-full text-[#673366]"
+                                                className={`border-[#673366] mt-1 sm:mt-0 flex sm:flex-row border-[1px] pe-1 ps-2 py-1 items-center gap-2 justify-center sm:justify-between rounded-full ${isDarkTheme ? "text-[#8e468d]" : "text-[#673366]"}`}
                                             >
-                                                <p className="text-xs me-2">
+                                                <p className="text-xs">
                                                     {project.language.language}
                                                 </p>
                                                 <SVGIcon

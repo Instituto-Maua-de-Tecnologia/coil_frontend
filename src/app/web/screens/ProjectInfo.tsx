@@ -7,7 +7,9 @@ export default function ProjectInfo() {
     const location = useLocation() as { state: { projectID: string } };
     const project = location.state?.projectID;
     const isProject =
-        window.location.pathname === "/COILInfo" ? "COIL" : "Mobility";
+        window.location.pathname.replace("/", "") === "COILInfo"
+            ? "COIL"
+            : "Mobility";
 
     return (
         <>

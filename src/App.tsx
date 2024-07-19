@@ -11,6 +11,10 @@ export default function App() {
             clientId: import.meta.env.VITE_CLIENT_ID as string,
             authority: import.meta.env.VITE_AUTHORITY as string,
             redirectUri: "/"
+        },
+        cache: {
+            cacheLocation: "localStorage",
+            storeAuthStateInCookie: true
         }
     });
     const isDarkTheme = useThemeDetector();

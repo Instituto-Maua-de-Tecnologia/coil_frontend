@@ -108,7 +108,7 @@ export default function HomepageList() {
                 projects.length > 0 ? (
                     <div>
                         {filteredProjects.length > 0 ? (
-                            <ul className="w-full max-h-screen pe-5 pb-10 lg:!pb-[400px] custom-scrollbar overflow-y-auto">
+                            <ul className="w-full max-h-screen pe-5 pb-[450px] custom-scrollbar overflow-y-auto">
                                 {projects.map((project) => (
                                     <HomepageCard
                                         key={"ProjectCardKey " + project.id}

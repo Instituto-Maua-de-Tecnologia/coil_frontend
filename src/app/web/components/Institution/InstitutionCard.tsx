@@ -19,7 +19,7 @@ export default function InstitutionCard({ logo, name, id }: IAllInstitutions) {
                         <img
                             src={logo}
                             alt="Avatar"
-                            className="avatar-img mx-auto w-16 rounded-full"
+                            className="object-contain max-w-32 sm:max-w-24 mx-auto rounded-full"
                         />
                     </div>
                     <div className="flex flex-col">

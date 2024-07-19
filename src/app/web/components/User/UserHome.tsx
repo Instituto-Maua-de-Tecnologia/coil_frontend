@@ -18,7 +18,7 @@ export default function UserHome({ userHome }: IUserHomeProps) {
                 <img
                     src={account_circle}
                     alt="institution-img"
-                    className="avatar-img mx-auto sm:-mx-auto w-[7.23vw] rounded-full "
+                    className="object-cover sm:w-full w-1/2 mx-auto rounded-full "
                 />
             </div>
             <div className="2xs:text-center sm:text-left self-center p-2 sm:w-4/6">

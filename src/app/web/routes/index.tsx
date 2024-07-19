@@ -9,7 +9,6 @@ import Signout from "@screens/Signout.tsx";
 import HeroPage from "@screens/HeroPage.tsx";
 import Error404 from "@screens/404.tsx";
 import CreateActivity from "@screens/CreateActivity.tsx";
-import Mobilities from "@screens/Mobilities.tsx";
 import ViewEnrolledStudents from "@screens/ViewEnrolledStudents.tsx";
 import { ActivityTypeEnum } from "@enums/ActivityTypeEnum.ts";
 import ProjectInfo from "@screens/ProjectInfo.tsx";
@@ -25,34 +24,36 @@ import IUser from "@interfaces/user/IUser.ts";
 export default function AppRoutes() {
     const possibleRoutes = useMemo(
         () => [
-            "/Home",
-            "/Institution",
-            "/InstitutionInfo",
-            "/COIL",
-            "/COILInfo",
-            "/CreateCOIL",
-            "/CreateMobility",
-            "/Mobilities",
-            "/Enrolled",
-            "/Results",
-            "/CreateModerator",
-            "/User",
-            "/Signout",
-            "/EnrolledStudents"
+            "Home",
+            "Institution",
+            "InstitutionInfo",
+            "COIL",
+            "COILInfo",
+            "CreateCOIL",
+            "CreateMobility",
+            "Mobilities",
+            "Enrolled",
+            "Results",
+            "CreateModerator",
+            "User",
+            "Signout",
+            "EnrolledStudents"
         ],
         []
     );
     const adminPages = useMemo(
         () => [
-            "/CreateCOIL",
-            "/CreateMobility",
-            "/EnrolledStudents",
-            "/CreateModerator",
-            "/CreateInstitution"
+            "CreateCOIL",
+            "CreateMobility",
+            "EnrolledStudents",
+            "CreateModerator",
+            "CreateInstitution"
         ],
         []
     );
-    const [location, setLocation] = useState(window.location.pathname);
+    const [location, setLocation] = useState(
+        window.location.pathname.replace("/", "")
+    );
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -60,18 +61,18 @@ export default function AppRoutes() {
             const userToken = JSON.parse(
                 localStorage.getItem("user") as string
             ) as IUser;
-            if (userToken?.user_type === null) window.history.back();
+            if (userToken === null) window.history.back();
             if (
                 (userToken?.user_type as UserTypeEnum) !== UserTypeEnum.ADMIN &&
                 (userToken?.user_type as UserTypeEnum) !==
                     UserTypeEnum.MODERATOR &&
-                adminPages.includes(window.location.pathname)
+                adminPages.includes(window.location.pathname.replace("/", ""))
             ) {
                 window.history.back();
             }
         };
         const handleLocationChange = () => {
-            setLocation(window.location.pathname);
+            setLocation(window.location.pathname.replace("/", ""));
         };
         const pushState = window.history.pushState.bind(window.history);
         const replaceState = window.history.replaceState.bind(window.history);
@@ -102,7 +103,9 @@ export default function AppRoutes() {
     }, [adminPages, location]);
 
     useEffect(() => {
-        if (possibleRoutes.includes(window.location.pathname)) {
+        if (
+            possibleRoutes.includes(window.location.pathname.replace("/", ""))
+        ) {
             if (
                 !localStorage.getItem("user") ||
                 !localStorage.getItem("token")
@@ -156,7 +159,7 @@ export default function AppRoutes() {
                     path={"/CreateModerator"}
                     element={<CreateModerator />}
                 />
-                <Route path={"/Mobilities"} element={<Mobilities />} />
+                <Route path={"/Mobilities"} element={<Projects />} />
                 <Route
                     path={"/Enrolled"}
                     element={

@@ -11,12 +11,15 @@ export default function Projects() {
     const user_type = (
         JSON.parse(localStorage.getItem("user") as string) as IUser
     )?.user_type;
+    const isCOIL = window.location.pathname.replace("/", "") === "COIL";
 
     const navigate = useNavigate();
     return (
         <>
             <div className="max-h-screen flex flex-col">
-                <TitleHeader title={"COIL"} />
+                <TitleHeader
+                    title={isCOIL ? "COIL" : "Academic International Mobility"}
+                />
                 <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                     {user_type === UserTypeEnum.ADMIN.valueOf() ||
                     user_type === UserTypeEnum.MODERATOR.valueOf() ? (

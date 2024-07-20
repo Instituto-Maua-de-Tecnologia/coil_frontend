@@ -61,7 +61,11 @@ export default function AppRoutes() {
             const userToken = JSON.parse(
                 localStorage.getItem("user") as string
             ) as IUser;
-            if (userToken === null) window.history.back();
+            if (
+                userToken === null &&
+                adminPages.includes(window.location.pathname.replace("/", ""))
+            )
+                window.history.back();
             if (
                 (userToken?.user_type as UserTypeEnum) !== UserTypeEnum.ADMIN &&
                 (userToken?.user_type as UserTypeEnum) !==

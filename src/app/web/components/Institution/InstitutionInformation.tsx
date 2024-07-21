@@ -19,9 +19,13 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
 
     useEffect(() => {
         const handleGetInstitution = async () => {
+            localStorage.setItem("institution_id", JSON.stringify(id));
+            const idCached = JSON.stringify(
+                localStorage.getItem("institution_id")
+            );
             try {
                 const institutionValue = (await getInstitution({
-                    institution_id: id
+                    institution_id: idCached !== "" ? idCached : id
                 })) as IInstitution;
                 setInstitution(institutionValue);
                 setLoaded(true);

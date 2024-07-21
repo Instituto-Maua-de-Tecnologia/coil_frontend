@@ -52,14 +52,14 @@ export default function SideBar() {
                             item.access == undefined ? (
                                 <a key={"SideBar " + index} href={item.url}>
                                     <li
-                                        className={`!truncate !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
+                                        className={`!truncate drop-shadow-sm !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
                                     ${shouldRemovePaddingAndMargin ? "mb-2" : "mb-[1.25vh]"}                              
                                     ${item.gap && `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[5vh]"}`} 
                                     ${item.purple && `!bg-sb-p ${screenHeight >= 700 ? "absolute bottom-0 w-12" : ""} ${shouldRemovePaddingAndMargin ? "mb-0" : "mb-[2vh]"} w-[75%] !text-white hover:opacity-80`}
                                     ${item.blue && `${isDarkTheme ? "!bg-[#223A4F] !text-black" : "!bg-sb-t !text-white"} ${screenHeight >= 700 ? "absolute bottom-14" : ""} hover:opacity-80 w-[75%]`}
                                     ${item.smgap ? `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[2.75vh]"}` : `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[1vh]"}`}
                                     ${item.br ? "-mt-[0.4rem]" : `flex items-center justify-left rounded-3xl p-[1vh] mx-[1.5rem] cursor-pointer ${isDarkTheme ? "bg-[#223A4F]" : "bg-sb-tb"} text-sb-t text-md font-medium hover:opacity-80`}
-                                    ${item.url?.replace(/\//g, "") === pathname.pathname.replace(/\//g, "") && !item.purple ? `shadow-md !fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
+                                    ${item.url?.replace(/\//g, "") === pathname.pathname.replace(/\//g, "") && !item.purple ? `shadow-lg !fill-current !bg-sb-t ${isDarkTheme ? "!text-[#223A4F]" : "!text-sb-bg"} !transition-colors` : ""}
                                     ${item.id === "7" ? "!bg-[#2684FF] !text-wrap !break-words" /*dark Mode Config*/ : "" /*light Mode Config*/}
                                     `}
                                     >
@@ -102,7 +102,7 @@ export default function SideBar() {
                             ) : item.access == access ? (
                                 <a key={"SideBar " + index} href={item.url}>
                                     <li
-                                        className={`!truncate shadow-md !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
+                                        className={`!truncate drop-shadow-sm !overflow-ellipsis !whitespace-nowrap !text-nowrap !max-w-full
                                     ${shouldRemovePaddingAndMargin ? "mb-2" : "mb-[1.25vh]"}                              
                                     ${item.gap && `${shouldRemovePaddingAndMargin ? "mt-0" : "mt-[5vh]"}`} 
                                     ${item.purple && `!bg-sb-p ${screenHeight >= 700 ? "absolute bottom-0 w-12" : ""} ${shouldRemovePaddingAndMargin ? "mb-0" : "mb-[2vh]"} w-[75%] !text-white hover:opacity-80`}

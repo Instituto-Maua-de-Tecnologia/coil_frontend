@@ -109,7 +109,7 @@ export default function HomepageList() {
 
     return (
         <div
-            className={`w-full lg:ml-4 p-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
+            className={`w-full ml-4 p-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} rounded-3xl`}
         >
             <div className="mb-4 flex">
                 <Search disabled={!loaded} onSearch={handleSearch} />
@@ -118,7 +118,7 @@ export default function HomepageList() {
                 projects.length > 0 ? (
                     <div>
                         {filteredProjects.length > 0 ? (
-                            <ul className="w-full max-h-screen pb-[3000rem] pe-5 custom-scrollbar overflow-y-auto">
+                            <ul className="w-full max-h-[428px] pb-10 pe-5 custom-scrollbar overflow-y-auto">
                                 {filteredProjects.map((project) => (
                                     <HomepageCard
                                         key={"ProjectCardKey " + project.id}

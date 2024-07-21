@@ -232,7 +232,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                             onClick={() =>
                                                 handleModalOpen(project)
                                             }
-                                            className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                            className="bg-blue-500 w-full text-white text-sm px-4 py-2 rounded-full"
                                         >
                                             {handleVerifyEnrollment(project.id)
                                                 ? "Withdraw"

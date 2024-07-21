@@ -66,9 +66,9 @@ export default function InstitutionList() {
             <div className="mb-4 flex">
                 <Search onSearch={handleSearch} disabled={!loaded} />
             </div>
-            {filteredInstitutions.length > 0 ? (
+            {loaded ? (
                 <div>
-                    {loaded ? (
+                    {filteredInstitutions.length > 0 ? (
                         <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
                             {filteredInstitutions.map((institution) => (
                                 <InstitutionCard
@@ -80,18 +80,18 @@ export default function InstitutionList() {
                             ))}
                         </ul>
                     ) : (
-                        <div className="flex justify-center items-center mt-[25vh]">
-                            <MoonLoader
-                                color={`${isDarkTheme ? "#fff" : "#000"}`}
-                                size={35}
-                            />
-                        </div>
+                        <p className="mx-auto my-5 text-center text-2xl">
+                            No institutions matched the search criteria
+                        </p>
                     )}
                 </div>
             ) : (
-                <p className="mx-auto my-5 text-center text-2xl">
-                    No institutions matched the search criteria
-                </p>
+                <div className="flex justify-center items-center mt-[25vh]">
+                    <MoonLoader
+                        color={`${isDarkTheme ? "#fff" : "#000"}`}
+                        size={35}
+                    />
+                </div>
             )}
         </div>
     );

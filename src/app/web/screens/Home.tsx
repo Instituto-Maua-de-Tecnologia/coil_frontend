@@ -104,7 +104,7 @@ export default function Home() {
                         >
                             {user && <UserHome userHome={user} />}
                         </div>
-                        <div className="mt-4 max-h-[60.5%] lg:flex h-full w-full md:h-3/4">
+                        <div className="mt-4 max-h-full lg:flex h-full w-full md:h-3/4">
                             <HomepageList />
                         </div>
                     </div>

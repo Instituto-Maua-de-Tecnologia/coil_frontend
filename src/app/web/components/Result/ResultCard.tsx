@@ -32,9 +32,11 @@ export default function ResultCard({ result }: ResultCardProps) {
                         </div>
                     ))}
                     <div className="flex flex-col">
-                        <div className="mb-2 font-bold">{title}</div>
+                        <div className="mb-2 sm:text-start font-bold">
+                            {title}
+                        </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
-                            <div className="flex flex-wrap items-center">
+                            <div className="flex sm:justify-start justify-center font-medium flex-wrap items-center">
                                 <p className="text-xs mr-2">Languages:</p>
                                 {result.languages?.map((language, index) => (
                                     <SVGIcon
@@ -47,7 +49,7 @@ export default function ResultCard({ result }: ResultCardProps) {
                         </div>
                         <div className="flex mb-2">
                             <div className="flex flex-row w-full sm:justify-start justify-center">
-                                <p className="text-xs mr-2">
+                                <p className="text-xs font-medium mr-2">
                                     {
                                         partner_institutions?.[0].countries[0]
                                             .country.country
@@ -65,7 +67,7 @@ export default function ResultCard({ result }: ResultCardProps) {
                         {applicants?.map((applicant, index) => (
                             <div
                                 key={"ApplicantKey " + index}
-                                className={`shadow ${applicant.status === true ? "text-blue-500 border-blue-500" : "text-red-500 border-red-800"} border-2 text-sm px-4 py-2 rounded-full`}
+                                className={`shadow font-medium ${applicant.status === true ? (isDarkTheme ? "text-green-400 border-green-400" : "text-green-600 border-green-600") : applicant.status === false ? "text-red-500 border-red-500" : isDarkTheme ? "text-yellow-400 border-yellow-700" : "text-yellow-500 border-yellow-400"} border-2 text-sm px-4 py-2 rounded-full`}
                             >
                                 {applicant.status === true
                                     ? "Approved"

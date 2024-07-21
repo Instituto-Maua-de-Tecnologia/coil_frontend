@@ -78,7 +78,17 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                       devider: devider
                   },
                   { to: "/Mobilities", label: "Mobility", icon: activityIcon },
-                  { to: "/User", label: navigation[6].title, icon: userIcon },
+                  {
+                      to: "/User",
+                      label:
+                          navigation[6].title === "" && getUserName() !== null
+                              ? (getUserName() as string).substring(
+                                    0,
+                                    (getUserName() as string).indexOf(" ")
+                                )
+                              : navigation[6].title,
+                      icon: userIcon
+                  },
                   { to: "/Signout", label: "Sign Out", icon: signOutIcon }
               ];
 
@@ -95,7 +105,7 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                     className={`relative mx-auto ${isMobility ? "min-h-[120px]" : "min-h-[88px]"} sm:min-h-[64px] lg:rounded-[24px] bg-[#2684ff] ${isNavOpen ? "rounded-tr-3xl rounded-tl-3xl" : "rounded-[24px]"}`}
                 >
                     <div
-                        className={`absolute flex flex-row ${isDarkTheme ? "text-[#223A4F]" : "text-[#f9fafc]"} items-center top-[16px] left-[20px] [font-family:'Montserrat-SemiBold',Helvetica] font-semibold 2xs:text-[28px] lg:text-[30px] tracking-[-1.08px] leading-[normal] ml-[1rem]`}
+                        className={`absolute flex flex-row ${isDarkTheme ? "text-[#223A4F]" : "text-[#f9fafc]"} text-ellipsis items-center top-[16px] left-[20px] [font-family:'Montserrat-SemiBold',Helvetica] font-semibold 2xs:text-[28px] lg:text-[30px] tracking-[-1.08px] leading-[normal] ml-[1rem]`}
                     >
                         <div className="lg:hidden pr-[1rem]">
                             <button onClick={handleNavOpen}>

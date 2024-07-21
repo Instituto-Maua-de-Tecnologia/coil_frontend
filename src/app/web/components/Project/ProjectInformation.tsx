@@ -114,9 +114,11 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
 
     useEffect(() => {
         const handleGetProject = async () => {
+            localStorage.setItem("project_id", id);
+            const idCached = localStorage.getItem("project_id") as string;
             try {
                 const projectValue = (await getActivity({
-                    activity_id: id
+                    activity_id: idCached === "" ? idCached : id
                 })) as IProjectWithData;
                 setProject(projectValue);
             } catch (error) {

@@ -73,7 +73,7 @@ export default function CarouselComponent() {
                     <SwiperSlide key={"CarouselData: " + index} className={""}>
                         <div className="w-[20.5em] mb-20 h-[395px]">
                             <div className="fixed w-full h-[395px] top-0 left-0">
-                                <div className="relative shadow-2xl mx-auto max-w-[20.5em] h-[395px] bg-white rounded-[63px] border-b-[21px] [border-bottom-style:solid] border-[#673366]">
+                                <div className="relative drop-shadow-lg mx-auto max-w-[20.5em] h-[395px] bg-white rounded-[63px] border-b-[21px] [border-bottom-style:solid] border-[#673366]">
                                     <img
                                         className="absolute drop-shadow-lg object-cover rounded-full ms-8 mt-4 w-[69px] h-[69px] top-0 left-[2px]"
                                         alt="Icon"

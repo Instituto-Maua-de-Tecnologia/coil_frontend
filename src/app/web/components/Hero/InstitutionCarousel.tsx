@@ -19,7 +19,7 @@ export default function InstitutionCarousel({
                 id="international-department"
                 className="mt-10 md:mt-8 lg:mt-5 my-50 lg:my-48"
             >
-                <h1 className="text-center mt-5 pt-5 mb-5 text-2xl md:text-4xl lg:text-5xl font font-semibold hero-text my-2">
+                <h1 className="text-center mt-5 pt-5 mb-5 text-4xl lg:text-5xl font font-semibold hero-text my-2">
                     Our Partners
                 </h1>
                 {loaded ? (

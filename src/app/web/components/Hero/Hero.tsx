@@ -5,7 +5,7 @@ import Navbar from "../GenericComponents/NavBar";
 import "@styles/hero.css";
 import OpenOpportunities from "./OpenOpportunities";
 import InstitutionCarousel from "./InstitutionCarousel";
-import getCatalog from "@integrations/catalog/get_catalog.ts";
+import getCatalog from "@integrations/hero/get_catalog.ts";
 import ICatalog from "@interfaces/catalog/ICatalog.ts";
 
 const Hero: React.FC = () => {

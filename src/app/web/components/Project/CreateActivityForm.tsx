@@ -374,7 +374,10 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                     ),
                     error: (error: Error) => error.message
                 })
-                .finally(() => {
+                .then(() => {
+                    localStorage.removeItem(
+                        isProject ? "projects_1" : "projects_2"
+                    );
                     navigate(isProject ? "/COIL" : "/Mobilities");
                 });
         }

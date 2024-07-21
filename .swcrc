@@ -2,7 +2,8 @@
     "jsc": {
         "parser": {
             "syntax": "typescript",
-            "tsx": true
+            "tsx": true,
+            "dynamicImport": true
         },
         "target": "es2022",
         "transform": {
@@ -16,7 +17,14 @@
     },
     "module": {
         "type": "es2022",
+        "lazy": true,
         "strict": true,
         "strictMode": true
+    },
+    "env": {
+        "targets": {
+            "browsers": [">0.2%", "not dead", "not op_mini all"]
+        },
+        "mode": "entry"
     }
 }

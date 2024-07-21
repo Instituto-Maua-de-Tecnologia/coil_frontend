@@ -20,21 +20,29 @@ export default function HomepageList() {
     const handleGetAllProjects = async (
         type: string
     ): Promise<IAllProjects[]> => {
-        const projectValues = await getAllActivities({ type_activity: type });
-        return projectValues as IAllProjects[];
+        const cacheKey = `projects_${type}`;
+        const cachedProjects = localStorage.getItem(cacheKey);
+        if (cachedProjects) {
+            return JSON.parse(cachedProjects) as IAllProjects[];
+        } else {
+            const projectValues = await getAllActivities({
+                type_activity: type
+            });
+            localStorage.setItem(cacheKey, JSON.stringify(projectValues));
+            return projectValues as IAllProjects[];
+        }
     };
 
     const enrolledIdsToArray = (enrolledProjects: IAllProjects[]) => {
-        return enrolledProjects.map((project) => {
-            return `${project.id}`;
-        });
+        return enrolledProjects.map((project) => `${project.id}`);
     };
 
     const [selectedProject, setSelectedProject] = useState<IAllProjects | null>(
         null
     );
-    const [filteredProjects, setFilteredProjects] =
-        useState<IAllProjects[]>(projects);
+    const [filteredProjects, setFilteredProjects] = useState<IAllProjects[]>(
+        []
+    );
 
     const handleModalOpen = (project: IAllProjects) => {
         setSelectedProject(project);
@@ -69,20 +77,22 @@ export default function HomepageList() {
     useEffect(() => {
         const fetchData = async () => {
             const handleGetEnrolledProjects = async () => {
-                await getAllActivitiesEnrolled({ type_activity: 1 })
-                    .then((response) => {
-                        setEnrolledProjectsIds(
-                            enrolledIdsToArray(response as IAllProjects[])
-                        );
-                    })
-                    .catch((error) => {
-                        console.error("Erro ao obter projetos:", error);
+                try {
+                    const response = await getAllActivitiesEnrolled({
+                        type_activity: 1
                     });
+                    setEnrolledProjectsIds(
+                        enrolledIdsToArray(response as IAllProjects[])
+                    );
+                } catch (error) {
+                    console.error("Erro ao obter projetos:", error);
+                }
             };
+
             try {
-                const mobilityProjects = await handleGetAllProjects("1");
-                const regularProjects = await handleGetAllProjects("2");
-                const allProjects = [...mobilityProjects, ...regularProjects];
+                const coilProjects = await handleGetAllProjects("1");
+                const mobilityProjects = await handleGetAllProjects("2");
+                const allProjects = [...mobilityProjects, ...coilProjects];
                 await handleGetEnrolledProjects();
 
                 setProjects(allProjects);
@@ -108,7 +118,7 @@ export default function HomepageList() {
                 projects.length > 0 ? (
                     <div>
                         {filteredProjects.length > 0 ? (
-                            <ul className="w-full max-h-screen pe-5 pb-[450px] custom-scrollbar overflow-y-auto">
+                            <ul className="w-full max-h-screen pb-[3000rem] pe-5 custom-scrollbar overflow-y-auto">
                                 {filteredProjects.map((project) => (
                                     <HomepageCard
                                         key={"ProjectCardKey " + project.id}

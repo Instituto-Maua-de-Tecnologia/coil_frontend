@@ -27,26 +27,6 @@ export default function ProjectList() {
         null
     );
 
-    const handleGetAllProjects = async () => {
-        try {
-            const projectValues = (await getAllActivities({
-                type_activity: isCOIL ? "1" : "2"
-            })) as IAllProjects[];
-            setProjects(projectValues);
-            setFilteredProjects(projectValues); // Initialize filteredProjects
-        } catch (error) {
-            console.error("Erro ao obter projetos:", error);
-        } finally {
-            setLoaded(true);
-        }
-    };
-
-    useEffect(() => {
-        setProjects([]);
-        setLoaded(false);
-        void handleGetAllProjects();
-    }, [isCOIL]);
-
     const enrolledIdsToArray = (enrolledProjects: IAllProjects[]) => {
         return enrolledProjects.map((project) => `${project.id}`);
     };
@@ -93,14 +73,44 @@ export default function ProjectList() {
     }, []);
 
     const isSmallVersion = screenWidth <= 767;
-
     const isDarkTheme = useThemeDetector();
 
     useEffect(() => {
-        const handleGetEnrolledProjects = async () => {
+        const fetchProjects = async () => {
+            setLoaded(false);
+            const cacheKey = `projects_${isCOIL ? "1" : "2"}`;
+            const cachedProjects = localStorage.getItem(cacheKey);
+
+            if (cachedProjects) {
+                const parsedProjects = JSON.parse(
+                    cachedProjects
+                ) as IAllProjects[];
+                setProjects(parsedProjects);
+                setFilteredProjects(parsedProjects);
+                setLoaded(true);
+            } else {
+                try {
+                    const projectValues = (await getAllActivities({
+                        type_activity: isCOIL ? "1" : "2"
+                    })) as IAllProjects[];
+                    localStorage.setItem(
+                        cacheKey,
+                        JSON.stringify(projectValues)
+                    );
+                    setProjects(projectValues);
+                    setFilteredProjects(projectValues);
+                } catch (error) {
+                    console.error("Erro ao obter projetos:", error);
+                } finally {
+                    setLoaded(true);
+                }
+            }
+        };
+
+        const fetchEnrolledProjects = async () => {
             try {
                 const response = await getAllActivitiesEnrolled({
-                    type_activity: 1
+                    type_activity: isCOIL ? 1 : 2
                 });
                 setEnrolledProjectsIds(
                     enrolledIdsToArray(response as IAllProjects[])
@@ -109,12 +119,14 @@ export default function ProjectList() {
                 console.error("Erro ao obter projetos:", error);
             }
         };
-        const handleGets = async () => {
-            await handleGetEnrolledProjects();
-            await handleGetAllProjects();
+
+        const fetchData = async () => {
+            await fetchEnrolledProjects();
+            await fetchProjects();
         };
-        void handleGets();
-    }, []);
+
+        void fetchData();
+    }, [isCOIL]);
 
     const onPageChange = (event: PaginatorPageChangeEvent) => {
         setFirst(event.first);

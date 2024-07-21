@@ -6,6 +6,7 @@ import { Tooltip } from "primereact/tooltip";
 import { SpeedDial } from "primereact/speeddial";
 import { useNavigate } from "react-router-dom";
 import IUser from "@interfaces/user/IUser.ts";
+import "primeicons/primeicons.css";
 
 export default function Institutions() {
     const user_type = (

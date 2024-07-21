@@ -8,6 +8,7 @@ import { Tooltip } from "primereact/tooltip";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import HomepageList from "@components/Home/HomepageList.tsx";
 import IUser from "@interfaces/user/IUser.ts";
+import "primeicons/primeicons.css";
 
 export default function Home() {
     const [user, setUser] = useState<IUser>({
@@ -103,7 +104,7 @@ export default function Home() {
                         >
                             {user && <UserHome userHome={user} />}
                         </div>
-                        <div className="mt-4 lg:flex h-full w-full md:h-3/4">
+                        <div className="mt-4 max-h-[60.5%] lg:flex h-full w-full md:h-3/4">
                             <HomepageList />
                         </div>
                     </div>

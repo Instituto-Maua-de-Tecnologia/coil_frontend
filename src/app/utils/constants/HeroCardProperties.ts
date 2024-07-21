@@ -10,15 +10,15 @@ export const HeroCardData = [
         infoImage: infoImg1
     },
     {
-        title: "Cultural Exchange",
-        content:
-            "Engaging in projects with peers from diverse backgrounds cultivates innovative thinking and enriches your understanding of various subjects. This exchange of perspectives fosters deeper cultural understanding.",
-        infoImage: infoImg3
-    },
-    {
         title: "Professional Growth",
         content:
             "Acquire invaluable professional experience. You'll build a global network, gain insights into international markets, and improve your problem-solving abilities, making you an asset to any organization.",
         infoImage: infoImg2
+    },
+    {
+        title: "Cultural Exchange",
+        content:
+            "Engaging in projects with peers from diverse backgrounds cultivates innovative thinking and enriches your understanding of various subjects. This exchange of perspectives fosters deeper cultural understanding.",
+        infoImage: infoImg3
     }
 ];

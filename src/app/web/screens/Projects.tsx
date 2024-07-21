@@ -6,6 +6,7 @@ import { Tooltip } from "primereact/tooltip";
 import { SpeedDial } from "primereact/speeddial";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import IUser from "@interfaces/user/IUser.ts";
+import "primeicons/primeicons.css";
 
 export default function Projects() {
     const user_type = (

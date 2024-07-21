@@ -8,27 +8,41 @@ import { MoonLoader } from "react-spinners";
 import IAllInstitutions from "@interfaces/institution/IAllInstitutions.ts";
 
 export default function InstitutionList() {
-    const [institutions, setInstitutions] = useState<IAllInstitutions[]>([
-        {
-            id: "",
-            name: "",
-            logo: ""
-        }
-    ]);
-    const [filteredInstitutions, setFilteredInstitutions] =
-        useState<IAllInstitutions[]>(institutions);
+    const [institutions, setInstitutions] = useState<IAllInstitutions[]>([]);
+    const [filteredInstitutions, setFilteredInstitutions] = useState<
+        IAllInstitutions[]
+    >([]);
     const [loaded, setLoaded] = useState<boolean>(false);
 
     useEffect(() => {
         async function fetchData() {
-            try {
-                const institutionsData = await getAllInstitutions();
-                setInstitutions(institutionsData as IAllInstitutions[]);
-                setFilteredInstitutions(institutionsData as IAllInstitutions[]);
-            } catch (error) {
-                console.error("Error fetching institutions:", error);
-            } finally {
+            setLoaded(false);
+            const cacheKey = "institutions";
+            const cachedInstitutions = localStorage.getItem(cacheKey);
+
+            if (cachedInstitutions) {
+                const parsedInstitutions = JSON.parse(
+                    cachedInstitutions
+                ) as IAllInstitutions[];
+                setInstitutions(parsedInstitutions);
+                setFilteredInstitutions(parsedInstitutions);
                 setLoaded(true);
+            } else {
+                try {
+                    const institutionsData = await getAllInstitutions();
+                    localStorage.setItem(
+                        cacheKey,
+                        JSON.stringify(institutionsData)
+                    );
+                    setInstitutions(institutionsData as IAllInstitutions[]);
+                    setFilteredInstitutions(
+                        institutionsData as IAllInstitutions[]
+                    );
+                } catch (error) {
+                    console.error("Error fetching institutions:", error);
+                } finally {
+                    setLoaded(true);
+                }
             }
         }
 
@@ -36,7 +50,7 @@ export default function InstitutionList() {
     }, []);
 
     const handleSearch = (searchTerm: string) => {
-        const filtered = filteredInstitutions.filter((institution) =>
+        const filtered = institutions.filter((institution) =>
             institution.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredInstitutions(filtered);

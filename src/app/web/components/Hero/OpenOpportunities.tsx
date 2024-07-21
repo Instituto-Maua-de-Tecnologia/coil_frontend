@@ -14,7 +14,7 @@ export default function OpenOpportunities({
         <>
             <h1
                 id="open-opportunities"
-                className="mb-6 md:mt-10 text-center hero-text text-2xl md:text-4xl lg:text-5xl font-semibold bg-gradient-to-r from-[#673366] from-[21%] via-[#0C5AA4] via-[47%] to-[#0C5AA4] to-[100%]"
+                className="mb-6 md:mt-10 text-center hero-text text-4xl md:text-4xl :text-5xl font-semibold bg-gradient-to-r from-[#673366] from-[21%] via-[#0C5AA4] via-[47%] to-[#0C5AA4] to-[100%]"
             >
                 Discover our Opportunities
             </h1>

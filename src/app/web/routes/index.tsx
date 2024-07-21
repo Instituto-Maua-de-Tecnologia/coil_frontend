@@ -1,25 +1,29 @@
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "@screens/Home.tsx";
-import Institutions from "@screens/Institutions.tsx";
-import Enrolled from "@screens/Enrolled.tsx";
-import Projects from "@screens/Projects.tsx";
-import Results from "@screens/Results.tsx";
-import User from "@screens/User.tsx";
-import Signout from "@screens/Signout.tsx";
-import HeroPage from "@screens/HeroPage.tsx";
-import Error404 from "@screens/404.tsx";
-import CreateActivity from "@screens/CreateActivity.tsx";
-import ViewEnrolledStudents from "@screens/ViewEnrolledStudents.tsx";
-import { ActivityTypeEnum } from "@enums/ActivityTypeEnum.ts";
-import ProjectInfo from "@screens/ProjectInfo.tsx";
-import { useEffect, useMemo, useState } from "react";
 import getUser from "@integrations/user/authentification/get_user.ts";
-import InstitutionInfo from "@screens/InstitutionInfo.tsx";
 import toast from "react-hot-toast";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
-import CreateModerator from "@screens/CreateModerator.tsx";
-import CreateInstitution from "@screens/CreateInstitution.tsx";
 import IUser from "@interfaces/user/IUser.ts";
+import { ActivityTypeEnum } from "@enums/ActivityTypeEnum.ts";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
+
+const Home = lazy(() => import("@screens/Home.tsx"));
+const Institutions = lazy(() => import("@screens/Institutions.tsx"));
+const Enrolled = lazy(() => import("@screens/Enrolled.tsx"));
+const Projects = lazy(() => import("@screens/Projects.tsx"));
+const Results = lazy(() => import("@screens/Results.tsx"));
+const User = lazy(() => import("@screens/User.tsx"));
+const Signout = lazy(() => import("@screens/Signout.tsx"));
+const HeroPage = lazy(() => import("@screens/HeroPage.tsx"));
+const Error404 = lazy(() => import("@screens/404.tsx"));
+const CreateActivity = lazy(() => import("@screens/CreateActivity.tsx"));
+const ViewEnrolledStudents = lazy(
+    () => import("@screens/ViewEnrolledStudents.tsx")
+);
+const InstitutionInfo = lazy(() => import("@screens/InstitutionInfo.tsx"));
+const ProjectInfo = lazy(() => import("@screens/ProjectInfo.tsx"));
+const CreateModerator = lazy(() => import("@screens/CreateModerator.tsx"));
+const CreateInstitution = lazy(() => import("@screens/CreateInstitution.tsx"));
 
 export default function AppRoutes() {
     const possibleRoutes = useMemo(
@@ -141,43 +145,60 @@ export default function AppRoutes() {
 
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path={"*"} element={<Error404 />} />
-                <Route path={"/"} element={<HeroPage />} />
-                <Route path={"/Home"} element={<Home />} />
-                <Route path={"/Institution"} element={<Institutions />} />
-                <Route
-                    path={"/InstitutionInfo"}
-                    element={<InstitutionInfo />}
-                />
-                <Route path={"/COIL"} element={<Projects />} />
-                <Route path={"/COILInfo"} element={<ProjectInfo />} />
-                <Route path={"/MobilityInfo"} element={<ProjectInfo />} />
-                <Route path={"/CreateCOIL"} element={<CreateActivity />} />
-                <Route path={"/CreateMobility"} element={<CreateActivity />} />
-                <Route
-                    path={"/CreateInstitution"}
-                    element={<CreateInstitution />}
-                ></Route>
-                <Route
-                    path={"/CreateModerator"}
-                    element={<CreateModerator />}
-                />
-                <Route path={"/Mobilities"} element={<Projects />} />
-                <Route
-                    path={"/Enrolled"}
-                    element={
-                        <Enrolled activity_type={ActivityTypeEnum.PROJECT} />
-                    }
-                />
-                <Route path={"/Results"} element={<Results />} />
-                <Route path={"/User"} element={<User />} />
-                <Route path={"/Signout"} element={<Signout />} />
-                <Route
-                    path={"/EnrolledStudents"}
-                    element={<ViewEnrolledStudents />}
-                />
-            </Routes>
+            <Suspense
+                fallback={
+                    <div
+                        className={
+                            "fixed flex-col inset-0 flex items-center justify-center"
+                        }
+                    >
+                        <LoadSpinner />
+                    </div>
+                }
+            >
+                <Routes>
+                    <Route path={"*"} element={<Error404 />} />
+                    <Route path={"/"} element={<HeroPage />} />
+                    <Route path={"/Home"} element={<Home />} />
+                    <Route path={"/Institution"} element={<Institutions />} />
+                    <Route
+                        path={"/InstitutionInfo"}
+                        element={<InstitutionInfo />}
+                    />
+                    <Route path={"/COIL"} element={<Projects />} />
+                    <Route path={"/COILInfo"} element={<ProjectInfo />} />
+                    <Route path={"/MobilityInfo"} element={<ProjectInfo />} />
+                    <Route path={"/CreateCOIL"} element={<CreateActivity />} />
+                    <Route
+                        path={"/CreateMobility"}
+                        element={<CreateActivity />}
+                    />
+                    <Route
+                        path={"/CreateInstitution"}
+                        element={<CreateInstitution />}
+                    ></Route>
+                    <Route
+                        path={"/CreateModerator"}
+                        element={<CreateModerator />}
+                    />
+                    <Route path={"/Mobilities"} element={<Projects />} />
+                    <Route
+                        path={"/Enrolled"}
+                        element={
+                            <Enrolled
+                                activity_type={ActivityTypeEnum.PROJECT}
+                            />
+                        }
+                    />
+                    <Route path={"/Results"} element={<Results />} />
+                    <Route path={"/User"} element={<User />} />
+                    <Route path={"/Signout"} element={<Signout />} />
+                    <Route
+                        path={"/EnrolledStudents"}
+                        element={<ViewEnrolledStudents />}
+                    />
+                </Routes>
+            </Suspense>
         </BrowserRouter>
     );
 }

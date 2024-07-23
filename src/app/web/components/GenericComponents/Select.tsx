@@ -142,7 +142,7 @@ export default function Select({
                                   onMouseEnter={() =>
                                       setHighlightedIndex(index)
                                   }
-                                  className={`${value.some((o) => o.label == option.label) ? "hidden" : "block"} ${isDarkTheme ? "text-black" : "text-white"} bg-[#673366] hover:bg-[#532352] py-[.25em] px-4 m-1 cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
+                                  className={`${value.some((o) => o.label == option.label) ? "hidden" : "block"} ${isDarkTheme ? "" : "text-white"} bg-[#673366] hover:bg-[#532352] py-[.25em] px-4 m-1 cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
                                   key={option.value}
                               >
                                   {option.label}
@@ -158,7 +158,7 @@ export default function Select({
                                   onMouseEnter={() =>
                                       setHighlightedIndex(index)
                                   }
-                                  className={`${value === option ? "hidden" : "block"} px-[.25em] ${isDarkTheme ? "text-black" : "text-white"} pl-4 py-[.5em] cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
+                                  className={`${value === option ? "hidden" : "block"} px-[.25em] ${isDarkTheme ? "" : "text-white"} pl-4 py-[.5em] cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
                                   key={option.value}
                               >
                                   {option.label}

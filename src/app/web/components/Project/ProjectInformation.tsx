@@ -1,7 +1,6 @@
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import getActivity from "@integrations/activity/get_activity.ts";
 import { useEffect, useState } from "react";
-import { MoonLoader } from "react-spinners";
 import { format } from "date-fns";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
@@ -11,6 +10,7 @@ import IProject from "@interfaces/project/IProject";
 import IProjectWithData from "@interfaces/project/IProject.ts";
 import IUser from "@interfaces/user/IUser.ts";
 import ModalInformation from "@components/Modal/ModalInformation.tsx";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
 
 interface ProjectInfoProps {
     id: string;
@@ -184,7 +184,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
     const navigate = useNavigate();
 
     return (
-        <div className="custom-scrollbar overflow-y-auto lg:overflow-y-visible flex-col w-full m-3 mb-0 mt-0 ">
+        <div className="custom-scrollbar max-h-full overflow-y-auto md:overflow-y-visible flex-col w-full mx-3">
             {loaded ? (
                 <>
                     <div
@@ -231,22 +231,17 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                             <p className="text-center mb-2 font-medium">
                                 End Date: {formatDate(project.end_date)}
                             </p>
-                            {project.status_activity === 2 && (
-                                <>
-                                    {userToken?.user_type ===
-                                        UserTypeEnum.STUDENT.valueOf() && (
-                                        <button
-                                            onClick={() =>
-                                                handleModalOpen(project)
-                                            }
-                                            className="bg-blue-500 w-full text-white text-sm px-4 py-2 rounded-full"
-                                        >
-                                            {handleVerifyEnrollment(project.id)
-                                                ? "Withdraw"
-                                                : "Apply"}
-                                        </button>
-                                    )}
-                                </>
+                            {userToken?.user_type ===
+                                UserTypeEnum.STUDENT.valueOf() && (
+                                <button
+                                    onClick={() => handleModalOpen(project)}
+                                    disabled={project.status_activity !== 2}
+                                    className={`${project.status_activity === 2 ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} hover:opacity-80 transition-opacity duration-300 bg-blue-500 w-full text-white text-sm px-4 py-2 rounded-full`}
+                                >
+                                    {handleVerifyEnrollment(project.id)
+                                        ? "Withdraw"
+                                        : "Apply"}
+                                </button>
                             )}
                             {(userToken?.user_type ===
                                 UserTypeEnum.ADMIN.valueOf() ||
@@ -280,19 +275,19 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                     </div>
                     <div className="mt-4 md:flex w-full md:h-3/4">
                         <div
-                            className={` justify rounded-3xl p-4 md:pb-20 pb-0 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:w-2/3 md:mr-2`}
+                            className={`rounded-3xl lg:max-h-full xl:max-h-[93%] 2xl:max-h-[81%] p-4 md:pb-20 pb-0 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:w-2/3 md:mr-2`}
                         >
                             <div className="p-3 font-extrabold ">
                                 COIL description
                             </div>
-                            <div className="custom-scrollbar flex-wrap break-words text-wrap overflow-y-auto  h-full p-3">
+                            <div className="custom-scrollbar flex-wrap break-words text-wrap overflow-y-auto  max-h-full p-3">
                                 {project.description}
                             </div>
                         </div>
                         <div
-                            className={` justify rounded-3xl p-4 pb-0 md:pb-20 mt-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:mt-0 md:w-1/3 md:ml-2`}
+                            className={`rounded-3xl lg:max-h-full xl:max-h-[93%] 2xl:max-h-[81%] p-4 pb-0 md:pb-20 mt-4 ${isDarkTheme ? "bg-[#14222E]" : "bg-[#FFFFFF]"} md:mt-0 md:w-1/3 md:ml-2`}
                         >
-                            <div className="p-3">
+                            <div className="p-3 overflow-y-auto max-h-full">
                                 <h1 className={"font-extrabold"}>Criteria: </h1>
                                 {project.criterias[0]?.criteria?.criteria !==
                                 undefined ? (
@@ -315,10 +310,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                 </>
             ) : (
                 <div className="flex justify-center items-center mt-[25vh]">
-                    <MoonLoader
-                        color={`${isDarkTheme ? "#fff" : "#000"}`}
-                        size={35}
-                    />
+                    <LoadSpinner />
                 </div>
             )}
         </div>

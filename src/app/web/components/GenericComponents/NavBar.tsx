@@ -84,7 +84,7 @@ const Navbar = () => {
 
                 <button
                     onClick={handleLogin} // eslint-disable-line
-                    className="shadow-lg hover:opacity-90 w-20 sm:w-40 h-10 hover:shadow-xl transition-shadow duration-300 bg-purple-900 text-xs md:text-sm lg:text-md text-white py-2 px-6 rounded-full"
+                    className="shadow-lg hover:opacity-80 transition-opacity duration-300 hover:shadow-xl w-20 sm:w-40 h-10 bg-purple-900 text-xs md:text-sm lg:text-md text-white py-2 px-6 rounded-full"
                 >
                     Login
                 </button>

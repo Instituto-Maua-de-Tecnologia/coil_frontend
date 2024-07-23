@@ -165,7 +165,7 @@ const Modal: React.FC<ModalProps> = ({
                                     }}
                                     type="button"
                                     disabled={enrolling}
-                                    className="inline-flex shadow-lg max-h-[45px] w-full sm:w-[90px] justify-center rounded-full py-1 px-4 bg-[#673366] text-base font-medium text-white hover:bg-opacity-80 focus:outline-none sm:ml-3 sm:text-sm"
+                                    className="inline-flex hover:opacity-80 transition-opacity duration-300 shadow-lg max-h-[45px] w-full sm:w-[90px] justify-center rounded-full py-1 px-4 bg-[#673366] text-base font-medium text-white focus:outline-none sm:ml-3 sm:text-sm"
                                 >
                                     Cancel
                                 </button>
@@ -178,7 +178,7 @@ const Modal: React.FC<ModalProps> = ({
                                     }}
                                     disabled={enrolling}
                                     type="button"
-                                    className={`inline-flex shadow-lg max-h-[45px] w-full sm:w-[90px] justify-center rounded-full px-3 py-1 bg-[#2684FF] text-base font-medium text-white hover:bg-opacity-75 focus:outline-none sm:ml-3 sm:text-sm ${enrolling ? "min-w-[77.5px]" : null}`}
+                                    className={`inline-fex hover:opacity-80 transition-opacity duration-300 shadow-lg max-h-[45px] w-full sm:w-[90px] justify-center rounded-full px-3 py-1 bg-[#2684FF] text-base font-medium text-white focus:outline-none sm:ml-3 sm:text-sm ${enrolling ? "min-w-[77.5px]" : null}`}
                                 >
                                     {enrolling ? (
                                         <MoonLoader color="#FFFFFF" size={15} />

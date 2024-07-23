@@ -71,7 +71,7 @@ const ModalInformation: React.FC<ModalProps> = ({
                                                     ?.institution?.images[0]
                                             }
                                             alt="Avatar"
-                                            className="avatar-img w-full rounded-full bg-white"
+                                            className="avatar-img shadow-lg w-full rounded-full bg-white"
                                         />
                                         <h3
                                             className={"text-white font-medium"}
@@ -92,7 +92,7 @@ const ModalInformation: React.FC<ModalProps> = ({
                                         <div className="mt-2 flex flex-row justify-between">
                                             <div className="flex flex-col justify-end">
                                                 <div className="flex flex-row items-center">
-                                                    <p className="text-sm pe-2 text-white mr-2">
+                                                    <p className="text-sm text-medium pe-2 text-white mr-2">
                                                         Languages
                                                     </p>
                                                     {project.languages?.map(
@@ -103,13 +103,13 @@ const ModalInformation: React.FC<ModalProps> = ({
                                                                     index
                                                                 }
                                                                 src={`https://hatscripts.github.io/circle-flags/flags/${language.language.language_code}.svg`}
-                                                                className="w-4 m-[1px]"
+                                                                className="w-4 drop-shadow m-[1px]"
                                                             />
                                                         )
                                                     )}
                                                 </div>
                                                 <div className="flex flex-row items-center">
-                                                    <p className="text-sm pe-2 text-white">
+                                                    <p className="text-sm font-medium pe-2 text-white">
                                                         {
                                                             project
                                                                 .partner_institutions?.[0]
@@ -121,20 +121,20 @@ const ModalInformation: React.FC<ModalProps> = ({
                                                     </p>
                                                     <SVGIcon
                                                         src={`https://hatscripts.github.io/circle-flags/flags/${project.partner_institutions?.[0]?.institution?.countries[0].country?.country_code}.svg`}
-                                                        className="w-4 m-[1px]"
+                                                        className="w-4 drop-shadow m-[1px]"
                                                     />
                                                 </div>
                                             </div>
 
                                             <div>
                                                 <p
-                                                    className={`text-lg text-end font-bold text-blue-500`}
+                                                    className={`text-lg text-end font-bold text-green-500`}
                                                 >
                                                     {getActivityStatusText(
                                                         project.status_activity
                                                     )}
                                                 </p>
-                                                <p className="text-white text-sm text-end">
+                                                <p className="text-white font-medium text-sm text-end">
                                                     Application start date:{" "}
                                                     <span>
                                                         {formatDate(
@@ -142,7 +142,7 @@ const ModalInformation: React.FC<ModalProps> = ({
                                                         )}
                                                     </span>
                                                 </p>
-                                                <p className="text-white text-sm text-end">
+                                                <p className="text-white font-medium text-sm text-end">
                                                     Application end date:{" "}
                                                     <span>
                                                         {formatDate(
@@ -164,7 +164,7 @@ const ModalInformation: React.FC<ModalProps> = ({
                                     }}
                                     type="button"
                                     disabled={enrolling}
-                                    className="inline-flex max-h-[45px] max-w-[128px] justify-center rounded-full shadow-sm py-1 px-4 bg-[#673366] text-base font-medium text-white hover:bg-opacity-80 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
+                                    className="inline-flex shadow-lg hover:shadow-xl hover:opacity-80 transition-opacity duration-200 max-h-[45px] max-w-[128px] justify-center rounded-full py-1 px-4 bg-[#673366] text-base font-medium text-white hover:bg-opacity-80 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
                                 >
                                     Cancel
                                 </button>
@@ -177,7 +177,7 @@ const ModalInformation: React.FC<ModalProps> = ({
                                     }}
                                     disabled={enrolling}
                                     type="button"
-                                    className={`inline-flex max-h-[45px] max-w-[128px] justify-center rounded-full shadow-sm px-3 py-1 bg-[#2684FF] text-base font-medium text-white hover:bg-opacity-75 focus:outline-none sm:ml-3 w-auto sm:text-sm ${enrolling ? "min-w-[77.5px]" : null}`}
+                                    className={`inline-flex shadow-lg hover:shadow-xl hover:opacity-80 transition-opacity duration-200 max-h-[45px] max-w-[128px] justify-center rounded-full px-3 py-1 bg-[#2684FF] text-base font-medium text-white hover:bg-opacity-75 focus:outline-none sm:ml-3 w-auto sm:text-sm ${enrolling ? "min-w-[77.5px]" : null}`}
                                 >
                                     {enrolling ? (
                                         <MoonLoader color="#FFFFFF" size={15} />

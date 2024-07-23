@@ -4,8 +4,8 @@ import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import "@styles/scrollbar.css";
 import getAllInstitutions from "@integrations/institution/get_all_institution.ts";
 import InstitutionCard from "@components/Institution/InstitutionCard.tsx";
-import { MoonLoader } from "react-spinners";
 import IAllInstitutions from "@interfaces/institution/IAllInstitutions.ts";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
 
 export default function InstitutionList() {
     const [institutions, setInstitutions] = useState<IAllInstitutions[]>([]);
@@ -98,10 +98,7 @@ export default function InstitutionList() {
                 </div>
             ) : (
                 <div className="flex justify-center items-center mt-[25vh]">
-                    <MoonLoader
-                        color={`${isDarkTheme ? "#fff" : "#000"}`}
-                        size={35}
-                    />
+                    <LoadSpinner />
                 </div>
             )}
         </div>

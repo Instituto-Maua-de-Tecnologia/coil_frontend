@@ -27,7 +27,7 @@ export default function Results() {
         <>
             <div className="max-h-screen flex flex-col">
                 <TitleHeader title={"Results"} />
-                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
+                <div className="flex-grow h-screen me-3 sm:mx-3 mb-3 overflow-hidden flex flex-row">
                     <SideBar />
                     {loaded ? (
                         <ResultList results={results as IResults[]} />

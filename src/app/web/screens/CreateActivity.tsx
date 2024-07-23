@@ -27,7 +27,7 @@ export default function CreateActivity() {
                           : "Create Academic Mobility"
                 }
             />
-            <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
+            <div className="flex-grow h-screen me-3 sm:mx-3 mb-3 overflow-hidden flex flex-row">
                 <SideBar />
                 <CreateActivityForm
                     isEdit={{ edit: isEdit, projectToEdit: {} as IProject }}

@@ -15,6 +15,17 @@ export default function InstitutionList() {
     const [loaded, setLoaded] = useState<boolean>(false);
 
     useEffect(() => {
+        window.addEventListener("beforeunload", handleUnload);
+        return () => {
+            window.removeEventListener("beforeunload", handleUnload);
+        };
+    }, []);
+
+    const handleUnload = () => {
+        localStorage.removeItem("institutions");
+    };
+
+    useEffect(() => {
         async function fetchData() {
             setLoaded(false);
             const cacheKey = "institutions";

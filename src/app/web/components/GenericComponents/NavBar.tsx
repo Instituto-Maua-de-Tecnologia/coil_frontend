@@ -46,6 +46,10 @@ const Navbar = () => {
                     const user = await getUser({ token: token as string });
                     localStorage.setItem("user", JSON.stringify(user));
                     localStorage.setItem("token", token as string);
+                    localStorage.removeItem("project_1");
+                    localStorage.removeItem("project_2");
+                    localStorage.removeItem("project_id");
+                    localStorage.removeItem("institution_id");
                 } else {
                     throw new Error("MissingToken");
                 }

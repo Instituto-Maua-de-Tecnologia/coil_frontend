@@ -21,7 +21,7 @@ export default function Projects() {
                 <TitleHeader
                     title={isCOIL ? "COIL" : "Academic International Mobility"}
                 />
-                <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
+                <div className="flex-grow h-screen me-3 sm:mx-3 mb-3 overflow-hidden flex flex-row">
                     {user_type === UserTypeEnum.ADMIN.valueOf() ||
                     user_type === UserTypeEnum.MODERATOR.valueOf() ? (
                         <>

@@ -76,6 +76,18 @@ export default function ProjectList() {
     const isDarkTheme = useThemeDetector();
 
     useEffect(() => {
+        window.addEventListener("beforeunload", handleUnload);
+        return () => {
+            window.removeEventListener("beforeunload", handleUnload);
+        };
+    }, []);
+
+    const handleUnload = () => {
+        localStorage.removeItem("projects_1");
+        localStorage.removeItem("projects_2");
+    };
+
+    useEffect(() => {
         const fetchProjects = async () => {
             setLoaded(false);
             const cacheKey = `projects_${isCOIL ? "1" : "2"}`;

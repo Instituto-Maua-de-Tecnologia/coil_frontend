@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import {
     devider,
-    //enrolledIcon,
+    enrolledIcon,
     activityIcon,
     homeIcon,
     institutionIcon,
@@ -61,14 +61,14 @@ export const navigation: NavigationItem[] = [
         br: true,
         icon: devider
     },
-    // {
-    //     id: "5",
-    //     title: "Enrolled",
-    //     url: "/Enrolled",
-    //     icon: enrolledIcon,
-    //     smgap: true,
-    //     access: "student"
-    // },
+    {
+        id: "5",
+        title: "Moderators",
+        url: "/CreateModerator",
+        icon: enrolledIcon,
+        smgap: true,
+        access: 2
+    },
     {
         id: "6",
         title: "Results",

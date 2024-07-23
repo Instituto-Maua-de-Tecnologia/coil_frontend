@@ -91,14 +91,14 @@ export default function EnrolledStudentCard({
         <>
             <div className={"text-end"}>
                 <Button
-                    className={"mt-1 mb-2 right-0"}
+                    className={"mt-1 shadow-md mb-3 right-0"}
                     onClick={handleExportApprovedStudents}
                 >
                     Export CSV
                 </Button>
             </div>
             <li
-                className={`sm:flex items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-2 w-full`}
+                className={`sm:flex shadow-sm items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-2 w-full`}
             >
                 <div className="flex sm:relative sm:justify-between w-full">
                     <div className="sm:flex w-full sm:items-center">
@@ -125,7 +125,7 @@ export default function EnrolledStudentCard({
                                             user_applicant.status
                                                 ? "bg-blue-600 text-white"
                                                 : "bg-gray-300 opacity-50 text-black"
-                                        } text-sm px-4 py-2 rounded-full`}
+                                        } text-sm shadow-lg hover:opacity-80 transition-opacity duration-300 px-4 py-2 rounded-full`}
                                     >
                                         Approved
                                     </button>
@@ -140,7 +140,7 @@ export default function EnrolledStudentCard({
                                             !user_applicant.status
                                                 ? "bg-blue-600 text-white"
                                                 : "bg-gray-300 opacity-50 text-black"
-                                        } text-sm px-4 py-2 rounded-full`}
+                                        } text-sm shadow-lg hover:opacity-80 transition-opacity duration-300 px-4 py-2 rounded-full`}
                                     >
                                         Unapproved
                                     </button>
@@ -156,7 +156,7 @@ export default function EnrolledStudentCard({
                     }
                 >
                     <Button
-                        className={"text-center"}
+                        className={"text-center shadow-lg"}
                         onClick={() => sendData()}
                     >
                         Enviar dados

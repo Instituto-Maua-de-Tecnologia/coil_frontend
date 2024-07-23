@@ -48,7 +48,7 @@ export default function ProjectCard({
             onClick={() =>
                 navigate("/COILInfo", { state: { projectID: project.id } })
             }
-            className={`sm:flex shadow-sm items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex transform hover:-translate-y-1 mt-1 transition-transform duration-300 shadow-sm items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
@@ -82,7 +82,7 @@ export default function ProjectCard({
                                                     "Project SVGICon Language" +
                                                     index
                                                 }
-                                                className={`border-[#673366] mt-1 sm:mt-0 flex sm:flex-row border-[1px] pe-1 ps-2 py-1 items-center gap-2 justify-center sm:justify-between rounded-full ${isDarkTheme ? "text-[#8e468d]" : "text-[#673366]"}`}
+                                                className={`border-[#673366] mt-1 sm:mt-0 flex sm:flex-row border-[1px] pe-1 ps-2 py-1 items-center gap-1 justify-center sm:justify-between rounded-full ${isDarkTheme ? "text-[#8e468d]" : "text-[#673366]"}`}
                                             >
                                                 <p className="text-xs me-2">
                                                     {project.language.language}

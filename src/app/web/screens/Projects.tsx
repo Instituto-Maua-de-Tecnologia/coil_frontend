@@ -32,7 +32,7 @@ export default function Projects() {
                             <SpeedDial
                                 model={[
                                     {
-                                        label: "Criar COIL",
+                                        label: `${isCOIL ? "Criar COIL" : "Criar Mobilidade Acadêmica"}`,
                                         icon: "pi pi-file-plus",
                                         command: () => {
                                             navigate("/CreateCOIL", {

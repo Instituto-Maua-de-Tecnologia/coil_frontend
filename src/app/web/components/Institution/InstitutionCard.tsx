@@ -11,7 +11,7 @@ export default function InstitutionCard({ logo, name, id }: IAllInstitutions) {
             onClick={() =>
                 navigate("/InstitutionInfo", { state: { institution: id } })
             }
-            className={`sm:flex shadow-sm cursor-pointer items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex transform hover:-translate-y-1 mt-1 transition-transform duration-300 shadow-sm cursor-pointer items-center ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full sm:min-h-20">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">

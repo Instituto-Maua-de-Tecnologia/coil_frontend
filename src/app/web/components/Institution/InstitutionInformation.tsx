@@ -5,7 +5,8 @@ import getInstitution from "@integrations/institution/get_institution.ts";
 import IInstitution from "@interfaces/institution/IInstitution.ts";
 import { socialMediaIcons } from "@constants/SocialMediaProperties.ts";
 import IUser from "@interfaces/user/IUser.ts";
-import { MoonLoader } from "react-spinners";
+import ImageWithModal from "@components/Modal/ImageWithModal.tsx";
+import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
 
 interface InstitutionInfoProps {
     id: string;
@@ -45,7 +46,7 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                             <img
                                 src={institution?.images[0]}
                                 alt="institution-img"
-                                className="max-w-40 sm:max-w-36 mx-auto sm:-mx-auto object-contain rounded-full "
+                                className="max-w-40 shadow-lg sm:max-w-36 mx-auto sm:-mx-auto object-contain rounded-full "
                             />
                         </div>
                         <div className="2xs:text-center sm:ms-14 md:ms-8 lg:ms-6 sm:text-left self-center p-2 sm:w-4/6">
@@ -59,18 +60,18 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                                 {institution?.email}
                             </a>
                             <div className="flex justify-center sm:justify-start flex-row items-center">
-                                <p className="text-xs mr-2">
+                                <p className="text-xs font-medium mr-2">
                                     {institution?.countries[0].country.country}
                                 </p>
                                 <SVGIcon
                                     src={`https://hatscripts.github.io/circle-flags/flags/${institution?.countries[0].country.country_code}.svg`}
-                                    className="w-4 m-[1px]"
+                                    className="w-4 drop-shadow m-[1px]"
                                 />
                             </div>
                         </div>
                         <div className="sm:text-left mt-16 text-center place-content-center xs:place-items-end pl-10 md:pl-0 pr-10 md:pr-1">
-                            <p>social media:</p>
-                            <div className="flex flex-wrap sm:flex-row gap-3">
+                            <p className={"font-medium"}>social media:</p>
+                            <div className="flex justify-center flex-wrap sm:flex-row gap-3">
                                 {institution?.social_medias.map(
                                     (social_media, index) => (
                                         <a
@@ -82,7 +83,7 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                                             className="text-blue-500 underline"
                                         >
                                             <img
-                                                className="w-6 object-contain h-6"
+                                                className="w-6 object-contain drop-shadow h-6"
                                                 src={
                                                     socialMediaIcons[
                                                         social_media.media.social_media.toLowerCase()
@@ -146,13 +147,10 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                             </div>
                             <div className="custom-scrollbar flex flex-wrap gap-6 pb-32 overflow-auto h-full p-3">
                                 {institution?.images.map((image, index) => (
-                                    <img
+                                    <ImageWithModal
                                         key={"Institution image: " + index}
-                                        src={image}
-                                        className={
-                                            "!rounded-2xl object-contain w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-48"
-                                        }
-                                        alt={"image"}
+                                        image={image}
+                                        index={index}
                                     />
                                 ))}
                             </div>
@@ -160,11 +158,8 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                     </div>
                 </div>
             ) : (
-                <div className="flex w-full h-screen justify-center items-center">
-                    <MoonLoader
-                        color={`${isDarkTheme ? "#fff" : "#000"}`}
-                        size={35}
-                    />
+                <div className="flex w-screen h-screen justify-center items-center">
+                    <LoadSpinner />
                 </div>
             )}
         </>

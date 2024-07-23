@@ -1,6 +1,6 @@
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import getActivity from "@integrations/activity/get_activity.ts";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MoonLoader } from "react-spinners";
 import { format } from "date-fns";
 import { UserTypeEnum } from "@enums/UserTypeEnum.ts";
@@ -131,7 +131,9 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
     }, [id]);
 
     const formatDate = (dateString: string) => {
+        if (!dateString) return "Invalid date";
         const date = new Date(dateString);
+        if (isNaN(date.getTime())) return "Invalid date";
         return format(date, "dd/MM/yyyy");
     };
 
@@ -190,7 +192,9 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                     >
                         <div className="2xs:text-center place-items-center p-2 sm:w-1/6">
                             <img
-                                className={"rounded-full"}
+                                className={
+                                    "object-contain w-52 sm:w-full shadow-lg mx-auto rounded-full"
+                                }
                                 src={
                                     project?.partner_institutions[0]
                                         ?.institution?.images[0]
@@ -199,33 +203,34 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                             ></img>
                         </div>
                         <div className="2xs:text-center sm:text-left p-2 sm:w-4/6">
-                            <div className="font-extrabold">
+                            <div className="font-extrabold mt-[2vh]">
                                 {project.title}
                             </div>
-                            <div className="flex flex-wrap">
+                            <div className="flex justify-center sm:justify-start gap-2 flex-wrap">
                                 {project.languages.map((language, index) => (
-                                    <React.Fragment
+                                    <div
                                         key={"COIL SVGICon Language" + index}
+                                        className={`border-[#673366] mt-1 sm:mt-0 flex sm:flex-row border-[1px] pe-1 ps-2 py-1 gap-1 items-center justify-center sm:justify-start rounded-full ${isDarkTheme ? "text-[#8e468d]" : "text-[#673366]"}`}
                                     >
-                                        <p className={"text-xs"}>
+                                        <p className="text-xs">
                                             {language.language.language}
                                         </p>
                                         <SVGIcon
                                             src={`https://hatscripts.github.io/circle-flags/flags/${language.language.language_code}.svg`}
-                                            className="w-4 m-[1px]"
+                                            className="w-4 drop-shadow m-[1px]"
                                         />
-                                    </React.Fragment>
+                                    </div>
                                 ))}
                             </div>
                             {/*<div className="">{project.partner_institutions[0].institution.country}</div>*/}
                         </div>
-                        <div className="2xs:text-center md:text-right sm:w-1/6">
-                            <div className="">
+                        <div className="flex 2xs:text-center text-start flex-col justify-end md:text-right sm:w-1/6">
+                            <p className="text-center font-medium">
                                 Start Date: {formatDate(project.start_date)}
-                            </div>
-                            <div className="mb-2">
+                            </p>
+                            <p className="text-center mb-2 font-medium">
                                 End Date: {formatDate(project.end_date)}
-                            </div>
+                            </p>
                             {project.status_activity === 2 && (
                                 <>
                                     {userToken?.user_type ===
@@ -256,7 +261,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                                                 }
                                             })
                                         }
-                                        className="bg-blue-500 text-white text-sm px-4 py-2 rounded-full"
+                                        className="bg-blue-500 shadow-lg text-white text-sm px-4 py-2 rounded-full"
                                     >
                                         View Enrolled Students
                                     </button>

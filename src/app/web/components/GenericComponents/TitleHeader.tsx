@@ -8,7 +8,8 @@ import {
     projectIcon,
     resultsIcon,
     signOutIcon,
-    userIcon
+    userIcon,
+    enrolledIcon
 } from "@assets/icons";
 import { useThemeDetector } from "@functions/ThemeDetector.ts";
 import { navigation } from "@constants/SideBarProperties.ts";
@@ -53,12 +54,12 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                   {
                       to: "/User",
                       label:
-                          navigation[6].title === "" && getUserName() !== null
+                          navigation[7].title === "" && getUserName() !== null
                               ? (getUserName() as string).substring(
                                     0,
                                     (getUserName() as string).indexOf(" ")
                                 )
-                              : navigation[6].title,
+                              : navigation[7].title,
                       icon: userIcon
                   },
                   { to: "/Signout", label: "Sign Out", icon: signOutIcon }
@@ -79,14 +80,19 @@ export default function TitleHeader({ title, className }: TitleHeaderProps) {
                   },
                   { to: "/Mobilities", label: "Mobility", icon: activityIcon },
                   {
+                      to: "/CreateModerator",
+                      label: "Moderators",
+                      icon: enrolledIcon
+                  },
+                  {
                       to: "/User",
                       label:
-                          navigation[6].title === "" && getUserName() !== null
+                          navigation[7].title === "" && getUserName() !== null
                               ? (getUserName() as string).substring(
                                     0,
                                     (getUserName() as string).indexOf(" ")
                                 )
-                              : navigation[6].title,
+                              : navigation[7].title,
                       icon: userIcon
                   },
                   { to: "/Signout", label: "Sign Out", icon: signOutIcon }

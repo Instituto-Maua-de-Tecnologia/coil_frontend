@@ -69,17 +69,17 @@ export default function CreateModeratorForm() {
             {(JSON.parse(localStorage.getItem("user") as string) as IUser)
                 ?.user_type === UserTypeEnum.ADMIN.valueOf() ? (
                 <>
-                    <div className="flex mb-2 gap-2 justify-center">
+                    <div className="flex flex-col sm:flex-row mb-2 justify-evenly">
                         <Button
                             onClick={() => setActiveIndex(0)}
-                            className="w-2rem me-10 p-5 h-2rem"
+                            className="w-2rem shadow-lg p-5 h-2rem"
                             icon="pi pi-user ml-2"
                             outlined={activeIndex !== 0}
                             label="Create Moderator"
                         />
                         <Button
                             onClick={() => setActiveIndex(1)}
-                            className="w-2rem ms-10 p-5 h-2rem"
+                            className="w-2rem shadow-lg mt-5 sm:mt-0 p-5 h-2rem"
                             icon="pi pi-search mr-2"
                             outlined={activeIndex !== 1}
                             label="View Moderators"
@@ -92,14 +92,14 @@ export default function CreateModeratorForm() {
                         onTabChange={(e) => setActiveIndex(e.index)}
                     >
                         <TabPanel disabled unstyled>
-                            <div className="w-full mt-52 flex justify-center items-center">
-                                <div className="flex flex-col items-center">
+                            <div className="w-full mt-[5vh] md:h-[50vh] flex !justify-center !items-center">
+                                <div className="!flex !flex-col items-center w-full items-center">
                                     <FloatLabel>
                                         <InputText
                                             id="name"
                                             value={name}
                                             onChange={handleNameChange}
-                                            className={`w-96`}
+                                            className={`shadow-md w-full sm:w-96`}
                                         />
                                         <label htmlFor="name">Name</label>
                                     </FloatLabel>
@@ -109,14 +109,14 @@ export default function CreateModeratorForm() {
                                             id="email"
                                             value={email}
                                             onChange={handleEmailChange}
-                                            className={`${error ? "p-invalid" : ""} w-96`}
+                                            className={`${error ? "p-invalid" : ""} shadow-md w-full sm:w-96`}
                                         />
                                         <label htmlFor="email">E-mail</label>
                                     </FloatLabel>
                                     <Button
                                         disabled={error !== ""}
                                         onClick={handleModeratorButton}
-                                        className={`mt-6 ${error ? "!disabled:cursor-not-allowed disabled:opacity-50" : "cursor-pointer"}`}
+                                        className={`mt-[2vh] drop-shadow-lg ${error ? "!disabled:cursor-not-allowed disabled:opacity-50" : "cursor-pointer"}`}
                                     >
                                         Create Moderator
                                     </Button>

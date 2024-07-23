@@ -49,7 +49,7 @@ export default function HomepageCard({
                     { state: { projectID: project.id } }
                 )
             }
-            className={`sm:flex shadow-sm items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
+            className={`sm:flex transform hover:-translate-y-1 mt-1 transition-transform duration-300 shadow-sm items-center cursor-pointer ${isDarkTheme ? "bg-[#0F1820]" : "bg-[#F0F3FB]"} rounded-3xl p-4 mb-4 w-full`}
         >
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">

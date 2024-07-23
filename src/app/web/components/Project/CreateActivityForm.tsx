@@ -395,7 +395,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                             <label htmlFor="projectName">Project Name</label>
                             <input
                                 ref={projectNameRef}
-                                className={`${isDarkTheme ? "placeholder:text-[#CBD0DD] bg-[#223A4F]" : "placeholder:text-[#0F1820] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6`}
+                                className={`${isDarkTheme ? "placeholder:text-[#CBD0DD] bg-[#223A4F]" : "placeholder:text-[#0F1820] bg-[#F0F3FB]"} shadow-sm focus:outline transition-all duration-75 outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6`}
                                 type="text"
                                 placeholder="Type the name..."
                             />
@@ -438,8 +438,8 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                     />
                                 </div>
                             </div>
-                            <div className="form-row-3-2 md:flex w-full">
-                                <div className="application-start-date flex flex-col mx-2 space-y-2 w-[52%]">
+                            <div className="form-row-3-2 flex-col sm:flex-row flex w-full">
+                                <div className="application-start-date text-nowrap flex h-1 sm:mt-0 mb-24 mt-5 w-full flex-col mx-2 space-y-2 sm:w-[52%]">
                                     <label htmlFor="applicationStartDate">
                                         Application Period
                                     </label>
@@ -464,7 +464,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                         hideOnRangeSelection
                                     />
                                 </div>
-                                <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
+                                <div className="application-end-date text-nowrap flex sm:mt-0 flex-col mx-2 space-y-2 h-1 mb-24 sm:w-[24%]">
                                     <label htmlFor="applicationEndDate">
                                         Start Time
                                     </label>
@@ -488,7 +488,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                         }}
                                     />
                                 </div>
-                                <div className="application-end-date flex flex-col mx-2 space-y-2 w-[24%]">
+                                <div className="application-end-date h-1 w-full text-nowrap sm:mt-0 mb-24 flex flex-col mx-2 space-y-2 sm:w-[24%]">
                                     <label htmlFor="applicationEndDate">
                                         End Time
                                     </label>
@@ -521,7 +521,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 </label>
                                 <textarea
                                     ref={projectDescriptionRef}
-                                    className={`${isDarkTheme ? "placeholder:text-[#CBD0DD] bg-[#223A4F]" : "placeholder:text-[#0F1820] bg-[#F0F3FB]"} focus:outline outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6 py-3 resize-none`}
+                                    className={`${isDarkTheme ? "placeholder:text-[#CBD0DD] bg-[#223A4F]" : "placeholder:text-[#0F1820] bg-[#F0F3FB]"} focus:outline transition-all duration-75 outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6 py-3 resize-none`}
                                     placeholder="Type the description..."
                                     rows={18}
                                 />
@@ -538,10 +538,9 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 />
                             </div>
                         </div>
-                        <div className="button-row flex">
-                            <div className="w-full"></div>
+                        <div className="button-row w-full justify-between sm:justify-end flex">
                             <button
-                                className="confirm w-[110px] text-white px-4 p-2 bg-[#673366] me-5 rounded-3xl"
+                                className="confirm shadow-lg hover:opacity-80 transition-opacity duration-300 w-[110px] text-white px-4 p-2 bg-[#673366] me-5 rounded-3xl"
                                 onClick={() =>
                                     navigate(
                                         isProject ? "/COIL" : "/Mobilities"
@@ -551,7 +550,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                                 Voltar
                             </button>
                             <button
-                                className="confirm text-white px-4 p-2 bg-[#2684ff] rounded-3xl"
+                                className="confirm shadow-lg hover:opacity-80 transition-opacity duration-300 text-white px-4 p-2 bg-[#2684ff] rounded-3xl"
                                 onClick={handlePost}
                             >
                                 Confirmar

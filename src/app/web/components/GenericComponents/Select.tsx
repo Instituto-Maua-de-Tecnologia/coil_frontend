@@ -66,7 +66,7 @@ export default function Select({
             onBlur={() => setShowingOptions(false)}
             onClick={() => setShowingOptions(!showingOptions)}
             tabIndex={0}
-            className={`relative w-full min-h-[1.5em] flex items-center focus:outline focus:outline-2 focus:outline-[#2684FF] gap-[.5em] p-[.5em] rounded-3xl ${isDarkTheme ? "bg-[#223A4F]" : "bg-[#CBD0DD]"}`}
+            className={`relative shadow-sm w-full min-h-[1.5em] flex items-center focus:outline focus:outline-2 focus:outline-[#2684FF] gap-[.5em] p-[.5em] rounded-3xl ${isDarkTheme ? "bg-[#223A4F]" : "bg-[#CBD0DD]"}`}
         >
             <span
                 className={`flex-grow flex gap-[.5em] flex-wrap px-4 ${multiple ? "font-bold" : "font-normal text-[#0F1820]"}`}
@@ -75,7 +75,7 @@ export default function Select({
                     value.length > 0 ? (
                         value.map((v) => (
                             <button
-                                className="flex items-center bg-[#673366] rounded-3xl py-[.25em] px-4 gap-[.5em] hover:bg-[#DC143C]"
+                                className="flex items-center text-white bg-[#673366] rounded-3xl py-[.25em] px-4 gap-[.5em] hover:bg-[#DC143C]"
                                 key={v.value}
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -83,7 +83,7 @@ export default function Select({
                                 }}
                             >
                                 {v.label}
-                                <span>&times;</span>
+                                <span className={"text-red-700"}>&times;</span>
                             </button>
                         ))
                     ) : (
@@ -106,7 +106,7 @@ export default function Select({
                         clearOptions();
                         setShowingOptions(false);
                     }}
-                    className="text-[#FFFFFF] hover:text-[#2684FF] focus:text-[#2684FF] text-xl"
+                    className="text-red-600 hover:text-[#2684FF] focus:text-[#2684FF] text-xl"
                 >
                     &times;
                 </button>
@@ -142,7 +142,7 @@ export default function Select({
                                   onMouseEnter={() =>
                                       setHighlightedIndex(index)
                                   }
-                                  className={`${value.some((o) => o.label == option.label) ? "hidden" : "block"} ${isDarkTheme ? "" : "text-white"} bg-[#673366] hover:bg-[#532352] py-[.25em] px-4 m-1 cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
+                                  className={`${value.some((o) => o.label == option.label) ? "hidden" : "block"} ${isDarkTheme ? "" : "!text-white"} bg-[#673366] hover:bg-[#532352] py-[.25em] px-4 m-1 cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
                                   key={option.value}
                               >
                                   {option.label}
@@ -158,7 +158,7 @@ export default function Select({
                                   onMouseEnter={() =>
                                       setHighlightedIndex(index)
                                   }
-                                  className={`${value === option ? "hidden" : "block"} px-[.25em] ${isDarkTheme ? "" : "text-white"} pl-4 py-[.5em] cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
+                                  className={`${value === option ? "hidden" : "block"} px-[.25em] ${isDarkTheme ? "" : "!text-white"} pl-4 py-[.5em] cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
                                   key={option.value}
                               >
                                   {option.label}

@@ -56,7 +56,7 @@ export default function AppRoutes() {
         []
     );
     const [location, setLocation] = useState(
-        window.location.pathname.replace("/", "")
+        window.location.pathname.replace(/^\/+|\/+$/g, "")
     );
     const token = localStorage.getItem("token");
 
@@ -67,20 +67,24 @@ export default function AppRoutes() {
             ) as IUser;
             if (
                 userToken === null &&
-                adminPages.includes(window.location.pathname.replace("/", ""))
+                adminPages.includes(
+                    window.location.pathname.replace(/^\/+|\/+$/g, "")
+                )
             )
                 window.history.back();
             if (
                 (userToken?.user_type as UserTypeEnum) !== UserTypeEnum.ADMIN &&
                 (userToken?.user_type as UserTypeEnum) !==
                     UserTypeEnum.MODERATOR &&
-                adminPages.includes(window.location.pathname.replace("/", ""))
+                adminPages.includes(
+                    window.location.pathname.replace(/^\/+|\/+$/g, "")
+                )
             ) {
                 window.history.back();
             }
         };
         const handleLocationChange = () => {
-            setLocation(window.location.pathname.replace("/", ""));
+            setLocation(window.location.pathname.replace(/^\/+|\/+$/g, ""));
         };
         const pushState = window.history.pushState.bind(window.history);
         const replaceState = window.history.replaceState.bind(window.history);
@@ -112,7 +116,9 @@ export default function AppRoutes() {
 
     useEffect(() => {
         if (
-            possibleRoutes.includes(window.location.pathname.replace("/", ""))
+            possibleRoutes.includes(
+                window.location.pathname.replace(/^\/+|\/+$/g, "")
+            )
         ) {
             if (
                 !localStorage.getItem("user") ||

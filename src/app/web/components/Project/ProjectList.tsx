@@ -18,7 +18,8 @@ export default function ProjectList() {
     const [enrolledProjectsIds, setEnrolledProjectsIds] = useState<string[]>(
         []
     );
-    const isCOIL = window.location.pathname.replace("/", "") === "COIL";
+    const isCOIL =
+        window.location.pathname.replace(/^\/+|\/+$/g, "") === "COIL";
     const [loaded, setLoaded] = useState<boolean>(false);
     const [filteredProjects, setFilteredProjects] = useState<IAllProjects[]>(
         []

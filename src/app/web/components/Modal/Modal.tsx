@@ -178,7 +178,7 @@ const Modal: React.FC<ModalProps> = ({
                                     }}
                                     disabled={enrolling}
                                     type="button"
-                                    className={`inline-fex hover:opacity-80 transition-opacity duration-300 shadow-lg max-h-[45px] w-full sm:w-[90px] justify-center rounded-full px-3 py-1 bg-[#2684FF] text-base font-medium text-white focus:outline-none sm:ml-3 sm:text-sm ${enrolling ? "min-w-[77.5px]" : null}`}
+                                    className={`inline-flex hover:opacity-80 transition-opacity duration-300 shadow-lg max-h-[45px] w-full sm:w-[90px] justify-center rounded-full px-3 py-1 bg-[#2684FF] text-base font-medium text-white focus:outline-none sm:ml-3 sm:text-sm ${enrolling ? "min-w-[77.5px]" : null}`}
                                 >
                                     {enrolling ? (
                                         <MoonLoader color="#FFFFFF" size={15} />

@@ -54,7 +54,7 @@ export default function HomepageCard({
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     {project.partner_institutions?.[0]?.institution?.images[0]
-                        .image !== undefined && (
+                        .image !== null && (
                         <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
                             <img
                                 src={

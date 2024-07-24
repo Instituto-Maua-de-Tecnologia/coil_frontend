@@ -91,8 +91,8 @@ const ModalInformation: React.FC<ModalProps> = ({
                                         </h3>
                                         <div className="mt-2 flex flex-row justify-between">
                                             <div className="flex flex-col justify-end">
-                                                <div className="flex flex-row items-center">
-                                                    <p className="text-sm text-medium pe-2 text-white mr-2">
+                                                <div className="flex flex-wrap flex-row items-center">
+                                                    <p className="text-sm text-medium text-white mr-2">
                                                         Languages
                                                     </p>
                                                     {project.languages?.map(

@@ -12,7 +12,8 @@ export default function Projects() {
     const user_type = (
         JSON.parse(localStorage.getItem("user") as string) as IUser
     )?.user_type;
-    const isCOIL = window.location.pathname.replace("/", "") === "COIL";
+    const isCOIL =
+        window.location.pathname.replace(/^\/+|\/+$/g, "") === "COIL";
 
     const navigate = useNavigate();
     return (

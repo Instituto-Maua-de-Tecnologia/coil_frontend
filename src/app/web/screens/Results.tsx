@@ -4,8 +4,14 @@ import ResultList from "@components/Result/ResultList.tsx";
 import { useEffect, useState } from "react";
 import getAllActivitiesEnrolled from "@integrations/activity/student/get_all_activities_enrolled.ts";
 import IResults from "@interfaces/results/IResults.ts";
-import { AxiosError } from "axios";
 import { LoadSpinner } from "@components/GenericComponents/LoadSpinner.tsx";
+
+interface IActivity {
+    id: number;
+    name: string;
+}
+
+type IResultsPromise = IActivity[];
 
 export default function Results() {
     const [results, setResults] = useState<IResults>();
@@ -13,12 +19,17 @@ export default function Results() {
 
     useEffect(() => {
         const handleResults = async () => {
-            const resultsValues = (await getAllActivitiesEnrolled({
-                type_activity: 2
-            })
-                .catch((e: AxiosError) => console.error(e.message))
-                .finally(() => setLoaded(true))) as IResults;
-            setResults(resultsValues);
+            const resultsValues = await Promise.all([
+                (await getAllActivitiesEnrolled({
+                    type_activity: 1
+                })) as Promise<IResultsPromise>,
+                (await getAllActivitiesEnrolled({
+                    type_activity: 2
+                })) as Promise<IResultsPromise>
+            ]);
+            const combinedResults = [...resultsValues[0], ...resultsValues[1]];
+            setResults(combinedResults as IResults);
+            setLoaded(true);
         };
         void handleResults();
     }, []);

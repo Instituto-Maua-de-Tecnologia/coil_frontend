@@ -32,12 +32,30 @@ export default function ResultCard({ result }: ResultCardProps) {
                         </div>
                     ))}
                     <div className="flex flex-col">
-                        <div className="mb-2 sm:text-start font-bold">
+                        <div className="inline-flex flex-row mb-2 text-center sm:text-start font-bold w-full justify-center sm:justify-normal">
                             {title}
+                            <div
+                                title={
+                                    result.type_activity === 1
+                                        ? "COIL"
+                                        : "Mobility"
+                                }
+                                className={`w-auto flex min-h-10 max-h-10 shadow  sm:h-full justify-center items-center rounded-full p-1 px-2 ml-2 text-xs font-medium ${
+                                    result.type_activity === 1
+                                        ? `${isDarkTheme ? "bg-blue-50 text-blue-700" : "bg-blue-200 text-blue-700"}`
+                                        : "bg-yellow-50 text-yellow-700"
+                                }`}
+                            >
+                                {result.type_activity === 1
+                                    ? "COIL"
+                                    : "Mobility"}
+                            </div>
                         </div>
                         <div className="flex mb-2 w-full sm:justify-start justify-center">
                             <div className="flex sm:justify-start justify-center font-medium flex-wrap items-center">
-                                <p className="text-xs mr-2">Languages:</p>
+                                <p className="text-xs font-medium mr-2">
+                                    Languages:
+                                </p>
                                 {result.languages?.map((language, index) => (
                                     <SVGIcon
                                         key={"ResultCard SVGIcon " + index}

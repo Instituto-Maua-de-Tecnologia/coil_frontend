@@ -142,7 +142,7 @@ export default function HomepageCard({
                                 disabled={
                                     project.activity_status.name !== "Apply Now"
                                 }
-                                className="bg-blue-500 w-full py-3 my-2 shadow-lg hover:shadow-xl transition-shadow duration-300 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 sm:py-2 rounded-full"
+                                className="bg-blue-500 w-full py-3 my-2 shadow-lg hover:shadow-xl hover:opacity-80 transition-opacity duration-300 disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm px-4 sm:py-2 rounded-full"
                             >
                                 <span
                                     title={
@@ -162,7 +162,7 @@ export default function HomepageCard({
                                     project.activity_status.name ===
                                     "Coming Soon"
                                 }
-                                className={`shadow-lg w-full hover:shadow-xl transition-shadow duration-300 bg-blue-500 text-white ${project.activity_status.name === "Apply Now" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-sm px-4 py-2 rounded-full`}
+                                className={`shadow-lg w-full hover:shadow-xl hover:opacity-80 transition-opacity duration-300 bg-blue-500 text-white ${project.activity_status.name === "Apply Now" ? "" : "disabled:opacity-50 disabled:cursor-not-allowed"} text-sm px-4 py-2 rounded-full`}
                             >
                                 View Enrolled Students
                             </button>

@@ -118,16 +118,38 @@ export default function HomepageList() {
                 projects.length > 0 ? (
                     <div>
                         {filteredProjects.length > 0 ? (
-                            <ul className="w-full max-h-[428px] pb-10 pe-5 custom-scrollbar overflow-y-auto">
-                                {filteredProjects.map((project) => (
-                                    <HomepageCard
-                                        key={"ProjectCardKey " + project.id}
-                                        project={project}
-                                        enrolled={handleVerifyEnrollment(
-                                            project.id
+                            <ul className="w-full max-h-[428px] pe-5 custom-scrollbar overflow-y-auto">
+                                {filteredProjects.map((project, index) => (
+                                    <>
+                                        {filteredProjects.length ===
+                                        index + 1 ? (
+                                            <div className={"sm:mb-96"}>
+                                                <HomepageCard
+                                                    key={
+                                                        "ProjectCardKey " +
+                                                        project.id
+                                                    }
+                                                    project={project}
+                                                    enrolled={handleVerifyEnrollment(
+                                                        project.id
+                                                    )}
+                                                    onClick={handleModalOpen}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <HomepageCard
+                                                key={
+                                                    "ProjectCardKey " +
+                                                    project.id
+                                                }
+                                                project={project}
+                                                enrolled={handleVerifyEnrollment(
+                                                    project.id
+                                                )}
+                                                onClick={handleModalOpen}
+                                            />
                                         )}
-                                        onClick={handleModalOpen}
-                                    />
+                                    </>
                                 ))}
                             </ul>
                         ) : (

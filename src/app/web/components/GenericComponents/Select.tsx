@@ -66,10 +66,10 @@ export default function Select({
             onBlur={() => setShowingOptions(false)}
             onClick={() => setShowingOptions(!showingOptions)}
             tabIndex={0}
-            className={`relative shadow-sm w-full min-h-[1.5em] flex items-center focus:outline focus:outline-2 focus:outline-[#2684FF] gap-[.5em] p-[.5em] rounded-3xl ${isDarkTheme ? "bg-[#223A4F]" : "bg-[#CBD0DD]"}`}
+            className={`relative shadow-sm w-full min-h-[1.5em] flex items-center focus:outline focus:outline-2 ${isDarkTheme ? "bg-[#223A4F] focus:outline-[#2684FF]" : "bg-[#F0F3FB] focus:outline-[#73AFFF]"} focus:outline-[#2684FF] gap-[.5em] p-[.5em] rounded-3xl`}
         >
             <span
-                className={`flex-grow flex gap-[.5em] flex-wrap px-4 ${multiple ? "font-bold" : "font-normal text-[#0F1820]"}`}
+                className={`flex-grow flex gap-[.5em] flex-wrap px-4 ${multiple ? "font-bold" : isDarkTheme ? "font-normal text-[#CBD0DD]" : "font-normal text-[#0F1820]"}`}
             >
                 {multiple ? (
                     value.length > 0 ? (
@@ -120,9 +120,9 @@ export default function Select({
             <div
                 className={
                     (showingOptions
-                        ? "block border-2 border-[#2684FF]"
+                        ? `block border-2 ${isDarkTheme ? "border-[#2684FF]" : "border-[#73AFFF]"}`
                         : "hidden") +
-                    (isDarkTheme ? " absolute bg-[#223A4F]" : " bg-[#CBD0DD]") +
+                    (isDarkTheme ? " absolute bg-[#223A4F]" : " bg-[#F0F3FB]") +
                     " rounded-3xl w-full left-0 top-[115%] z-[99] p-4"
                 }
             >
@@ -142,7 +142,7 @@ export default function Select({
                                   onMouseEnter={() =>
                                       setHighlightedIndex(index)
                                   }
-                                  className={`${value.some((o) => o.label == option.label) ? "hidden" : "block"} ${isDarkTheme ? "" : "!text-white"} bg-[#673366] hover:bg-[#532352] py-[.25em] px-4 m-1 cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
+                                  className={`${value.some((o) => o.label == option.label) ? "hidden" : "block"} ${isDarkTheme ? "" : "!text-white"} shadow transition-all duration-300 bg-[#673366] hover:bg-[#532352] py-[.25em] px-4 m-1 cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
                                   key={option.value}
                               >
                                   {option.label}
@@ -158,7 +158,7 @@ export default function Select({
                                   onMouseEnter={() =>
                                       setHighlightedIndex(index)
                                   }
-                                  className={`${value === option ? "hidden" : "block"} px-[.25em] ${isDarkTheme ? "" : "!text-white"} pl-4 py-[.5em] cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
+                                  className={`${value === option ? "hidden" : "block"} px-[.25em] ${isDarkTheme ? "" : "!text-white"} transition-all duration-300 pl-4 py-[.5em] cursor-pointer rounded-3xl ${index === highlitedIndex ? "bg-[#14222E]" : ""} ${isOptionSelected(option) ? "bg-[#2684FF]" : ""}`}
                                   key={option.value}
                               >
                                   {option.label}

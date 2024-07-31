@@ -81,13 +81,27 @@ export default function InstitutionList() {
                 <div>
                     {filteredInstitutions.length > 0 ? (
                         <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                            {filteredInstitutions.map((institution) => (
-                                <InstitutionCard
-                                    key={institution.id}
-                                    logo={institution.logo}
-                                    name={institution.name}
-                                    id={institution.id}
-                                />
+                            {filteredInstitutions.map((institution, index) => (
+                                <>
+                                    {filteredInstitutions.length ===
+                                    index + 1 ? (
+                                        <div className={"sm:mb-96"}>
+                                            <InstitutionCard
+                                                key={institution.id}
+                                                logo={institution.logo}
+                                                name={institution.name}
+                                                id={institution.id}
+                                            />
+                                        </div>
+                                    ) : (
+                                        <InstitutionCard
+                                            key={institution.id}
+                                            logo={institution.logo}
+                                            name={institution.name}
+                                            id={institution.id}
+                                        />
+                                    )}
+                                </>
                             ))}
                         </ul>
                     ) : (

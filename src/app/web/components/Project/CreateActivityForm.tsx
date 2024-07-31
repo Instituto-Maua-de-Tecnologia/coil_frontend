@@ -155,11 +155,6 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
     const navigate = useNavigate();
     const isDarkTheme = useThemeDetector();
 
-    //TODO:
-    //fazer verificação do: titulo(não pode ser repetido(dar um get para saber quais titulos estão em uso),
-    //imagens(base64),
-    //mandar informações usando dateTime() formato dd/mm/yy)
-
     useEffect(() => {
         const handleGetAllCoursesAndInstitutions = async () => {
             try {
@@ -558,7 +553,7 @@ const CreateActivityForm = ({ isProject }: ActivityFormProps) => {
                         </div>
                     </div>
                 ) : (
-                    <div className="flex mt-[19%] fill-slate-500 justify-center items-center">
+                    <div className="flex fixed inset-0 h-screen justify-center items-center">
                         <LoadSpinner />
                     </div>
                 )}

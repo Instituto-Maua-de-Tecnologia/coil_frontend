@@ -37,11 +37,22 @@ export default function ResultList({ results }: IResultsProps) {
             {filteredResults?.length > 0 ? (
                 <div>
                     <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                        {results?.map((result) => (
-                            <ResultCard
-                                key={result.id as string}
-                                result={result}
-                            />
+                        {results?.map((result, index) => (
+                            <>
+                                {results.length === index + 1 ? (
+                                    <div className={"sm:mb-96"}>
+                                        <ResultCard
+                                            key={result.id as string}
+                                            result={result}
+                                        />
+                                    </div>
+                                ) : (
+                                    <ResultCard
+                                        key={result.id as string}
+                                        result={result}
+                                    />
+                                )}
+                            </>
                         ))}
                     </ul>
                 </div>

@@ -15,7 +15,6 @@ interface InstitutionInfoProps {
 export default function InstitutionInformation({ id }: InstitutionInfoProps) {
     const [institution, setInstitution] = useState<IInstitution>();
     const [loaded, setLoaded] = useState(false);
-
     const isDarkTheme = useThemeDetector();
 
     useEffect(() => {

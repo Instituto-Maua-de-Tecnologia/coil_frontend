@@ -1,5 +1,6 @@
 import TitleHeader from "@components/GenericComponents/TitleHeader.tsx";
 import SideBar from "@components/GenericComponents/SideBar.tsx";
+import CreateInstitutionForm from "@components/Institution/CreateInstitutionForm.tsx";
 
 export default function CreateInstitution() {
     return (
@@ -7,6 +8,7 @@ export default function CreateInstitution() {
             <TitleHeader title={"Criar Instituição"} />
             <div className="flex-grow h-screen mx-3 mb-3 overflow-hidden flex flex-row">
                 <SideBar />
+                <CreateInstitutionForm />
             </div>
         </div>
     );

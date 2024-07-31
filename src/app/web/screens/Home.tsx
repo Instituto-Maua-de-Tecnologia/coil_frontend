@@ -82,6 +82,20 @@ export default function Home() {
                                                 }
                                             },
                                             {
+                                                label: "Criar Instituição",
+                                                icon: "pi pi-building",
+                                                command: () => {
+                                                    navigate(
+                                                        "/CreateInstitution",
+                                                        {
+                                                            state: {
+                                                                type_activity: 1
+                                                            }
+                                                        }
+                                                    );
+                                                }
+                                            },
+                                            {
                                                 label:
                                                     userToken.user_type === 3
                                                         ? "Criar Moderador"

@@ -1,27 +1,15 @@
 export default interface IInstitutionRequirements {
-    courses: [
+    countries: [
         {
             id: number;
-            course: string;
+            country: string;
+            country_code: string;
         }
     ];
-    criterias: [
+    social_medias: [
         {
             id: number;
-            criteria: string;
-        }
-    ];
-    languages: [
-        {
-            id: number;
-            language: string;
-            language_code: string;
-        }
-    ];
-    institutions: [
-        {
-            id?: string;
-            name?: string;
+            social_media: string;
         }
     ];
 }

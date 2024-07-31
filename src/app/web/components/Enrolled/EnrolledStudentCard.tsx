@@ -43,7 +43,7 @@ export default function EnrolledStudentCard({
             }),
             {
                 loading: `Mudando o status dos usuários...`,
-                success: <b>Status dos usuários alterados com sucesso</b>,
+                success: <b>Status dos usuários alterados com sucesso!</b>,
                 error: (error: Error) => error.message
             }
         );

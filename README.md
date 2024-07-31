@@ -4,6 +4,7 @@ Frontend for the Coil project, a platform for managing and monitoring the
 courses of Maua.
 
 # ACESS THE WEBSITE 💻
+
 👉🏼<a href="https://dev.d573vqbdvj3o5.amplifyapp.com/">COIL website</a>👈🏼
 
 # TECH STACK <picture><source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.webp" type="image/webp"><img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="32" height="32"></picture>

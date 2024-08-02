@@ -37,7 +37,7 @@ export default function ResultList({ results }: IResultsProps) {
             {filteredResults?.length > 0 ? (
                 <div>
                     <ul className="w-full max-h-screen pb-48 pe-5 custom-scrollbar overflow-y-auto">
-                        {results?.map((result, index) => (
+                        {filteredResults?.map((result, index) => (
                             <>
                                 {results.length === index + 1 ? (
                                     <div className={"sm:mb-96"}>

@@ -70,7 +70,7 @@ const Footer: React.FC = () => {
                 <div className="flex justify-between sm:w-[300px] pt-4 text-2xl ">
                     {items.map((x: FooterItem, index: number) => {
                         const Icon = x.icon;
-                        const Link = x.link;
+                        const Link = x.social_media;
                         return (
                             <a
                                 key={"Footer: " + index}

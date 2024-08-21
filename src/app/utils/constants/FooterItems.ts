@@ -9,7 +9,7 @@ export interface FooterSection {
 export interface FooterItem {
     name: string;
     icon: IconType;
-    link: string;
+    social_media: string;
 }
 
 export const sections: FooterSection[] = [

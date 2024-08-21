@@ -53,7 +53,7 @@ export default function ProjectInformation({ id }: ProjectInfoProps) {
                         }
                     ],
                     images: [],
-                    link: [
+                    social_medias: [
                         {
                             id: 0,
                             media: {

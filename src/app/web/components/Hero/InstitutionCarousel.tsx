@@ -28,7 +28,7 @@ export default function InstitutionCarousel({
                             <TrackItem
                                 key={"CatalogInstitution: " + index}
                                 trackItem={{
-                                    imgUrl: trackItem.images[index],
+                                    imgUrl: trackItem.images[0],
                                     title: trackItem.name
                                 }}
                             />

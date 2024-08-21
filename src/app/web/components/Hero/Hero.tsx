@@ -32,6 +32,7 @@ const Hero: React.FC = () => {
 
     const [loaded, setLoaded] = useState(false);
     const [catalog, setCatalog] = useState<ICatalog>();
+    console.log(catalog);
 
     const handleGetAllProjectsCatalog = async () => {
         try {

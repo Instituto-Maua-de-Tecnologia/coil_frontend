@@ -37,16 +37,16 @@ export const items: FooterItem[] = [
     {
         name: "Github",
         icon: FaGithub,
-        link: "https://github.com/Instituto-Maua-de-Tecnologia/"
+        social_media: "https://github.com/Instituto-Maua-de-Tecnologia/"
     },
     {
         name: "Youtube",
         icon: FaYoutube,
-        link: "https://www.youtube.com/infomaua"
+        social_media: "https://www.youtube.com/infomaua"
     },
     {
         name: "Instagram",
         icon: FaInstagram,
-        link: "https://www.instagram.com/infomaua/"
+        social_media: "https://www.instagram.com/infomaua/"
     }
 ];

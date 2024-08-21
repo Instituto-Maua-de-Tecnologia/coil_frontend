@@ -50,7 +50,7 @@ export default function ViewEnrolledStudents() {
                     id: "",
                     images: [],
                     name: "",
-                    social_medias: [
+                    link: [
                         { id: 0, link: "", media: { id: 0, social_media: "" } }
                     ]
                 }

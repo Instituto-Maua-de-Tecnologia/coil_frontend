@@ -16,6 +16,9 @@ import {
 import { FaXTwitter } from "react-icons/fa6";
 import { IconType } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
+import createInstitution from "@integrations/institution/admin&moderator/create_institution.ts";
+import getCountryIdByName from "@formatters/formatCountry.ts";
+import toast from "react-hot-toast";
 
 // Essa ordem deve ser mantida
 const iconMap: Record<string, IconType> = {
@@ -36,13 +39,14 @@ export default function CreateInstitutionForm() {
         IInstitutionRequirements["social_medias"]
     >([{ id: 0, social_media: "" }]);
     const [selectedSocialMedias, setSelectedSocialMedias] = useState([
-        { id: 0, social_media: "" }
+        { id: 0, link: "" }
     ]);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
     const [loaded, setLoaded] = useState(false);
 
     const institutionNameRef = useRef<HTMLInputElement>(null);
     const institutionEmailRef = useRef<HTMLInputElement>(null);
+    const institutionDescriptionRef = useRef<HTMLTextAreaElement>(null);
     const socialMediaRefs = useRef<{ [key: string]: HTMLInputElement | null }>(
         {}
     );
@@ -73,15 +77,7 @@ export default function CreateInstitutionForm() {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const files = Array.from(e.target.files);
-            const validImageTypes = [
-                "image/png",
-                "image/jpeg",
-                "image/jpg",
-                "image/svg+xml",
-                "image/bmp",
-                "image/x-icon",
-                "image/webp"
-            ];
+            const validImageTypes = ["image/png", "image/jpeg", "image/jpg"];
 
             const validFiles = files.filter((file) =>
                 validImageTypes.includes(file.type)
@@ -91,13 +87,28 @@ export default function CreateInstitutionForm() {
                 alert("Alguns arquivos não são válidos e foram ignorados.");
             }
 
-            const filePreviews = validFiles.map((file) =>
-                URL.createObjectURL(file)
-            );
-            setImagePreviews((prevPreviews) => [
-                ...prevPreviews,
-                ...filePreviews
-            ]);
+            const fileReaders = validFiles.map((file) => {
+                return new Promise<string>((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result as string);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            Promise.all(fileReaders)
+                .then((base64Files) => {
+                    setImagePreviews((prevPreviews) => [
+                        ...prevPreviews,
+                        ...base64Files
+                    ]);
+                })
+                .catch((error) => {
+                    console.error(
+                        "Erro ao converter imagens para base64:",
+                        error
+                    );
+                });
         }
     };
 
@@ -112,6 +123,8 @@ export default function CreateInstitutionForm() {
         const institutionEmail =
             institutionEmailRef.current?.value.trim() ?? "";
         const institutionCountry = selectedCountries?.value ?? "";
+        const institutionDescription =
+            institutionDescriptionRef.current?.value.trim() ?? "";
         setSelectedSocialMedias([]);
 
         let isValid = true;
@@ -159,6 +172,19 @@ export default function CreateInstitutionForm() {
             } else return true;
         };
 
+        if (!institutionDescription) {
+            isValid = false;
+            errors.push("A descrição do projeto é obrigatória.");
+        } else if (
+            institutionDescription.length > 1200 ||
+            institutionDescription.length < 20
+        ) {
+            isValid = false;
+            errors.push(
+                "A descrição do projeto deve ter entre 20 e 1200 caracteres."
+            );
+        }
+
         const socialMediaFilled = Object.values(socialMediaRefs.current).some(
             (ref) => ref?.value.trim() !== ""
         );
@@ -182,7 +208,7 @@ export default function CreateInstitutionForm() {
                         const teste = [
                             {
                                 id: index + 1,
-                                social_media: ref?.value as string
+                                link: ref?.value as string
                             }
                         ];
                         setSelectedSocialMedias(
@@ -200,20 +226,40 @@ export default function CreateInstitutionForm() {
         return isValid;
     };
 
-    const handlePost = (e: React.FormEvent) => {
+    const handlePost = async (e: React.FormEvent) => {
         e.preventDefault();
         setSelectedSocialMedias([]);
+        const seen = new Set<number>();
+        const novaLista = selectedSocialMedias.filter((item) => {
+            if (!seen.has(item.id)) {
+                seen.add(item.id);
+                return true;
+            }
+            return false;
+        });
+        const novaSocial = novaLista.filter((item) => item.id !== 0);
         if (validateForm()) {
-            console.log({
-                token: localStorage.getItem("token") as string,
-                body: {
-                    name: institutionNameRef.current?.value,
-                    email: institutionEmailRef.current?.value,
-                    countries: selectedCountries?.label,
-                    images: imagePreviews,
-                    social_medias: selectedSocialMedias
-                }
-            });
+            const institutionCountryId = getCountryIdByName(
+                selectedCountries?.label ?? ""
+            );
+            const body = {
+                name: institutionNameRef.current?.value as string,
+                email: institutionEmailRef.current?.value as string,
+                description: institutionDescriptionRef.current?.value as string,
+                countries: institutionCountryId ? [institutionCountryId] : [],
+                images: imagePreviews,
+                social_medias: novaSocial
+            };
+            console.log(body);
+            await toast
+                .promise(createInstitution(body), {
+                    loading: `Criando Instituição`,
+                    success: <b>Instituição criada com sucesso!</b>,
+                    error: (error: Error) => error.message
+                })
+                .then(() => {
+                    navigate("/Institution");
+                });
         }
     };
 
@@ -250,6 +296,17 @@ export default function CreateInstitutionForm() {
                             type="text"
                             placeholder="Type the email..."
                         />
+                        <div className="project-description flex flex-col w-full space-y-2">
+                            <label htmlFor="projectDescription">
+                                Project Description
+                            </label>
+                            <textarea
+                                ref={institutionDescriptionRef}
+                                className={`${isDarkTheme ? "placeholder:text-[#CBD0DD] bg-[#223A4F]" : "placeholder:text-[#0F1820] bg-[#F0F3FB]"} focus:outline transition-all duration-75 outline-2 font-normal outline-[#2684FF] rounded-3xl min-h-[1.5em] gap-[.5em] p-[.5em] px-6 py-3 resize-none`}
+                                placeholder="Type the description..."
+                                rows={5}
+                            />
+                        </div>
                     </div>
                     <div className="sm:col-start-3 flex flex-col mx-2 space-y-2">
                         <h1>Social Medias</h1>

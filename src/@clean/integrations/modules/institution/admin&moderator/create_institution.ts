@@ -6,12 +6,10 @@ interface CreateInstitutionProps {
     email: string;
     countries: number[];
     images: string[];
-    social_medias: [
-        {
-            id: number;
-            link: string;
-        }
-    ];
+    social_medias: {
+        id: number;
+        link: string;
+    }[];
 }
 
 interface CreateInstitutionResponse {

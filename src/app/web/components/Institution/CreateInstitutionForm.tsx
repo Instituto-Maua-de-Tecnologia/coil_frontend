@@ -250,7 +250,6 @@ export default function CreateInstitutionForm() {
                 images: imagePreviews,
                 social_medias: novaSocial
             };
-            console.log(body);
             await toast
                 .promise(createInstitution(body), {
                     loading: `Criando Instituição`,

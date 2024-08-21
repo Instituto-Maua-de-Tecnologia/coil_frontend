@@ -119,23 +119,7 @@ export default function InstitutionInformation({ id }: InstitutionInfoProps) {
                                 Institution information
                             </div>
                             <div className="custom-scrollbar overflow-y-auto  h-full p-3">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Sed eleifend vestibulum urna,
-                                eget sollicitudin tortor fringilla eget. Fusce
-                                sit amet elit vitae libero scelerisque
-                                venenatis. Vestibulum nec vestibulum leo. Nulla
-                                facilisi. Phasellus non hendrerit ante, a
-                                pulvinar nibh. Vivamus eget libero euismod,
-                                blandit ex vel, cursus odio. Integer nec nulla
-                                quis felis rutrum eleifend non a nisi. Maecenas
-                                quis tellus quis purus sodales lobortis. Sed et
-                                justo vitae magna viverra varius. Phasellus
-                                interdum, magna et cursus bibendum, velit arcu
-                                viverra justo, id vehicula arcu dui vel mi. Ut
-                                eu est felis. Cras id leo nec nulla dapibus
-                                posuere. Nullam ac est vitae eros dictum
-                                fermentum id et libero. Aliquam ac odio
-                                eleifend, fringilla elit non, facilisis risus.
+                                {institution?.description}
                             </div>
                         </div>
                         <div

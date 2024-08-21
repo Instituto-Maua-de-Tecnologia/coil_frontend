@@ -1,6 +1,7 @@
 export default interface IInstitution {
     id: string;
     name: string;
+    description: string;
     email: string;
     countries: [
         {

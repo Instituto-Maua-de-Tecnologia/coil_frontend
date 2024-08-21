@@ -31,7 +31,7 @@ courses of Maua.
   </li>
   <br>
   <li>
-    <img src="https://github.com/alexZ7000/Aplicativo-C.A-Frontend/assets/78627928/aae943d6-98e3-4b75-821e-0fdcedc68be3" alt="husky" width="90" height="40"> Husky
+    🐶 Husky
   </li>
 </ul>
 

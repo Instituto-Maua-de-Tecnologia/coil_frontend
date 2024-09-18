@@ -29,7 +29,7 @@ export default function OpenOpportunities({
                         <HeroProjectList
                             loaded={loaded}
                             catalog={catalog}
-                            isProject
+                            isProject={true}
                         />
                     </div>
                 </div>

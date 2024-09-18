@@ -13,6 +13,7 @@ export default function InstitutionCarousel({
     loaded,
     catalog
 }: InstitutionCarouselProps) {
+    console.log(catalog);
     return (
         <>
             <div
@@ -23,17 +24,24 @@ export default function InstitutionCarousel({
                     Our Partners
                 </h1>
                 {loaded ? (
-                    <ImageTrack direction="right" speed={10} className="my-5">
-                        {catalog.institutions.map((trackItem, index) => (
-                            <TrackItem
-                                key={"CatalogInstitution: " + index}
-                                trackItem={{
-                                    imgUrl: trackItem.images[0],
-                                    title: trackItem.name
-                                }}
-                            />
-                        ))}
-                    </ImageTrack>
+                    catalog !== null &&
+                    catalog !== undefined && (
+                        <ImageTrack
+                            direction="right"
+                            speed={10}
+                            className="my-5"
+                        >
+                            {catalog.institutions.map((trackItem, index) => (
+                                <TrackItem
+                                    key={"CatalogInstitution: " + index}
+                                    trackItem={{
+                                        imgUrl: trackItem.images[0],
+                                        title: trackItem.name
+                                    }}
+                                />
+                            ))}
+                        </ImageTrack>
+                    )
                 ) : (
                     <div className="flex mt-[15%] fill-slate-500 justify-center items-center">
                         <LoadSpinner />

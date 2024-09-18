@@ -32,7 +32,6 @@ const Hero: React.FC = () => {
 
     const [loaded, setLoaded] = useState(false);
     const [catalog, setCatalog] = useState<ICatalog>();
-    console.log(catalog);
 
     const handleGetAllProjectsCatalog = async () => {
         try {
@@ -46,10 +45,14 @@ const Hero: React.FC = () => {
     };
 
     useEffect(() => {
-        const handleGets = async () => {
-            await handleGetAllProjectsCatalog();
-        };
-        void handleGets();
+        try {
+            const handleGets = async () => {
+                await handleGetAllProjectsCatalog();
+            };
+            void handleGets();
+        } catch (e) {
+            console.error(e);
+        }
     }, []);
 
     return (

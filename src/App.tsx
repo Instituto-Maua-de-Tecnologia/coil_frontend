@@ -28,7 +28,7 @@ export default function App() {
                     href={
                         isDarkTheme
                             ? "/maua-fontys-light.svg"
-                            : "maua-fontys-dark.svg"
+                            : "/maua-fontys-dark.svg"
                     }
                 />,
                 document.getElementById("link-by-user-theme") as

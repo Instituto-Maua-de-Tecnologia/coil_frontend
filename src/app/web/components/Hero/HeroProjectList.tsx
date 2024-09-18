@@ -22,7 +22,7 @@ export default function ProjectListHero({
                     {loaded ? (
                         <ul className="w-full custom-scrollbar overflow-y-auto">
                             {isProject
-                                ? catalog.projects.map((project, index) => (
+                                ? catalog?.projects.map((project, index) => (
                                       <HeroProjectCard
                                           key={"COILCardKey " + index}
                                           project={project}
@@ -33,7 +33,7 @@ export default function ProjectListHero({
                                           }}
                                       />
                                   ))
-                                : catalog.mobilities.map((project, index) => (
+                                : catalog?.mobilities.map((project, index) => (
                                       <HeroProjectCard
                                           key={"MobilityCardKey " + index}
                                           project={project}

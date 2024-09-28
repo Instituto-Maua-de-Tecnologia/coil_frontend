@@ -59,7 +59,7 @@ export default function HomepageCard({
                             <img
                                 src={
                                     project.partner_institutions?.[0]
-                                        ?.institution?.images[0].image
+                                        ?.institution?.images[0].image ?? ""
                                 }
                                 alt="Avatar"
                                 className="object-contain mt-1 mb-4 sm:mt-0 sm:mb-0 drop-shadow-sm mx-auto max-w-32 sm:max-w-24 rounded-full"

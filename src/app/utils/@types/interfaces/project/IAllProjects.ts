@@ -55,7 +55,7 @@ export default interface IAllProjects {
                 };
             }[];
             images: {
-                image: string;
+                image?: string;
             }[];
         };
     }[];

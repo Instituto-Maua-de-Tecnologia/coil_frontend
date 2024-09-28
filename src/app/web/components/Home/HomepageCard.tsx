@@ -54,12 +54,12 @@ export default function HomepageCard({
             <div className="flex sm:relative items-center sm:justify-between w-full">
                 <div className="sm:flex sm:-w-full text-center sm:-text-center w-full sm:items-center">
                     {project.partner_institutions?.[0]?.institution?.images[0]
-                        .image !== null && (
+                        ?.image !== null && (
                         <div className="sm:avatar-wrapper sm:flex flex-col mr-4">
                             <img
                                 src={
                                     project.partner_institutions?.[0]
-                                        ?.institution?.images[0].image ?? ""
+                                        ?.institution?.images[0]?.image ?? ""
                                 }
                                 alt="Avatar"
                                 className="object-contain mt-1 mb-4 sm:mt-0 sm:mb-0 drop-shadow-sm mx-auto max-w-32 sm:max-w-24 rounded-full"
